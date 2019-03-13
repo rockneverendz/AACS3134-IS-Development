@@ -9,7 +9,8 @@ and open the template in the editor.
 <%@ page import = "java.sql.Blob" %>
 <%@ page import = "entity.Product" %>
 <%@ page import = "service.ProductService" %>
-<%  ProductService productService = new ProductService();
+<%  
+    ProductService productService = new ProductService();
     Product product = new Product();
     product = productService.findProdByID(1);
     String base64Image = Base64.getEncoder().encodeToString(product.getImage());
