@@ -1,3 +1,5 @@
+<%@page import="entity.Meal"%>
+<%@page import="service.MealService"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -5,16 +7,16 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 
-<%@page import="java.util.Base64"%>
+<%@ page import = "java.util.Base64" %>
 <%@ page import = "java.sql.Blob" %>
-<%@ page import = "entity.Product" %>
-<%@ page import = "service.ProductService" %>
 <%  
-    ProductService productService = new ProductService();
-    Product product = new Product();
+    MealService mealService = new MealService();
+    Meal meal = new Meal();
+%>
+<!--    
     product = productService.findProdByID(1);
     String base64Image = Base64.getEncoder().encodeToString(product.getImage());
-%>
+-->
 
 <html>
     <head>
@@ -24,11 +26,12 @@ and open the template in the editor.
     </head>
     <body>
         <div>TODO write content</div>
-        <div><%= product.getName() %></div>
-        <img src = "data:image/png;base64,<%= base64Image %>"/>
+        <div><%= System.getProperty("mail") %></div>
+        <div><%= System.getProperty("pass") %></div>
+        <div><a href="./SendMail">Send Mail</a></div>
     </body>
 </html>
 
 <%
-    productService.close();
+    mealService.close();
 %>
