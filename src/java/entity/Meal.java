@@ -56,7 +56,7 @@ public class Meal implements Serializable {
     private String ingredient;
     @Basic(optional = false)
     @Column(name = "INGREDIENT_QTY")
-    private int ingredientQty;
+    private double ingredientQty;
     @Basic(optional = false)
     @Column(name = "CALORIES")
     private int calories;
@@ -76,7 +76,7 @@ public class Meal implements Serializable {
         this.id = id;
     }
 
-    public Meal(Integer id, String name, byte[] day, double price, String ingredient, int ingredientQty, int calories) {
+    public Meal(Integer id, String name, byte[] day, double price, String ingredient, double ingredientQty, int calories) {
         this.id = id;
         this.name = name;
         this.day = day;
@@ -134,11 +134,11 @@ public class Meal implements Serializable {
         this.ingredient = ingredient;
     }
 
-    public int getIngredientQty() {
+    public double getIngredientQty() {
         return ingredientQty;
     }
 
-    public void setIngredientQty(int ingredientQty) {
+    public void setIngredientQty(double ingredientQty) {
         this.ingredientQty = ingredientQty;
     }
 
@@ -199,5 +199,5 @@ public class Meal implements Serializable {
     public String toString() {
         return "entity.Meal[ id=" + id + " ]";
     }
-    
+
 }
