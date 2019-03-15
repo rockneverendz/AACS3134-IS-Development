@@ -160,5 +160,5 @@ public class Mealorder implements Serializable {
     public String toString() {
         return "entity.Mealorder[ id=" + id + " ]";
     }
-    
+
 }

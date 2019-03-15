@@ -67,5 +67,5 @@ public class OrderlistPK implements Serializable {
     public String toString() {
         return "entity.OrderlistPK[ mealid=" + mealid + ", orderid=" + orderid + " ]";
     }
-    
+
 }

@@ -107,5 +107,5 @@ public class Orderlist implements Serializable {
     public String toString() {
         return "entity.Orderlist[ orderlistPK=" + orderlistPK + " ]";
     }
-    
+
 }

@@ -126,5 +126,5 @@ public class Staff implements Serializable {
     public String toString() {
         return "entity.Staff[ id=" + id + " ]";
     }
-    
+
 }
