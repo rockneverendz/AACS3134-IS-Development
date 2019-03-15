@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +22,7 @@ public class SendMail extends HttpServlet {
         final String user = System.getProperty("mail");
         final String password = System.getProperty("pass");
 
-        String to = "rockneverends.bcjw@gmail.com";
+        String to = "" /*destination mail here*/ ;
 
         //Get the session object
         Properties props = new Properties();
