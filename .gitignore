@@ -1,4 +1,7 @@
 build/*
 dist/*
+nbproject/*
 canteenDB/*
 derby.log
+derby.properties
+build.xml
