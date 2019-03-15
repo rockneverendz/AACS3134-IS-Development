@@ -19,7 +19,7 @@ public class CustomerService {
         em.getTransaction().commit();
     }
 
-    public Customer findProdByID(int id) {
+    public Customer findCustByID(int id) {
         return (Customer) em.find(Customer.class, id);
     }
 
@@ -29,7 +29,7 @@ public class CustomerService {
      * @throws RollbackException If commit fails
      */
     public boolean updateCustomer(Customer newCustomer) throws RollbackException {
-        Customer oldCustomer = findProdByID(newCustomer.getId());
+        Customer oldCustomer = findCustByID(newCustomer.getId());
         if (oldCustomer != null) {
             em.getTransaction().begin();
             oldCustomer.setUsername(newCustomer.getUsername());
