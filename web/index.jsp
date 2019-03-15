@@ -13,10 +13,6 @@ and open the template in the editor.
     MealService mealService = new MealService();
     Meal meal = new Meal();
 %>
-<!--    
-    product = productService.findProdByID(1);
-    String base64Image = Base64.getEncoder().encodeToString(product.getImage());
--->
 
 <html>
     <head>
