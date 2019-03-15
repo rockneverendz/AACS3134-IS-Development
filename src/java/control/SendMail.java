@@ -3,6 +3,8 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -16,29 +18,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class SendMail extends HttpServlet {
-   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
-        String host = "mail.javatpoint.com";
+            throws ServletException, IOException {
         final String user = System.getProperty("mail");
         final String password = System.getProperty("pass");
 
         String to = "rockneverends.bcjw@gmail.com";
 
-        //Get the session object  
+        //Get the session object
         Properties props = new Properties();
-        props.put("mail.smtp.host", host);
         props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
 
         Session session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(user, password);
             }
         });
 
-        //Compose the message  
+        //Compose the message
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
@@ -51,22 +53,23 @@ public class SendMail extends HttpServlet {
 
             System.out.println("message sent successfully...");
 
-        } catch (MessagingException e) {
-            e.printStackTrace();
+        } catch (MessagingException ex) {
+            Logger.getLogger(SendMail.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         response.sendRedirect("./index.jsp");
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
