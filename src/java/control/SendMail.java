@@ -22,7 +22,11 @@ public class SendMail extends HttpServlet {
         final String user = System.getProperty("mail");
         final String password = System.getProperty("pass");
 
-        String to = "" /*destination mail here*/ ;
+        String email = request.getParameter("email");
+        String subject = request.getParameter("subject");
+        String content = request.getParameter("content");
+        
+        String to = email;
 
         //Get the session object
         Properties props = new Properties();
@@ -44,8 +48,8 @@ public class SendMail extends HttpServlet {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject("javatpoint");
-            message.setText("This is simple program of sending email using JavaMail API");
+            message.setSubject(subject);
+            message.setText(content);
 
             //send the message  
             Transport.send(message);
