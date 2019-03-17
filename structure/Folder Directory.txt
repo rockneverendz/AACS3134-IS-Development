@@ -1,0 +1,40 @@
+main{
+    account{
+        reloadlist
+        orderlist
+        foodintake 
+        settings
+        signin //not logged in
+        signup //not logged in
+        recovery //not logged in
+    }
+    cart{
+        checkout
+        confirm
+    }
+    meal{
+        main
+        viewmeal //with or without parameters
+    }
+}
+staff{
+    meal{
+        newmeal
+        editmeal
+        viewmeal
+        //meals cannot be deleted.
+    }
+    reload{
+        newreload
+        reloadlist
+    }
+    account{
+        settings
+        signin //not logged in
+        signup //not logged in
+    }
+    report{
+        payment
+        order
+    }
+}
