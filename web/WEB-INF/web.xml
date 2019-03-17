@@ -4,9 +4,17 @@
         <servlet-name>SendMail</servlet-name>
         <servlet-class>control.SendMail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>signin</servlet-name>
+        <servlet-class>control.user.signin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SendMail</servlet-name>
         <url-pattern>/SendMail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>signin</servlet-name>
+        <url-pattern>/user/account/signin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

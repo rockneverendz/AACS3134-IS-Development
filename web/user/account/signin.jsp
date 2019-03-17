@@ -65,10 +65,10 @@
     </head>
 
     <body class="text-center">
-        <form class="form-signin">
+        <form class="form-signin" >
             <img class="mb-4" src="St._Freya_Emblem.png" alt="logo" width="100px">
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <input type="text" name="id" class="form-control" placeholder="Student/Staff ID" required autofocus>
+            <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
             <input type="password" name="password" class="form-control" placeholder="Password" required>
             <div class="checkbox mb-3">
                 <label>

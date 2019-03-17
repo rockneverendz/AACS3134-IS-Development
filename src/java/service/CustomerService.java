@@ -19,6 +19,12 @@ public class CustomerService {
         em.getTransaction().commit();
     }
 
+    public Customer findCustByUsername(String username) {
+        return (Customer) em.createNamedQuery("Customer.findByUsername")
+                .setParameter("username", username)
+                .getSingleResult();
+    }
+    
     public Customer findCustByID(int id) {
         return (Customer) em.find(Customer.class, id);
     }
