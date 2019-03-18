@@ -15,6 +15,7 @@ main{
     meal{
         main
         viewmeal //with or without parameters
+        viewpackage
     }
 }
 staff{
@@ -23,6 +24,12 @@ staff{
         editmeal
         viewmeal
         //meals cannot be deleted.
+    }
+    package{
+        createpkg
+        retrivepkg
+        editpkg
+        deletepkg
     }
     reload{
         newreload
