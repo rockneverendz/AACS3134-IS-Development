@@ -1,23 +1,98 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="St._Freya_Emblem.png" rel="icon" />
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+	<script src="../../bootstrap/js/bootstrap.min.js"></script>
+	<!-- Font Awsome -->
+	<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 
-	<title>Hello, world!</title>
+	<title>Create Account</title>
+
+	<style>
+		.form-signup{
+			width: 100%;
+            max-width: 550px;
+            padding: 15px;
+            margin: auto;
+		}
+
+
+
+	</style>
 </head>
 
 <body>
-	<h1>Hello, world!</h1>
+	<!-- Image and text -->
+	<nav class="navbar sticky-top navbar-light bg-light">
+		<a class="navbar-brand" href="#">
+			<img src="St._Freya_Emblem.png" width="30" class="d-inline-block align-top" alt="">
+			Create Account
+		</a>
+	</nav>
 
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+	<form class="form-signup">
+		<h1 style="margin-bottom: 30px;">Create Account</h1>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputUsername">User Name*</label>
+				<input type="username" class="form-control" id="inputUsername" placeholder="User Name" required>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputEmail">Email*</label>
+				<input type="email" class="form-control" id="inputEmail" placeholder="E-mail" required>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputPassword">Password*
+					<a data-toggle="tooltip" title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter">
+						<i class="far fa-question-circle"></i>
+					</a>
+				</label>
+				<input type="password" class="form-control" id="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputPassword">Confirm Password*</label>
+				<input type="password" class="form-control" id="confirm_password" placeholder="Re-type password" required>
+			</div>
+		</div>
+
+
+		<button class="btn btn-secondary">Back to Sign-In</button>
+		<button type="submit" class="btn btn-primary">Create Account</button>
+	</form>
+
+
+	<script>
+		var password = document.getElementById("password"),
+			confirm_password = document.getElementById("confirm_password");
+
+		function validatePassword() {
+			if (password.value != confirm_password.value) {
+				confirm_password.setCustomValidity("Passwords Don't Match");
+			} else {
+				confirm_password.setCustomValidity('');
+			}
+		}
+
+		password.onchange = validatePassword;
+		confirm_password.onkeyup = validatePassword;
+
+	</script>
+
 </body>
+
 </html>
