@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="St._Freya_Emblem.png" rel="icon" />
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+	<script src="../../bootstrap/js/bootstrap.min.js"></script>
+	<!-- Font Awsome -->
+	<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+
+	<title>Password Recovery</title>
+
+	<style>
+		.form-recovery{
+			width: 100%;
+            max-width: 550px;
+            padding: 15px;
+            margin: auto;
+			margin-top: 50px;
+		}
+
+
+
+	</style>
+</head>
+
+<body>
+
+	<!-- Navigation Bar	-->
+	<nav class="navbar sticky-top navbar-light bg-light">
+		<a class="navbar-brand" href="#">
+			<img src="St._Freya_Emblem.png" width="30" class="d-inline-block align-top" alt="">
+			Password Recovery
+		</a>
+	</nav>
+
+
+	<!-- Main	-->
+	<form class="form-recovery">
+		<h1 style="margin-bottom: 30px;"> Change Your Password </h1>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputPassword">Password*
+					<a data-toggle="tooltip" title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter">
+						<i class="far fa-question-circle"></i>
+					</a>
+				</label>
+				<input type="password" class="form-control" id="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputPassword">Confirm Password*</label>
+				<input type="password" class="form-control" id="confirm_password" placeholder="Re-type password" required>
+			</div>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+
+
+	<!-- Confirm Password	-->
+	<script>
+		var password = document.getElementById("password"),
+			confirm_password = document.getElementById("confirm_password");
+
+		function validatePassword() {
+			if (password.value != confirm_password.value) {
+				confirm_password.setCustomValidity("Passwords Don't Match");
+			} else {
+				confirm_password.setCustomValidity('');
+			}
+		}
+
+		password.onchange = validatePassword;
+		confirm_password.onkeyup = validatePassword;
+
+	</script>
+
+
+
+</body>
+
+</html>
