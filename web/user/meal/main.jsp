@@ -5,12 +5,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="../../resource/St._Freya_Emblem.png" rel="icon" />
-        
+
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
         <script src="../../bootstrap/js/bootstrap.min.js"></script>
 
-        <title>Cover Template · Bootstrap</title>
+        <title>Bricks</title>
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -52,7 +52,7 @@
                 background-color: #333;
                 background-image: url("../../resource/bg.jpg");
             }
-            
+
             img[src="../../resource/bg.png"]{
                 filter: brightness(50%);
             }
@@ -91,7 +91,7 @@
                 border-bottom-color: rgba(255, 255, 255, .25);
             }
 
-            .nav-masthead .nav-link + .nav-link {
+            .nav-masthead .nav-link + .btn-group {
                 margin-left: 1rem;
             }
 
@@ -124,17 +124,27 @@
             }
 
         </style>
-        <!-- Custom styles for this template -->
-        <link href="cover.css" rel="stylesheet">
     </head>
     <body class="text-center">
         <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
             <header class="masthead mb-auto">
                 <div class="inner">
-                    <h3 class="masthead-brand">Canteen Management System</h3>
+                    <h3 class="masthead-brand">Bricks</h3>
                     <nav class="nav nav-masthead justify-content-center">
                         <a class="nav-link active">Order</a>
-                        <a class="nav-link" href="../account/settings.jsp">Account</a>
+                        <div class="btn-group" onclick="toggle()">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Account
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <button class="dropdown-item" type="button">Order List</button>
+                                <button class="dropdown-item" type="button">Reload List</button>
+                                <button class="dropdown-item" type="button">Intake List</button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item" type="button">Settings</button>
+                                <button class="dropdown-item" type="button">Sign Out</button>
+                            </div>
+                        </div>
                     </nav>
                 </div>
             </header>
@@ -153,5 +163,15 @@
                 </div>
             </footer>
         </div>
+        <script src="../../bootstrap/js/jquery.min.js"></script>
+        <script src="../../bootstrap/js/popper.min.js"></script>
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <script>
+                            $('.dropdown-toggle').dropdown();
+                            
+                            function toggle() {
+                                $('.dropdown-toggle').dropdown('toggle');
+                            }
+        </script>
     </body>
 </html>
