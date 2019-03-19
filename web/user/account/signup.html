@@ -176,10 +176,10 @@
                     inputCPassword = document.getElementById("inputCPassword");
 
             function validatePassword() {
-                if (inputPassword.value != inputCPassword.value) {
-                    confirm_password.setCustomValidity("Passwords Don't Match");
+                if (inputPassword.value !== inputCPassword.value) {
+                    inputCPassword.setCustomValidity("Passwords Don't Match");
                 } else {
-                    confirm_password.setCustomValidity('');
+                    inputCPassword.setCustomValidity('');
                 }
             }
 
