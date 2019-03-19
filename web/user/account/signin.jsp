@@ -142,7 +142,7 @@
         <form class="form-signin" >
             <div class="text-center mb-4">
                 <img class="mb-4" src="../../resource/St._Freya_Emblem.png" alt="logo" width="100px">
-                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                <h1 class="display-3">Sign in</h1>
             </div>
             <div class="form-label-group">
                 <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
