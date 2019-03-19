@@ -142,7 +142,7 @@
         <form class="form-signin" >
             <div class="text-center mb-4">
                 <img class="mb-4" src="../../resource/St._Freya_Emblem.png" alt="logo" width="100px">
-                <h1 class="display-3">Sign in</h1>
+                <h1 class="display-3">Sign In</h1>
             </div>
             <div class="form-label-group">
                 <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -153,7 +153,7 @@
                 <label for="inputPassword">Password</label>
                 <p><small><a href="#">Forget Password?</a></small></p>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;">Create New Account</a>
             <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
         </form>
