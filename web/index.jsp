@@ -57,9 +57,9 @@
                             <textarea class="form-control" name="subject" placeholder="Content"></textarea>
                         </div>
                     </div>
-                        <div class="form-group row offset-2">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                    <div class="form-group row offset-2">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 </form>
             </div>
         </main>

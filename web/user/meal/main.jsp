@@ -4,9 +4,8 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/cover/">
-
+        <link href="../../resource/St._Freya_Emblem.png" rel="icon" />
+        
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
         <script src="../../bootstrap/js/bootstrap.min.js"></script>
@@ -28,10 +27,7 @@
                 }
             }
 
-            /*
- * Globals
- */
-
+            /* Globals */
             /* Links */
             a,
             a:focus,
@@ -49,15 +45,16 @@
                 border: .05rem solid #fff;
             }
 
-
-            /*
-             * Base structure
-             */
-
+            /* Base structure */
             html,
             body {
                 height: 100%;
                 background-color: #333;
+                background-image: url("../../resource/bg.jpg");
+            }
+            
+            img[src="../../resource/bg.png"]{
+                filter: brightness(50%);
             }
 
             body {
@@ -72,10 +69,7 @@
                 max-width: 42em;
             }
 
-
-            /*
-             * Header
-             */
+            /* Header */
             .masthead {
                 margin-bottom: 2rem;
             }
@@ -115,10 +109,7 @@
                 }
             }
 
-
-            /*
-             * Cover
-             */
+            /* Cover */
             .cover {
                 padding: 0 1.5rem;
             }
@@ -127,10 +118,7 @@
                 font-weight: 700;
             }
 
-
-            /*
-             * Footer
-             */
+            /* Footer */
             .mastfoot {
                 color: rgba(255, 255, 255, .5);
             }
