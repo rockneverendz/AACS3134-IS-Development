@@ -63,7 +63,7 @@ public class Meal implements Serializable {
     @Lob
     @Column(name = "IMAGE")
     private byte[] image;
-    @JoinColumn(name = "CATEGORYID", referencedColumnName = "ID")
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
     @ManyToOne(optional = false)
     private Category categoryId;
     @JoinColumn(name = "INGREDIENT_ID", referencedColumnName = "INGREDIENT_ID")

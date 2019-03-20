@@ -41,9 +41,9 @@ public class Category implements Serializable {
     @Lob
     @Column(name = "IMAGE")
     private byte[] image;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryid")
     private List<Mealorder> mealorderList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
     private List<Meal> mealList;
     @OneToMany(mappedBy = "categoryId")
     private List<Staff> staffList;
