@@ -16,12 +16,12 @@ public class signin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Get parameter from the form
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = request.getParameter("UserID");
+        String password = request.getParameter("Password");
 
         // Initialize variables
         String message;
-        String url = "/user/account/SignIn.jsp";
+        String url = "/user/account/signin.jsp";
         CustomerService customerService = new CustomerService();
 
         try {
@@ -40,7 +40,7 @@ public class signin extends HttpServlet {
             session.setMaxInactiveInterval(-1);
 
             // Redirect back to homepage with status 'Success'
-            response.sendRedirect("../../index.jsp");
+            response.sendRedirect("../meal/main.jsp");
             return;
 
         } catch (NoResultException ex) {
