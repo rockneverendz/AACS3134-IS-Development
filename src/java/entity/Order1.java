@@ -47,17 +47,14 @@ public class Order1 implements Serializable {
     @Column(name = "REDEEM_TIME")
     @Temporal(TemporalType.TIME)
     private Date redeemTime;
-    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
-    @ManyToOne(optional = false)
-    private Category categoryId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order1")
+    private List<Orderlist> orderlistList;
     @JoinColumn(name = "CUST_ID", referencedColumnName = "CUST_ID")
     @ManyToOne(optional = false)
     private Customer custId;
     @JoinColumn(name = "PAYMENT_ID", referencedColumnName = "PAYMENT_ID")
     @ManyToOne(optional = false)
     private Payment paymentId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order1")
-    private List<Orderlist> orderlistList;
 
     public Order1() {
     }
@@ -103,12 +100,13 @@ public class Order1 implements Serializable {
         this.redeemTime = redeemTime;
     }
 
-    public Category getCategoryId() {
-        return categoryId;
+    @XmlTransient
+    public List<Orderlist> getOrderlistList() {
+        return orderlistList;
     }
 
-    public void setCategoryId(Category categoryId) {
-        this.categoryId = categoryId;
+    public void setOrderlistList(List<Orderlist> orderlistList) {
+        this.orderlistList = orderlistList;
     }
 
     public Customer getCustId() {
@@ -125,15 +123,6 @@ public class Order1 implements Serializable {
 
     public void setPaymentId(Payment paymentId) {
         this.paymentId = paymentId;
-    }
-
-    @XmlTransient
-    public List<Orderlist> getOrderlistList() {
-        return orderlistList;
-    }
-
-    public void setOrderlistList(List<Orderlist> orderlistList) {
-        this.orderlistList = orderlistList;
     }
 
     @Override

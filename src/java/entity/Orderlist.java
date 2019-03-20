@@ -32,6 +32,9 @@ public class Orderlist implements Serializable {
     @Basic(optional = false)
     @Column(name = "PRICEEACH")
     private double priceeach;
+    @JoinColumn(name = "COUPON_ID", referencedColumnName = "COUPON_ID")
+    @ManyToOne(optional = false)
+    private Coupon couponId;
     @JoinColumn(name = "MEAL_ID", referencedColumnName = "MEAL_ID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Meal meal;
@@ -78,6 +81,14 @@ public class Orderlist implements Serializable {
 
     public void setPriceeach(double priceeach) {
         this.priceeach = priceeach;
+    }
+
+    public Coupon getCouponId() {
+        return couponId;
+    }
+
+    public void setCouponId(Coupon couponId) {
+        this.couponId = couponId;
     }
 
     public Meal getMeal() {

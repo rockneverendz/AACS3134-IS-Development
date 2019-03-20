@@ -12,6 +12,10 @@
         <servlet-name>signout</servlet-name>
         <servlet-class>control.user.signout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>signup</servlet-name>
+        <servlet-class>control.user.signup</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SendMail</servlet-name>
         <url-pattern>/SendMail</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>signout</servlet-name>
         <url-pattern>/user/account/signout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>signup</servlet-name>
+        <url-pattern>/user/account/signup</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

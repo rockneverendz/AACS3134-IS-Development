@@ -41,8 +41,6 @@ public class Category implements Serializable {
     @Lob
     @Column(name = "IMAGE")
     private byte[] image;
-    private List<Mealorder> mealorderList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
     private List<Meal> mealList;
     @OneToMany(mappedBy = "categoryId")
@@ -90,15 +88,6 @@ public class Category implements Serializable {
 
     public void setImage(byte[] image) {
         this.image = image;
-    }
-
-    @XmlTransient
-    public List<Order1> getOrder1List() {
-        return order1List;
-    }
-
-    public void setOrder1List(List<Order1> order1List) {
-        this.order1List = order1List;
     }
 
     @XmlTransient

@@ -43,10 +43,10 @@ public class Customer implements Serializable {
     @Basic(optional = false)
     @Column(name = "CREDITPOINTS")
     private int creditpoints;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId")
-    private List<Order1> order1List;
     @OneToMany(mappedBy = "custId")
     private List<Reload> reloadList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId")
+    private List<Order1> order1List;
     @OneToMany(mappedBy = "custId")
     private List<Token> tokenList;
 
@@ -103,21 +103,21 @@ public class Customer implements Serializable {
     }
 
     @XmlTransient
-    public List<Order1> getOrder1List() {
-        return order1List;
-    }
-
-    public void setOrder1List(List<Order1> order1List) {
-        this.order1List = order1List;
-    }
-
-    @XmlTransient
     public List<Reload> getReloadList() {
         return reloadList;
     }
 
     public void setReloadList(List<Reload> reloadList) {
         this.reloadList = reloadList;
+    }
+
+    @XmlTransient
+    public List<Order1> getOrder1List() {
+        return order1List;
+    }
+
+    public void setOrder1List(List<Order1> order1List) {
+        this.order1List = order1List;
     }
 
     @XmlTransient

@@ -8,7 +8,7 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-        
+
         <title>Create Account</title>
         <style>
             .bd-placeholder-img {
@@ -132,32 +132,60 @@
     </head>
 
     <body>
-        <form class="form-signup">           
+        <form class="form-signup" action="signup" method="POST">           
             <div class="text-center mb-4">
                 <img class="mb-4" src="../../resource/St._Freya_Emblem.png" alt="logo" width="100px">
-                <h1 class="display-3">Create Account</h1>
+                <h1 class="display-3">Sign Up</h1>
+            </div>
+            <%
+                String status = request.getParameter("status");
+                String message;
+                String type;
+                if (status == null) {
+                    message = "";
+                } else {
+                    char code = status.charAt(0);
+                    if (code == 'U') {
+                        type = "warning";
+                        message = "Account with that User ID already exists.";
+                    } else if (code == 'E') {
+                        type = "warning";
+                        message = "Account with that E-mail already exists.";
+                    } else if (code == 'P') {
+                        type = "warning";
+                        message = "Retyped password does not match.";
+                    } else {
+                        type = "danger";
+                        message = "An error has occured";
+                    }
+            %>            
+            <div class="alert alert-<%= type%>" role="alert">
+                <%= message%>
+            </div>
+            <%
+                }
+            %>
+            <div class="form-label-group">
+                <input id="inputUserID" name="UserID" type="text" class="form-control"  placeholder="Username" required autofocus>
+                <label for="inputUserID">User ID</label>
             </div>
             <div class="form-label-group">
-                <input id="inputUsername" type="text" class="form-control"  placeholder="Username" required autofocus>
-                <label for="inputUsername">Username</label>
-            </div>
-            <div class="form-label-group">
-                <input id="inputEmail" type="email" class="form-control" placeholder="E-mail" required>
+                <input id="inputEmail" name="Email" type="email" class="form-control" placeholder="E-mail" required>
                 <label for="inputEmail">Email</label>
             </div>
             <div class="form-label-group">
-                <input id="inputPassword" type="password" class="form-control" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required 
+                <input id="inputPassword" name="Password" type="password" class="form-control" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required 
                        data-toggle="tooltip" data-placement="left" 
                        title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter">
                 <label for="inputPassword">Password</label>
             </div>
             <div class="form-label-group">
-                <input id="inputCPassword" type="password" class="form-control" placeholder="Re-type password" required>
+                <input id="inputCPassword" name="CPassword" type="password" class="form-control" placeholder="Re-type password" required>
                 <label for="inputCPassword">Confirm Password</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to Sign-In</a>
-            <p class="mt-5 mb-3 text-muted text-center">Â© 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
         </form>
 
         <script src="../../bootstrap/js/jquery.min.js"></script>
