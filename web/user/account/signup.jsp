@@ -4,12 +4,12 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="../../resource/St._Freya_Emblem.png" rel="icon" />
+        <link href="St._Freya_Emblem.png" rel="icon" />
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-
-        <title>User Login</title>
+        
+        <title>Create Account</title>
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -41,7 +41,7 @@
                 background-color: #f5f5f5;
             }
 
-            .form-signin {
+            .form-signup {
                 width: 100%;
                 max-width: 420px;
                 padding: 15px;
@@ -132,23 +132,56 @@
     </head>
 
     <body>
-        <form class="form-signin" >
+        <form class="form-signup">           
             <div class="text-center mb-4">
                 <img class="mb-4" src="../../resource/St._Freya_Emblem.png" alt="logo" width="100px">
-                <h1 class="display-3">Sign In</h1>
+                <h1 class="display-3">Sign Up</h1>
             </div>
             <div class="form-label-group">
-                <input id="inputUserID" type="text" class="form-control" placeholder="User ID" required autofocus>
-                <label for="inputUserID">User ID</label>
+                <input id="inputUsername" type="text" class="form-control"  placeholder="Username" required autofocus>
+                <label for="inputUsername">Username</label>
             </div>
             <div class="form-label-group">
-                <input id="inputPassword" type="password" class="form-control" placeholder="Password" required>
+                <input id="inputEmail" type="email" class="form-control" placeholder="E-mail" required>
+                <label for="inputEmail">Email</label>
+            </div>
+            <div class="form-label-group">
+                <input id="inputPassword" type="password" class="form-control" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required 
+                       data-toggle="tooltip" data-placement="left" 
+                       title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter">
                 <label for="inputPassword">Password</label>
-                <p><small><a href="./passrecovery.jsp">Forget Password?</a></small></p>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
-            <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signup.jsp">Create New Account</a>
-            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
+            <div class="form-label-group">
+                <input id="inputCPassword" type="password" class="form-control" placeholder="Re-type password" required>
+                <label for="inputCPassword">Confirm Password</label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
+            <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to Sign-In</a>
+            <p class="mt-5 mb-3 text-muted text-center">Â© 2019</p>
         </form>
+
+        <script src="../../bootstrap/js/jquery.min.js"></script>
+        <script src="../../bootstrap/js/popper.min.js"></script>
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <script>
+            var inputPassword = document.getElementById("inputPassword"),
+                    inputCPassword = document.getElementById("inputCPassword");
+
+            function validatePassword() {
+                if (inputPassword.value !== inputCPassword.value) {
+                    inputCPassword.setCustomValidity("Passwords Don't Match");
+                } else {
+                    inputCPassword.setCustomValidity('');
+                }
+            }
+
+            inputPassword.onchange = validatePassword;
+            inputCPassword.onkeyup = validatePassword;
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
     </body>
+
 </html>

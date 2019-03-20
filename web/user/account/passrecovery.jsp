@@ -9,17 +9,9 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-        
-        <!-- Font Awsome -->
-        <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 
-        <title>Create Account</title>
+        <title>Password Recovery</title>
         <style>
-            /*            img[src="St._Freya_Emblem.png"] {
-                            vertical-align: middle;
-                            border-style: none;
-                        }*/
-
             .bd-placeholder-img {
                 font-size: 1.125rem;
                 text-anchor: middle;
@@ -49,8 +41,13 @@
                 padding-bottom: 40px;
                 background-color: #f5f5f5;
             }
+            
+            .h1, h1 {
+                font-weight: 300;
+                line-height: 1.2;
+            }
 
-            .form-signup {
+            .form-recovery {
                 width: 100%;
                 max-width: 420px;
                 padding: 15px;
@@ -141,56 +138,22 @@
     </head>
 
     <body>
-        <form class="form-signup">           
+        <form class="form-recovery" >
             <div class="text-center mb-4">
                 <img class="mb-4" src="../../resource/St._Freya_Emblem.png" alt="logo" width="100px">
-                <h1 class="display-3">Sign Up</h1>
+                <h1>Retrieve Password</h1>
             </div>
             <div class="form-label-group">
-                <input id="inputUsername" type="text" class="form-control"  placeholder="Username" required autofocus>
-                <label for="inputUsername">Username*</label>
+                <input id="inputUserID" type="text" class="form-control" placeholder="User ID" required autofocus>
+                <label for="inputUserID">User ID</label>
             </div>
             <div class="form-label-group">
                 <input id="inputEmail" type="email" class="form-control" placeholder="E-mail" required>
-                <label for="inputEmail">Email*</label>
+                <label for="inputEmail">E-mail</label>
             </div>
-            <div class="form-label-group">
-                <input id="inputPassword" type="password" class="form-control" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required 
-                       data-toggle="tooltip" data-placement="left" 
-                       title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter">
-                <label for="inputPassword">Password*</label>
-            </div>
-            <div class="form-label-group">
-                <input id="inputCPassword" type="password" class="form-control" placeholder="Re-type password" required>
-                <label for="inputCPassword">Confirm Password*</label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
-            <a class="btn btn-lg btn-secondary btn-block" style="color: white;">Back to Sign-In</a>
-            <p class="mt-5 mb-3 text-muted text-center">Â© 2019</p>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Proceed Password Recovery</button>
+            <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to login</a>
+            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
         </form>
-
-        <script src="../../bootstrap/js/jquery.min.js"></script>
-        <script src="../../bootstrap/js/popper.min.js"></script>
-        <script src="../../bootstrap/js/bootstrap.min.js"></script>
-        <script>
-            var inputPassword = document.getElementById("inputPassword"),
-                    inputCPassword = document.getElementById("inputCPassword");
-
-            function validatePassword() {
-                if (inputPassword.value !== inputCPassword.value) {
-                    inputCPassword.setCustomValidity("Passwords Don't Match");
-                } else {
-                    inputCPassword.setCustomValidity('');
-                }
-            }
-
-            inputPassword.onchange = validatePassword;
-            inputCPassword.onkeyup = validatePassword;
-
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        </script>
     </body>
-
 </html>
