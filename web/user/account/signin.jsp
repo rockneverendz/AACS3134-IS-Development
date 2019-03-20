@@ -132,7 +132,7 @@
     </head>
 
     <body>
-        <form class="form-signin" action="signin">
+        <form class="form-signin" action="signin" method="POST">
             <div class="text-center mb-4">
                 <img class="mb-4" src="../../resource/St._Freya_Emblem.png" alt="logo" width="100px">
                 <h1 class="display-3">Sign In</h1>
@@ -150,10 +150,10 @@
                         message = "Successfully Signed Out!";
                     } else if (code == 'U') {
                         type = "warning";
-                        message = "Sorry, we couldn't find an account with that username. <a href='./signup.jsp' class='alert-link'>Do you want to create a new account?</a>";
+                        message = "Sorry, we couldn't find an account with that username.<br><a href='./signup.jsp' class='alert-link'>Do you want to create a new account?</a>";
                     } else if (code == 'P') {
                         type = "warning";
-                        message = "Sorry, that password isn't right. <a href='./passrecovery.jsp' class='alert-link'>We can help you recover your password.</a>";
+                        message = "Sorry, that password isn't right.<br><a href='./passrecovery.jsp' class='alert-link'>We can help you recover your password.</a>";
                     } else if (code == 'N') {
                         type = "danger";
                         message = "You have to be logged in to do that!";

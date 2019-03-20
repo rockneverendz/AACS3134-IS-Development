@@ -20,8 +20,7 @@ public class signin extends HttpServlet {
         String password = request.getParameter("Password");
 
         // Initialize variables
-        String message;
-        String url = "/user/account/signin.jsp";
+        StringBuilder url = new StringBuilder("/user/account/signin.jsp");
         CustomerService customerService = new CustomerService();
 
         try {
@@ -44,17 +43,15 @@ public class signin extends HttpServlet {
             return;
 
         } catch (NoResultException ex) {
-            message = "Username is found.";
+            url.append("?status=U");
         } catch (IllegalArgumentException ex) {
-            message = "Password incorrect.";
+            url.append("?status=P");
         }
 
-        // Redirect back with the username and error message.
-        request.setAttribute("message", message);
         request.setAttribute("username", username);
 
         RequestDispatcher dispatcher
-                = getServletContext().getRequestDispatcher(url);
+                = getServletContext().getRequestDispatcher(url.toString());
         dispatcher.forward(request, response);
     }
 
