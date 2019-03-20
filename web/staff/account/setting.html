@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="../../resource/Icon.png" rel="icon" />
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <!-- Font Awsome -->
+        <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+
+        <title>Staff Portal</title>
+        <style>
+            .form-signup {
+                width: 100%;
+                max-width: 420px;
+                padding: 15px;
+                margin: auto;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <!--        Navigation bar-->
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="maintain.html"><img src="../../resource/Logo2.png" alt="logo" width="150px"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <!-- Left-->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-hamburger"></i> Manage Meals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-utensils"></i> Manage Package</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-scroll"></i> View Reports</a>
+                        <ul class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Transaction History</a>
+                            <a class="dropdown-item" href="#">Weekly Meals Ordered</a>
+                            <a class="dropdown-item" href="#">Summary Reports</a>
+                        </ul>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    Category...
+                </span>
+
+                <!-- Right-->
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item dropdown" style="margin-right: 10px">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-user"></i> "Staff Name"</a>
+                        <ul class="dropdown-menu">
+                            <a class="dropdown-item" href="setting.html"><i class="fas fa-cog"></i> Settings</a>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!--        Main Content-->
+
+        <form class="form-signup" >
+            <div class="text-center mb-4">
+                <h1 class="h1 mb-3">Settings</h1>
+            </div>
+
+            <label for="inputUsername">Username</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+            </div>
+            <hr>
+            
+            <label for="inputEmail">Email address</label>
+            <div class="input-group">
+                <input type="email" class="form-control" id="inputEmail" placeholder="Email address">
+            </div>
+            <hr>
+            
+            <label for="inputCategory">Category</label>
+            <div class="input-group">
+                <select class="custom-select" id="inputGroupSelect" data-toggle="tooltip" data-placement="right" title="Please select your category">
+                    <option selected>Choose...</option>
+                    <option value="1">Chicken Rice</option>
+                    <option value="2">Masakan Malaysia</option>
+                    <option value="3">Noodles</option>
+                    <option value="4">IndoDeli</option>
+                    <option value="5">Vegetarian Cuisine</option>
+                </select>
+            </div>
+            <hr>
+            
+            <label for="inputPassword">New Password</label>
+            <div class="input-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" data-toggle="tooltip" data-placement="right" title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required >
+            </div>
+            <hr>
+            
+            <label for="inputPassword">Confirm Password</label>
+            <div class="input-group">
+                <input type="password" id="inputConfirmPass" class="form-control" placeholder=" Confirm Password" required>
+            </div>
+            <hr>
+            
+            
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Save Settings</button>
+            <a href="signin.html" class="btn btn-lg btn-secondary btn-block" style="color: white;">Back</a>
+            <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
+        </form>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script>
+            var password = document.getElementById("inputPassword"),
+                    confirm_password = document.getElementById("inputConfirmPass");
+
+            function validatePassword() {
+                if (password.value != confirm_password.value) {
+                    confirm_password.setCustomValidity("Passwords Don't Match");
+                } else {
+                    confirm_password.setCustomValidity('');
+                }
+            }
+
+            password.onchange = validatePassword;
+            confirm_password.onkeyup = validatePassword;
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
+    </body>
+</html>
