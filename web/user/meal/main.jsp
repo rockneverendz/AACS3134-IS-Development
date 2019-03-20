@@ -40,9 +40,17 @@
             .btn-secondary:hover,
             .btn-secondary:focus {
                 color: #333;
-                text-shadow: none; /* Prevent inheritance from `body` */
                 background-color: #fff;
                 border: .05rem solid #fff;
+            }
+            
+            .btn {
+                text-shadow: none; /* Prevent inheritance from `body` */
+            }
+            
+            .dropdown-divider {
+                margin-left: 10%;
+                margin-right: 10%;
             }
 
             /* Base structure */
@@ -137,12 +145,12 @@
                                 Account
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <button class="dropdown-item" type="button">Order List</button>
-                                <button class="dropdown-item" type="button">Reload List</button>
-                                <button class="dropdown-item" type="button">Intake List</button>
+                                <a class="btn dropdown-item" href="#" role="button">Order List</a>
+                                <a class="btn dropdown-item" href="#" role="button">Reload List</a>
+                                <a class="btn dropdown-item" href="#" role="button">Intake List</a>
                                 <div class="dropdown-divider"></div>
-                                <button class="dropdown-item" type="button">Settings</button>
-                                <button class="dropdown-item" type="button">Sign Out</button>
+                                <a class="btn dropdown-item" href="#" role="button">Settings</a>
+                                <a class="btn dropdown-item" href="../account/signout" role="button">Sign Out</a>
                             </div>
                         </div>
                     </nav>
