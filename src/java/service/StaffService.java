@@ -29,13 +29,13 @@ public class StaffService {
      * @throws RollbackException If commit fails
      */
     public boolean updateStaff(Staff newStaff) throws RollbackException {
-        Staff oldStaff = findProdByID(newStaff.getId());
+        Staff oldStaff = findProdByID(newStaff.getStaffId());
         if (oldStaff != null) {
             em.getTransaction().begin();
             oldStaff.setUsername(newStaff.getUsername());
             oldStaff.setEmail(newStaff.getEmail());
             oldStaff.setPassword(newStaff.getPassword());
-            oldStaff.setCategoryid(newStaff.getCategoryid());
+            oldStaff.setCategoryId(newStaff.getCategoryId());
             em.getTransaction().commit();
             return true;
         }

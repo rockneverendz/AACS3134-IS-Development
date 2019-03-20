@@ -45,7 +45,7 @@ public class CategoryService {
      * @throws RollbackException If commit fails
      */
     public boolean updateCategory(Category newCategory) throws RollbackException {
-        Category oldCategory = findProdByID(newCategory.getId());
+        Category oldCategory = findProdByID(newCategory.getCategoryId());
         if (oldCategory != null) {
             em.getTransaction().begin();
             oldCategory.setName(newCategory.getName());

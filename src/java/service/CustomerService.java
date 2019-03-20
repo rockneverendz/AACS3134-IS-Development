@@ -63,7 +63,7 @@ public class CustomerService {
      * @throws RollbackException If commit fails
      */
     public boolean updateCustomer(Customer newCustomer) throws RollbackException {
-        Customer oldCustomer = findCustByID(newCustomer.getId());
+        Customer oldCustomer = findCustByID(newCustomer.getCustId());
         if (oldCustomer != null) {
             em.getTransaction().begin();
             oldCustomer.setUsername(newCustomer.getUsername());

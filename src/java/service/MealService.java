@@ -45,18 +45,18 @@ public class MealService {
      * @throws RollbackException If commit fails
      */
     public boolean updateMeal(Meal newMeal) throws RollbackException {
-        Meal oldMeal = findMealByID(newMeal.getId());
+        Meal oldMeal = findMealByID(newMeal.getMealId());
         if (oldMeal != null) {
             em.getTransaction().begin();
             oldMeal.setName(newMeal.getName());
             oldMeal.setDescription(newMeal.getDescription());
             oldMeal.setDay(newMeal.getDay());
             oldMeal.setPrice(newMeal.getPrice());
-            oldMeal.setIngredient(newMeal.getIngredient());
+            oldMeal.setIngredientId(newMeal.getIngredientId());
             oldMeal.setIngredientQty(newMeal.getIngredientQty());
             oldMeal.setCalories(newMeal.getCalories());
             oldMeal.setImage(newMeal.getImage());
-            oldMeal.setCategoryid(newMeal.getCategoryid());
+            oldMeal.setCategoryId(newMeal.getCategoryId());
             em.getTransaction().commit();
             return true;
         }

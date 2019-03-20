@@ -1,6 +1,6 @@
 package service;
 
-import entity.Mealorder;
+import entity.Order1;
 import entity.Payment;
 import entity.Customer;
 import entity.Orderlist;
@@ -19,7 +19,7 @@ public class MealorderService {
     }
 
     public void addMealorder(
-            Mealorder mealorder,
+            Order1 mealorder,
             Payment payment,
             ArrayList<Orderlist> cart,
             Customer customer
@@ -33,21 +33,21 @@ public class MealorderService {
 
         for (Orderlist orderlist : cart) {
             orderlistpk = new OrderlistPK(
-                    orderlist.getMeal().getId(),
-                    mealorder.getId()
+                    orderlist.getMeal().getMealId(),
+                    mealorder.getOrderId()
             );
-            orderlist.setMealorder(mealorder);
+            orderlist.setOrder1(mealorder);
             orderlist.setOrderlistPK(orderlistpk);
         }
 
         em.getTransaction().begin();
         mealorder.setOrderlistList(cart);
-        mealorder.setCustid(customer);
+        mealorder.setCustId(customer);
         em.getTransaction().commit();
     }
 
-    public Mealorder findOrderByID(int id) {
-        return (Mealorder) em.find(Mealorder.class, id);
+    public Order1 findOrderByID(int id) {
+        return (Order1) em.find(Order1.class, id);
     }
 
     /**
@@ -55,8 +55,8 @@ public class MealorderService {
      * @return true if successfully committed false if mealorder not found
      * @throws RollbackException If commit fails
      */
-    public boolean updateMealorder(Mealorder newMealorder) throws RollbackException {
-        Mealorder oldMealorder = findOrderByID(newMealorder.getId());
+    public boolean updateMealorder(Order1 newMealorder) throws RollbackException {
+        Order1 oldMealorder = findOrderByID(newMealorder.getOrderId());
         if (oldMealorder != null) {
             em.getTransaction().begin();
             oldMealorder.setStutus(newMealorder.getStutus());
@@ -68,7 +68,7 @@ public class MealorderService {
         return false;
     }
 
-    public List<Mealorder> findAll() {
+    public List<Order1> findAll() {
         List MealorderList = em.createNamedQuery("Mealorder.findAll").getResultList();
         return MealorderList;
     }
