@@ -17,9 +17,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Orderlist.findAll", query = "SELECT o FROM Orderlist o")
-    , @NamedQuery(name = "Orderlist.findByMealid", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.mealid = :mealid")
-    , @NamedQuery(name = "Orderlist.findByOrderid", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.orderid = :orderid")
-    , @NamedQuery(name = "Orderlist.findByQuantity", query = "SELECT o FROM Orderlist o WHERE o.quantity = :quantity")})
+    , @NamedQuery(name = "Orderlist.findByMealId", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.mealId = :mealId")
+    , @NamedQuery(name = "Orderlist.findByOrderId", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.orderId = :orderId")
+    , @NamedQuery(name = "Orderlist.findByQuantity", query = "SELECT o FROM Orderlist o WHERE o.quantity = :quantity")
+    , @NamedQuery(name = "Orderlist.findByPriceeach", query = "SELECT o FROM Orderlist o WHERE o.priceeach = :priceeach")})
 public class Orderlist implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,12 +29,15 @@ public class Orderlist implements Serializable {
     @Basic(optional = false)
     @Column(name = "QUANTITY")
     private int quantity;
-    @JoinColumn(name = "MEALID", referencedColumnName = "ID", insertable = false, updatable = false)
+    @Basic(optional = false)
+    @Column(name = "PRICEEACH")
+    private double priceeach;
+    @JoinColumn(name = "MEAL_ID", referencedColumnName = "MEAL_ID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Meal meal;
-    @JoinColumn(name = "ORDERID", referencedColumnName = "ID", insertable = false, updatable = false)
+    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Mealorder mealorder;
+    private Order1 order1;
 
     public Orderlist() {
     }
@@ -42,13 +46,14 @@ public class Orderlist implements Serializable {
         this.orderlistPK = orderlistPK;
     }
 
-    public Orderlist(OrderlistPK orderlistPK, int quantity) {
+    public Orderlist(OrderlistPK orderlistPK, int quantity, double priceeach) {
         this.orderlistPK = orderlistPK;
         this.quantity = quantity;
+        this.priceeach = priceeach;
     }
 
-    public Orderlist(int mealid, int orderid) {
-        this.orderlistPK = new OrderlistPK(mealid, orderid);
+    public Orderlist(int mealId, int orderId) {
+        this.orderlistPK = new OrderlistPK(mealId, orderId);
     }
 
     public OrderlistPK getOrderlistPK() {
@@ -67,6 +72,14 @@ public class Orderlist implements Serializable {
         this.quantity = quantity;
     }
 
+    public double getPriceeach() {
+        return priceeach;
+    }
+
+    public void setPriceeach(double priceeach) {
+        this.priceeach = priceeach;
+    }
+
     public Meal getMeal() {
         return meal;
     }
@@ -75,12 +88,12 @@ public class Orderlist implements Serializable {
         this.meal = meal;
     }
 
-    public Mealorder getMealorder() {
-        return mealorder;
+    public Order1 getOrder1() {
+        return order1;
     }
 
-    public void setMealorder(Mealorder mealorder) {
-        this.mealorder = mealorder;
+    public void setOrder1(Order1 order1) {
+        this.order1 = order1;
     }
 
     @Override

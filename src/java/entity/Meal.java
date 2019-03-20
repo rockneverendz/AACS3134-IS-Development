@@ -24,11 +24,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Meal.findAll", query = "SELECT m FROM Meal m")
-    , @NamedQuery(name = "Meal.findById", query = "SELECT m FROM Meal m WHERE m.id = :id")
+    , @NamedQuery(name = "Meal.findByMealId", query = "SELECT m FROM Meal m WHERE m.mealId = :mealId")
     , @NamedQuery(name = "Meal.findByName", query = "SELECT m FROM Meal m WHERE m.name = :name")
     , @NamedQuery(name = "Meal.findByDescription", query = "SELECT m FROM Meal m WHERE m.description = :description")
     , @NamedQuery(name = "Meal.findByPrice", query = "SELECT m FROM Meal m WHERE m.price = :price")
-    , @NamedQuery(name = "Meal.findByIngredient", query = "SELECT m FROM Meal m WHERE m.ingredient = :ingredient")
+    , @NamedQuery(name = "Meal.findByAvailability", query = "SELECT m FROM Meal m WHERE m.availability = :availability")
     , @NamedQuery(name = "Meal.findByIngredientQty", query = "SELECT m FROM Meal m WHERE m.ingredientQty = :ingredientQty")
     , @NamedQuery(name = "Meal.findByCalories", query = "SELECT m FROM Meal m WHERE m.calories = :calories")})
 public class Meal implements Serializable {
@@ -37,8 +37,8 @@ public class Meal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
+    @Column(name = "MEAL_ID")
+    private Integer mealId;
     @Basic(optional = false)
     @Column(name = "NAME")
     private String name;
@@ -52,8 +52,8 @@ public class Meal implements Serializable {
     @Column(name = "PRICE")
     private double price;
     @Basic(optional = false)
-    @Column(name = "INGREDIENT")
-    private String ingredient;
+    @Column(name = "AVAILABILITY")
+    private Boolean availability;
     @Basic(optional = false)
     @Column(name = "INGREDIENT_QTY")
     private double ingredientQty;
@@ -65,33 +65,38 @@ public class Meal implements Serializable {
     private byte[] image;
     @JoinColumn(name = "CATEGORYID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Category categoryid;
+    private Category categoryId;
+    @JoinColumn(name = "INGREDIENT_ID", referencedColumnName = "INGREDIENT_ID")
+    @ManyToOne(optional = false)
+    private Ingredient ingredientId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "meal")
     private List<Orderlist> orderlistList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "meal")
+    private List<Packageist> packageistList;
 
     public Meal() {
     }
 
-    public Meal(Integer id) {
-        this.id = id;
+    public Meal(Integer mealId) {
+        this.mealId = mealId;
     }
 
-    public Meal(Integer id, String name, byte[] day, double price, String ingredient, double ingredientQty, int calories) {
-        this.id = id;
+    public Meal(Integer mealId, String name, byte[] day, double price, Boolean availability, double ingredientQty, int calories) {
+        this.mealId = mealId;
         this.name = name;
         this.day = day;
         this.price = price;
-        this.ingredient = ingredient;
+        this.availability = availability;
         this.ingredientQty = ingredientQty;
         this.calories = calories;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getMealId() {
+        return mealId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setMealId(Integer mealId) {
+        this.mealId = mealId;
     }
 
     public String getName() {
@@ -126,12 +131,12 @@ public class Meal implements Serializable {
         this.price = price;
     }
 
-    public String getIngredient() {
-        return ingredient;
+    public Boolean getAvailability() {
+        return availability;
     }
 
-    public void setIngredient(String ingredient) {
-        this.ingredient = ingredient;
+    public void setAvailability(Boolean availability) {
+        this.availability = availability;
     }
 
     public double getIngredientQty() {
@@ -158,12 +163,20 @@ public class Meal implements Serializable {
         this.image = image;
     }
 
-    public Category getCategoryid() {
-        return categoryid;
+    public Category getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryid(Category categoryid) {
-        this.categoryid = categoryid;
+    public void setCategoryId(Category categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Ingredient getIngredientId() {
+        return ingredientId;
+    }
+
+    public void setIngredientId(Ingredient ingredientId) {
+        this.ingredientId = ingredientId;
     }
 
     @XmlTransient
@@ -175,10 +188,19 @@ public class Meal implements Serializable {
         this.orderlistList = orderlistList;
     }
 
+    @XmlTransient
+    public List<Packageist> getPackageistList() {
+        return packageistList;
+    }
+
+    public void setPackageistList(List<Packageist> packageistList) {
+        this.packageistList = packageistList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (mealId != null ? mealId.hashCode() : 0);
         return hash;
     }
 
@@ -189,7 +211,7 @@ public class Meal implements Serializable {
             return false;
         }
         Meal other = (Meal) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.mealId == null && other.mealId != null) || (this.mealId != null && !this.mealId.equals(other.mealId))) {
             return false;
         }
         return true;
@@ -197,7 +219,7 @@ public class Meal implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Meal[ id=" + id + " ]";
+        return "entity.Meal[ mealId=" + mealId + " ]";
     }
 
 }

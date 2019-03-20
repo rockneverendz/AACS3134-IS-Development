@@ -6,21 +6,21 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class OrderlistPK implements Serializable {
+public class PackageistPK implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "MEAL_ID")
     private int mealId;
     @Basic(optional = false)
-    @Column(name = "ORDER_ID")
-    private int orderId;
+    @Column(name = "PACKAGE_ID")
+    private int packageId;
 
-    public OrderlistPK() {
+    public PackageistPK() {
     }
 
-    public OrderlistPK(int mealId, int orderId) {
+    public PackageistPK(int mealId, int packageId) {
         this.mealId = mealId;
-        this.orderId = orderId;
+        this.packageId = packageId;
     }
 
     public int getMealId() {
@@ -31,33 +31,33 @@ public class OrderlistPK implements Serializable {
         this.mealId = mealId;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getPackageId() {
+        return packageId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setPackageId(int packageId) {
+        this.packageId = packageId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) mealId;
-        hash += (int) orderId;
+        hash += (int) packageId;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OrderlistPK)) {
+        if (!(object instanceof PackageistPK)) {
             return false;
         }
-        OrderlistPK other = (OrderlistPK) object;
+        PackageistPK other = (PackageistPK) object;
         if (this.mealId != other.mealId) {
             return false;
         }
-        if (this.orderId != other.orderId) {
+        if (this.packageId != other.packageId) {
             return false;
         }
         return true;
@@ -65,7 +65,7 @@ public class OrderlistPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.OrderlistPK[ mealId=" + mealId + ", orderId=" + orderId + " ]";
+        return "entity.PackageistPK[ mealId=" + mealId + ", packageId=" + packageId + " ]";
     }
 
 }

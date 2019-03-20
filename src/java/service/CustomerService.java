@@ -24,7 +24,35 @@ public class CustomerService {
                 .setParameter("username", username)
                 .getSingleResult();
     }
-    
+
+    public Customer findCustByEmail(String email) {
+        return (Customer) em.createNamedQuery("Customer.findByEmail")
+                .setParameter("email", email)
+                .getSingleResult();
+    }
+
+    public boolean isUserIDUsed(String username) {
+        try {
+            em.createNamedQuery("Customer.findByUsername")
+                    .setParameter("username", username)
+                    .getSingleResult();
+            return true;
+        } catch (NoResultException ex) {
+            return false;
+        }
+    }
+
+    public boolean isEmailUsed(String email) {
+        try {
+            em.createNamedQuery("Customer.findByEmail")
+                    .setParameter("email", email)
+                    .getSingleResult();
+            return true;
+        } catch (NoResultException ex) {
+            return false;
+        }
+    }
+
     public Customer findCustByID(int id) {
         return (Customer) em.find(Customer.class, id);
     }

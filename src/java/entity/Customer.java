@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")
-    , @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id")
+    , @NamedQuery(name = "Customer.findByCustId", query = "SELECT c FROM Customer c WHERE c.custId = :custId")
     , @NamedQuery(name = "Customer.findByUsername", query = "SELECT c FROM Customer c WHERE c.username = :username")
     , @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")
     , @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password")
@@ -32,8 +32,8 @@ public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
+    @Column(name = "CUST_ID")
+    private Integer custId;
     @Column(name = "USERNAME")
     private String username;
     @Column(name = "EMAIL")
@@ -43,29 +43,31 @@ public class Customer implements Serializable {
     @Basic(optional = false)
     @Column(name = "CREDITPOINTS")
     private int creditpoints;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "custid")
-    private List<Mealorder> mealorderList;
-    @OneToMany(mappedBy = "custid")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId")
+    private List<Order1> order1List;
+    @OneToMany(mappedBy = "custId")
     private List<Reload> reloadList;
+    @OneToMany(mappedBy = "custId")
+    private List<Token> tokenList;
 
     public Customer() {
     }
 
-    public Customer(Integer id) {
-        this.id = id;
+    public Customer(Integer custId) {
+        this.custId = custId;
     }
 
-    public Customer(Integer id, int creditpoints) {
-        this.id = id;
+    public Customer(Integer custId, int creditpoints) {
+        this.custId = custId;
         this.creditpoints = creditpoints;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getCustId() {
+        return custId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCustId(Integer custId) {
+        this.custId = custId;
     }
 
     public String getUsername() {
@@ -101,12 +103,12 @@ public class Customer implements Serializable {
     }
 
     @XmlTransient
-    public List<Mealorder> getMealorderList() {
-        return mealorderList;
+    public List<Order1> getOrder1List() {
+        return order1List;
     }
 
-    public void setMealorderList(List<Mealorder> mealorderList) {
-        this.mealorderList = mealorderList;
+    public void setOrder1List(List<Order1> order1List) {
+        this.order1List = order1List;
     }
 
     @XmlTransient
@@ -118,10 +120,19 @@ public class Customer implements Serializable {
         this.reloadList = reloadList;
     }
 
+    @XmlTransient
+    public List<Token> getTokenList() {
+        return tokenList;
+    }
+
+    public void setTokenList(List<Token> tokenList) {
+        this.tokenList = tokenList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (custId != null ? custId.hashCode() : 0);
         return hash;
     }
 
@@ -132,7 +143,7 @@ public class Customer implements Serializable {
             return false;
         }
         Customer other = (Customer) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.custId == null && other.custId != null) || (this.custId != null && !this.custId.equals(other.custId))) {
             return false;
         }
         return true;
@@ -140,7 +151,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Customer[ id=" + id + " ]";
+        return "entity.Customer[ custId=" + custId + " ]";
     }
 
 }

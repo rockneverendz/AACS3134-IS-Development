@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
-    , @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.id = :id")
+    , @NamedQuery(name = "Category.findByCategoryId", query = "SELECT c FROM Category c WHERE c.categoryId = :categoryId")
     , @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")
     , @NamedQuery(name = "Category.findByDescription", query = "SELECT c FROM Category c WHERE c.description = :description")})
 public class Category implements Serializable {
@@ -31,8 +31,8 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
+    @Column(name = "CATEGORY_ID")
+    private Integer categoryId;
     @Basic(optional = false)
     @Column(name = "NAME")
     private String name;
@@ -45,27 +45,27 @@ public class Category implements Serializable {
     private List<Mealorder> mealorderList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryid")
     private List<Meal> mealList;
-    @OneToMany(mappedBy = "categoryid")
+    @OneToMany(mappedBy = "categoryId")
     private List<Staff> staffList;
 
     public Category() {
     }
 
-    public Category(Integer id) {
-        this.id = id;
+    public Category(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public Category(Integer id, String name) {
-        this.id = id;
+    public Category(Integer categoryId, String name) {
+        this.categoryId = categoryId;
         this.name = name;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {
@@ -93,12 +93,12 @@ public class Category implements Serializable {
     }
 
     @XmlTransient
-    public List<Mealorder> getMealorderList() {
-        return mealorderList;
+    public List<Order1> getOrder1List() {
+        return order1List;
     }
 
-    public void setMealorderList(List<Mealorder> mealorderList) {
-        this.mealorderList = mealorderList;
+    public void setOrder1List(List<Order1> order1List) {
+        this.order1List = order1List;
     }
 
     @XmlTransient
@@ -122,7 +122,7 @@ public class Category implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (categoryId != null ? categoryId.hashCode() : 0);
         return hash;
     }
 
@@ -133,7 +133,7 @@ public class Category implements Serializable {
             return false;
         }
         Category other = (Category) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.categoryId == null && other.categoryId != null) || (this.categoryId != null && !this.categoryId.equals(other.categoryId))) {
             return false;
         }
         return true;
@@ -141,7 +141,7 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Category[ id=" + id + " ]";
+        return "entity.Category[ categoryId=" + categoryId + " ]";
     }
 
 }

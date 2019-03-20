@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p")
-    , @NamedQuery(name = "Payment.findById", query = "SELECT p FROM Payment p WHERE p.id = :id")
+    , @NamedQuery(name = "Payment.findByPaymentId", query = "SELECT p FROM Payment p WHERE p.paymentId = :paymentId")
     , @NamedQuery(name = "Payment.findByDate", query = "SELECT p FROM Payment p WHERE p.date = :date")
     , @NamedQuery(name = "Payment.findByTime", query = "SELECT p FROM Payment p WHERE p.time = :time")
     , @NamedQuery(name = "Payment.findByAmount", query = "SELECT p FROM Payment p WHERE p.amount = :amount")})
@@ -34,8 +34,8 @@ public class Payment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
+    @Column(name = "PAYMENT_ID")
+    private Integer paymentId;
     @Basic(optional = false)
     @Column(name = "DATE")
     @Temporal(TemporalType.DATE)
@@ -47,29 +47,29 @@ public class Payment implements Serializable {
     @Basic(optional = false)
     @Column(name = "AMOUNT")
     private double amount;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentid")
-    private List<Mealorder> mealorderList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentId")
+    private List<Order1> order1List;
 
     public Payment() {
     }
 
-    public Payment(Integer id) {
-        this.id = id;
+    public Payment(Integer paymentId) {
+        this.paymentId = paymentId;
     }
 
-    public Payment(Integer id, Date date, Date time, double amount) {
-        this.id = id;
+    public Payment(Integer paymentId, Date date, Date time, double amount) {
+        this.paymentId = paymentId;
         this.date = date;
         this.time = time;
         this.amount = amount;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getPaymentId() {
+        return paymentId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPaymentId(Integer paymentId) {
+        this.paymentId = paymentId;
     }
 
     public Date getDate() {
@@ -97,18 +97,18 @@ public class Payment implements Serializable {
     }
 
     @XmlTransient
-    public List<Mealorder> getMealorderList() {
-        return mealorderList;
+    public List<Order1> getOrder1List() {
+        return order1List;
     }
 
-    public void setMealorderList(List<Mealorder> mealorderList) {
-        this.mealorderList = mealorderList;
+    public void setOrder1List(List<Order1> order1List) {
+        this.order1List = order1List;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (paymentId != null ? paymentId.hashCode() : 0);
         return hash;
     }
 
@@ -119,7 +119,7 @@ public class Payment implements Serializable {
             return false;
         }
         Payment other = (Payment) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.paymentId == null && other.paymentId != null) || (this.paymentId != null && !this.paymentId.equals(other.paymentId))) {
             return false;
         }
         return true;
@@ -127,7 +127,7 @@ public class Payment implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Payment[ id=" + id + " ]";
+        return "entity.Payment[ paymentId=" + paymentId + " ]";
     }
 
 }

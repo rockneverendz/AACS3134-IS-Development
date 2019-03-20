@@ -4,13 +4,17 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entity.Product</class>
     <class>entity.Reload</class>
-    <class>entity.Mealorder</class>
     <class>entity.Orderlist</class>
     <class>entity.Staff</class>
     <class>entity.Meal</class>
     <class>entity.Category</class>
     <class>entity.Payment</class>
     <class>entity.Customer</class>
+    <class>entity.Package</class>
+    <class>entity.Order1</class>
+    <class>entity.Ingredient</class>
+    <class>entity.Packageist</class>
+    <class>entity.Token</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/canteenDB"/>

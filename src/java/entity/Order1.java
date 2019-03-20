@@ -22,22 +22,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "MEALORDER")
+@Table(name = "ORDER")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Mealorder.findAll", query = "SELECT m FROM Mealorder m")
-    , @NamedQuery(name = "Mealorder.findById", query = "SELECT m FROM Mealorder m WHERE m.id = :id")
-    , @NamedQuery(name = "Mealorder.findByStutus", query = "SELECT m FROM Mealorder m WHERE m.stutus = :stutus")
-    , @NamedQuery(name = "Mealorder.findByRedeemDate", query = "SELECT m FROM Mealorder m WHERE m.redeemDate = :redeemDate")
-    , @NamedQuery(name = "Mealorder.findByRedeemTime", query = "SELECT m FROM Mealorder m WHERE m.redeemTime = :redeemTime")})
-public class Mealorder implements Serializable {
+    @NamedQuery(name = "Order1.findAll", query = "SELECT o FROM Order1 o")
+    , @NamedQuery(name = "Order1.findByOrderId", query = "SELECT o FROM Order1 o WHERE o.orderId = :orderId")
+    , @NamedQuery(name = "Order1.findByStutus", query = "SELECT o FROM Order1 o WHERE o.stutus = :stutus")
+    , @NamedQuery(name = "Order1.findByRedeemDate", query = "SELECT o FROM Order1 o WHERE o.redeemDate = :redeemDate")
+    , @NamedQuery(name = "Order1.findByRedeemTime", query = "SELECT o FROM Order1 o WHERE o.redeemTime = :redeemTime")})
+public class Order1 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
+    @Column(name = "ORDER_ID")
+    private Integer orderId;
     @Basic(optional = false)
     @Column(name = "STUTUS")
     private String stutus;
@@ -47,36 +47,36 @@ public class Mealorder implements Serializable {
     @Column(name = "REDEEM_TIME")
     @Temporal(TemporalType.TIME)
     private Date redeemTime;
-    @JoinColumn(name = "CATEGORYID", referencedColumnName = "ID")
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
     @ManyToOne(optional = false)
-    private Category categoryid;
-    @JoinColumn(name = "CUSTID", referencedColumnName = "ID")
+    private Category categoryId;
+    @JoinColumn(name = "CUST_ID", referencedColumnName = "CUST_ID")
     @ManyToOne(optional = false)
-    private Customer custid;
-    @JoinColumn(name = "PAYMENTID", referencedColumnName = "ID")
+    private Customer custId;
+    @JoinColumn(name = "PAYMENT_ID", referencedColumnName = "PAYMENT_ID")
     @ManyToOne(optional = false)
-    private Payment paymentid;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mealorder")
+    private Payment paymentId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order1")
     private List<Orderlist> orderlistList;
 
-    public Mealorder() {
+    public Order1() {
     }
 
-    public Mealorder(Integer id) {
-        this.id = id;
+    public Order1(Integer orderId) {
+        this.orderId = orderId;
     }
 
-    public Mealorder(Integer id, String stutus) {
-        this.id = id;
+    public Order1(Integer orderId, String stutus) {
+        this.orderId = orderId;
         this.stutus = stutus;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public String getStutus() {
@@ -103,28 +103,28 @@ public class Mealorder implements Serializable {
         this.redeemTime = redeemTime;
     }
 
-    public Category getCategoryid() {
-        return categoryid;
+    public Category getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryid(Category categoryid) {
-        this.categoryid = categoryid;
+    public void setCategoryId(Category categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public Customer getCustid() {
-        return custid;
+    public Customer getCustId() {
+        return custId;
     }
 
-    public void setCustid(Customer custid) {
-        this.custid = custid;
+    public void setCustId(Customer custId) {
+        this.custId = custId;
     }
 
-    public Payment getPaymentid() {
-        return paymentid;
+    public Payment getPaymentId() {
+        return paymentId;
     }
 
-    public void setPaymentid(Payment paymentid) {
-        this.paymentid = paymentid;
+    public void setPaymentId(Payment paymentId) {
+        this.paymentId = paymentId;
     }
 
     @XmlTransient
@@ -139,18 +139,18 @@ public class Mealorder implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (orderId != null ? orderId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Mealorder)) {
+        if (!(object instanceof Order1)) {
             return false;
         }
-        Mealorder other = (Mealorder) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        Order1 other = (Order1) object;
+        if ((this.orderId == null && other.orderId != null) || (this.orderId != null && !this.orderId.equals(other.orderId))) {
             return false;
         }
         return true;
@@ -158,7 +158,7 @@ public class Mealorder implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Mealorder[ id=" + id + " ]";
+        return "entity.Order1[ orderId=" + orderId + " ]";
     }
 
 }

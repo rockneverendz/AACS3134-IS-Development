@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s")
-    , @NamedQuery(name = "Staff.findById", query = "SELECT s FROM Staff s WHERE s.id = :id")
+    , @NamedQuery(name = "Staff.findByStaffId", query = "SELECT s FROM Staff s WHERE s.staffId = :staffId")
     , @NamedQuery(name = "Staff.findByUsername", query = "SELECT s FROM Staff s WHERE s.username = :username")
     , @NamedQuery(name = "Staff.findByEmail", query = "SELECT s FROM Staff s WHERE s.email = :email")
     , @NamedQuery(name = "Staff.findByPassword", query = "SELECT s FROM Staff s WHERE s.password = :password")})
@@ -32,33 +32,33 @@ public class Staff implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
-    private Integer id;
+    @Column(name = "STAFF_ID")
+    private Integer staffId;
     @Column(name = "USERNAME")
     private String username;
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "PASSWORD")
     private String password;
-    @OneToMany(mappedBy = "staffid")
+    @OneToMany(mappedBy = "staffId")
     private List<Reload> reloadList;
-    @JoinColumn(name = "CATEGORYID", referencedColumnName = "ID")
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
     @ManyToOne
-    private Category categoryid;
+    private Category categoryId;
 
     public Staff() {
     }
 
-    public Staff(Integer id) {
-        this.id = id;
+    public Staff(Integer staffId) {
+        this.staffId = staffId;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getStaffId() {
+        return staffId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setStaffId(Integer staffId) {
+        this.staffId = staffId;
     }
 
     public String getUsername() {
@@ -94,18 +94,18 @@ public class Staff implements Serializable {
         this.reloadList = reloadList;
     }
 
-    public Category getCategoryid() {
-        return categoryid;
+    public Category getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryid(Category categoryid) {
-        this.categoryid = categoryid;
+    public void setCategoryId(Category categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (staffId != null ? staffId.hashCode() : 0);
         return hash;
     }
 
@@ -116,7 +116,7 @@ public class Staff implements Serializable {
             return false;
         }
         Staff other = (Staff) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.staffId == null && other.staffId != null) || (this.staffId != null && !this.staffId.equals(other.staffId))) {
             return false;
         }
         return true;
@@ -124,7 +124,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Staff[ id=" + id + " ]";
+        return "entity.Staff[ staffId=" + staffId + " ]";
     }
 
 }
