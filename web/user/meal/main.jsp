@@ -43,11 +43,11 @@
                 background-color: #fff;
                 border: .05rem solid #fff;
             }
-            
-            .btn {
+
+            .btn, .text-body{
                 text-shadow: none; /* Prevent inheritance from `body` */
             }
-            
+
             .dropdown-divider {
                 margin-left: 10%;
                 margin-right: 10%;
@@ -74,7 +74,7 @@
             }
 
             .cover-container {
-                max-width: 42em;
+                max-width: 50em;
             }
 
             /* Header */
@@ -158,11 +158,20 @@
             </header>
 
             <main role="main" class="inner cover">
-                <h1 class="cover-heading">Cover your page.</h1>
-                <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-                <p class="lead">
-                    <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
-                </p>
+                <div class="row justify-content-around card-deck">
+                    <div class="card text-body bg-light mb-3" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Meals</h5>
+                            <p class="card-text">Create your own customized order with meal and time of your choosing.</p>
+                        </div>
+                    </div>
+                    <div class="card text-body bg-light mb-3" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Packages</h5>
+                            <p class="card-text">Choose packages created by our own staffs.</p>
+                        </div>
+                    </div>
+                </div>
             </main>
 
             <footer class="mastfoot mt-auto">
@@ -176,7 +185,7 @@
         <script src="../../bootstrap/js/bootstrap.min.js"></script>
         <script>
                             $('.dropdown-toggle').dropdown();
-                            
+
                             function toggle() {
                                 $('.dropdown-toggle').dropdown('toggle');
                             }
