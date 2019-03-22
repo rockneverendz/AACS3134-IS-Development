@@ -72,7 +72,13 @@
                     <!-- Float Right use ml-auto-->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#"><i class="fas fa-edit"></i> Order</a>
+                            <a class="nav-link" href="../cart/cart.jsp"><i class="fas fa-shopping-cart"></i> Cart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-money-check-alt"></i> Coupon</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="main.jsp"><i class="fas fa-edit"></i> Order</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle dropdown-menu-left" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-user"></i> Account</a>
