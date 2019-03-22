@@ -95,13 +95,13 @@
         <div class="mainContainer row">
 
             <div class="card-deck">
-                <a href="#" class="card">
+                <a href="category.jsp" class="card">
                     <div class="card-body">
                         <h5 class="card-title display-4">Single Meal</h5>
                         <p class="card-text">Pre-order single-day meal so you can have your lunch or breakfast on desired date and time without waitng for long queuing </p>
                     </div>
                 </a>
-                <a href="#" class="card">
+                <a href="viewpackage.jsp" class="card">
                     <div class="card-body">
                         <h5 class="card-title display-4">Packages</h5>
                         <p class="card-text">Are you lazy to think what to eat during every meal time?? Then why don't just choose a meal packages from us! We provide various sets of meal packages and you can just order and pay per week or monthly!!</p>

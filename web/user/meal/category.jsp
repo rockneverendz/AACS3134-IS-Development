@@ -17,6 +17,55 @@
 
         <!--        CSS-->
         <style>
+
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+
+            .jumbotron {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+                margin-bottom: 0;
+                background-color: #fff;
+            }
+            @media (min-width: 768px) {
+                .jumbotron {
+                    padding-top: 6rem;
+                    padding-bottom: 6rem;
+                }
+            }
+
+            .jumbotron p:last-child {
+                margin-bottom: 0;
+            }
+
+            .jumbotron-heading {
+                font-weight: 300;
+            }
+
+            .jumbotron .container {
+                max-width: 40rem;
+            }
+
+            footer > span > a{
+                color: aliceblue;
+            }
+
+            footer > span :hover{
+                color: aliceblue;
+            }
+
             .card{
                 height: 300px;
             }
@@ -29,17 +78,6 @@
                 text-decoration: none;
             }
 
-            a{
-                color: aliceblue;
-            }
-
-            a:hover{
-                color: aliceblue;
-            }
-
-            ul > li > a:hover{
-                text-decoration: underline;
-            }
         </style>
 
     </head>
@@ -75,53 +113,25 @@
             </div>
         </nav>
         <!--	Main Content-->
-        <div class="container">
-            <h1 class="text-left" style="margin: 10px;">Please Select Food Stall...</h1>
+        <div class="container" style="padding: 25px;">
+            <section class="jumbotron text-center">
+                <div class="container">
+                    <h1 class="jumbotron-heading">Category</h1>
+                    <p class="lead text-muted">Please Select a Category.</p>
 
+                </div>
+            </section>
             <div class="row">
+                <% for (int i = 0; i < 6; i++) {%>
                 <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
                     <img src="..." class="card-img" alt="...">
                     <div class="card-img-overlay">
-                        <h1 class="display-4">Noodles</h1>
+                        <div class="display-4">Category</div>
                     </div>
                 </a>
-                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
-                    <img src="..." class="card-img" alt="...">
-                    <div class="card-img-overlay">
-                        <h1 class="display-4">Masakan Malaysia</h1>
-                    </div>
-                </a>
-            </div>
-            <div class="row">
-                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
-                    <img src="..." class="card-img" alt="...">
-                    <div class="card-img-overlay">
-                        <h1 class="display-4">Card title</h1>
-                    </div>
-                </a>
-                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
-                    <img src="..." class="card-img" alt="...">
-                    <div class="card-img-overlay">
-                        <h1 class="display-4">Card title</h1>
-                    </div>
-                </a>
-            </div>
-            <div class="row">
-                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
-                    <img src="..." class="card-img" alt="...">
-                    <div class="card-img-overlay">
-                        <h1 class="display-4">Card title</h1>
-                    </div>
-                </a>
-                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
-                    <img src="..." class="card-img" alt="...">
-                    <div class="card-img-overlay">
-                        <h1 class="display-4">Card title</h1>
-                    </div>
-                </a>
+                <% } %>
             </div>
         </div>
-        
         <!--	Footer-->
         <footer class="footer bg-dark text-center" style="padding: 10px 10px;">
             <span class="text-muted">Cover template for <a href="#">Bricks</a>, by <a href="#">St. Freya University</a>.</span>
