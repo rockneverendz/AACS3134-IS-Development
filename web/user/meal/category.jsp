@@ -1,6 +1,6 @@
-<!doctype html>
-<html lang="en">
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -13,22 +13,11 @@
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
 
-        <title>Bricks</title>
+        <title>Bricks | Category</title>
 
+        <!--        CSS-->
         <style>
-            body{
-                background-image: url(../../resource/bg.jpg);
-                background-size: cover;
-            }
 
-
-
-            .mainContainer{
-                max-width: 800px;
-                max-height: 500px;
-                margin: auto;
-                padding-top: 10%;
-            }
 
             .card{
                 height: 300px;
@@ -57,13 +46,12 @@
 
         </style>
 
-    </head>
 
+    </head>
     <body class="text-center">
 
         <!--	Nav Bar-->
-        <nav class="navbar navbar-expand-lg text-white">
-
+        <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="#"><img src="../../resource/Logo3.png" alt="logo" width="150px"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,28 +82,45 @@
 
 
         <!--	Main Content-->
-        <div class="mainContainer row">
+        <div class="container">
+            <h1 class="text-left" style="margin: 10px;">Please Select Food Stall...</h1>
 
-            <div class="card-deck">
-                <a href="#" class="card">
-                    <div class="card-body">
-                        <h5 class="card-title display-4">Single Meal</h5>
-                        <p class="card-text">Pre-order single-day meal so you can have your lunch or breakfast on desired date and time without waitng for long queuing </p>
+            <div class="row">
+                <a href="#" class="card bg-white text-dark col-sm-6">
+                    <img src="..." class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h1 class="display-4">Noodles</h1>
                     </div>
                 </a>
-                <a href="#" class="card">
-                    <div class="card-body">
-                        <h5 class="card-title display-4">Packages</h5>
-                        <p class="card-text">Are you lazy to think what to eat during every meal time?? Then why don't just choose a meal packages from us! We provide various sets of meal packages and you can just order and pay per week or monthly!!</p>
+                <a href="#" class="card bg-white text-dark col-sm-6">
+                    <img src="..." class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h1 class="display-4">Masakan Malaysia</h1>
                     </div>
                 </a>
             </div>
+            <div class="row">
+                <a href="#" class="card bg-white text-dark col-sm-6">
+                    <img src="..." class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h1 class="display-4">Card title</h1>
+                    </div>
+                </a>
+                <a href="#" class="card bg-white text-dark col-sm-6">
+                    <img src="..." class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h1 class="display-4">Card title</h1>
+                    </div>
+                </a>
+            </div>
+
+
         </div>
 
 
 
         <!--	Footer-->
-        <footer class="fixed-bottom">
+        <footer class="bg-dark fixed-bottom">
             <p class="text-muted">Cover template for <a href="#">Bricks</a>, by <a href="#">St. Freya University</a>.</p>
         </footer>
 
@@ -125,5 +130,4 @@
         <script src="../../bootstrap/js/bootstrap.min.js"></script>
 
     </body>
-
 </html>
