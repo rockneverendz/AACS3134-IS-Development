@@ -17,8 +17,6 @@
 
         <!--        CSS-->
         <style>
-
-
             .card{
                 height: 300px;
             }
@@ -42,10 +40,7 @@
             ul > li > a:hover{
                 text-decoration: underline;
             }
-
-
         </style>
-
 
     </head>
     <body class="text-center">
@@ -79,20 +74,18 @@
                 </div>
             </div>
         </nav>
-
-
         <!--	Main Content-->
         <div class="container">
             <h1 class="text-left" style="margin: 10px;">Please Select Food Stall...</h1>
 
             <div class="row">
-                <a href="#" class="card bg-white text-dark col-sm-6">
+                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
                     <img src="..." class="card-img" alt="...">
                     <div class="card-img-overlay">
                         <h1 class="display-4">Noodles</h1>
                     </div>
                 </a>
-                <a href="#" class="card bg-white text-dark col-sm-6">
+                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
                     <img src="..." class="card-img" alt="...">
                     <div class="card-img-overlay">
                         <h1 class="display-4">Masakan Malaysia</h1>
@@ -100,31 +93,39 @@
                 </a>
             </div>
             <div class="row">
-                <a href="#" class="card bg-white text-dark col-sm-6">
+                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
                     <img src="..." class="card-img" alt="...">
                     <div class="card-img-overlay">
                         <h1 class="display-4">Card title</h1>
                     </div>
                 </a>
-                <a href="#" class="card bg-white text-dark col-sm-6">
+                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
                     <img src="..." class="card-img" alt="...">
                     <div class="card-img-overlay">
                         <h1 class="display-4">Card title</h1>
                     </div>
                 </a>
             </div>
-
-
+            <div class="row">
+                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
+                    <img src="..." class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h1 class="display-4">Card title</h1>
+                    </div>
+                </a>
+                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
+                    <img src="..." class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <h1 class="display-4">Card title</h1>
+                    </div>
+                </a>
+            </div>
         </div>
-
-
-
+        
         <!--	Footer-->
-        <footer class="bg-dark fixed-bottom">
-            <p class="text-muted">Cover template for <a href="#">Bricks</a>, by <a href="#">St. Freya University</a>.</p>
+        <footer class="footer bg-dark text-center" style="padding: 10px 10px;">
+            <span class="text-muted">Cover template for <a href="#">Bricks</a>, by <a href="#">St. Freya University</a>.</span>
         </footer>
-
-
         <script src="../../bootstrap/js/jquery.min.js"></script>
         <script src="../../bootstrap/js/popper.min.js"></script>
         <script src="../../bootstrap/js/bootstrap.min.js"></script>

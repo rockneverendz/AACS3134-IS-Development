@@ -21,8 +21,6 @@
                 background-size: cover;
             }
 
-
-
             .mainContainer{
                 max-width: 800px;
                 max-height: 500px;
