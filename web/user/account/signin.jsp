@@ -133,7 +133,7 @@
     <body>
         <form class="form-signin" action="signin" method="POST">
             <div class="text-center mb-4">
-                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo"/>
+                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="50%"/>
                 <h1 class="display-3">Sign In</h1>
             </div>
             <%
@@ -178,7 +178,7 @@
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signup.jsp">Create New Account</a>
-            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">Bricks Â© 2019</p>
         </form>
     </body>
 </html>
