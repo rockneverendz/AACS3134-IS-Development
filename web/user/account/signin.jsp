@@ -4,8 +4,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="../../resource/St._Freya_Emblem.png" rel="icon" />
-
+        <link href="../../resource/Icon.png" rel="icon" />
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
 
@@ -134,7 +133,7 @@
     <body>
         <form class="form-signin" action="signin" method="POST">
             <div class="text-center mb-4">
-                <img class="mb-4" src="../../resource/St._Freya_Emblem.png" alt="logo" width="100px">
+                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo"/>
                 <h1 class="display-3">Sign In</h1>
             </div>
             <%
