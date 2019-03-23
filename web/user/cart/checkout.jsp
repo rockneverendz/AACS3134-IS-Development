@@ -15,7 +15,7 @@
 
         <title>Bricks | Cart</title>
         <style>
-            
+
             footer > span > a{
                 color: aliceblue;
             }
@@ -43,7 +43,7 @@
                     <!-- Float Right use ml-auto-->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" href="confirm.jsp"><i class="fas fa-shopping-cart"></i> Cart</a>
+                            <a class="nav-link active" href="cart.jsp"><i class="fas fa-shopping-cart"></i> Cart</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="fas fa-money-check-alt"></i> Coupon</a>
@@ -92,7 +92,7 @@
                                 Chicken Rice
                             </td>
                             <td>
-                                <%= i+1 %>
+                                <%= i + 1%>
                             </td>
                             <td>RM <%= i + 2%></td>
                             <td><strong>RM <%= i * 2%></strong></td>
@@ -106,9 +106,28 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <form >
+                    <div class="row font-weight-bold">
+                        <div class="col-sm-4">
+                            <label>Redeem Date:</label>
+                            <div class="input-group col-sm-6">
+                                <div class="input-daterange input-group" id="datepicker">
+                                    <input type="text" class="input-sm form-control-plaintext" name="redeem_date" readonly value="dd/mm/yyyy"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 ">
+                            <label>Redeem Time: </label>
+                            <input type="text" class="input-sm form-control-plaintext" name="redeem_time" readonly value="Breakfast/Lunch"/>
+                        </div>
+                    </div>
+                </form>
+
                 <div id="checkoutBtn">
                     <a href="checkout.jsp">
-                        <button class="btn btn-dark btn-lg float-right" type="submit" id="cekOut">Checkout</button>
+                        <button class="btn btn-dark btn-lg float-right" type="submit" id="cekOut">Place Order</button>
                     </a>
                 </div>
             </div>
