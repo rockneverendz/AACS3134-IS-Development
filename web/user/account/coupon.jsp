@@ -9,13 +9,9 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
 
-
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
-
-
-        <title>Bricks | Cart</title>
+        <title>Bricks | Coupon</title>
         <style>
-
             footer > span > a{
                 color: aliceblue;
             }
@@ -23,10 +19,6 @@
             footer > span :hover{
                 color: aliceblue;
             }
-
-
-
-
         </style>
 
     </head>
@@ -43,10 +35,10 @@
                     <!-- Float Right use ml-auto-->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" href="cart.jsp"><i class="fas fa-shopping-cart"></i> Cart</a>
+                            <a class="nav-link" href="../cart/cart.jsp"><i class="fas fa-shopping-cart"></i> Cart</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../account/coupon.jsp"><i class="fas fa-money-check-alt"></i> Coupon</a>
+                            <a class="nav-link active" href="coupon.jsp"><i class="fas fa-money-check-alt"></i> Coupon</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../meal/main.jsp"><i class="fas fa-edit"></i> Order</a>
@@ -67,69 +59,28 @@
             </div>
         </nav>
 
-
         <main role="main">
             <div class="container" style="padding: 25px;">
 
+                <h1>Coupon</h1><br>
+                <div class="row">
 
-                <h1>Order summary</h1>
-
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Food</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for (int i = 0; i < 5; i++) {%>
-                        <tr>
-                            <th scope="row"><%= i + 1%></th>
-                            <td>    
-                                Chicken Rice
-                            </td>
-                            <td>
-                                <%= i + 1%>
-                            </td>
-                            <td>RM <%= i + 2%></td>
-                            <td><strong>RM <%= i * 2%></strong></td>
-
-                        </tr>
-                        <% }%>
-
-                        <tr scope="row">
-                            <td colspan="4"><strong>Subtotal:</strong></td>
-                            <td><strong>RM 9999.99</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <form >
-                    <div class="row font-weight-bold">
-                        <div class="col-sm-4">
-                            <label>Redeem Date:</label>
-                            <div class="input-group col-sm-6">
-                                <div class="input-daterange input-group" id="datepicker">
-                                    <input type="text" class="input-sm form-control-plaintext" name="redeem_date" readonly value="dd/mm/yyyy"/>
-                                </div>
+                    <% for (int i = 0; i < 10; i++) { %>
+                    <div class="card col-sm-6">
+                        <div class="card-body">
+                            <h5 class="card-title">Coupon Number : <%= i+10000 %></h5>
+                            <div class="row">
+                                <p class="card-text col-6">Meal : Chicken Rice <br>Price : RM 5.00 <br>Food Stall : Chicken Rice <br>Redeem Date & Time : dd/mm/yyyy Lunch</p>
+                                <p class="card-text col-6">Qty : 1 <br>Type : Single Day<br>Barcode : <span class="barcode" ><i class="fas fa-barcode"></i></span></p>
                             </div>
                         </div>
-
-                        <div class="col-sm-4 ">
-                            <label>Redeem Time: </label>
-                            <input type="text" class="input-sm form-control-plaintext" name="redeem_time" readonly value="Breakfast/Lunch"/>
-                        </div>
                     </div>
-                </form>
+                    <% }%>
 
-                <div id="checkoutBtn">
-                    <a href="checkout.jsp">
-                        <button class="btn btn-dark btn-lg float-right" type="submit" id="cekOut">Place Order</button>
-                    </a>
                 </div>
+
+
+
             </div>
         </main>
 
