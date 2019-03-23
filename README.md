@@ -32,3 +32,9 @@ So we don't have to keep passwords and sensitive info in raw text inside the pro
 Project design and database scripts should be in the folder `./structure`  
 Try to make root directory clean as possible tnx.
 
+## Using ij to export/import LOB data
+
+& "C:\Program Files\db-derby-10.14.2.0-bin\bin\ij.bat"
+connect 'jdbc:derby:canteenDB;user=nbuser;password=nbuser';
+
+SELECT "NAME","DESCRIPTION","IMAGE" FROM NBUSER.CATEGORY FETCH FIRST 100 ROWS ONLY;
