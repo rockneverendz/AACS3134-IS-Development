@@ -1,6 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -9,55 +8,10 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-        <script src="../../bootstrap/js/bootstrap.min.js"></script>
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
-
-        <title>Bricks | Category</title>
-
-        <!--        CSS-->
+        <title>Bricks | Coupon</title>
         <style>
-
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
-
-            @media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                    font-size: 3.5rem;
-                }
-            }
-
-            .jumbotron {
-                padding-top: 3rem;
-                padding-bottom: 3rem;
-                margin-bottom: 0;
-                background-color: #fff;
-            }
-            @media (min-width: 768px) {
-                .jumbotron {
-                    padding-top: 6rem;
-                    padding-bottom: 6rem;
-                }
-            }
-
-            .jumbotron p:last-child {
-                margin-bottom: 0;
-            }
-
-            .jumbotron-heading {
-                font-weight: 300;
-            }
-
-            .jumbotron .container {
-                max-width: 40rem;
-            }
-
             footer > span > a{
                 color: aliceblue;
             }
@@ -65,24 +19,10 @@
             footer > span :hover{
                 color: aliceblue;
             }
-
-            .card{
-                height: 300px;
-            }
-
-            .card-deck > a{
-                color: black;
-            }
-            .card-deck > a:hover{
-                color: black;
-                text-decoration: none;
-            }
-
         </style>
 
     </head>
-    <body class="text-center">
-
+    <body>
         <!--	Nav Bar-->
         <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
             <div class="container">
@@ -98,10 +38,10 @@
                             <a class="nav-link" href="../cart/cart.jsp"><i class="fas fa-shopping-cart"></i> Cart</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../account/coupon.jsp"><i class="fas fa-money-check-alt"></i> Coupon</a>
+                            <a class="nav-link active" href="coupon.jsp"><i class="fas fa-money-check-alt"></i> Coupon</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="main.jsp"><i class="fas fa-edit"></i> Order</a>
+                            <a class="nav-link" href="../meal/main.jsp"><i class="fas fa-edit"></i> Order</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle dropdown-menu-left" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-user"></i> Account</a>
@@ -118,33 +58,38 @@
                 </div>
             </div>
         </nav>
-        <!--	Main Content-->
-        <div class="container" style="padding: 25px;">
-            <section class="jumbotron text-center">
-                <div class="container">
-                    <h1 class="jumbotron-heading">Category</h1>
-                    <p class="lead text-muted">Please Select a Category.</p>
+
+        <main role="main">
+            <div class="container" style="padding: 25px;">
+
+                <h1>Coupon</h1><br>
+                <div class="row">
+
+                    <% for (int i = 0; i < 10; i++) { %>
+                    <div class="card col-sm-6">
+                        <div class="card-body">
+                            <h5 class="card-title">Coupon Number : <%= i+10000 %></h5>
+                            <div class="row">
+                                <p class="card-text col-6">Meal : Chicken Rice <br>Price : RM 5.00 <br>Food Stall : Chicken Rice <br>Redeem Date & Time : dd/mm/yyyy Lunch</p>
+                                <p class="card-text col-6">Qty : 1 <br>Type : Single Day<br>Barcode : <span class="barcode" ><i class="fas fa-barcode"></i></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <% }%>
 
                 </div>
-            </section>
-            <div class="row">
-                <% for (int i = 0; i < 6; i++) {%>
-                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
-                    <img src="..." class="card-img" alt="...">
-                    <div class="card-img-overlay">
-                        <div class="display-4">Category</div>
-                    </div>
-                </a>
-                <% } %>
+
+
+
             </div>
-        </div>
+        </main>
+
         <!--	Footer-->
-        <footer class="footer bg-dark text-center" style="padding: 10px 10px;">
+        <footer class="bg-dark text-center" style="margin-top: 100px; padding: 10px 10px;">
             <span class="text-muted">Cover template for <a href="#">Bricks</a>, by <a href="#">St. Freya University</a>.</span>
         </footer>
         <script src="../../bootstrap/js/jquery.min.js"></script>
         <script src="../../bootstrap/js/popper.min.js"></script>
         <script src="../../bootstrap/js/bootstrap.min.js"></script>
-
     </body>
 </html>

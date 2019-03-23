@@ -46,7 +46,7 @@
                             <a class="nav-link active" href="cart.jsp"><i class="fas fa-shopping-cart"></i> Cart</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fas fa-money-check-alt"></i> Coupon</a>
+                            <a class="nav-link" href="../account/coupon.jsp"><i class="fas fa-money-check-alt"></i> Coupon</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../meal/main.jsp"><i class="fas fa-edit"></i> Order</a>
