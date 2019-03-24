@@ -16,22 +16,15 @@
 
         <!--        CSS-->
         <style>
-
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
+            .nav-item:nth-child(2) .nav-link { 
+                color: #fff; /* Highlights the 2nd child (Order) of the nav-item */ 
             }
 
-            @media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                    font-size: 3.5rem;
-                }
+            .nav-item .dropdown-menu .dropdown-item i { 
+                float: right; /* equal to the Bootstrap class 'float-right' */
+                line-height:inherit; /* makes the icon float in the middle */
             }
-
+            
             .jumbotron {
                 padding-top: 3rem;
                 padding-bottom: 3rem;
@@ -76,41 +69,51 @@
                 color: black;
                 text-decoration: none;
             }
-
         </style>
-
     </head>
     <body class="text-center">
 
-        <!--	Nav Bar-->
+        <!-- Nav Bar -->
         <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="#"><img src="../../resource/Logo3.png" alt="logo" width="150px"></a>
+                <a href="#">
+                    <img src="../../resource/Logo3.png" alt="logo" width="150px">
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
 
-                    <!-- Float Right use ml-auto-->
+                    <!-- Float Right use ml-auto -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="../cart/cart.jsp"><i class="fas fa-shopping-cart"></i> Cart</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../account/coupon.jsp"><i class="fas fa-money-check-alt"></i> Coupon</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="main.jsp"><i class="fas fa-edit"></i> Order</a>
+                            <a class="nav-link" href="main.jsp"><i class="fas fa-edit"></i> Order</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle dropdown-menu-left" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-user"></i> Account</a>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <a class="btn dropdown-item" href="#" role="button"><i class="fas fa-edit"></i> Order List</a>
-                                <a class="btn dropdown-item" href="#" role="button"><i class="fas fa-coins"></i> Reload List</a>
-                                <a class="btn dropdown-item" href="#" role="button"><i class="fas fa-file-contract"></i> Intake List</a>
+                                <a class="btn dropdown-item" href="../account/coupon.jsp" role="button">
+                                    <i class="fas fa-money-check-alt"></i>Coupon List
+                                </a>
+                                <a class="btn dropdown-item" href="#" role="button">
+                                    <i class="fas fa-history"></i>Order List
+                                </a>
+                                <a class="btn dropdown-item" href="#" role="button">
+                                    <i class="fas fa-coins"></i>Reload List
+                                </a>
+                                <a class="btn dropdown-item" href="#" role="button">
+                                    <i class="fas fa-file-contract"></i>Intake List
+                                </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="btn dropdown-item" href="#" role="button"><i class="fas fa-cog"></i> Settings</a>
-                                <a class="btn dropdown-item" href="../account/signout" role="button"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                                <a class="btn dropdown-item" href="#" role="button">
+                                    <i class="fas fa-cog"></i>Settings
+                                </a>
+                                <a class="btn dropdown-item" href="../account/signout" role="button">
+                                    <i class="fas fa-sign-out-alt"></i>Sign Out
+                                </a>
                             </ul>
                         </li>
                     </ul>
