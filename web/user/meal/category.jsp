@@ -24,7 +24,27 @@
                 float: right; /* equal to the Bootstrap class 'float-right' */
                 line-height:inherit; /* makes the icon float in the middle */
             }
+
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
             
+            .col-6 {
+                padding-right: 0;
+                padding-left: 0;
+            }
+
             .jumbotron {
                 padding-top: 3rem;
                 padding-bottom: 3rem;
@@ -60,6 +80,9 @@
 
             .card{
                 height: 300px;
+                margin-bottom: -1px;
+                margin-left: -1px;
+                border-radius: 0;
             }
 
             .card-deck > a{
@@ -84,13 +107,21 @@
             </section>
             <div class="row">
                 <% for (int i = 0; i < 6; i++) {%>
-                <a href="viewmeal.jsp" class="card bg-white text-dark col-sm-6">
-                    <img src="..." class="card-img" alt="...">
-                    <div class="card-img-overlay">
-                        <div class="display-4">Category</div>
+                <a class="card bg-dark text-white col-6">
+                    <div >
+                        <!--<img src="..." class="card-img" alt="...">-->
+                        <svg class="bd-placeholder-img card-img" width="600" height="300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#55595c"></rect>
+                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                        </svg>
+
+                        <div class="card-img-overlay">
+                            <h5 class="card-title">Card title</h5>
+                        </div>
                     </div>
                 </a>
-                <% } %>
+                <% }%>
             </div>
         </div>
         <!--	Footer-->
