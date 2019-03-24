@@ -134,7 +134,7 @@
     <body>
         <form class="form-signup" action="signup" method="POST">           
             <div class="text-center mb-4">
-                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo"/>
+                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="50%"/>
                 <h1 class="display-3">Sign Up</h1>
             </div>
             <%
@@ -166,26 +166,26 @@
                 }
             %>
             <div class="form-label-group">
-                <input id="inputUserID" name="UserID" type="text" class="form-control"  placeholder="Username" required autofocus>
+                <input id="inputUserID" name="UserID" type="text" class="form-control" placeholder="Username" required autofocus>
                 <label for="inputUserID">User ID</label>
             </div>
             <div class="form-label-group">
-                <input id="inputEmail" name="Email" type="email" class="form-control" placeholder="E-mail" required>
-                <label for="inputEmail">Email</label>
+                <input id="inputEmail" name="Email" type="email" class="form-control" placeholder="Email address" required>
+                <label for="inputEmail">Email address</label>
             </div>
             <div class="form-label-group">
-                <input id="inputPassword" name="Password" type="password" class="form-control" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required 
-                       data-toggle="tooltip" data-placement="left" 
-                       title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter">
+                <input id="inputPassword" name="Password" type="password" class="form-control" placeholder="Password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required data-toggle="tooltip" data-placement="left" 
+                    title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter">
                 <label for="inputPassword">Password</label>
             </div>
             <div class="form-label-group">
-                <input id="inputCPassword" name="CPassword" type="password" class="form-control" placeholder="Re-type password" required>
-                <label for="inputCPassword">Confirm Password</label>
+                <input id="inputConfirmPass" type="password" class="form-control" placeholder=" Confirm Password" required>
+                <label for="inputConfirmPass">Confirm Password</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to Sign-In</a>
-            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">Bricks Â© 2019</p>
         </form>
 
         <script src="../../bootstrap/js/jquery.min.js"></script>
@@ -211,5 +211,4 @@
             });
         </script>
     </body>
-
 </html>
