@@ -201,8 +201,8 @@
                 <label for="inputCategory">Category*</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Create New Account</button>
-            <a href="signin.html" class="btn btn-lg btn-secondary btn-block" style="color: white;">Back to Sign in</a>
-            <p class="mt-5 mb-3 text-muted text-center">Bricks Â© 2019</p>
+            <a href="signin.jsp" class="btn btn-lg btn-secondary btn-block" style="color: white;">Back to Sign in</a>
+            <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
         </form>
 
         

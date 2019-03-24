@@ -65,10 +65,10 @@
                 <h1>Coupon</h1><br>
                 <div class="row">
 
-                    <% for (int i = 0; i < 10; i++) { %>
+                    <% for (int i = 0; i < 10; i++) {%>
                     <div class="card col-sm-6">
                         <div class="card-body">
-                            <h5 class="card-title">Coupon Number : <%= i+10000 %></h5>
+                            <h5 class="card-title">Coupon Number : <%= i + 10000%></h5>
                             <div class="row">
                                 <p class="card-text col-6">Meal : Chicken Rice <br>Price : RM 5.00 <br>Food Stall : Chicken Rice <br>Redeem Date & Time : dd/mm/yyyy Lunch</p>
                                 <p class="card-text col-6">Qty : 1 <br>Type : Single Day<br>Barcode : <span class="barcode" ><i class="fas fa-barcode"></i></span></p>
@@ -78,9 +78,6 @@
                     <% }%>
 
                 </div>
-
-
-
             </div>
         </main>
 
