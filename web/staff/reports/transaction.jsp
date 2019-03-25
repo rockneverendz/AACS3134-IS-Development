@@ -185,18 +185,19 @@
                     </div>
                 </nav>
 
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4">
                         <h3>Transaction History</h3>
 
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">No.</th>
-                                    <th scope="col">Food</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Total</th>
+                                    <th scope="col">#ID</th>
+                                    <th scope="col">Customer Name</th>
+                                    <th scope="col">Reload Amount</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Staff Name</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -204,22 +205,23 @@
                                 <tr>
                                     <th scope="row"><%= i + 1%></th>
                                     <td>    
-                                        Chicken Rice
+                                        Name*
                                     </td>
                                     <td>
-                                        <%= i + 1%>
+                                        RM <%= i + 5%>
                                     </td>
-                                    <td>RM <%= i + 2%></td>
-                                    <td><strong>RM <%= i * 2%></strong></td>
+                                    <td>dd/mm/yyyy</td>
+                                    <td><strong>hh:mm</strong></td>
+                                    <td><strong>Name</strong></td>
                                 </tr>
                                 <% }%>
                             </tbody>
                         </table>
 
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-sm-5">
                                 <form>
-                                    <div class="input-group mt-1">
+                                    <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Search by Date/Week</span>
                                         </div>
@@ -230,6 +232,9 @@
                                     </div>
                                 </form>
                             </div>
+                            <div class="col-sm-6">
+                                <button class="btn btn-outline-primary d-print-none" onclick="printFn()" id="print"><i class="fas fa-print"></i> Print</button>
+                            </div>
                         </div>
                     </div>
                     <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
@@ -237,10 +242,29 @@
             </div>
         </div>
 
-
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <script src="../../bootstrap/js/jquery.min.js"></script>
+        <script src="../../bootstrap/js/popper.min.js"></script>
+        <!-- Font Awsome -->
+        <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+
+        <script>
+                                    function printFn() {
+
+                                        $("#mainContainer").removeClass("col-md-9");
+                                        $("#mainContainer").removeClass("ml-sm-auto");
+                                        $("#mainContainer").removeClass("col-lg-10");
+                                        $("#mainContainer").addClass("col-sm-12");
+                                        window.print();
+                                        $("#mainContainer").removeClass("col-sm-12");
+                                        $("#mainContainer").addClass("col-md-9");
+                                        $("#mainContainer").addClass("ml-sm-auto");
+                                        $("#mainContainer").addClass("col-lg-10");
+                                    }
+        </script>
 
     </body>
 </html>
