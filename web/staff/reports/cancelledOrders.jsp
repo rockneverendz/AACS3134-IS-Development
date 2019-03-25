@@ -8,8 +8,11 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <!-- Font Awsome -->
+        <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 
-        <title>Report | Meal Orders</title>
+        <title>Report | Cancellations</title>
 
         <!--CSS-->
         <style>
@@ -101,13 +104,16 @@
                 padding-top: .75rem;
                 padding-bottom: .75rem;
             }
+
+
+
         </style>
     </head>
 
     <body>
 
         <!-- Fixed-top Navs -->
-        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow navbar-expand-lg d-print-none">
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow navbar-expand-lg">
             <a class="navbar-brand pl-3" href="#"><img src="../../resource/Logo2.png" alt="logo" width="110px"></a>
             <div class="dropdown ml-auto">
                 <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -123,7 +129,7 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- Fixed-Sidebar Navs -->
-                <nav class="col-md-2 d-md-block bg-light sidebar d-print-none">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column pt-2">
                             <li class="nav-item">
@@ -166,12 +172,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../reports/transaction.jsp">
+                                <a class="nav-link active" href="../reports/transaction.jsp">
                                     <i class="fas fa-file-alt feather"></i> Transaction History
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="../reports/orderlist.jsp">
+                                <a class="nav-link" href="../reports/orderlist.jsp">
                                     <i class="fas fa-file-alt feather"></i> Weekly Meals Orders
                                 </a>
                             </li>
@@ -181,16 +187,17 @@
 
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4">
-                        <h3>Weekly Meals Ordered</h3>
+                        <h3>Cancelled Orders</h3>
 
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">No.</th>
-                                    <th scope="col">Food</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Ingredient</th>
-                                    <th scope="col">Total ingredient needed</th>
+                                    <th scope="col">#ID</th>
+                                    <th scope="col">Customer Name</th>
+                                    <th scope="col">Reload Amount</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Staff Name</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -198,13 +205,14 @@
                                 <tr>
                                     <th scope="row"><%= i + 1%></th>
                                     <td>    
-                                        Chicken Rice
+                                        Name*
                                     </td>
                                     <td>
-                                        <%= i + 1%>
+                                        RM <%= i + 5%>
                                     </td>
-                                    <td>Ingredient</td>
-                                    <td><strong><%= i + 1 %></strong></td>
+                                    <td>dd/mm/yyyy</td>
+                                    <td><strong>hh:mm</strong></td>
+                                    <td><strong>Name</strong></td>
                                 </tr>
                                 <% }%>
                             </tbody>
@@ -231,10 +239,8 @@
                     </div>
                     <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
                 </main>
-
             </div>
         </div>
-
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -259,7 +265,6 @@
                                         $("#mainContainer").addClass("col-lg-10");
                                     }
         </script>
-
 
     </body>
 </html>
