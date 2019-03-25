@@ -113,7 +113,7 @@
     <body>
 
         <!-- Fixed-top Navs -->
-        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow navbar-expand-lg">
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow navbar-expand-lg d-print-none">
             <a class="navbar-brand pl-3" href="#"><img src="../../resource/Logo2.png" alt="logo" width="110px"></a>
             <div class="dropdown ml-auto">
                 <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -129,7 +129,7 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- Fixed-Sidebar Navs -->
-                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar d-print-none">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column pt-2">
                             <li class="nav-item">
