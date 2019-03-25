@@ -82,7 +82,7 @@
                                 </div>
                             </div>
 
-                            <div class="card shadow mb-4">
+                            <div class="card shadow mb-4 w-100">
                                 <div class="card-header py-3 d-flex mb-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Intake Report</h6>
                                     <div class="ml-auto">
@@ -104,25 +104,21 @@
                                         <table class="table table-bordered" width="100%" cellspacing="0" role="grid" style="width: 100%;">
                                             <thead>
                                                 <tr role="row">
-                                                    <th rowspan="1" colspan="1" style="width: 5%;">Day</th>
-                                                    <th rowspan="1" colspan="1" style="width: 419px;">Position</th>
-                                                    <th rowspan="1" colspan="1" style="width: 196px;">Office</th>
-                                                    <th rowspan="1" colspan="1" style="width: 99px;">Age</th>
-                                                    <th rowspan="1" colspan="1" style="width: 183px;">Start date</th>
-                                                    <th rowspan="1" colspan="1" style="width: 168px;">Salary</th>
+                                                    <th rowspan="1" colspan="1" style="width: 5%;">No.</th>
+                                                    <th rowspan="1" colspan="1" style="width: 15%;">Date</th>
+                                                    <th rowspan="1" colspan="1" style="width: 10%;">Expenses </th>
+                                                    <th rowspan="1" colspan="1" style="width: 10%;">Calories</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <%
-                                                    for (int i = 0; i < 26; i++) {
+                                                    for (int i = 1; i <= 26; i++) {
                                                 %>
                                                 <tr role="row" class="odd">
-                                                    <td><%= i %></td>
-                                                    <td>Accountant</td>
-                                                    <td>Tokyo</td>
-                                                    <td>33</td>
-                                                    <td>2008/11/28</td>
-                                                    <td>$162,700</td>
+                                                    <td><%= i%></td>
+                                                    <td><%= i%>-3-2019</td>
+                                                    <td>RM <%= i * 2%></td>
+                                                    <td><%= i * 40%></td>
                                                 </tr>
                                                 <%
                                                     }
