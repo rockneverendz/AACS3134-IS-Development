@@ -102,17 +102,17 @@
             </section>
             <div class="row">
                 <% for (int i = 0; i < 6; i++) {%>
-                <a class="card bg-dark text-white col-6">
-                    <div >
+                <a href="../meal/viewmeal.jsp" class="card bg-dark text-white col-6">
+                    <div>
                         <!--<img src="..." class="card-img" alt="...">-->
                         <svg class="bd-placeholder-img card-img" width="600" height="300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-                        <title>Placeholder</title>
+                        <title>Category Thumbnail</title>
                         <rect width="100%" height="100%" fill="#55595c"></rect>
-                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Category Thumbnail</text>
                         </svg>
 
                         <div class="card-img-overlay">
-                            <h5 class="card-title">Card title</h5>
+                            <h5 class="card-title display-4">Category Title</h5>
                         </div>
                     </div>
                 </a>
