@@ -13,6 +13,12 @@
 
         <title>Reload</title>
         <style>
+            .dropdown-item:nth-child(3){
+                color: #fff;
+                text-decoration: none;
+                background-color: #007bff;
+            }
+            
             footer {
                 padding-top: 3rem;
                 padding-bottom: 3rem;

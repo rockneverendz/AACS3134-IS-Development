@@ -8,10 +8,16 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
+
         <title>Bricks | Coupon</title>
         <style>
+            .dropdown-item:nth-child(1){
+                color: #fff;
+                text-decoration: none;
+                background-color: #007bff;
+            }
+            
             .card{
                 height: 200px;
                 margin-bottom: -1px;
