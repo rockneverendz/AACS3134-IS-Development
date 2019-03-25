@@ -20,7 +20,7 @@
             }
             
             .bg-dark {
-                background-color: unset;
+                background-color: unset!important;
             }
 
             .mainContainer{
