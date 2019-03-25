@@ -4,16 +4,15 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="St._Freya_Emblem.png" rel="icon" />
+        <link href="../../resource/Icon.png" rel="icon" />
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+
         <!-- Font Awsome -->
         <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 
-        <title>Password Recovery</title>
-
+        <title>Settings</title>
         <style>
             html,body { 
                 height:100%;
@@ -140,5 +139,6 @@
                 <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
             </form>
         </div>
+        <%@include file="../layout/scripts.html" %>
     </body>
 </html>

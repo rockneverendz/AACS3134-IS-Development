@@ -20,11 +20,6 @@
                 color: #fff; /* Highlights the 2nd child (Order) of the nav-item */ 
             }
 
-            .nav-item .dropdown-menu .dropdown-item i { 
-                float: right; /* equal to the Bootstrap class 'float-right' */
-                line-height:inherit; /* makes the icon float in the middle */
-            }
-
             .bd-placeholder-img {
                 font-size: 1.125rem;
                 text-anchor: middle;
@@ -124,13 +119,7 @@
                 <% }%>
             </div>
         </div>
-        <!--	Footer-->
-        <footer class="footer bg-dark text-center" style="padding: 10px 10px;">
-            <span class="text-muted">Cover template for <a href="#">Bricks</a>, by <a href="#">St. Freya University</a>.</span>
-        </footer>
-        <script src="../../bootstrap/js/jquery.min.js"></script>
-        <script src="../../bootstrap/js/popper.min.js"></script>
-        <script src="../../bootstrap/js/bootstrap.min.js"></script>
-
+        <%@include file="../layout/footer.html" %>
+        <%@include file="../layout/scripts.html" %>
     </body>
 </html>

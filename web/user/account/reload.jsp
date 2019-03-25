@@ -9,32 +9,8 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
 
-        <title>User Login</title>
+        <title>Reload</title>
         <style>
-            .nav-item:nth-child(2) .nav-link { 
-                color: #fff; /* Highlights the 2nd child (Order) of the nav-item */ 
-            }
-
-            .nav-item .dropdown-menu .dropdown-item i { 
-                float: right; /* equal to the Bootstrap class 'float-right' */
-                line-height:inherit; /* makes the icon float in the middle */
-            }
-            
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
-
-            @media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                    font-size: 3.5rem;
-                }
-            }
-
             footer {
                 padding-top: 3rem;
                 padding-bottom: 3rem;

@@ -12,9 +12,7 @@
         <script src="../../bootstrap/js/bootstrap.min.js"></script>
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
-
         <title>Bricks</title>
-
         <style>
             body{
                 background-image: url(../../resource/bg.jpg);
@@ -59,45 +57,8 @@
 
     <body class="text-center">
 
-        <!--	Nav Bar-->
-        <nav class="navbar navbar-expand-lg text-white">
-
-            <div class="container">
-                <a class="navbar-brand" href="#"><img src="../../resource/Logo3.png" alt="logo" width="150px"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarText">
-
-                    <!-- Float Right use ml-auto-->
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../cart/cart.jsp"><i class="fas fa-shopping-cart"></i> Cart</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../account/coupon.jsp"><i class="fas fa-money-check-alt"></i> Coupon</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="main.jsp"><i class="fas fa-edit"></i> Order</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle dropdown-menu-left" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-user"></i> Account</a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <a class="btn dropdown-item" href="#" role="button"><i class="fas fa-edit"></i> Order List</a>
-                                <a class="btn dropdown-item" href="#" role="button"><i class="fas fa-coins"></i> Reload List</a>
-                                <a class="btn dropdown-item" href="#" role="button"><i class="fas fa-file-contract"></i> Intake List</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="btn dropdown-item" href="#" role="button"><i class="fas fa-cog"></i> Settings</a>
-                                <a class="btn dropdown-item" href="../account/signout" role="button"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-
-        <!--	Main Content-->
+        <%@include file="../layout/navbar.html" %>
+        <!-- Main Content -->
         <div class="mainContainer row">
 
             <div class="card-deck">
@@ -115,19 +76,10 @@
                 </a>
             </div>
         </div>
-
-
-
-        <!--	Footer-->
         <footer class="fixed-bottom">
             <p class="text-muted">Cover template for <a href="#">Bricks</a>, by <a href="#">St. Freya University</a>.</p>
         </footer>
-
-
-        <script src="../../bootstrap/js/jquery.min.js"></script>
-        <script src="../../bootstrap/js/popper.min.js"></script>
-        <script src="../../bootstrap/js/bootstrap.min.js"></script>
-
+        <%@include file="../layout/scripts.html" %>
     </body>
 
 </html>
