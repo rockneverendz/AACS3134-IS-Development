@@ -145,6 +145,7 @@
             <div class="form-label-group">
                 <input id="inputPassword" name="Password" type="password" class="form-control" placeholder="Password" required>
                 <label for="inputPassword">Password</label>
+                <p><small><a href="./passrecovery.jsp">Forget Password?</a></small></p>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="signup.jsp">Create New Account</a>
