@@ -178,7 +178,7 @@
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signup.jsp">Create New Account</a>
-            <p class="mt-5 mb-3 text-muted text-center">Bricks Â© 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
         </form>
     </body>
 </html>
