@@ -14,6 +14,12 @@
 
         <title>Settings</title>
         <style>
+            .dropdown-item:nth-child(6){
+                color: #fff;
+                text-decoration: none;
+                background-color: #007bff;
+            }
+            
             html,body { 
                 height:100%;
             }
@@ -122,17 +128,17 @@
                     <h1 class="display-3">Settings</h1>
                 </div>
                 <div class="form-label-group">
-                    <input id="inputPassword" name="NewPassword" type="password" class="form-control" placeholder="New Password" required>
-                    <label for="inputPassword">New Password</label>
+                    <input id="inputNewPassword" name="NewPassword" type="password" class="form-control" placeholder="New Password" required>
+                    <label for="inputNewPassword">New Password</label>
                 </div>
                 <div class="form-label-group">
-                    <input id="inputPassword" name="NewCPassword" type="password" class="form-control" placeholder="Confirm Password" required>
-                    <label for="inputPassword">Confirm Password</label>
+                    <input id="inputNewCPassword" name="NewCPassword" type="password" class="form-control" placeholder="Confirm Password" required>
+                    <label for="inputNewCPassword">Confirm Password</label>
                 </div>
                 <hr/>
                 <div class="form-label-group">
-                    <input id="inputPassword" name="CurrentPassword" type="password" class="form-control" placeholder="Current Password" required>
-                    <label for="inputPassword">Current Password</label>
+                    <input id="inputCurrentPassword" name="CurrentPassword" type="password" class="form-control" placeholder="Current Password" required>
+                    <label for="inputCurrentPassword">Current Password</label>
                     <p><small><a href="./passrecovery.jsp">Forget Password?</a></small></p>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
