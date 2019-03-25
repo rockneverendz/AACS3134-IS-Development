@@ -178,7 +178,17 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="../reports/orderlist.jsp">
-                                    <i class="fas fa-file-alt feather"></i> Weekly Meals Orders
+                                    <i class="fas fa-file-alt feather"></i> Daily or Weekly Meals Ordered
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../reports/cancelledOrders.jsp">
+                                    <i class="fas fa-file-alt feather"></i> Order Cancellations
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../reports/monthlyOrderlist.jsp">
+                                    <i class="fas fa-file-alt feather"></i> Monthly Order List
                                 </a>
                             </li>
                         </ul>
@@ -218,7 +228,7 @@
 
                         <div class="row">
                             <div class="col-sm-2">
-                                <a class="btn btn-dark btn-lg" href="#" role="button">Add Item</a>
+                                <a class="btn btn-dark btn-lg" href="add.jsp" role="button">Add Item</a>
                             </div>
                             <div class="col-sm-5">
                                 <form>
@@ -234,10 +244,10 @@
                                 </form>
                             </div>
                             <div class="col-sm-2">
-                                <a class="btn btn-dark btn-lg" href="#" role="button">Modify Item</a>
+                                <a class="btn btn-dark btn-lg" href="modify.jsp" role="button">Modify Item</a>
                             </div>
                             <div class="col-sm-2">
-                                <a class="btn btn-dark btn-lg" href="#" role="button">Delete Item</a>
+                                <a class="btn btn-dark btn-lg" href="delete.jsp" role="button">Delete Item</a>
                             </div>
                         </div>
 
