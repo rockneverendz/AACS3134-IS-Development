@@ -45,7 +45,9 @@
             <section class="text-center">
                 <div class="container d-flex justify-content-between align-items-center">
                     <h1 class="display-2">Intake List</h1>
-                    <a href="#" class="btn btn-primary my-2">Print</a>
+                    <a href="#" class="btn btn-primary my-2">Print
+                        <i class="fas fa-print"></i>
+                    </a>
                 </div>
             </section>
 
