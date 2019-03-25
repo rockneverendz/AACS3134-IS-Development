@@ -114,7 +114,7 @@
                                                 <%
                                                     for (int i = 1; i <= 26; i++) {
                                                 %>
-                                                <tr role="row" class="odd">
+                                                <tr role="row">
                                                     <td><%= i%></td>
                                                     <td><%= i%>-3-2019</td>
                                                     <td>RM <%= i * 2%></td>
