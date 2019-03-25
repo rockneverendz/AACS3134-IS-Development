@@ -12,7 +12,7 @@
         <!-- Font Awsome -->
         <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 
-        <title>Report | Transactions</title>
+        <title>Report | Transaction Report</title>
 
         <!--CSS-->
         <style>
@@ -178,7 +178,17 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="../reports/orderlist.jsp">
-                                    <i class="fas fa-file-alt feather"></i> Weekly Meals Orders
+                                    <i class="fas fa-file-alt feather"></i> Daily or Weekly Meals Ordered
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../reports/cancelledOrders.jsp">
+                                    <i class="fas fa-file-alt feather"></i> Order Cancellations
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../reports/monthlyOrderlist.jsp">
+                                    <i class="fas fa-file-alt feather"></i> Monthly Order List
                                 </a>
                             </li>
                         </ul>
@@ -218,7 +228,7 @@
                             </tbody>
                         </table>
 
-                        <div class="row mt-3">
+                        <div class="row mt-3 d-print-none">
                             <div class="col-sm-5">
                                 <form>
                                     <div class="input-group">

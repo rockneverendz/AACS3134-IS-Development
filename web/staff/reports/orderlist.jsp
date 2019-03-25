@@ -9,7 +9,7 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
 
-        <title>Report | Meal Orders</title>
+        <title>Report | Meal Orders Report</title>
 
         <!--CSS-->
         <style>
@@ -157,8 +157,7 @@
                                 </a>
                             </li>
                         </ul>
-
-
+                        
                         <ul class="nav flex-column mb-2">
                             <li class="nav-item mt-4">
                                 <a class="nav-link">
@@ -172,7 +171,17 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" href="../reports/orderlist.jsp">
-                                    <i class="fas fa-file-alt feather"></i> Weekly Meals Orders
+                                    <i class="fas fa-file-alt feather"></i> Daily or Weekly Meals Ordered
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../reports/cancelledOrders.jsp">
+                                    <i class="fas fa-file-alt feather"></i> Order Cancellations
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../reports/monthlyOrderlist.jsp">
+                                    <i class="fas fa-file-alt feather"></i> Monthly Order List
                                 </a>
                             </li>
                         </ul>
@@ -181,7 +190,7 @@
 
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4">
-                        <h3>Weekly Meals Ordered</h3>
+                        <h3>Daily/Weekly Meals Order List</h3>
 
                         <table class="table table-bordered table-hover">
                             <thead>
@@ -210,7 +219,7 @@
                             </tbody>
                         </table>
 
-                        <div class="row mt-3">
+                        <div class="row mt-3 d-print-none">
                             <div class="col-sm-5">
                                 <form>
                                     <div class="input-group">
@@ -225,7 +234,7 @@
                                 </form>
                             </div>
                             <div class="col-sm-6">
-                                <button class="btn btn-outline-primary d-print-none" onclick="printFn()" id="print"><i class="fas fa-print"></i> Print</button>
+                                <button class="btn btn-outline-primary" onclick="printFn()" id="print"><i class="fas fa-print"></i> Print</button>
                             </div>
                         </div>
                     </div>
