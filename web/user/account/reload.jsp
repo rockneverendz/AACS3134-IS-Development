@@ -1,18 +1,15 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="../../resource/St._Freya_Emblem.png" rel="icon" />
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
-
+        <%@include file="../layout/meta.html" %>
         <title>Reload</title>
         <style>
+            .dropdown-item:nth-child(3){
+                color: #fff;
+                text-decoration: none;
+                background-color: #007bff;
+            }
+            
             footer {
                 padding-top: 3rem;
                 padding-bottom: 3rem;
@@ -39,7 +36,9 @@
             <section class="text-center">
                 <div class="container d-flex justify-content-between align-items-center">
                     <h1 class="display-2">Reload List</h1>
-                    <a href="#" class="btn btn-primary my-2">Print</a>
+                    <a href="#" class="btn btn-primary my-2">Print
+                        <i class="fas fa-print"></i>
+                    </a>
                 </div>
             </section>
 
