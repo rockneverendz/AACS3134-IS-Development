@@ -14,6 +14,10 @@
                 margin-bottom: 0;
             }
 
+            .album {
+                height:75rem;
+            }
+
             footer {
                 padding-top: 3rem;
                 padding-bottom: 3rem;
@@ -45,7 +49,10 @@
                     </a>
                 </div>
             </section>
-            
+
+            <div class="album py-5 bg-light">
+            </div>
+
         </main>
         <%@include file="../layout/footer.html" %>
         <%@include file="../layout/scripts.html" %>

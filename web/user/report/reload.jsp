@@ -4,7 +4,7 @@
         <%@include file="../layout/meta.html" %>
         <title>Reload</title>
         <style>
-            .dropdown-item:nth-child(4){
+            .dropdown-item:nth-child(5){
                 color: #fff;
                 text-decoration: none;
                 background-color: #007bff;

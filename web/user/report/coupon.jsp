@@ -4,7 +4,7 @@
         <%@include file="../layout/meta.html" %>
         <title>Bricks | Coupon</title>
         <style>
-            .dropdown-item:nth-child(1){
+            .dropdown-item:nth-child(3){
                 color: #fff;
                 text-decoration: none;
                 background-color: #007bff;

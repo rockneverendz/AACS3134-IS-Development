@@ -140,7 +140,7 @@
     <body>
         <form class="form-recovery" >
             <div class="text-center mb-4">
-                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo"/>
+                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="50%"/>
                 <h1>Retrieve Password</h1>
             </div>
             <div class="form-label-group">
