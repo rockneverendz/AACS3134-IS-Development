@@ -23,14 +23,17 @@
                 margin-bottom: .25rem;
             }
 
-            .border-left-success {
-                border-left: .25rem solid #1cc88a!important;
-            }
-
             .border-left-primary {
                 border-left: .25rem solid #4e73df!important;
             }
-
+            
+            .border-left-info {
+                border-left: .25rem solid #17a2b8!important;
+            }
+            
+            .border-left-success {
+                border-left: .25rem solid #1cc88a!important;
+            }
         </style>
     </head>
     <body>
@@ -53,38 +56,54 @@
                             <div class="col-12 mb-4" style="position: relative; height:300px">
                                 <canvas class="col-12" id="myChart"></canvas>
                             </div>
-                            <div class="col-6 mb-4">
+                            <div class="col-4 mb-4">
                                 <div class="card border-left-primary shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Calories (Weekly)</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">40,000 kcal</div>
+                                                <div class="h6 text-primary mb-2">Total Calories</div>
+                                                <div class="h5 mb-0 font-weight-bold">40,000 kcal</div>
                                             </div>
                                             <div class="col-auto">
-                                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                                <i class="fas fa-fire fa-2x text-black-50"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-6 mb-4">
+                            <div class="col-4 mb-4">
+                                <div class="card border-left-info shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="h6 text-info mb-2">Mean Calories</div>
+                                                <div class="h5 mb-0 font-weight-bold">6,666 kcal</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-divide fa-2x text-black-50"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4 mb-4">
                                 <div class="card border-left-success shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Calories (Monthly)</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">215,000 kcal</div>
+                                                <div class="h6 text-success mb-2">Calories Range</div>
+                                                <div class="h5 mb-0 font-weight-bold">190~20 kcal</div>
                                             </div>
                                             <div class="col-auto">
-                                                <i class="fas fa-fire fa-2x text-gray-300"></i>
+                                                <i class="fas fa-calendar-week fa-2x text-black-50"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
+                             
                             <div class="card shadow mb-4 w-100">
                                 <div class="card-header py-3 d-flex mb-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Intake Report</h6>
@@ -162,11 +181,11 @@
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['20-3-19', '21-3-19', '22-3-19', '23-3-19', '24-3-19', '25-3-19', '26-3-19'],
+                    labels: ['21-3-19', '22-3-19', '23-3-19', '24-3-19', '25-3-19', '26-3-19'],
                     datasets: [{
                             label: 'Calories (kcal)',
-                            data: [100, 120, 190, 30, 50, 20, 30],
-                            borderWidth: 1,
+                            data: [120, 190, 30, 50, 20, 30],
+                            borderWidth: 3,
                             lineTension: 0.3,
                             backgroundColor: "rgba(78, 115, 223, 0.05)",
                             borderColor: "rgba(78, 115, 223, 1)",
@@ -189,7 +208,7 @@
                                     drawBorder: false
                                 },
                                 ticks: {
-                                    maxTicksLimit: 7
+                                    maxTicksLimit: 6
                                 }
                             }],
                         yAxes: [{
@@ -226,8 +245,6 @@
                     }
                 }
             });
-
-
         </script>
     </body>
 </html>
