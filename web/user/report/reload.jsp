@@ -126,7 +126,7 @@
                                                     }
                                                 %>
                                             </tbody>
-                                            <tbody>
+                                            <tfoot>
                                                 <tr role="row">
                                                     <td></td>
                                                     <td><strong>Total</strong></td>
@@ -134,7 +134,7 @@
                                                     <td>RM 9999</td>
                                                     <td></td>
                                                 </tr>
-                                            </tbody>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
