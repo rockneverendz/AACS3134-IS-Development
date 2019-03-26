@@ -117,13 +117,21 @@
                                                 <tr role="row">
                                                     <td><%= i%></td>
                                                     <td><%= i%>-3-2019</td>
-                                                    <td>RM <%= i * 2%></td>
+                                                    <td><%= i * 2%> points</td>
                                                     <td><%= i * 40%></td>
                                                 </tr>
                                                 <%
                                                     }
                                                 %>
                                             </tbody>
+                                            <tfoot>
+                                                <tr role="row">
+                                                    <td></td>
+                                                    <td><strong>Total</strong></td>
+                                                    <td>9999 points</td>
+                                                    <td>9999</td>
+                                                </tr>
+                                            </tfood>
                                         </table>
                                     </div>
                                 </div>

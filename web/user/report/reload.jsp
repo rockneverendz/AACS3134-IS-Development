@@ -89,7 +89,7 @@
                                         <form>
                                             <div class="input-group datepicker">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Month</span>
+                                                    <span class="input-group-text">Year</span>
                                                 </div>
                                                 <input type="text" class="form-control" value="2019">
                                                 <div class="input-group-append">
@@ -125,6 +125,15 @@
                                                 <%
                                                     }
                                                 %>
+                                            </tbody>
+                                            <tbody>
+                                                <tr role="row">
+                                                    <td></td>
+                                                    <td><strong>Total</strong></td>
+                                                    <td></td>
+                                                    <td>RM 9999</td>
+                                                    <td></td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
