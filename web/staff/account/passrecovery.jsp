@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -8,9 +9,8 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-        <script src="../../bootstrap/js/bootstrap.min.js"></script>
 
-        <title>Staff Login</title>
+        <title>Password Recovery</title>
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -41,8 +41,13 @@
                 padding-bottom: 40px;
                 background-color: #f5f5f5;
             }
+            
+            .h1, h1 {
+                font-weight: 300;
+                line-height: 1.2;
+            }
 
-            .form-signin {
+            .form-recovery {
                 width: 100%;
                 max-width: 420px;
                 padding: 15px;
@@ -133,23 +138,22 @@
     </head>
 
     <body>
-        <form class="form-signin" action="signin" method="POST">
+        <form class="form-recovery" >
             <div class="text-center mb-4">
-                <img class="img-fluid mb-5" src="../../resource/Logo1.png" alt="logo" width="80%"/>
-                <h1 class="display-3">Staff Sign In</h1>
+                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo"/>
+                <h1>Retrieve Password</h1>
             </div>
             <div class="form-label-group">
-                <input id="inputStaffID" name="StaffID" type="text" class="form-control" placeholder="Staff ID" required autofocus>
-                <label for="inputStaffID">Staff ID</label>
+                <input id="inputUserID" type="text" class="form-control" placeholder="User ID" required autofocus>
+                <label for="inputUserID">User ID</label>
             </div>
             <div class="form-label-group">
-                <input id="inputPassword" name="Password" type="password" class="form-control" placeholder="Password" required>
-                <label for="inputPassword">Password</label>
-                <p><small><a href="./passrecovery.jsp">Forget Password?</a></small></p>
+                <input id="inputEmail" type="email" class="form-control" placeholder="E-mail" required>
+                <label for="inputEmail">E-mail</label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
-            <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="signup.jsp">Create New Account</a>
-            <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Proceed Password Recovery</button>
+            <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to login</a>
+            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
         </form>
     </body>
 </html>

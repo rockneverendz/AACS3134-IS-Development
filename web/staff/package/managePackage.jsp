@@ -178,7 +178,17 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="../reports/orderlist.jsp">
-                                    <i class="fas fa-file-alt feather"></i> Weekly Meals Orders
+                                    <i class="fas fa-file-alt feather"></i> Daily or Weekly Meals Ordered
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../reports/cancelledOrders.jsp">
+                                    <i class="fas fa-file-alt feather"></i> Order Cancellations
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../reports/monthlyOrderlist.jsp">
+                                    <i class="fas fa-file-alt feather"></i> Monthly Order List
                                 </a>
                             </li>
                         </ul>
@@ -186,39 +196,36 @@
                 </nav>
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                    <div class="container mt-4">
+                    <div class="container mt-5">
                         <h3>Manage Packages</h3>
 
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No.</th>
-                                    <th scope="col">Food</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% for (int i = 0; i < 10; i++) {%>
-                                <tr>
-                                    <th scope="row"><%= i + 1%></th>
-                                    <td>    
-                                        Chicken Rice
-                                    </td>
-                                    <td>
-                                        <%= i + 1%>
-                                    </td>
-                                    <td>RM <%= i + 2%></td>
-                                    <td><strong>RM <%= i * 2%></strong></td>
-                                </tr>
-                                <% }%>
-                            </tbody>
-                        </table>
+                        <div class="row mt-5">
+                            <%
+                                for (int i = 0; i < 6; i++) {
+                            %>
+                            <div class="col-md-4">
+                                <div class="card mb-4 shadow-sm">
+                                    <img src="..." class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Package ID</h5>
+                                        <p class="card-text">Descriptions // Lunch or Breakfast</p>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Meal 1</li>
+                                        <li class="list-group-item">Meal 2</li>
+                                        <li class="list-group-item">Meal 3</li>
+                                    </ul>
 
-                        <div class="row">
+                                </div>
+                            </div>
+                            <%
+                                }
+                            %>
+                        </div>
+
+                        <div class="row mt-5">
                             <div class="col-sm-2">
-                                <a class="btn btn-dark btn-lg" href="#" role="button">Add Item</a>
+                                <a class="btn btn-dark btn-lg" href="addPackage.jsp" role="button">Add Item</a>
                             </div>
                             <div class="col-sm-5">
                                 <form>
@@ -234,10 +241,10 @@
                                 </form>
                             </div>
                             <div class="col-sm-2">
-                                <a class="btn btn-dark btn-lg" href="#" role="button">Modify Item</a>
+                                <a class="btn btn-dark btn-lg" href="modifyPackage.jsp" role="button">Modify Item</a>
                             </div>
                             <div class="col-sm-2">
-                                <a class="btn btn-dark btn-lg" href="#" role="button">Delete Item</a>
+                                <a class="btn btn-dark btn-lg" href="deletePackage.jsp" role="button">Delete Item</a>
                             </div>
                         </div>
 

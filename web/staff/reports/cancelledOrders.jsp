@@ -12,7 +12,7 @@
         <!-- Font Awsome -->
         <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 
-        <title>Report | Cancellations</title>
+        <title>Report | Cancellation Report</title>
 
         <!--CSS-->
         <style>
@@ -172,13 +172,23 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="../reports/transaction.jsp">
+                                <a class="nav-link" href="../reports/transaction.jsp">
                                     <i class="fas fa-file-alt feather"></i> Transaction History
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="../reports/orderlist.jsp">
-                                    <i class="fas fa-file-alt feather"></i> Weekly Meals Orders
+                                    <i class="fas fa-file-alt feather"></i> Daily or Weekly Meals Ordered
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="../reports/cancelledOrders.jsp">
+                                    <i class="fas fa-file-alt feather"></i> Order Cancellations
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../reports/monthlyOrderlist.jsp">
+                                    <i class="fas fa-file-alt feather"></i> Monthly Order List
                                 </a>
                             </li>
                         </ul>
@@ -187,17 +197,17 @@
 
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4">
-                        <h3>Cancelled Orders</h3>
+                        <h3>Cancellations Report</h3>
 
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">#ID</th>
                                     <th scope="col">Customer Name</th>
-                                    <th scope="col">Reload Amount</th>
+                                    <th scope="col">Order ID</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Time</th>
-                                    <th scope="col">Staff Name</th>
+                                    <th scope="col">Refunded Credits</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -208,17 +218,17 @@
                                         Name*
                                     </td>
                                     <td>
-                                        RM <%= i + 5%>
+                                        <%= i + 1000%>
                                     </td>
                                     <td>dd/mm/yyyy</td>
                                     <td><strong>hh:mm</strong></td>
-                                    <td><strong>Name</strong></td>
+                                    <td><strong>Credits Points</strong></td>
                                 </tr>
                                 <% }%>
                             </tbody>
                         </table>
 
-                        <div class="row mt-3">
+                        <div class="row mt-3 d-print-none">
                             <div class="col-sm-5">
                                 <form>
                                     <div class="input-group">

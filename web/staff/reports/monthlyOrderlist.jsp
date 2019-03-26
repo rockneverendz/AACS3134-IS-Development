@@ -8,11 +8,8 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-        <script src="../../bootstrap/js/bootstrap.min.js"></script>
-        <!-- Font Awsome -->
-        <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 
-        <title>Staff | Manage Meals</title>
+        <title>Report | Meal Orders Report</title>
 
         <!--CSS-->
         <style>
@@ -104,16 +101,13 @@
                 padding-top: .75rem;
                 padding-bottom: .75rem;
             }
-
-
-
         </style>
     </head>
 
     <body>
 
         <!-- Fixed-top Navs -->
-        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow navbar-expand-lg">
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow navbar-expand-lg d-print-none">
             <a class="navbar-brand pl-3" href="#"><img src="../../resource/Logo2.png" alt="logo" width="110px"></a>
             <div class="dropdown ml-auto">
                 <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -129,7 +123,7 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- Fixed-Sidebar Navs -->
-                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <nav class="col-md-2 d-md-block bg-light sidebar d-print-none">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column pt-2">
                             <li class="nav-item">
@@ -153,7 +147,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="../meal/manageMeal.jsp">
+                                <a class="nav-link" href="../meal/manageMeal.jsp">
                                     <i class="fas fa-hamburger feather"></i> Manage Meals
                                 </a>
                             </li>
@@ -163,8 +157,7 @@
                                 </a>
                             </li>
                         </ul>
-
-
+                        
                         <ul class="nav flex-column mb-2">
                             <li class="nav-item mt-4">
                                 <a class="nav-link">
@@ -187,7 +180,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../reports/monthlyOrderlist.jsp">
+                                <a class="nav-link active" href="../reports/monthlyOrderlist.jsp">
                                     <i class="fas fa-file-alt feather"></i> Monthly Order List
                                 </a>
                             </li>
@@ -195,94 +188,59 @@
                     </div>
                 </nav>
 
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4">
-                        <!--        Add New Meal Form-->
-                        <div class="form-container col-md-9 mt-5" style="max-width: 800px; margin: auto;">
-                            <form class="form-signup" >
-                                <div class="mb-4">
-                                    <h5 class="h1 mb-3">Delete This Meal?</h5>
-                                </div>
+                        <h3>Monthly Meal Order List</h3>
 
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Food</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Ingredient</th>
+                                    <th scope="col">Total ingredient needed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (int i = 0; i < 10; i++) {%>
+                                <tr>
+                                    <th scope="row"><%= i + 1%></th>
+                                    <td>    
+                                        Chicken Rice
+                                    </td>
+                                    <td>
+                                        <%= i + 1%>
+                                    </td>
+                                    <td>Ingredient</td>
+                                    <td><strong><%= i + 1 %></strong></td>
+                                </tr>
+                                <% }%>
+                            </tbody>
+                        </table>
 
-
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <label for="inputName">Name</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control-plaintext" id="inputName" placeholder="Name" readonly>
+                        <div class="row mt-3 d-print-none">
+                            <div class="col-sm-5">
+                                <form>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Search by Date/Week</span>
+                                        </div>
+                                        <input type="date" class="form-control col-5" id="itemid" placeholder="Date">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-success" type="submit" id="search">Search</button>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <label for="inputDesc">Description</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control-plaintext" id="inputDesc" placeholder="Description" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <label for="inputPrice">Price</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control-plaintext" id="inputPrice" placeholder="Price RM :" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="inputAvailability">Availability</label>
-                                        <input type="text" class="form-control-plaintext" id="inputAvailability" placeholder="Available" readonly>
-
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <label for="inputIngred">Main Ingredient</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control-plaintext" id="inputIngred" placeholder="Ingredient" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="inputIngredQty">Ingredient Qty</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control-plaintext" id="inputIngredQty" placeholder="Quantity" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <label for="inputCal">Calories</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control-plaintext" id="inputCal" placeholder="Calories" readonly>
-                                        </div>
-                                    </div>
-                                    <!--                                    <div class="col">
-                                                                            <label for="inputCal">Image</label>
-                                                                            <div class="input-group">
-                                                                                <div class="custom-file">
-                                                                                    <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                                                                    <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-                                                                                </div>
-                                    
-                                                                            </div>
-                                                                        </div>-->
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <label for="inputCategory">Category</label>
-                                        <input type="text" class="form-control-plaintext" id="inputCategory" placeholder="Category" readonly>
-                                    </div>
-                                </div>
-                                <hr>
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">Delete Meal</button>
-                                <a href="manageMeal.jsp" class="btn btn-lg btn-secondary btn-block" style="color: white;">Back</a>
-                            </form>
+                                </form>
+                            </div>
+                            <div class="col-sm-6">
+                                <button class="btn btn-outline-primary" onclick="printFn()" id="print"><i class="fas fa-print"></i> Print</button>
+                            </div>
                         </div>
-
                     </div>
                     <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
-
-
-
                 </main>
+
             </div>
         </div>
 
@@ -290,6 +248,27 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <script src="../../bootstrap/js/jquery.min.js"></script>
+        <script src="../../bootstrap/js/popper.min.js"></script>
+        <!-- Font Awsome -->
+        <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+
+        <script>
+                                    function printFn() {
+
+                                        $("#mainContainer").removeClass("col-md-9");
+                                        $("#mainContainer").removeClass("ml-sm-auto");
+                                        $("#mainContainer").removeClass("col-lg-10");
+                                        $("#mainContainer").addClass("col-sm-12");
+                                        window.print();
+                                        $("#mainContainer").removeClass("col-sm-12");
+                                        $("#mainContainer").addClass("col-md-9");
+                                        $("#mainContainer").addClass("ml-sm-auto");
+                                        $("#mainContainer").addClass("col-lg-10");
+                                    }
+        </script>
+
 
     </body>
 </html>
