@@ -50,12 +50,15 @@
                 <div class="container">
                     <div class="container-fluid">
                         <div class="row">
+                            <div class="col-12 mb-4" style="position: relative; height:300px">
+                                <canvas class="col-12" id="myChart"></canvas>
+                            </div>
                             <div class="col-6 mb-4">
                                 <div class="card border-left-primary shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Calories (Monthly)</div>
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Calories (Weekly)</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">40,000 kcal</div>
                                             </div>
                                             <div class="col-auto">
@@ -71,7 +74,7 @@
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Calories (Annual)</div>
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Calories (Monthly)</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">215,000 kcal</div>
                                             </div>
                                             <div class="col-auto">
@@ -131,7 +134,7 @@
                                                     <td>9999 points</td>
                                                     <td>9999 kcal</td>
                                                 </tr>
-                                            </tfood>
+                                                </tfood>
                                         </table>
                                     </div>
                                 </div>
@@ -145,6 +148,8 @@
         <%@include file="../layout/scripts.html" %>
         <link href="../../bootstrap/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css"/>
         <script src="../../bootstrap/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <link href="../../bootstrap/css/Chart.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../../bootstrap/js/Chart.min.js" type="text/javascript"></script>
         <script>
             $('.datepicker input').datepicker({
                 format: "mm-yyyy",
@@ -152,6 +157,33 @@
                 minViewMode: 1,
                 maxViewMode: 2
             });
+
+            var ctx = document.getElementById('myChart');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['20-3-19', '21-3-19', '22-3-19', '23-3-19', '24-3-19', '25-3-19', '26-3-19'],
+                    datasets: [{
+                            label: '# of Calories (kcal)',
+                            data: [100, 120, 190, 30, 50, 20, 30],
+                            backgroundColor: 'rgba(0, 123, 255,0.2)',
+                            borderColor: 'rgba(0, 123, 255,0.8)',
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                    }
+                }
+            });
+            
+            
         </script>
     </body>
 </html>
