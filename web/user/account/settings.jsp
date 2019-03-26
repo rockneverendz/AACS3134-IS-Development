@@ -4,7 +4,7 @@
         <%@include file="../layout/meta.html" %>
         <title>Settings</title>
         <style>
-            .dropdown-item:nth-child(6){
+            .dropdown-item:nth-child(8){
                 color: #fff;
                 text-decoration: none;
                 background-color: #007bff;
