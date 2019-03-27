@@ -179,25 +179,30 @@
                 }
             %>
             <div class="form-label-group">
-                <input id="inputStaffID" name="StaffID" type="text" class="form-control" placeholder="Staff ID" required autofocus>
+                <input id="inputStaffID" name="StaffID" type="text" class="form-control" 
+                       placeholder="Staff ID" value="<%= staff.getUserIdCard()%>"required autofocus>
                 <label for="inputStaffID">Staff ID</label>
             </div>
             <div class="form-label-group">
-                <input id="inputStaffUsername" name="StaffUsername" type="text" class="form-control" placeholder="Staff Username" required autofocus>
+                <input id="inputStaffUsername" name="StaffUsername" type="text" class="form-control" 
+                       placeholder="Staff Username" <%= staff.getUsername()%> required autofocus>
                 <label for="inputStaffUsername">Staff Username</label>
             </div>
             <div class="form-label-group">
-                <input id="inputEmail" name="Email" type="email" class="form-control" placeholder="Email address" required>
+                <input id="inputEmail" name="Email" type="email" class="form-control" 
+                       placeholder="Email address" <%= staff.getEmail()%> required>
                 <label for="inputEmail">Email address</label>
             </div>
             <div class="form-label-group">
-                <input id="inputPassword" name="Password" type="password" class="form-control" placeholder="Password"
-                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required data-toggle="tooltip" data-placement="left"
-                       title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter">
+                <input id="inputPassword" name="Password" type="password" class="form-control" 
+                       placeholder="Password" required data-toggle="tooltip" data-placement="left"
+                       title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter"
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                 <label for="inputPassword">Password</label>
             </div>
             <div class="form-label-group">
-                <input id="inputConfirmPass" type="password" class="form-control" placeholder=" Confirm Password" required>
+                <input id="inputConfirmPass" type="password" class="form-control" 
+                       placeholder=" Confirm Password" required>
                 <label for="inputConfirmPass">Confirm Password</label>
             </div>
             <div class="form-label-group">
