@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import javax.persistence.*;
 import java.util.List;
 
-public class MealorderService {
+public class OrderService {
 
     EntityManager em;
 
-    public MealorderService() {
+    public OrderService() {
         EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("AACS3134-IS-DevelopmentPU");
         this.em = emfactory.createEntityManager();
     }
@@ -29,16 +29,17 @@ public class MealorderService {
         em.persist(payment);
         em.getTransaction().commit();
 
-        OrderlistPK orderlistpk;
-
-        for (Orderlist orderlist : cart) {
-            orderlistpk = new OrderlistPK(
-                    orderlist.getMeal().getMealId(),
-                    mealorder.getOrderId()
-            );
+        cart.stream().map((orderlist) -> {
             orderlist.setOrder1(mealorder);
-            orderlist.setOrderlistPK(orderlistpk);
-        }
+            return orderlist;
+        }).forEachOrdered((orderlist) -> {
+            orderlist.setOrderlistPK(
+                    new OrderlistPK(
+                            orderlist.getMeal().getMealId(),
+                            mealorder.getOrderId()
+                    )
+            );
+        });
 
         em.getTransaction().begin();
         mealorder.setOrderlistList(cart);
@@ -51,8 +52,8 @@ public class MealorderService {
     }
 
     /**
-     * @param newMealorder The modified mealorder
-     * @return true if successfully committed false if mealorder not found
+     * @param newMealorder The modified order
+     * @return true if successfully committed false if order not found
      * @throws RollbackException If commit fails
      */
     public boolean updateMealorder(Order1 newMealorder) throws RollbackException {

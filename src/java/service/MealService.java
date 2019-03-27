@@ -1,6 +1,9 @@
 package service;
 
+import entity.Ingredientlist;
+import entity.IngredientlistPK;
 import entity.Meal;
+import java.util.ArrayList;
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,9 +16,25 @@ public class MealService {
         this.em = emfactory.createEntityManager();
     }
 
-    public void addMeal(Meal meal) throws RollbackException {
+    public void addMeal(Meal meal, ArrayList<Ingredientlist> arrayList) throws RollbackException {
         em.getTransaction().begin();
         em.persist(meal);
+        em.getTransaction().commit();
+
+        arrayList.stream().map((ingredientlist) -> {
+            ingredientlist.setMeal(meal);
+            return ingredientlist;
+        }).forEachOrdered((ingredientlist) -> {
+            ingredientlist.setIngredientlistPK(
+                    new IngredientlistPK(
+                            meal.getMealId(),
+                            ingredientlist.getIngredient().getIngredientId()
+                    )
+            );
+        });
+
+        em.getTransaction().begin();
+        meal.setIngredientlistList(arrayList);
         em.getTransaction().commit();
     }
 
