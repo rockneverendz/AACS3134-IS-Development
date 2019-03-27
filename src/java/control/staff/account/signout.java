@@ -1,4 +1,4 @@
-package control.user;
+package control.staff.account;
 
 import java.io.IOException;
 import java.io.PrintWriter;

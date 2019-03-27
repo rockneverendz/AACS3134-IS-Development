@@ -1,4 +1,4 @@
-package control.user;
+package control.staff.account;
 
 import entity.Customer;
 import java.io.IOException;

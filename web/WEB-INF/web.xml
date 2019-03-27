@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <!-- Determine which servlet's location in the project. -->
     <servlet>
         <servlet-name>signin</servlet-name>
-        <servlet-class>control.user.signin</servlet-class>
+        <servlet-class>control.user.account.signin</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>signout</servlet-name>
-        <servlet-class>control.user.signout</servlet-class>
+        <servlet-class>control.user.account.signout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>signup</servlet-name>
-        <servlet-class>control.user.signup</servlet-class>
+        <servlet-class>control.user.account.signup</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>signin</servlet-name>
+        <servlet-class>control.staff.account.signin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>signout</servlet-name>
+        <servlet-class>control.staff.account.signout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>signup</servlet-name>
+        <servlet-class>control.staff.account.signup</servlet-class>
+    </servlet>
+    <!-- URL which leads to the specific servlet. -->
     <servlet-mapping>
         <servlet-name>signin</servlet-name>
         <url-pattern>/user/account/signin</url-pattern>
@@ -23,6 +37,18 @@
     <servlet-mapping>
         <servlet-name>signup</servlet-name>
         <url-pattern>/user/account/signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>signin</servlet-name>
+        <url-pattern>/staff/account/signin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>signout</servlet-name>
+        <url-pattern>/staff/account/signout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>signup</servlet-name>
+        <url-pattern>/staff/account/signup</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
