@@ -34,8 +34,8 @@ public class Ingredient implements Serializable {
     @Basic(optional = false)
     @Column(name = "INGREDIENT_NAME")
     private String ingredientName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ingredientId")
-    private List<Meal> mealList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ingredient")
+    private List<Ingredientlist> ingredientlistList;
 
     public Ingredient() {
     }
@@ -66,12 +66,12 @@ public class Ingredient implements Serializable {
     }
 
     @XmlTransient
-    public List<Meal> getMealList() {
-        return mealList;
+    public List<Ingredientlist> getIngredientlistList() {
+        return ingredientlistList;
     }
 
-    public void setMealList(List<Meal> mealList) {
-        this.mealList = mealList;
+    public void setIngredientlistList(List<Ingredientlist> ingredientlistList) {
+        this.ingredientlistList = ingredientlistList;
     }
 
     @Override

@@ -16,6 +16,7 @@
     <class>entity.Packageist</class>
     <class>entity.Token</class>
     <class>entity.Coupon</class>
+    <class>entity.Ingredientlist</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/canteenDB"/>

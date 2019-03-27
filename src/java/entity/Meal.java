@@ -29,7 +29,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Meal.findByDescription", query = "SELECT m FROM Meal m WHERE m.description = :description")
     , @NamedQuery(name = "Meal.findByPrice", query = "SELECT m FROM Meal m WHERE m.price = :price")
     , @NamedQuery(name = "Meal.findByAvailability", query = "SELECT m FROM Meal m WHERE m.availability = :availability")
-    , @NamedQuery(name = "Meal.findByIngredientQty", query = "SELECT m FROM Meal m WHERE m.ingredientQty = :ingredientQty")
     , @NamedQuery(name = "Meal.findByCalories", query = "SELECT m FROM Meal m WHERE m.calories = :calories")})
 public class Meal implements Serializable {
 
@@ -51,20 +50,16 @@ public class Meal implements Serializable {
     @Column(name = "AVAILABILITY")
     private Boolean availability;
     @Basic(optional = false)
-    @Column(name = "INGREDIENT_QTY")
-    private double ingredientQty;
-    @Basic(optional = false)
     @Column(name = "CALORIES")
     private int calories;
     @Lob
     @Column(name = "IMAGE")
     private byte[] image;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "meal")
+    private List<Ingredientlist> ingredientlistList;
     @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
     @ManyToOne(optional = false)
     private Category categoryId;
-    @JoinColumn(name = "INGREDIENT_ID", referencedColumnName = "INGREDIENT_ID")
-    @ManyToOne(optional = false)
-    private Ingredient ingredientId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "meal")
     private List<Orderlist> orderlistList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "meal")
@@ -77,12 +72,11 @@ public class Meal implements Serializable {
         this.mealId = mealId;
     }
 
-    public Meal(Integer mealId, String name, double price, Boolean availability, double ingredientQty, int calories) {
+    public Meal(Integer mealId, String name, double price, Boolean availability, int calories) {
         this.mealId = mealId;
         this.name = name;
         this.price = price;
         this.availability = availability;
-        this.ingredientQty = ingredientQty;
         this.calories = calories;
     }
 
@@ -126,14 +120,6 @@ public class Meal implements Serializable {
         this.availability = availability;
     }
 
-    public double getIngredientQty() {
-        return ingredientQty;
-    }
-
-    public void setIngredientQty(double ingredientQty) {
-        this.ingredientQty = ingredientQty;
-    }
-
     public int getCalories() {
         return calories;
     }
@@ -150,20 +136,21 @@ public class Meal implements Serializable {
         this.image = image;
     }
 
+    @XmlTransient
+    public List<Ingredientlist> getIngredientlistList() {
+        return ingredientlistList;
+    }
+
+    public void setIngredientlistList(List<Ingredientlist> ingredientlistList) {
+        this.ingredientlistList = ingredientlistList;
+    }
+
     public Category getCategoryId() {
         return categoryId;
     }
 
     public void setCategoryId(Category categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public Ingredient getIngredientId() {
-        return ingredientId;
-    }
-
-    public void setIngredientId(Ingredient ingredientId) {
-        this.ingredientId = ingredientId;
     }
 
     @XmlTransient
