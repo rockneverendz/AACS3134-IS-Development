@@ -15,8 +15,8 @@ public class signout extends HttpServlet {
         // Invalidate Session
         HttpSession session = request.getSession();
 
-        // Check session contained customer
-        if (session.getAttribute("customer") == null) {
+        // Check session contained staff
+        if (session.getAttribute("staff") == null) {
             // Redirect back to homepage with status 'Not Signed In'
             response.sendRedirect("../account/signin.jsp?status=N");
             return;

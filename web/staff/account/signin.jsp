@@ -1,15 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="../../resource/Icon.png" rel="icon" />
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-        <script src="../../bootstrap/js/bootstrap.min.js"></script>
-
+        <%@include file="../layout/meta.html" %>
         <title>Staff Login</title>
         <style>
             .bd-placeholder-img {
@@ -135,15 +127,54 @@
     <body>
         <form class="form-signin" action="signin" method="POST">
             <div class="text-center mb-4">
-                <img class="img-fluid mb-5" src="../../resource/Logo1.png" alt="logo" width="80%"/>
+                <img class="img-fluid mb-5" src="../../resource/Logo1.png" alt="logo" width="75%"/>
                 <h1 class="display-3">Staff Sign In</h1>
             </div>
+            <%
+                //If no object are recieved, create a new object.
+                String username = (String) request.getAttribute("username");
+                if (username == null) {
+                    username = "";
+                }
+
+                String status = request.getParameter("status");
+                String message;
+                String type;
+                if (status == null) {
+                    message = "";
+                } else {
+                    char code = status.charAt(0);
+                    if (code == '0') {
+                        type = "success";
+                        message = "Successfully Signed Out!";
+                    } else if (code == 'U') {
+                        type = "warning";
+                        message = "Sorry, we couldn't find an account with that username.<br><a href='./signup.jsp' class='alert-link'>Do you want to create a new account?</a>";
+                    } else if (code == 'P') {
+                        type = "warning";
+                        message = "Sorry, that password isn't right.<br><a href='./passrecovery.jsp' class='alert-link'>We can help you recover your password.</a>";
+                    } else if (code == 'N') {
+                        type = "danger";
+                        message = "You have to be logged in to do that!";
+                    } else {
+                        type = "danger";
+                        message = "An error has occured";
+                    }
+            %>            
+            <div class="alert alert-<%= type%>" role="alert">
+                <%= message%>
+            </div>
+            <%
+                }
+            %>
             <div class="form-label-group">
-                <input id="inputStaffID" name="StaffID" type="text" class="form-control" placeholder="Staff ID" required autofocus>
-                <label for="inputStaffID">Staff ID</label>
+                <input id="inputStaffUsername" name="StaffUsername" type="text" class="form-control" 
+                       placeholder="Staff Username" value="<%= username%>" required autofocus>
+                <label for="inputStaffUsername">Staff Username</label>
             </div>
             <div class="form-label-group">
-                <input id="inputPassword" name="Password" type="password" class="form-control" placeholder="Password" required>
+                <input id="inputPassword" name="Password" type="password" class="form-control" 
+                       placeholder="Password" required>
                 <label for="inputPassword">Password</label>
                 <p><small><a href="./passrecovery.jsp">Forget Password?</a></small></p>
             </div>

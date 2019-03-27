@@ -1,6 +1,7 @@
 package control.staff.account;
 
-import entity.Customer;
+import entity.Category;
+import entity.Staff;
 import java.io.IOException;
 import javax.persistence.RollbackException;
 import javax.servlet.RequestDispatcher;
@@ -9,33 +10,43 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import service.CustomerService;
+import service.CategoryService;
+import service.StaffService;
 
 public class signup extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // Get parameter from the form
-        String userid = request.getParameter("UserID");
+        String staffid = request.getParameter("StaffID");
+        String staffusername = request.getParameter("StaffUsername");
         String email = request.getParameter("Email");
         String password = request.getParameter("Password");
         String passwordRe = request.getParameter("CPassword");
-
+        String category = request.getParameter("Category");
+        
         // Initialize variables
-        StringBuilder url = new StringBuilder("/user/account/signup.jsp");
-        Customer customer = new Customer();
-        CustomerService customerService = new CustomerService();
-
-        customer.setEmail(email);
-        customer.setUsername(userid);
+        StringBuilder url = new StringBuilder("/staff/account/signup.jsp");
+        Staff staff = new Staff();
+        StaffService staffService = new StaffService();
+        CategoryService categoryService = new CategoryService();
+        
+        staff.setUserIdCard(staffid);
+        staff.setUsername(staffusername);
+        staff.setEmail(email);
 
         try {
-            if (customerService.isUserIDUsed(userid)) {
+            if (staffService.isUserIDUsed(staff.getUserIdCard())) {
                 url.append("?status=U");
                 throw new IllegalArgumentException();
             }
+            
+            if (staffService.isUsernameUsed(staff.getUsername())) {
+                url.append("?status=N");
+                throw new IllegalArgumentException();
+            }
 
-            if (customerService.isEmailUsed(email)) {
+            if (staffService.isEmailUsed(staff.getEmail())) {
                 url.append("?status=E");
                 throw new IllegalArgumentException();
             }
@@ -44,19 +55,26 @@ public class signup extends HttpServlet {
                 url.append("?status=P");
                 throw new IllegalArgumentException();
             }
-            customer.setPassword(password);
-
+            staff.setPassword(password);
+            
+            Category categoryObj = categoryService.findProdByID(Integer.parseInt(category));
+            if (categoryObj == null) {
+                url.append("?status=C");
+                throw new IllegalArgumentException();
+            }
+            staff.setCategoryId(categoryObj);
+            
             // Insert & Commit (over at service.CustomerService)
-            customerService.addCustomer(customer);
-            customerService.close();
+            staffService.addStaff(staff);
+            staffService.close();
 
             // Bind into Session
             HttpSession session = request.getSession();
-            session.setAttribute("customer", customer);
+            session.setAttribute("staff", staff);
             session.setMaxInactiveInterval(-1);
 
             // Redirect back to homepage with status 'Success'
-            response.sendRedirect("../meal/main.jsp?status=1");
+            response.sendRedirect("../staff/reports/orderlist.jsp");
             return;
 
         } catch (IllegalArgumentException ex) {
@@ -64,9 +82,9 @@ public class signup extends HttpServlet {
             url.append("?status=X");
         }
 
-        customerService.close();
-        customer.setPassword("");
-        request.setAttribute("customer", customer);
+        staffService.close();
+        staff.setPassword("");
+        request.setAttribute("staff", staff);
 
         RequestDispatcher dispatcher
                 = getServletContext().getRequestDispatcher(url.toString());

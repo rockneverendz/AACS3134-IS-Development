@@ -23,6 +23,33 @@ public class StaffService {
         return (Staff) em.find(Staff.class, id);
     }
 
+    public boolean isUserIDUsed(String useridcard) {
+        int count = (int) em.createNativeQuery(
+                "SELECT COUNT(USER_ID_CARD) "
+                + "FROM STAFF "
+                + "WHERE USER_ID_CARD = '" + useridcard + "'")
+                .getSingleResult();
+        return (count != 0);
+    }
+
+    public boolean isUsernameUsed(String username) {
+        int count = (int) em.createNativeQuery(
+                "SELECT COUNT(USERNAME) "
+                + "FROM STAFF "
+                + "WHERE USERNAME = '" + username + "'")
+                .getSingleResult();
+        return (count != 0);
+    }
+
+    public boolean isEmailUsed(String email) {
+        int count = (int) em.createNativeQuery(
+                "SELECT COUNT(EMAIL) "
+                + "FROM STAFF "
+                + "WHERE EMAIL ='" + email + "'")
+                .getSingleResult();
+        return (count != 0);
+    }
+    
     /**
      * @param newStaff The modified staff
      * @return true if successfully committed false if staff not found
