@@ -25,24 +25,24 @@ public class signup extends HttpServlet {
         // Initialize variables
         StringBuilder url = new StringBuilder("/user/account/signup.jsp");
         Customer customer = new Customer();
-        CustomerService customerService = new CustomerService();
+        CustomerService service = new CustomerService();
 
         customer.setUserIdCard(useridcard);
         customer.setUsername(username);
         customer.setEmail(email);
 
         try {
-            if (customerService.isUserIDUsed(useridcard)) {
+            if (service.isUserIDUsed(customer.getUserIdCard())) {
                 url.append("?status=U");
                 throw new IllegalArgumentException();
             }
             
-            if (customerService.isUsername(username)) {
+            if (service.isUsernameUsed(customer.getUsername())) {
                 url.append("?status=N");
                 throw new IllegalArgumentException();
             }
 
-            if (customerService.isEmailUsed(email)) {
+            if (service.isEmailUsed(customer.getEmail())) {
                 url.append("?status=E");
                 throw new IllegalArgumentException();
             }
@@ -54,8 +54,8 @@ public class signup extends HttpServlet {
             customer.setPassword(password);
 
             // Insert & Commit (over at service.CustomerService)
-            customerService.addCustomer(customer);
-            customerService.close();
+            service.addCustomer(customer);
+            service.close();
 
             // Bind into Session
             HttpSession session = request.getSession();
@@ -71,7 +71,7 @@ public class signup extends HttpServlet {
             url.append("?status=X");
         }
 
-        customerService.close();
+        service.close();
         customer.setPassword("");
         request.setAttribute("customer", customer);
 

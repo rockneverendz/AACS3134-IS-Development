@@ -128,7 +128,7 @@
     <body>
         <form class="form-signup" action="signup" method="POST">           
             <div class="text-center mb-4">
-                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="50%"/>
+                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="75%"/>
                 <h1 class="display-3">Sign Up</h1>
             </div>
             <%

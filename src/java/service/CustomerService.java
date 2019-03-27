@@ -40,7 +40,7 @@ public class CustomerService {
         return (count != 0);
     }
     
-    public boolean isUsername(String username) {
+    public boolean isUsernameUsed(String username) {
         int count = (int) em.createNativeQuery(
                 "SELECT COUNT(USERNAME) "
                 + "FROM CUSTOMER "
