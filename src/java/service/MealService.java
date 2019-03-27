@@ -60,33 +60,31 @@ public class MealService {
 
     /**
      * @param newMeal The modified meal
+     * @param arrayList The list of ingredients
      * @return true if successfully committed false if meal not found
      * @throws RollbackException If commit fails
      */
     public boolean updateMeal(Meal newMeal, ArrayList<Ingredientlist> arrayList) throws RollbackException {
         Meal oldMeal = findMealByID(newMeal.getMealId());
         if (oldMeal != null) {
-            
-            IngredientlistPK ingredientlistPK;
 
-            for (Ingredientlist ingredientlist : arrayList) {
-
-                ingredientlistPK = new IngredientlistPK(
-                        oldMeal.getMealId(),
-                        ingredientlist.getIngredient().getIngredientId()
-                );
-
+            arrayList.stream().map((ingredientlist) -> {
                 ingredientlist.setMeal(newMeal);
-                ingredientlist.setIngredientlistPK(ingredientlistPK);
+                return ingredientlist;
+            }).forEachOrdered((ingredientlist) -> {
+                ingredientlist.setIngredientlistPK(
+                        new IngredientlistPK(
+                                oldMeal.getMealId(),
+                                ingredientlist.getIngredient().getIngredientId()
+                        )
+                );
+            });
 
-            }
-            
             em.getTransaction().begin();
             oldMeal.setName(newMeal.getName());
             oldMeal.setDescription(newMeal.getDescription());
-            oldMeal.setDay(newMeal.getDay());
             oldMeal.setPrice(newMeal.getPrice());
-            oldMeal.setIngredientId(newMeal.getIngredientId());
+            oldMeal.setIngredientlistList(arrayList);
             oldMeal.setCalories(newMeal.getCalories());
             oldMeal.setImage(newMeal.getImage());
             oldMeal.setCategoryId(newMeal.getCategoryId());
