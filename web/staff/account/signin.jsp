@@ -1,7 +1,15 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <%@include file="../layout/meta.html" %>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="../../resource/Icon.png" rel="icon" />
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+
         <title>Staff Login</title>
         <style>
             .bd-placeholder-img {
@@ -127,12 +135,12 @@
     <body>
         <form class="form-signin" action="signin" method="POST">
             <div class="text-center mb-4">
-                <img class="img-fluid mb-5" src="../../resource/Logo1.png" alt="logo" width="75%"/>
+                <img class="img-fluid mb-5" src="../../resource/Logo1.png" alt="logo" width="80%"/>
                 <h1 class="display-3">Staff Sign In</h1>
             </div>
             <div class="form-label-group">
-                <input id="inputStaffUsername" name="StaffUsername" type="text" class="form-control" placeholder="Staff Username" required autofocus>
-                <label for="inputStaffUsername">Staff Username</label>
+                <input id="inputStaffID" name="StaffID" type="text" class="form-control" placeholder="Staff ID" required autofocus>
+                <label for="inputStaffID">Staff ID</label>
             </div>
             <div class="form-label-group">
                 <input id="inputPassword" name="Password" type="password" class="form-control" placeholder="Password" required>
