@@ -45,10 +45,6 @@ public class Meal implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     @Basic(optional = false)
-    @Lob
-    @Column(name = "DAY")
-    private byte[] day;
-    @Basic(optional = false)
     @Column(name = "PRICE")
     private double price;
     @Basic(optional = false)
@@ -81,10 +77,9 @@ public class Meal implements Serializable {
         this.mealId = mealId;
     }
 
-    public Meal(Integer mealId, String name, byte[] day, double price, Boolean availability, double ingredientQty, int calories) {
+    public Meal(Integer mealId, String name, double price, Boolean availability, double ingredientQty, int calories) {
         this.mealId = mealId;
         this.name = name;
-        this.day = day;
         this.price = price;
         this.availability = availability;
         this.ingredientQty = ingredientQty;
@@ -113,14 +108,6 @@ public class Meal implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public byte[] getDay() {
-        return day;
-    }
-
-    public void setDay(byte[] day) {
-        this.day = day;
     }
 
     public double getPrice() {
