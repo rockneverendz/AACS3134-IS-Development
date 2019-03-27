@@ -16,7 +16,7 @@ public class signin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Get parameter from the form
-        String username = request.getParameter("UserID");
+        String username = request.getParameter("Username");
         String password = request.getParameter("Password");
 
         // Initialize variables

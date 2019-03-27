@@ -31,26 +31,31 @@ public class CustomerService {
                 .getSingleResult();
     }
 
-    public boolean isUserIDUsed(String username) {
-        try {
-            em.createNamedQuery("Customer.findByUsername")
-                    .setParameter("username", username)
-                    .getSingleResult();
-            return true;
-        } catch (NoResultException ex) {
-            return false;
-        }
+    public boolean isUserIDUsed(String useridcard) {     
+        int count = (int) em.createNativeQuery(
+                "SELECT COUNT(USER_ID_CARD) "
+                + "FROM CUSTOMER "
+                + "WHERE USER_ID_CARD = '" + useridcard + "'")
+                .getSingleResult();
+        return (count != 0);
+    }
+    
+    public boolean isUsername(String username) {
+        int count = (int) em.createNativeQuery(
+                "SELECT COUNT(USERNAME) "
+                + "FROM CUSTOMER "
+                + "WHERE USERNAME = '" + username + "'")
+                .getSingleResult();
+        return (count != 0);
     }
 
     public boolean isEmailUsed(String email) {
-        try {
-            em.createNamedQuery("Customer.findByEmail")
-                    .setParameter("email", email)
-                    .getSingleResult();
-            return true;
-        } catch (NoResultException ex) {
-            return false;
-        }
+        int count = (int) em.createNativeQuery(
+                "SELECT COUNT(EMAIL) "
+                + "FROM CUSTOMER "
+                + "WHERE EMAIL ='" + email + "'")
+                .getSingleResult();
+        return (count != 0);
     }
 
     public Customer findCustByID(int id) {

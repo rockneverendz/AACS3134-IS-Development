@@ -1,14 +1,8 @@
+<%@page import="entity.Customer"%>
 <!doctype html>
 <html lang="en">
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="../../resource/Icon.png" rel="icon" />
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-
+        <%@include file="../layout/meta.html" %>
         <title>Create Account</title>
         <style>
             .bd-placeholder-img {
@@ -138,6 +132,15 @@
                 <h1 class="display-3">Sign Up</h1>
             </div>
             <%
+                //If no object are recieved, create a new object.
+                Customer customer = (Customer) request.getAttribute("customer");
+                if (customer == null) {
+                    customer = new Customer();
+                    customer.setUserIdCard("");
+                    customer.setUsername("");
+                    customer.setEmail("");
+                }
+
                 String status = request.getParameter("status");
                 String message;
                 String type;
@@ -147,7 +150,10 @@
                     char code = status.charAt(0);
                     if (code == 'U') {
                         type = "warning";
-                        message = "Account with that User ID already exists.";
+                        message = "Account with that User ID Card already exists.";
+                    } else if (code == 'N') {
+                        type = "warning";
+                        message = "Account with that Username already exists.";
                     } else if (code == 'E') {
                         type = "warning";
                         message = "Account with that E-mail already exists.";
@@ -166,31 +172,37 @@
                 }
             %>
             <div class="form-label-group">
-                <input id="inputUserID" name="UserID" type="text" class="form-control" placeholder="Username" required autofocus>
-                <label for="inputUserID">User ID</label>
+                <input id="inputUserID" name="UserIDCard" type="text" class="form-control" 
+                       placeholder="User ID Card" value="<%= customer.getUserIdCard()%>" required autofocus>
+                <label for="inputUserID">User ID Card</label>
             </div>
             <div class="form-label-group">
-                <input id="inputEmail" name="Email" type="email" class="form-control" placeholder="Email address" required>
+                <input id="inputUsername" name="Username" type="text" class="form-control" 
+                       placeholder="Username" value="<%= customer.getUsername()%>" required>
+                <label for="inputUsername">Username</label>
+            </div>
+            <div class="form-label-group">
+                <input id="inputEmail" name="Email" type="email" class="form-control" 
+                       placeholder="Email address" value="<%= customer.getEmail()%>" required>
                 <label for="inputEmail">Email address</label>
             </div>
             <div class="form-label-group">
-                <input id="inputPassword" name="Password" type="password" class="form-control" placeholder="Password"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required data-toggle="tooltip" data-placement="left" 
-                    title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter">
+                <input id="inputPassword" name="Password" type="password" class="form-control" 
+                       placeholder="Password" required data-toggle="tooltip" data-placement="left" 
+                       title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter"
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                 <label for="inputPassword">Password</label>
             </div>
             <div class="form-label-group">
-                <input id="inputConfirmPass" type="password" class="form-control" placeholder=" Confirm Password" required>
+                <input id="inputConfirmPass" name="CPassword" type="password" class="form-control" 
+                       placeholder=" Confirm Password" required>
                 <label for="inputConfirmPass">Confirm Password</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to Sign-In</a>
             <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
         </form>
-
-        <script src="../../bootstrap/js/jquery.min.js"></script>
-        <script src="../../bootstrap/js/popper.min.js"></script>
-        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <%@include file="../layout/scripts.html" %>>
         <script>
             var inputPassword = document.getElementById("inputPassword"),
                     inputCPassword = document.getElementById("inputCPassword");

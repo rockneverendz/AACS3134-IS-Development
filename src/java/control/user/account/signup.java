@@ -16,7 +16,8 @@ public class signup extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // Get parameter from the form
-        String userid = request.getParameter("UserID");
+        String useridcard = request.getParameter("UserIDCard");
+        String username = request.getParameter("Username");
         String email = request.getParameter("Email");
         String password = request.getParameter("Password");
         String passwordRe = request.getParameter("CPassword");
@@ -26,12 +27,18 @@ public class signup extends HttpServlet {
         Customer customer = new Customer();
         CustomerService customerService = new CustomerService();
 
+        customer.setUserIdCard(useridcard);
+        customer.setUsername(username);
         customer.setEmail(email);
-        customer.setUsername(userid);
 
         try {
-            if (customerService.isUserIDUsed(userid)) {
+            if (customerService.isUserIDUsed(useridcard)) {
                 url.append("?status=U");
+                throw new IllegalArgumentException();
+            }
+            
+            if (customerService.isUsername(username)) {
+                url.append("?status=N");
                 throw new IllegalArgumentException();
             }
 

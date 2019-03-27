@@ -1,13 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="../../resource/Icon.png" rel="icon" />
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-
+        <%@include file="../layout/meta.html" %>
         <title>User Login</title>
         <style>
             .bd-placeholder-img {
@@ -137,6 +131,12 @@
                 <h1 class="display-3">Sign In</h1>
             </div>
             <%
+                //If no object are recieved, create a new object.
+                String username = (String) request.getAttribute("username");
+                if (username == null) {
+                    username = "";
+                }
+                
                 String status = request.getParameter("status");
                 String message;
                 String type;
@@ -161,18 +161,20 @@
                         message = "An error has occured";
                     }
             %>            
-            <div class="alert alert-<%= type %>" role="alert">
+            <div class="alert alert-<%= type%>" role="alert">
                 <%= message%>
             </div>
             <%
                 }
             %>
             <div class="form-label-group">
-                <input id="inputUserID" name="UserID" type="text" class="form-control" placeholder="User ID" required autofocus>
-                <label for="inputUserID">User ID</label>
+                <input id="inputUsername" name="Username" type="text" class="form-control" 
+                       placeholder="Username" value="<%= username %>" required autofocus>
+                <label for="inputUsername">Username</label>
             </div>
             <div class="form-label-group">
-                <input id="inputPassword" name="Password" type="password" class="form-control" placeholder="Password" required>
+                <input id="inputPassword" name="Password" type="password" class="form-control" 
+                       placeholder="Password" required>
                 <label for="inputPassword">Password</label>
                 <p><small><a href="./passrecovery.jsp">Forget Password?</a></small></p>
             </div>
