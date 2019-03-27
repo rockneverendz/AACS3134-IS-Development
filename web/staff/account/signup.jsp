@@ -1,14 +1,10 @@
+<%@page import="entity.Category"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="service.CategoryService"%>
 <!doctype html>
 <html lang="en">
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="../../resource/Icon.png" rel="icon" />
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-
+        <%@include file="../layout/meta.html" %>
         <title>Create Staff Account</title>
         <style>
             .bd-placeholder-img {
@@ -135,12 +131,16 @@
     <body>
         <form class="form-signup" action="signup" method="POST">
             <div class="text-center mb-4">
-                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="50%"/>
+                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="75%"/>
                 <h1 class="h3 mb-3 font-weight-normal">Create Staff Account</h1>
             </div>
             <div class="form-label-group">
-                <input id="inputUserID" name="UserID" type="text" class="form-control" placeholder="Username" required autofocus>
-                <label for="inputUserID">User ID</label>
+                <input id="inputStaffID" name="StaffID" type="text" class="form-control" placeholder="Staff ID" required autofocus>
+                <label for="inputStaffID">Staff ID</label>
+            </div>
+            <div class="form-label-group">
+                <input id="inputStaffUsername" name="StaffUsername" type="text" class="form-control" placeholder="Staff Username" required autofocus>
+                <label for="inputStaffUsername">Staff Username</label>
             </div>
             <div class="form-label-group">
                 <input id="inputEmail" name="Email" type="email" class="form-control" placeholder="Email address" required>
@@ -148,8 +148,8 @@
             </div>
             <div class="form-label-group">
                 <input id="inputPassword" name="Password" type="password" class="form-control" placeholder="Password"
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required data-toggle="tooltip" data-placement="left"
-                    title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter">
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required data-toggle="tooltip" data-placement="left"
+                       title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter">
                 <label for="inputPassword">Password</label>
             </div>
             <div class="form-label-group">
@@ -157,28 +157,29 @@
                 <label for="inputConfirmPass">Confirm Password</label>
             </div>
             <div class="form-label-group">
-                <select id="inputCategory" required class="form-control">
+                <select id="inputCategory" name="Category" required class="form-control">
                     <optgroup label="Category">
                         <option value="" disabled selected hidden>Category</option>
-                        <option value="1">Chicken Rice</option>
-                        <option value="2">Masakan Malaysia</option>
-                        <option value="3">Noodles</option>
-                        <option value="4">IndoDeli</option>
-                        <option value="5">Vegetarian Cuisine</option>
+                        <%
+                            CategoryService cs = new CategoryService();
+                            for (Category category : cs.findAll()) {
+                        %>
+                        <option value="<%= category.getCategoryId()%>">
+                            <%= category.getName()%>
+                        </option>
+                        <%  }
+                        %>
                     </optgroup>
                 </select>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to Sign-In</a>
-            <p class="mt-5 mb-3 text-muted text-center">Bricks Â© 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
         </form>
-
-        <script src="../../bootstrap/js/jquery.min.js"></script>
-        <script src="../../bootstrap/js/popper.min.js"></script>
-        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <%@include file="../layout/scripts.html" %>
         <script>
             var inputPassword = document.getElementById("inputPassword"),
-                inputCPassword = document.getElementById("inputCPassword");
+                    inputCPassword = document.getElementById("inputCPassword");
 
             function validatePassword() {
                 if (inputPassword.value !== inputCPassword.value) {

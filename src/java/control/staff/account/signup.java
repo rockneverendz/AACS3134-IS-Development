@@ -16,13 +16,15 @@ public class signup extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // Get parameter from the form
-        String userid = request.getParameter("UserID");
+        String staffid = request.getParameter("StaffID");
+        String staffusername = request.getParameter("StaffUsername");
         String email = request.getParameter("Email");
         String password = request.getParameter("Password");
         String passwordRe = request.getParameter("CPassword");
-
+        String category = request.getParameter("Category");
+        
         // Initialize variables
-        StringBuilder url = new StringBuilder("/user/account/signup.jsp");
+        StringBuilder url = new StringBuilder("/staff/account/signup.jsp");
         Customer customer = new Customer();
         CustomerService customerService = new CustomerService();
 
@@ -56,7 +58,7 @@ public class signup extends HttpServlet {
             session.setMaxInactiveInterval(-1);
 
             // Redirect back to homepage with status 'Success'
-            response.sendRedirect("../meal/main.jsp?status=1");
+            response.sendRedirect("../staff/reports/orderlist.jsp");
             return;
 
         } catch (IllegalArgumentException ex) {
