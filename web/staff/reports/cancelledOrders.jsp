@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <%@include file="../Layout/meta.html" %>
-        <%@include file="../Layout/css.html" %>
+        <%@include file="../layout/meta.html" %>
+        <%@include file="../layout/css.html" %>
         <title>Report | Cancellation Report</title>
     </head>
     <body>
         <!-- Fixed-top Navs -->
-        <%@include file="../Layout/topnavbar.html" %>
+        <%@include file="../layout/topnavbar.html" %>
 
         <div class="container-fluid">
             <div class="row">
                 <!-- Fixed-Sidebar Navs -->
-                <%@include file="../Layout/sidebar.html" %>
+                <%@include file="../layout/sidebar.html" %>
 
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4">
@@ -66,12 +66,12 @@
                             </div>
                         </div>
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks ï¿½ 2019</p>
                 </main>
             </div>
         </div>
 
-        <%@include file="../Layout/scripts.html" %>
+        <%@include file="../layout/scripts.html" %>
         <script>
             function printFn() {
 

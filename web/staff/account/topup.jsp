@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <%@include file="../Layout/meta.html" %>
-        <%@include file="../Layout/css.html" %>
+        <%@include file="../layout/meta.html" %>
+        <%@include file="../layout/css.html" %>
         <title>Staff | Top-up</title>
     </head>
     <body>
         <!-- Fixed-top Navs -->
-        <%@include file="../Layout/topnavbar.html" %>
+        <%@include file="../layout/topnavbar.html" %>
 
         <div class="container-fluid">
             <div class="row">
-                <%@include file="../Layout/sidebar.html" %>
+                <%@include file="../layout/sidebar.html" %>
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
@@ -39,13 +39,13 @@
 
                             <hr>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Reload</button>
-                            <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
+                            <p class="mt-5 mb-3 text-muted text-center">Bricks ï¿½ 2019</p>
                         </form>
                     </div>
                 </main>
             </div>
         </div>
 
-        <%@include file="../Layout/scripts.html" %>
+        <%@include file="../layout/scripts.html" %>
     </body>
 </html>
