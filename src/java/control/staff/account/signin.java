@@ -1,6 +1,6 @@
 package control.staff.account;
 
-import entity.Customer;
+import entity.Staff;
 import java.io.IOException;
 import javax.persistence.NoResultException;
 import javax.servlet.RequestDispatcher;
@@ -9,37 +9,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import service.CustomerService;
+import service.StaffService;
 
 public class signin extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Get parameter from the form
-        String username = request.getParameter("UserID");
+        String username = request.getParameter("StaffUsername");
         String password = request.getParameter("Password");
 
         // Initialize variables
-        StringBuilder url = new StringBuilder("/user/account/signin.jsp");
-        CustomerService customerService = new CustomerService();
+        StringBuilder url = new StringBuilder("/staff/account/signin.jsp");
+        StaffService staffService = new StaffService();
 
         try {
-            // Find by Customer Email which is Unique.
-            Customer customer = customerService.findCustByUsername(username);
-            customerService.close();
+            // Find by Staff Email which is Unique.
+            Staff staff = staffService.findStaffByUsername(username);
+            staffService.close();
 
             // Compare both passwords
-            if (!password.equals(customer.getPassword())) {
+            if (!password.equals(staff.getPassword())) {
                 throw new IllegalArgumentException();
             }
 
             // Bind into Session
             HttpSession session = request.getSession();
-            session.setAttribute("customer", customer);
+            session.setAttribute("staff", staff);
             session.setMaxInactiveInterval(-1);
 
-            // Redirect back to homepage with status 'Success'
-            response.sendRedirect("../meal/main.jsp");
+            // Redirect back to topup page with status 'Success'
+            response.sendRedirect("topup.jsp");
             return;
 
         } catch (NoResultException ex) {
