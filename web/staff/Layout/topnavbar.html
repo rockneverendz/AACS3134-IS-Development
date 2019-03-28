@@ -7,7 +7,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" href="../account/setting.jsp"><i class="fas fa-cog"></i> Settings</a>
-            <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+            <a class="dropdown-item" href="../account/signout"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
         </div>
     </div>
 </nav>
