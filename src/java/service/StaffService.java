@@ -22,6 +22,18 @@ public class StaffService {
     public Staff findProdByID(int id) {
         return (Staff) em.find(Staff.class, id);
     }
+    
+     public Staff findStaffByUsername(String username) {
+        return (Staff) em.createNamedQuery("Staff.findByUsername")
+                .setParameter("username", username)
+                .getSingleResult();
+    }
+
+    public Staff findStaffByEmail(String email) {
+        return (Staff) em.createNamedQuery("Staff.findByEmail")
+                .setParameter("email", email)
+                .getSingleResult();
+    }
 
     public boolean isUserIDUsed(String useridcard) {
         int count = (int) em.createNativeQuery(
