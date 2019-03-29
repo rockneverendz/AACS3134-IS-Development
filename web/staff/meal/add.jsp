@@ -20,7 +20,7 @@
                     <div class="container mt-4">
                         <!--        Add New Meal Form-->
                         <div class="form-container col-md-9 mt-5" style="max-width: 800px; margin: auto;">
-                            <form class="form-signup" >
+                            <form class="form-signup" action="AddMeal" enctype="multipart/form-data">
                                 <div class="text-center mb-4">
                                     <h1 class="h1 mb-3">Add New Meal</h1>
                                 </div>
@@ -28,13 +28,26 @@
                                     <div class="col">
                                         <label for="inputName">Name</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="inputName" placeholder="Name">
+                                            <input type="text" class="form-control" id="inputName" 
+                                                   placeholder="Name" required>
                                         </div>
                                     </div>
+
+                                    <div class="col">
+                                        <label for="inputCategory">Category</label>
+                                        <div class="input-group">
+                                            <!-- I will get value from session. But not now. -->
+                                            <input id="inputCategory" type="text" class="form-control"  
+                                                   value="Noodles" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
                                     <div class="col">
                                         <label for="inputDesc">Description</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="inputDesc" placeholder="Description">
+                                            <input type="text" class="form-control" id="inputDesc" 
+                                                   placeholder="Description">
                                         </div>
                                     </div>
                                 </div>
@@ -42,15 +55,16 @@
                                     <div class="col">
                                         <label for="inputPrice">Price</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="inputPrice" placeholder="Price RM :">
+                                            <input type="text" class="form-control" id="inputPrice" 
+                                                   placeholder="Price RM :" required>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label for="inputAvailability">Availability</label>
                                         <div class="input-group">
-                                            <select class="custom-select" id="inputGroupSelect">
-                                                <option selected>Available</option>
-                                                <option value="2">Unavailable</option>
+                                            <select class="custom-select" id="inputGroupSelect" required>
+                                                <option value="true" selected>Available</option>
+                                                <option value="false">Unavailable</option>
                                             </select>
                                         </div>
                                     </div>
@@ -59,7 +73,8 @@
                                     <div class="col">
                                         <label for="inputCal">Calories</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="inputCal" placeholder="Calories">
+                                            <input type="text" class="form-control" id="inputCal" 
+                                                   placeholder="Calories" required>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -72,26 +87,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <label for="inputCategory">Category</label>
-                                        <div class="input-group">
-                                            <select class="custom-select" id="inputGroupSelect" data-toggle="tooltip" data-placement="right" title="Please select your category" >
-                                                <option selected>Choose...</option>
-                                                <option value="1">Chicken Rice</option>
-                                                <option value="2">Masakan Malaysia</option>
-                                                <option value="3">Noodles</option>
-                                                <option value="4">IndoDeli</option>
-                                                <option value="5">Vegetarian Cuisine</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div id="ingredientList" class="row col-12 mb-4">
 
                                     <label for="inputIngredients">Ingredient List</label>
                                     <div id="addIngredient" class="input-group mb-2">
-
                                         <select id="selectIngre" class="form-control" name="ingredients">
                                             <option value="" selected disabled hidden>Choose here</option>
                                             <option value="1">Chicken</option>
@@ -99,17 +98,12 @@
                                             <option value="3">Ramen</option>
                                         </select>
 
-
                                         <input type="number" class="form-control">
                                         <div class="input-group-append" id="button-addon4">
                                             <button class="btn btn-outline-secondary" type="button" onclick="add_fields()"><i class="fas fa-plus"></i></button>
                                         </div>
                                     </div>
-
-
-
-
-
+                                    
                                 </div>
                                 <hr>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Add Meal</button>
@@ -127,17 +121,12 @@
                                                 $(document).ready(function () {
                                                     //initialize Select2
                                                     $('#selectIngre').select2();
-
                                                 });
-
 
                                                 function add_fields() {
                                                     $('#addIngredient').clone().appendTo('#ingredientList');
-
                                                 }
                                                 ;
-
-
         </script>
 
 
