@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <%@include file="../layout/meta.html" %>
-        <%@include file="../layout/css.html" %>
+        <%@include file="../layout/meta.jsp" %>
+        <%@include file="../layout/css.jsp" %>
         <title>Report | Meal Orders Report</title>
     </head>
     <body>
         <!-- Fixed-top Navs -->
-        <%@include file="../layout/topnavbar.html" %>
+        <%@include file="../layout/topnavbar.jsp" %>
 
         <div class="container-fluid">
             <div class="row">
                 <!-- Fixed-Sidebar Navs -->
-                <%@include file="../layout/sidebar.html" %>
+                <%@include file="../layout/sidebar.jsp" %>
 
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4">
@@ -70,7 +70,7 @@
             </div>
         </div>
 
-        <%@include file="../layout/scripts.html" %>
+        <%@include file="../layout/scripts.jsp" %>
         <script>
             function printFn() {
 

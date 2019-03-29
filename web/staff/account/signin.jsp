@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <%@include file="../layout/meta.html" %>
+        <%@include file="../layout/meta.jsp" %>
         <title>Staff Login</title>
         <style>
             .bd-placeholder-img {
