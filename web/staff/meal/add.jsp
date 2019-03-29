@@ -4,7 +4,7 @@
         <%@include file="../layout/meta.jsp" %>
         <%@include file="../layout/css.jsp" %>
         <title>Staff | Manage Meals</title>
-
+        <link href="../../bootstrap/select2.css" rel="stylesheet">
     </head>
     <body>
 
@@ -57,20 +57,6 @@
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <label for="inputIngred">Main Ingredient</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="inputIngred" placeholder="Ingredient">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="inputIngredQty">Ingredient Qty</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" id="inputIngredQty" placeholder="Quantity">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col">
                                         <label for="inputCal">Calories</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="inputCal" placeholder="Calories">
@@ -90,7 +76,7 @@
                                     <div class="col">
                                         <label for="inputCategory">Category</label>
                                         <div class="input-group">
-                                            <select class="custom-select" id="inputGroupSelect" data-toggle="tooltip" data-placement="right" title="Please select your category">
+                                            <select class="custom-select" id="inputGroupSelect" data-toggle="tooltip" data-placement="right" title="Please select your category" >
                                                 <option selected>Choose...</option>
                                                 <option value="1">Chicken Rice</option>
                                                 <option value="2">Masakan Malaysia</option>
@@ -100,6 +86,30 @@
                                             </select>
                                         </div>
                                     </div>
+                                </div>
+                                <div id="ingredientList" class="row col-12 mb-4">
+
+                                    <label for="inputIngredients">Ingredient List</label>
+                                    <div id="addIngredient" class="input-group mb-2">
+
+                                        <select id="selectIngre" class="form-control" name="ingredients">
+                                            <option value="" selected disabled hidden>Choose here</option>
+                                            <option value="1">Chicken</option>
+                                            <option value="2">Mushroom</option>
+                                            <option value="3">Ramen</option>
+                                        </select>
+
+
+                                        <input type="number" class="form-control">
+                                        <div class="input-group-append" id="button-addon4">
+                                            <button class="btn btn-outline-secondary" type="button" onclick="add_fields()"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                    </div>
+
+
+
+
+
                                 </div>
                                 <hr>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Add Meal</button>
@@ -112,5 +122,25 @@
             </div>
         </div>
         <%@include file="../layout/scripts.jsp" %>
+        <script src="../../bootstrap/select2.min.js"></script>
+        <script>
+                                                $(document).ready(function () {
+                                                    //initialize Select2
+                                                    $('#selectIngre').select2();
+
+                                                });
+
+
+                                                function add_fields() {
+                                                    $('#addIngredient').clone().appendTo('#ingredientList');
+
+                                                }
+                                                ;
+
+
+        </script>
+
+
+
     </body>
 </html>
