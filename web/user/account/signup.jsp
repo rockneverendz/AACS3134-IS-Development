@@ -200,9 +200,9 @@
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to Sign-In</a>
-            <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">Bricks ï¿½ 2019</p>
         </form>
-        <%@include file="../layout/scripts.html" %>>
+        <%@include file="../layout/scripts.html" %>
         <script>
             var inputPassword = document.getElementById("inputPassword"),
                     inputCPassword = document.getElementById("inputCPassword");
