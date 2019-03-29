@@ -23,6 +23,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="../account/redeemCoupon.jsp">
+                    <i class="fas fa-money-check-alt feather"></i> Redeem Coupon
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="../meal/manageMeal.jsp">
                     <i class="fas fa-hamburger feather"></i> Manage Meals
                 </a>
