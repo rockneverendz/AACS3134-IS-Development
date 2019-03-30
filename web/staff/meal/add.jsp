@@ -27,7 +27,7 @@
                                     <div class="col">
                                         <label for="inputName">Name</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="inputName" 
+                                            <input id="inputName" name="Name" type="text" class="form-control"  
                                                    placeholder="Name" required>
                                         </div>
                                     </div>
@@ -45,7 +45,7 @@
                                     <div class="col">
                                         <label for="inputDesc">Description</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="inputDesc" 
+                                            <input id="inputDesc" name="Description" type="text" class="form-control"
                                                    placeholder="Description">
                                         </div>
                                     </div>
@@ -54,14 +54,14 @@
                                     <div class="col">
                                         <label for="inputPrice">Price</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="inputPrice" 
+                                            <input id="inputPrice" name="Price" type="text" class="form-control"
                                                    placeholder="Price RM :" required>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label for="inputAvailability">Availability</label>
                                         <div class="input-group">
-                                            <select class="custom-select" id="inputGroupSelect" required>
+                                            <select id="inputGroupSelect" name="Availability" class="custom-select" required>
                                                 <option value="true" selected>Available</option>
                                                 <option value="false">Unavailable</option>
                                             </select>
@@ -72,7 +72,7 @@
                                     <div class="col">
                                         <label for="inputCal">Calories</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="inputCal" 
+                                            <input id="inputCal" name="Calories" type="text" class="form-control"
                                                    placeholder="Calories" required>
                                         </div>
                                     </div>
@@ -80,8 +80,8 @@
                                         <label for="inputImage">Image</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                                <label class="form-control custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                                <label for="inputFile" class="form-control custom-file-label">Choose file</label>
+                                                <input id="inputFile" name="image" type="file" class="custom-file-input" >
                                             </div>
                                         </div>
                                     </div>
@@ -92,8 +92,8 @@
                                         <button class="btn btn-outline-secondary" type="button" onclick="add_fields()"><i class="fas fa-plus"></i></button>
                                         <div class="input-group mb-2">
                                             <div id="ingredientList" class="row" style="margin-left: 0px; margin-right: 0px; width: 100%;">
-                                                <input type="text" class="flexdatalist form-control col-10" name='ingredients' placeholder="Ingredient">
-                                                <input type="number" class="ingreQuantity form-control col-2" placeholder="Quantity" min="1" max="10">
+                                                <input name='Ingredient' type="text" class="flexdatalist form-control col-10" placeholder="Ingredient">
+                                                <input name='Quantity' type="number" class="ingreQuantity form-control col-2" placeholder="Quantity" min="1" max="10">
                                             </div>
                                         </div>
                                     </div>
@@ -144,6 +144,7 @@
 
                                                 //re-initialise
                                                 $('.flexdatalist:last').flexdatalist({
+                                                    selectionRequired: true,
                                                     minLength: 1,
                                                     valueProperty: 'id',
                                                     searchIn: 'name',

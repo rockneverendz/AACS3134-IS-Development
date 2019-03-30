@@ -25,6 +25,10 @@
         <servlet-name>staff.account.signup</servlet-name>
         <servlet-class>control.staff.account.signup</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>staff.meal.AddMeal</servlet-name>
+        <servlet-class>control.staff.meal.AddMeal</servlet-class>
+    </servlet>
     <!-- URL which leads to the specific servlet. -->
     <servlet-mapping>
         <servlet-name>user.account.signin</servlet-name>
@@ -50,6 +54,11 @@
         <servlet-name>staff.account.signup</servlet-name>
         <url-pattern>/staff/account/signup</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>staff.meal.AddMeal</servlet-name>
+        <url-pattern>/staff/meal/AddMeal</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
