@@ -77,45 +77,26 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <label for="inputCal">Image</label>
+                                        <label for="inputImage">Image</label>
                                         <div class="input-group">
                                             <div class="custom-file">
                                                 <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                                <label class="form-control custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="ingredientList" class="reset-this row col-12 mb-4">
-
-                                    <label for="inputIngredients">Ingredient List</label>
-                                    <div id="addIngredient" class="input-group mb-2">
-
-                                        <!--    Building Ingredient List    -->
-                                        <input id="ingredientID" class="form-control col-1" type="text" disabled>
-
-                                        <select class="form-control" id="selectIngrdient" onchange="changeIngreId()">
-                                            <option value="" selected hidden>Choose...
-                                            <optgroup label="Meat">Meat
-                                                <option value="1">Chicken
-                                                <option value="2">Duck
-                                            </optgroup>
-                                            <optgroup label="Vegetables">Vegetables
-                                                <option value="3">Cabbage
-                                                <option value="4">Potato
-                                                <option value="5">Tomato
-                                                <option value="6">Onion
-                                            </optgroup>
-                                        </select> 
-
-                                        <!--    Building Ingredient List    -->
-
-                                        <input type="number" class="form-control" placeholder="Quantity" min="1" max="10">
-                                        <div class="input-group-append" id="button-addon4">
-                                            <button class="btn btn-outline-secondary" type="button" onclick="add_fields()"><i class="fas fa-plus"></i></button>
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <label for="inputIngredients">Ingredient List</label>
+                                        <button class="btn btn-outline-secondary" type="button" onclick="add_fields()"><i class="fas fa-plus"></i></button>
+                                        <div class="input-group mb-2">
+                                            <div id="ingredientList" class="row" style="margin-left: 0px; margin-right: 0px; width: 100%;">
+                                                <input type="text" class="flexdatalist form-control col-10" name='ingredients' placeholder="Ingredient">
+                                                <input type="number" class="ingreQuantity form-control col-2" placeholder="Quantity" min="1" max="10">
+                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <hr>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Add Meal</button>
@@ -123,24 +104,52 @@
                             </form>
                         </div>
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks ï¿½ 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
                 </main>
             </div>
         </div>
         <%@include file="../layout/scripts.jsp" %>
+        <link href="../../bootstrap/css/jquery.flexdatalist.css" rel="stylesheet" type="text/css"/>
+        <script src="../../bootstrap/js/jquery.flexdatalist.min.js" type="text/javascript"></script>
         <script>
-            function changeIngreId() {
-                var selectedIngredient = $('#selectIngrdient').val();
-                $('#ingredientID').val(selectedIngredient);
-            }
-            ;
-            function add_fields() {
-                $('#addIngredient').clone().appendTo('#ingredientList');
-            }
-            ;
+
+                                            let ingredients = [
+                                                {
+                                                    name: "apple",
+                                                    id: 1
+                                                },
+                                                {
+                                                    name: "orange",
+                                                    id: 2
+                                                },
+                                                {
+                                                    name: "grape",
+                                                    id: 3
+                                                }
+                                            ];
+
+                                            $(document).ready(function () {
+                                                $('.flexdatalist').flexdatalist({
+                                                    minLength: 1,
+                                                    valueProperty: 'id',
+                                                    searchIn: 'name',
+                                                    data: ingredients
+                                                });
+                                            });
+
+                                            function add_fields() {
+                                                // clone
+                                                $('.flexdatalist:first').clone().appendTo('#ingredientList');
+                                                $('.ingreQuantity:first').clone().appendTo('#ingredientList');
+
+                                                //re-initialise
+                                                $('.flexdatalist:last').flexdatalist({
+                                                    minLength: 1,
+                                                    valueProperty: 'id',
+                                                    searchIn: 'name',
+                                                    data: ingredients
+                                                });
+                                            }
         </script>
-
-
-
     </body>
 </html>
