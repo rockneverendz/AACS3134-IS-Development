@@ -133,6 +133,8 @@
                             </form>
                         </div>
                     </div>
+                    <button id="somebutton">press here</button>
+                    <div id="somediv"></div>
                     <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
                 </main>
             </div>
@@ -158,11 +160,15 @@
                                             ];
 
                                             $(document).ready(function () {
-                                                $('.flexdatalist').flexdatalist({
-                                                    minLength: 1,
-                                                    valueProperty: 'id',
-                                                    searchIn: 'name',
-                                                    data: ingredients
+                                                $.get("../ingredient/retriveIngre", function (responseJson) {    // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response JSON...
+                                                    $('.flexdatalist').flexdatalist({
+                                                        selectionRequired: true,
+                                                        minLength: 0,
+                                                        maxShownResults: 5,
+                                                        valueProperty: 'ingredientId',
+                                                        searchIn: 'ingredientName',
+                                                        data: responseJson
+                                                    });
                                                 });
                                             });
 
@@ -174,9 +180,10 @@
                                                 //re-initialise
                                                 $('.flexdatalist:last').flexdatalist({
                                                     selectionRequired: true,
-                                                    minLength: 1,
-                                                    valueProperty: 'id',
-                                                    searchIn: 'name',
+                                                    minLength: 0,
+                                                    maxShownResults: 5,
+                                                    valueProperty: 'ingredientId',
+                                                    searchIn: 'ingredientName',
                                                     data: ingredients
                                                 });
                                                 $('.ingreQuantity:last').val("");
