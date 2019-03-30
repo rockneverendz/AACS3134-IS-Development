@@ -1,5 +1,13 @@
+<%@page import="java.util.List"%>
+<%@page import="entity.Meal"%>
+<%@page import = "service.MealService" %>
+<%  MealService mealService = new MealService();
+    List<Meal> MealList = mealService.findAll();
+%>
 <!doctype html>
 <html lang="en">
+    <!-- retrieve session object, MealList -->
+    
     <head>
         <%@include file="../layout/meta.jsp" %>
         <%@include file="../layout/css.jsp" %>
@@ -24,23 +32,21 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Food</th>
-                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Description</th>
                                     <th scope="col">Price</th>
-                                    <th scope="col">Total</th>
+                                    <th scope="col">Availability</th>
+                                    <th scope="col">Calories</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% for (int i = 0; i < 10; i++) {%>
+                                <% for (Meal meal : MealList) {%>
                                 <tr>
-                                    <th scope="row"><%= i + 1%></th>
-                                    <td>    
-                                        Chicken Rice
-                                    </td>
-                                    <td>
-                                        <%= i + 1%>
-                                    </td>
-                                    <td>RM <%= i + 2%></td>
-                                    <td><strong>RM <%= i * 2%></strong></td>
+                                    <th scope="row"><%= meal.getMealId() %></th>
+                                    <td><%= meal.getName() %></td>
+                                    <td><%= meal.getDescription() %></td>
+                                    <td><%= meal.getPrice() %></td>
+                                    <td><%= meal.getAvailability() %></td>
+                                    <td><%= meal.getCalories() %></td>
                                 </tr>
                                 <% }%>
                             </tbody>
