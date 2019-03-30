@@ -25,7 +25,7 @@ public class CategoryService {
      * @throws RollbackException If commit fails
      */
     public boolean deleteCategory(int id) throws RollbackException {
-        Category category = findProdByID(id);
+        Category category = findCategoryByID(id);
         if (category != null) {
             em.getTransaction().begin();
             em.remove(category);
@@ -35,7 +35,7 @@ public class CategoryService {
         return false;
     }
 
-    public Category findProdByID(int id) {
+    public Category findCategoryByID(int id) {
         return (Category) em.find(Category.class, id);
     }
 
@@ -45,7 +45,7 @@ public class CategoryService {
      * @throws RollbackException If commit fails
      */
     public boolean updateCategory(Category newCategory) throws RollbackException {
-        Category oldCategory = findProdByID(newCategory.getCategoryId());
+        Category oldCategory = findCategoryByID(newCategory.getCategoryId());
         if (oldCategory != null) {
             em.getTransaction().begin();
             oldCategory.setName(newCategory.getName());

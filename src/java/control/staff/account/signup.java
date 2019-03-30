@@ -57,7 +57,7 @@ public class signup extends HttpServlet {
             }
             staff.setPassword(password);
             
-            Category categoryObj = categoryService.findProdByID(Integer.parseInt(category));
+            Category categoryObj = categoryService.findCategoryByID(Integer.parseInt(category));
             if (categoryObj == null) {
                 url.append("?status=C");
                 throw new IllegalArgumentException();
@@ -74,9 +74,9 @@ public class signup extends HttpServlet {
             session.setMaxInactiveInterval(-1);
 
             // Redirect back to homepage with status 'Success'
-            response.sendRedirect("../staff/reports/orderlist.jsp");
+            response.sendRedirect("../../staff/account/topup.jsp");
             return;
-
+            
         } catch (IllegalArgumentException ex) {
         } catch (RollbackException ex) {
             url.append("?status=X");
