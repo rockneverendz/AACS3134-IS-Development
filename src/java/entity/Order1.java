@@ -44,9 +44,9 @@ public class Order1 implements Serializable {
     @Column(name = "REDEEM_DATE")
     @Temporal(TemporalType.DATE)
     private Date redeemDate;
+    @Basic(optional = false)
     @Column(name = "REDEEM_TIME")
-    @Temporal(TemporalType.TIME)
-    private Date redeemTime;
+    private String redeemTime;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order1")
     private List<Orderlist> orderlistList;
     @JoinColumn(name = "CUST_ID", referencedColumnName = "CUST_ID")
@@ -63,9 +63,10 @@ public class Order1 implements Serializable {
         this.orderId = orderId;
     }
 
-    public Order1(Integer orderId, String stutus) {
+    public Order1(Integer orderId, String stutus, String redeemTime) {
         this.orderId = orderId;
         this.stutus = stutus;
+        this.redeemTime = redeemTime;
     }
 
     public Integer getOrderId() {
@@ -92,11 +93,11 @@ public class Order1 implements Serializable {
         this.redeemDate = redeemDate;
     }
 
-    public Date getRedeemTime() {
+    public String getRedeemTime() {
         return redeemTime;
     }
 
-    public void setRedeemTime(Date redeemTime) {
+    public void setRedeemTime(String redeemTime) {
         this.redeemTime = redeemTime;
     }
 

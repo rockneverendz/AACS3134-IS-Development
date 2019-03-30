@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -26,7 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Token.findByToken", query = "SELECT t FROM Token t WHERE t.token = :token")
     , @NamedQuery(name = "Token.findByStutus", query = "SELECT t FROM Token t WHERE t.stutus = :stutus")
     , @NamedQuery(name = "Token.findByDate", query = "SELECT t FROM Token t WHERE t.date = :date")
-    , @NamedQuery(name = "Token.findByTime", query = "SELECT t FROM Token t WHERE t.time = :time")})
+    , @NamedQuery(name = "Token.findByTime", query = "SELECT t FROM Token t WHERE t.time = :time")
+    , @NamedQuery(name = "Token.findById", query = "SELECT t FROM Token t WHERE t.id = :id")})
 public class Token implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,9 +48,8 @@ public class Token implements Serializable {
     @Column(name = "TIME")
     @Temporal(TemporalType.TIME)
     private Date time;
-    @JoinColumn(name = "CUST_ID", referencedColumnName = "CUST_ID")
-    @ManyToOne
-    private Customer custId;
+    @Column(name = "ID")
+    private Integer id;
 
     public Token() {
     }
@@ -108,12 +106,12 @@ public class Token implements Serializable {
         this.time = time;
     }
 
-    public Customer getCustId() {
-        return custId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCustId(Customer custId) {
-        this.custId = custId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

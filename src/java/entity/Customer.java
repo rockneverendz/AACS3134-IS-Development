@@ -50,8 +50,6 @@ public class Customer implements Serializable {
     private List<Reload> reloadList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId")
     private List<Order1> order1List;
-    @OneToMany(mappedBy = "custId")
-    private List<Token> tokenList;
 
     public Customer() {
     }
@@ -129,15 +127,6 @@ public class Customer implements Serializable {
 
     public void setOrder1List(List<Order1> order1List) {
         this.order1List = order1List;
-    }
-
-    @XmlTransient
-    public List<Token> getTokenList() {
-        return tokenList;
-    }
-
-    public void setTokenList(List<Token> tokenList) {
-        this.tokenList = tokenList;
     }
 
     @Override
