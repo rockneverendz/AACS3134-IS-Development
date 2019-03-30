@@ -28,7 +28,7 @@
                                     //If user is not logged in
                                     Staff staff = (Staff) session.getAttribute("staff");
                                     if (staff == null) {
-                                        response.sendRedirect("../../account/signin.jsp?status=N");
+                                        response.sendRedirect("../account/signin.jsp?status=N");
                                         return;
                                     }
 
