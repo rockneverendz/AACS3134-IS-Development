@@ -201,7 +201,7 @@
                 <label for="inputPassword">Password</label>
             </div>
             <div class="form-label-group">
-                <input id="inputConfirmPass" type="password" class="form-control" 
+                <input id="inputConfirmPass" name="CPassword" type="password" class="form-control" 
                        placeholder=" Confirm Password" required>
                 <label for="inputConfirmPass">Confirm Password</label>
             </div>
