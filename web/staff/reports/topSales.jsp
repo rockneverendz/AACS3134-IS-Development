@@ -3,7 +3,7 @@
     <head>
         <%@include file="../layout/meta.jsp" %>
         <%@include file="../layout/css.jsp" %>
-        <title>Report | Top Up History</title>
+        <title>Report | Sales Report</title>
     </head>
     <body>
         <!-- Fixed-top Navs -->
@@ -16,7 +16,7 @@
 
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4">
-                        <h3>Top Up History</h3>
+                        <h3>Sales Report</h3>
 
                         <table class="table table-bordered table-hover">
                             <thead>
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks <i class="far fa-copyright"></i> 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks � 2019</p>
                 </main>
             </div>
         </div>

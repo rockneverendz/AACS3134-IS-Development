@@ -62,8 +62,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-file-alt feather"></i> Thinking..
+                <a class="nav-link" href="../reports/topSales.jsp">
+                    <i class="fas fa-file-alt feather"></i> Sales Report
                 </a>
             </li>
         </ul>
