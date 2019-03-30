@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Meal.findByDescription", query = "SELECT m FROM Meal m WHERE m.description = :description")
     , @NamedQuery(name = "Meal.findByPrice", query = "SELECT m FROM Meal m WHERE m.price = :price")
     , @NamedQuery(name = "Meal.findByAvailability", query = "SELECT m FROM Meal m WHERE m.availability = :availability")
-    , @NamedQuery(name = "Meal.findByCalories", query = "SELECT m FROM Meal m WHERE m.calories = :calories")})
+    , @NamedQuery(name = "Meal.findByCalories", query = "SELECT m FROM Meal m WHERE m.calories = :calories")
+    , @NamedQuery(name = "Meal.findByCategoryId", query = "SELECT m FROM Meal m WHERE m.categoryId = :categoryId")})
 public class Meal implements Serializable {
 
     private static final long serialVersionUID = 1L;

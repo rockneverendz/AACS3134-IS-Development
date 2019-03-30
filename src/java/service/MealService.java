@@ -1,5 +1,6 @@
 package service;
 
+import entity.Category;
 import entity.Ingredientlist;
 import entity.IngredientlistPK;
 import entity.Meal;
@@ -56,6 +57,12 @@ public class MealService {
 
     public Meal findMealByID(int id) {
         return (Meal) em.find(Meal.class, id);
+    }
+
+    public List<Meal> findMealByCategoryID(Category categoryId) {
+        return (List<Meal>) em.createNamedQuery("Meal.findByCategoryId")
+                .setParameter("categoryId", categoryId)
+                .getResultList();
     }
 
     /**

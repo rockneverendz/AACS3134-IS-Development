@@ -1,9 +1,8 @@
+<%@page import="entity.Staff"%>
 <%@page import="java.util.List"%>
 <%@page import="entity.Meal"%>
 <%@page import = "service.MealService" %>
-<%  MealService mealService = new MealService();
-    List<Meal> MealList = mealService.findAll();
-%>
+
 <!doctype html>
 <html lang="en">
     <!-- retrieve session object, MealList -->
@@ -38,6 +37,13 @@
                                     <th scope="col">Calories</th>
                                 </tr>
                             </thead>
+                            <%  
+                                Staff staff = (Staff) session.getAttribute("staff");
+                                MealService mealService = new MealService();
+                                List<Meal> MealList = mealService.findMealByCategoryID(
+                                        staff.getCategoryId()
+                                );
+                            %>
                             <tbody>
                                 <% for (Meal meal : MealList) {%>
                                 <tr>
