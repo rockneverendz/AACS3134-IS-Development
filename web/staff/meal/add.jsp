@@ -144,23 +144,11 @@
         <script src="../../bootstrap/js/jquery.flexdatalist.min.js" type="text/javascript"></script>
         <script>
 
-                                            let ingredients = [
-                                                {
-                                                    name: "apple",
-                                                    id: 1
-                                                },
-                                                {
-                                                    name: "orange",
-                                                    id: 2
-                                                },
-                                                {
-                                                    name: "grape",
-                                                    id: 3
-                                                }
-                                            ];
+                                            var ingredients;
 
                                             $(document).ready(function () {
                                                 $.get("../ingredient/retriveIngre", function (responseJson) {    // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response JSON...
+                                                    ingredients = responseJson;
                                                     $('.flexdatalist').flexdatalist({
                                                         selectionRequired: true,
                                                         minLength: 0,
@@ -171,6 +159,7 @@
                                                     });
                                                 });
                                             });
+                                            
 
                                             function add_fields() {
                                                 // clone
