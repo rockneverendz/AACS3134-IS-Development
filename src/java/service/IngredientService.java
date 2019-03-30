@@ -23,6 +23,13 @@ public class IngredientService {
         return (Ingredient) em.find(Ingredient.class, id);
     }
 
+    public List<Ingredient> findAllWithoutList() {
+        return em.createNativeQuery(
+                "SELECT INGREDIENT_ID, INGREDIENT_NAME "
+                + "FROM INGREDIENT", Ingredient.class)
+                .getResultList();
+    }
+
     /**
      * @param newIngredient The modified ingredient
      * @return true if successfully committed false if ingredient not found

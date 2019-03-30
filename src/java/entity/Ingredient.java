@@ -1,5 +1,6 @@
 package entity;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -30,9 +31,11 @@ public class Ingredient implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "INGREDIENT_ID")
+    @Expose
     private Integer ingredientId;
     @Basic(optional = false)
     @Column(name = "INGREDIENT_NAME")
+    @Expose
     private String ingredientName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ingredient")
     private List<Ingredientlist> ingredientlistList;
