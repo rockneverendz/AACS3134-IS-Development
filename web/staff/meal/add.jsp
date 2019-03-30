@@ -4,7 +4,6 @@
         <%@include file="../layout/meta.jsp" %>
         <%@include file="../layout/css.jsp" %>
         <title>Staff | Manage Meals</title>
-        <link href="../../bootstrap/select2.css" rel="stylesheet">
     </head>
     <body>
 
@@ -87,23 +86,36 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="ingredientList" class="row col-12 mb-4">
+                                <div id="ingredientList" class="reset-this row col-12 mb-4">
 
                                     <label for="inputIngredients">Ingredient List</label>
                                     <div id="addIngredient" class="input-group mb-2">
-                                        <select id="selectIngre" class="form-control" name="ingredients">
-                                            <option value="" selected disabled hidden>Choose here</option>
-                                            <option value="1">Chicken</option>
-                                            <option value="2">Mushroom</option>
-                                            <option value="3">Ramen</option>
-                                        </select>
 
-                                        <input type="number" class="form-control">
+                                        <!--    Building Ingredient List    -->
+                                        <input id="ingredientID" class="form-control col-1" type="text" disabled>
+
+                                        <select class="form-control" id="selectIngrdient" onchange="changeIngreId()">
+                                            <option value="" selected hidden>Choose...
+                                            <optgroup label="Meat">Meat
+                                                <option value="1">Chicken
+                                                <option value="2">Duck
+                                            </optgroup>
+                                            <optgroup label="Vegetables">Vegetables
+                                                <option value="3">Cabbage
+                                                <option value="4">Potato
+                                                <option value="5">Tomato
+                                                <option value="6">Onion
+                                            </optgroup>
+                                        </select> 
+
+                                        <!--    Building Ingredient List    -->
+
+                                        <input type="number" class="form-control" placeholder="Quantity" min="1" max="10">
                                         <div class="input-group-append" id="button-addon4">
                                             <button class="btn btn-outline-secondary" type="button" onclick="add_fields()"><i class="fas fa-plus"></i></button>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <hr>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit">Add Meal</button>
@@ -116,17 +128,16 @@
             </div>
         </div>
         <%@include file="../layout/scripts.jsp" %>
-        <script src="../../bootstrap/select2.min.js"></script>
         <script>
-                                                $(document).ready(function () {
-                                                    //initialize Select2
-                                                    $('#selectIngre').select2();
-                                                });
-
-                                                function add_fields() {
-                                                    $('#addIngredient').clone().appendTo('#ingredientList');
-                                                }
-                                                ;
+            function changeIngreId() {
+                var selectedIngredient = $('#selectIngrdient').val();
+                $('#ingredientID').val(selectedIngredient);
+            }
+            ;
+            function add_fields() {
+                $('#addIngredient').clone().appendTo('#ingredientList');
+            }
+            ;
         </script>
 
 
