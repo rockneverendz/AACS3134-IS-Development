@@ -1,3 +1,4 @@
+<%@page import="entity.Staff"%>
 <!doctype html>
 <html lang="en">
     <head>
@@ -23,6 +24,34 @@
                                 <div class="text-center mb-4">
                                     <h1 class="h1 mb-3">Add New Meal</h1>
                                 </div>
+                                <%
+                                    //If user is not logged in
+                                    Staff staff = (Staff) session.getAttribute("staff");
+                                    if (staff == null) {
+                                        response.sendRedirect("../../account/signin.jsp?status=N");
+                                        return;
+                                    }
+
+                                    String status = request.getParameter("status");
+                                    String message;
+                                    String type;
+                                    if (status == null) {
+                                    } else {
+                                        char code = status.charAt(0);
+                                        if (code == '1') {
+                                            type = "success";
+                                            message = "Successfully Added Meal!";
+                                        } else {
+                                            type = "danger";
+                                            message = "An error has occured";
+                                        }
+                                %>            
+                                <div class="alert alert-<%= type%>" role="alert">
+                                    <%= message%>
+                                </div>
+                                <%
+                                    }
+                                %>
                                 <div class="row mb-4">
                                     <div class="col">
                                         <label for="inputName">Name</label>
@@ -37,7 +66,7 @@
                                         <div class="input-group">
                                             <!-- I will get value from session. But not now. -->
                                             <input id="inputCategory" type="text" class="form-control"  
-                                                   value="Noodles" disabled>
+                                                   value="<%= staff.getCategoryId().getName()%>" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +122,7 @@
                                         <div class="input-group mb-2">
                                             <div id="ingredientList" class="row" style="margin-left: 0px; margin-right: 0px; width: 100%;">
                                                 <input name='Ingredient' type="text" class="flexdatalist form-control col-10" placeholder="Ingredient">
-                                                <input name='Quantity' type="number" class="ingreQuantity form-control col-2" placeholder="Quantity" min="1" max="10">
+                                                <input name='Quantity' type="number" class="ingreQuantity form-control col-2" placeholder="Quantity" min="1" max="10" step="0.01">
                                             </div>
                                         </div>
                                     </div>
@@ -150,6 +179,7 @@
                                                     searchIn: 'name',
                                                     data: ingredients
                                                 });
+                                                $('.ingreQuantity:last').val("");
                                             }
         </script>
     </body>

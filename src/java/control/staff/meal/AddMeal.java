@@ -29,7 +29,8 @@ public class AddMeal extends HttpServlet {
         String availability = request.getParameter("Availability");
         String[] ingredient = request.getParameterValues("Ingredient");
         String[] quantity = request.getParameterValues("Quantity");
-        Staff session = (Staff) request.getAttribute("staff");
+        HttpSession session = request.getSession();
+        Staff staff = (Staff) session.getAttribute("staff");
         
         // Initialization
         Meal meal = new Meal();
@@ -40,11 +41,12 @@ public class AddMeal extends HttpServlet {
         meal.setPrice(Double.parseDouble(price));
         meal.setCalories(Integer.parseInt(calories));
         meal.setAvailability(Boolean.parseBoolean(availability));
-        //meal.setCategoryId(session.getCategoryId());
-        //Code below is temp. Use code above.
+        
         CategoryService cs = new CategoryService();
-        meal.setCategoryId(cs.findCategoryByID(1));
+        meal.setCategoryId(cs.findCategoryByID(staff.getCategoryId().getCategoryId()));
         cs.close();
+
+        meal.setCategoryId(staff.getCategoryId());
         
         Ingredientlist ingredientlist;
         IngredientService is = new IngredientService();
