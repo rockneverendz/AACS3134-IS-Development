@@ -1,7 +1,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -16,8 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -27,9 +24,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Order1.findAll", query = "SELECT o FROM Order1 o")
     , @NamedQuery(name = "Order1.findByOrderId", query = "SELECT o FROM Order1 o WHERE o.orderId = :orderId")
-    , @NamedQuery(name = "Order1.findByStutus", query = "SELECT o FROM Order1 o WHERE o.stutus = :stutus")
-    , @NamedQuery(name = "Order1.findByRedeemDate", query = "SELECT o FROM Order1 o WHERE o.redeemDate = :redeemDate")
-    , @NamedQuery(name = "Order1.findByRedeemTime", query = "SELECT o FROM Order1 o WHERE o.redeemTime = :redeemTime")})
+    , @NamedQuery(name = "Order1.findByStatus", query = "SELECT o FROM Order1 o WHERE o.status = :status")
+    , @NamedQuery(name = "Order1.findByType", query = "SELECT o FROM Order1 o WHERE o.type = :type")})
 public class Order1 implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,14 +35,11 @@ public class Order1 implements Serializable {
     @Column(name = "ORDER_ID")
     private Integer orderId;
     @Basic(optional = false)
-    @Column(name = "STUTUS")
-    private String stutus;
-    @Column(name = "REDEEM_DATE")
-    @Temporal(TemporalType.DATE)
-    private Date redeemDate;
+    @Column(name = "STATUS")
+    private String status;
     @Basic(optional = false)
-    @Column(name = "REDEEM_TIME")
-    private String redeemTime;
+    @Column(name = "TYPE")
+    private String type;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order1")
     private List<Orderlist> orderlistList;
     @JoinColumn(name = "CUST_ID", referencedColumnName = "CUST_ID")
@@ -63,10 +56,10 @@ public class Order1 implements Serializable {
         this.orderId = orderId;
     }
 
-    public Order1(Integer orderId, String stutus, String redeemTime) {
+    public Order1(Integer orderId, String status, String type) {
         this.orderId = orderId;
-        this.stutus = stutus;
-        this.redeemTime = redeemTime;
+        this.status = status;
+        this.type = type;
     }
 
     public Integer getOrderId() {
@@ -77,28 +70,20 @@ public class Order1 implements Serializable {
         this.orderId = orderId;
     }
 
-    public String getStutus() {
-        return stutus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStutus(String stutus) {
-        this.stutus = stutus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Date getRedeemDate() {
-        return redeemDate;
+    public String getType() {
+        return type;
     }
 
-    public void setRedeemDate(Date redeemDate) {
-        this.redeemDate = redeemDate;
-    }
-
-    public String getRedeemTime() {
-        return redeemTime;
-    }
-
-    public void setRedeemTime(String redeemTime) {
-        this.redeemTime = redeemTime;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @XmlTransient
