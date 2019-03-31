@@ -6,7 +6,7 @@
 <!doctype html>
 <html lang="en">
     <!-- retrieve session object, MealList -->
-    
+
     <head>
         <%@include file="../layout/meta.jsp" %>
         <%@include file="../layout/css.jsp" %>
@@ -37,8 +37,14 @@
                                     <th scope="col">Calories</th>
                                 </tr>
                             </thead>
-                            <%  
+                            <%
+                                //If user is not logged in
                                 Staff staff = (Staff) session.getAttribute("staff");
+                                if (staff == null) {
+                                    response.sendRedirect("../account/signin.jsp?status=N");
+                                    return;
+                                }
+
                                 MealService mealService = new MealService();
                                 List<Meal> MealList = mealService.findMealByCategoryID(
                                         staff.getCategoryId()
@@ -47,12 +53,12 @@
                             <tbody>
                                 <% for (Meal meal : MealList) {%>
                                 <tr>
-                                    <th scope="row"><%= meal.getMealId() %></th>
-                                    <td><%= meal.getName() %></td>
-                                    <td><%= meal.getDescription() %></td>
-                                    <td><%= meal.getPrice() %></td>
-                                    <td><%= meal.getAvailability() %></td>
-                                    <td><%= meal.getCalories() %></td>
+                                    <th scope="row"><%= meal.getMealId()%></th>
+                                    <td><%= meal.getName()%></td>
+                                    <td><%= meal.getDescription()%></td>
+                                    <td><%= meal.getPrice()%></td>
+                                    <td><%= meal.getAvailability()%></td>
+                                    <td><%= meal.getCalories()%></td>
                                 </tr>
                                 <% }%>
                             </tbody>
