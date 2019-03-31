@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <%@include file="../layout/meta.html" %>
+        <%@include file="../layout/meta.jsp" %>
         <title>Bricks</title>
         <style>
             body{
@@ -52,7 +52,7 @@
 
     <body class="text-center">
 
-        <%@include file="../layout/navbar.html" %>
+        <%@include file="../layout/navbar.jsp" %>
         <!-- Main Content -->
         <div class="mainContainer row">
 
@@ -74,7 +74,7 @@
         <footer class="fixed-bottom">
             <p class="text-muted">Cover template for <a href="#">Bricks</a>, by <a href="#">St. Freya University</a>.</p>
         </footer>
-        <%@include file="../layout/scripts.html" %>
+        <%@include file="../layout/scripts.jsp" %>
     </body>
 
 </html>

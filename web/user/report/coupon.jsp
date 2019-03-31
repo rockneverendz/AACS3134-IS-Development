@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <%@include file="../layout/meta.html" %>
+        <%@include file="../layout/meta.jsp" %>
         <title>Bricks | Coupon</title>
         <style>
             .dropdown-item:nth-child(3){
@@ -20,7 +20,7 @@
 
     </head>
     <body>
-        <%@include file="../layout/navbar.html" %>
+        <%@include file="../layout/navbar.jsp" %>
         <main role="main">
 
             <section class="text-center">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </main>
-        <%@include file="../layout/footer.html" %>
-        <%@include file="../layout/scripts.html" %>
+        <%@include file="../layout/footer.jsp" %>
+        <%@include file="../layout/scripts.jsp" %>
     </body>
 </html>
