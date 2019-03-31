@@ -1,3 +1,5 @@
+<%@page import="entity.Category"%>
+<%@page import="service.CategoryService"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,7 +26,7 @@
                     font-size: 3.5rem;
                 }
             }
-            
+
             .col-6 {
                 padding-right: 0;
                 padding-left: 0;
@@ -91,22 +93,38 @@
                 </div>
             </section>
             <div class="row">
-                <% for (int i = 0; i < 6; i++) {%>
-                <a href="../meal/viewmeal.jsp" class="card bg-dark text-white col-6">
+                <%
+                    CategoryService cs = new CategoryService();
+                    for (Category category : cs.findAll()) {
+                %>
+                <a href="../meal/viewmeal.jsp?CategoryId=<%= category.getCategoryId()%>" class="card bg-dark text-white col-6">
                     <div>
-                        <!--<img src="..." class="card-img" alt="...">-->
+                        <%
+                            byte[] image = category.getImage();
+                            if (image != null) {
+                        %>
+
+                        <img src="..." class="card-img" alt="...">
+
+                        <%
+                        } else {
+                        %>
                         <svg class="bd-placeholder-img card-img" width="600" height="300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
                         <title>Category Thumbnail</title>
                         <rect width="100%" height="100%" fill="#55595c"></rect>
                         <text x="50%" y="50%" fill="#eceeef" dy=".3em">Category Thumbnail</text>
                         </svg>
-
+                        <%
+                            }
+                        %>
                         <div class="card-img-overlay">
-                            <h5 class="card-title display-4">Category Title</h5>
+                            <h5 class="card-title display-4"><%= category.getName()%></h5>
                         </div>
                     </div>
                 </a>
-                <% }%>
+                <%
+                    }
+                %>
             </div>
         </div>
         <%@include file="../layout/footer.jsp" %>
