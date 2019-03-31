@@ -40,7 +40,7 @@ public class Orderlist implements Serializable {
     private Meal meal;
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Order1 order1;
+    private Ordermeal ordermeal;
 
     public Orderlist() {
     }
@@ -99,12 +99,12 @@ public class Orderlist implements Serializable {
         this.meal = meal;
     }
 
-    public Order1 getOrder1() {
-        return order1;
+    public Ordermeal getOrdermeal() {
+        return ordermeal;
     }
 
-    public void setOrder1(Order1 order1) {
-        this.order1 = order1;
+    public void setOrdermeal(Ordermeal ordermeal) {
+        this.ordermeal = ordermeal;
     }
 
     @Override
