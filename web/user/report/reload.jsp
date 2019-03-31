@@ -17,7 +17,7 @@
             .table {
                 margin-bottom: 0;
             }
-            
+
             .border-left-success {
                 border-left: .25rem solid #1cc88a!important;
             }
@@ -107,29 +107,27 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <%
-                                                    //TODO Year Parameter
+                                                <%                                                    //TODO Year Parameter
                                                     //request.getAttribute("year");
-                                                    
                                                     CustomerService cs = new CustomerService();
                                                     customer = cs.findCustByID(customer.getCustId());
                                                     List<Reload> list = customer.getReloadList();
-                                                    
+
                                                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
                                                     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-                                                    
+
                                                     double totalAmount = 0;
                                                     for (Reload reload : list) {
                                                 %>
                                                 <tr role="row">
-                                                    <td><%= reload.getReloadId() %></td>
-                                                    <td><%= dateFormat.format(reload.getDate()) %></td>
-                                                    <td><%= timeFormat.format(reload.getTime()) %></td>
-                                                    <td><%= reload.getStaffId().getUsername() %></td>
-                                                    <td>RM <%= String.format("%.2f", reload.getAmount()) %></td>
+                                                    <td><%= reload.getReloadId()%></td>
+                                                    <td><%= dateFormat.format(reload.getDate())%></td>
+                                                    <td><%= timeFormat.format(reload.getTime())%></td>
+                                                    <td><%= reload.getStaffId().getUsername()%></td>
+                                                    <td>RM <%= String.format("%.2f", reload.getAmount())%></td>
                                                 </tr>
                                                 <%
-                                                    totalAmount = totalAmount + reload.getAmount();
+                                                        totalAmount = totalAmount + reload.getAmount();
                                                     }
                                                 %>
                                             </tbody>
@@ -139,7 +137,7 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td><strong>Total</strong></td>
-                                                    <td>RM <%= String.format("%.2f", totalAmount) %></td>
+                                                    <td>RM <%= String.format("%.2f", totalAmount)%></td>
                                                 </tr>
                                             </tfoot>
                                         </table>
