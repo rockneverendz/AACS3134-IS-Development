@@ -1,6 +1,6 @@
 <%@page import="entity.Customer"%>
 <!doctype html>
-<html lang="en">
+<html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
         <title>Create Account</title>
@@ -125,7 +125,7 @@
         </style>
     </head>
 
-    <body>
+    <body style="margin-bottom: 60px;">
         <form class="form-signup" action="signup" method="POST">           
             <div class="text-center mb-4">
                 <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="75%"/>

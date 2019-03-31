@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
         <title>Bricks | Packages</title>
@@ -43,18 +43,9 @@
             .jumbotron .container {
                 max-width: 40rem;
             }
-
-            footer > span > a{
-                color: aliceblue;
-            }
-
-            footer > span :hover{
-                color: aliceblue;
-            }
-
         </style>
     </head>
-    <body>
+    <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
 

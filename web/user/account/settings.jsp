@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
         <title>Settings</title>
@@ -109,7 +109,7 @@
         </style>
     </head>
 
-    <body>
+    <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <!-- Main -->
         <div class="container">

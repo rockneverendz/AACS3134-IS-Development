@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="position: relative; min-height: 100%;">
 
     <head>
         <!-- Required meta tags -->
@@ -137,7 +137,7 @@
         </style>
     </head>
 
-    <body>
+    <body style="margin-bottom: 60px;">
         <form class="form-recovery" >
             <div class="text-center mb-4">
                 <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="50%"/>
@@ -153,7 +153,7 @@
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Proceed Password Recovery</button>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to login</a>
-            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">ï¿½ 2019</p>
         </form>
     </body>
 </html>
