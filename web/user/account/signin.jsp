@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
         <title>User Login</title>
@@ -124,7 +124,7 @@
         </style>
     </head>
 
-    <body>
+    <body style="margin-bottom: 60px;">
         <form class="form-signin" action="signin" method="POST">
             <div class="text-center mb-4">
                 <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="75%"/>

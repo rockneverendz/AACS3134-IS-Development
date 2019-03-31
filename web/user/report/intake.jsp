@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
         <title>Reload</title>
@@ -12,15 +12,6 @@
 
             .table {
                 margin-bottom: 0;
-            }
-
-            footer {
-                padding-top: 3rem;
-                padding-bottom: 3rem;
-            }
-
-            footer p {
-                margin-bottom: .25rem;
             }
 
             .border-left-primary {
@@ -36,7 +27,7 @@
             }
         </style>
     </head>
-    <body>
+    <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
 

@@ -1,7 +1,7 @@
 <%@page import="entity.Category"%>
 <%@page import="service.CategoryService"%>
 <!DOCTYPE html>
-<html>
+<html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
         <title>Category</title>
@@ -57,14 +57,6 @@
                 max-width: 40rem;
             }
 
-            footer > span > a{
-                color: aliceblue;
-            }
-
-            footer > span :hover{
-                color: aliceblue;
-            }
-
             .card{
                 height: 300px;
                 margin-bottom: -1px;
@@ -81,7 +73,7 @@
             }
         </style>
     </head>
-    <body class="text-center">
+    <body style="margin-bottom: 60px;" class="text-center">
         <%@include file="../layout/navbar.jsp" %>
         <!--	Main Content-->
         <div class="container" style="padding: 25px;">
@@ -101,13 +93,11 @@
                     <div>
                         <%
                             byte[] image = category.getImage();
-                            if (image != null) {
+                            if (image != null) { //Image found
                         %>
-
-                        <img src="..." class="card-img" alt="...">
-
+                        <!--Insert Image here-->
                         <%
-                        } else {
+                        } else { //No image found
                         %>
                         <svg class="bd-placeholder-img card-img" width="600" height="300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
                         <title>Category Thumbnail</title>

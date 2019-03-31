@@ -3,7 +3,7 @@
 <%@page import="entity.Meal"%>
 <%@page import="service.MealService"%>
 <!doctype html>
-<html lang="en">
+<html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
         <title>Bricks | Meals</title>
@@ -47,22 +47,10 @@
             .jumbotron .container {
                 max-width: 40rem;
             }
-
-            footer > span > a{
-                color: aliceblue;
-            }
-
-            footer > span :hover{
-                color: aliceblue;
-            }
-
-
-
-
         </style>
 
     </head>
-    <body>
+    <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
             <%
@@ -88,10 +76,11 @@
                             <div class="card mb-4 shadow-sm">
                                 <%
                                     byte[] image = meal.getImage();
-                                    if (image != null) {
+                                    if (image != null) { //Image found
                                 %>
+                                <!--Insert Image here-->
                                 <%
-                                } else {
+                                } else { //No image found
                                 %>
                                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                                 <%

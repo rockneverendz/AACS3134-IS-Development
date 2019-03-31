@@ -1,22 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap-datepicker3.min.css">
         <title>Bricks | Cart</title>
-        <style>
-
-            footer > span > a{
-                color: aliceblue;
-            }
-
-            footer > span :hover{
-                color: aliceblue;
-            }
-
-        </style>
     </head>
-    <body>
+    <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
             <div class="container" style="padding: 25px;">

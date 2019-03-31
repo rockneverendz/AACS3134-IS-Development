@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
         <title>Reload</title>
@@ -17,16 +17,7 @@
             .album {
                 height:75rem;
             }
-
-            footer {
-                padding-top: 3rem;
-                padding-bottom: 3rem;
-            }
-
-            footer p {
-                margin-bottom: .25rem;
-            }
-
+            
             .border-left-success {
                 border-left: .25rem solid #1cc88a!important;
             }
@@ -37,7 +28,7 @@
 
         </style>
     </head>
-    <body>
+    <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
 

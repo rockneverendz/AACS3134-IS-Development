@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="position: relative; min-height: 100%;">
 
     <head>
         <%@include file="../layout/meta.jsp" %>
@@ -50,7 +50,7 @@
 
     </head>
 
-    <body class="text-center">
+    <body style="margin-bottom: 60px;" class="text-center">
 
         <%@include file="../layout/navbar.jsp" %>
         <!-- Main Content -->
