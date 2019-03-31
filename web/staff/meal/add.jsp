@@ -25,12 +25,13 @@
                                     <h1 class="h1 mb-3">Add New Meal</h1>
                                 </div>
                                 <%
+                                    //Already initialize in sidebar.jsp
                                     //If user is not logged in
-                                    Staff staff = (Staff) session.getAttribute("staff");
-                                    if (staff == null) {
-                                        response.sendRedirect("../account/signin.jsp?status=N");
-                                        return;
-                                    }
+//                                    Staff staff = (Staff) session.getAttribute("staff");
+//                                    if (staff == null) {
+//                                        response.sendRedirect("../account/signin.jsp?status=N");
+//                                        return;
+//                                    }
 
                                     String status = request.getParameter("status");
                                     String message;
@@ -64,7 +65,7 @@
                                     <div class="col">
                                         <label for="inputCategory">Category</label>
                                         <div class="input-group">
-                                            <!-- I will get value from session. But not now. -->
+                                            <!-- I get it -->
                                             <input id="inputCategory" type="text" class="form-control"  
                                                    value="<%= staff.getCategoryId().getName()%>" disabled>
                                         </div>
