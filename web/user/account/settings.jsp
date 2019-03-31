@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <%@include file="../layout/meta.html" %>
+        <%@include file="../layout/meta.jsp" %>
         <title>Settings</title>
         <style>
             .dropdown-item:nth-child(8){
@@ -110,7 +110,7 @@
     </head>
 
     <body>
-        <%@include file="../layout/navbar.html" %>
+        <%@include file="../layout/navbar.jsp" %>
         <!-- Main -->
         <div class="container">
             <form class="form-settings">
@@ -132,9 +132,9 @@
                     <p><small><a href="./passrecovery.jsp">Forget Password?</a></small></p>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
-                <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
+                <p class="mt-5 mb-3 text-muted text-center">Bricks ï¿½ 2019</p>
             </form>
         </div>
-        <%@include file="../layout/scripts.html" %>
+        <%@include file="../layout/scripts.jsp" %>
     </body>
 </html>

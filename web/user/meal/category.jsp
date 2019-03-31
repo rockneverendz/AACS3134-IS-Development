@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="../layout/meta.html" %>
+        <%@include file="../layout/meta.jsp" %>
         <title>Category</title>
 
         <!--        CSS-->
@@ -80,7 +80,7 @@
         </style>
     </head>
     <body class="text-center">
-        <%@include file="../layout/navbar.html" %>
+        <%@include file="../layout/navbar.jsp" %>
         <!--	Main Content-->
         <div class="container" style="padding: 25px;">
             <section class="jumbotron text-center">
@@ -109,7 +109,7 @@
                 <% }%>
             </div>
         </div>
-        <%@include file="../layout/footer.html" %>
-        <%@include file="../layout/scripts.html" %>
+        <%@include file="../layout/footer.jsp" %>
+        <%@include file="../layout/scripts.jsp" %>
     </body>
 </html>

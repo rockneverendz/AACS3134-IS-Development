@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <%@include file="../layout/meta.html" %>
+        <%@include file="../layout/meta.jsp" %>
         <title>Reload</title>
         <style>
             .dropdown-item:nth-child(6){
@@ -37,7 +37,7 @@
         </style>
     </head>
     <body>
-        <%@include file="../layout/navbar.html" %>
+        <%@include file="../layout/navbar.jsp" %>
         <main role="main">
 
             <section class="text-center">
@@ -163,8 +163,8 @@
                 </div>
             </div>
         </main>
-        <%@include file="../layout/footer.html" %>
-        <%@include file="../layout/scripts.html" %>
+        <%@include file="../layout/footer.jsp" %>
+        <%@include file="../layout/scripts.jsp" %>
         <link href="../../bootstrap/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css"/>
         <script src="../../bootstrap/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
         <link href="../../bootstrap/css/Chart.min.css" rel="stylesheet" type="text/css"/>

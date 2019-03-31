@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <%@include file="../layout/meta.html" %>
+        <%@include file="../layout/meta.jsp" %>
         <title>Bricks | Cart</title>
         <style>
 
@@ -20,7 +20,7 @@
 
     </head>
     <body>
-        <%@include file="../layout/navbar.html" %>
+        <%@include file="../layout/navbar.jsp" %>
         <main role="main">
             <div class="container" style="padding: 25px;">
 
@@ -85,6 +85,6 @@
                 </div>
             </div>
         </main>
-        <%@include file="../layout/scripts.html" %>
+        <%@include file="../layout/scripts.jsp" %>
     </body>
 </html>
