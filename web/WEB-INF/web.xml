@@ -30,6 +30,10 @@
         <servlet-class>control.staff.meal.AddMeal</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>staff.meal.SearchMeal</servlet-name>
+        <servlet-class>control.staff.meal.SearchMeal</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>staff.ingredient.retriveIngre</servlet-name>
         <servlet-class>control.staff.ingredient.retriveIngre</servlet-class>
     </servlet>
@@ -66,7 +70,10 @@
         <servlet-name>staff.ingredient.retriveIngre</servlet-name>
         <url-pattern>/staff/ingredient/retriveIngre</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>staff.meal.SearchMeal</servlet-name>
+        <url-pattern>/staff/meal/SearchMeal</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
