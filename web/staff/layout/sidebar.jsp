@@ -1,3 +1,19 @@
+<%@page import="java.util.List"%>
+<%@page import="entity.Staff"%>
+<%@page import="entity.Category"%>
+<%@page import="service.CategoryService"%>
+
+<%
+    //If user is not logged in
+    Staff staff = (Staff) session.getAttribute("staff");
+    if (staff == null) {
+        response.sendRedirect("../account/signin.jsp?status=N");
+        return;
+    }
+
+    Category cat = staff.getCategoryId();
+%>
+
 <!-- Fixed-Sidebar Navs -->
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
     <div class="sidebar-sticky">
@@ -8,8 +24,9 @@
                 </a>
             </li>
             <li class="nav-item">
+
                 <a class="nav-link ml-4 text-muted">
-                    Chicken Rice
+                    <%= cat.getName()%>
                 </a>
             </li>
             <li class="nav-item mt-4">
