@@ -26,7 +26,7 @@
                     <div class="container mt-4">
                         <h3>Manage Meals</h3>
 
-                        <table class="table table-bordered table-hover">
+                        <table id="myTable" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">No.</th>
@@ -38,12 +38,14 @@
                                 </tr>
                             </thead>
                             <%
+                                //Already initialize in sidebar.jsp
+                                
                                 //If user is not logged in
-                                Staff staff = (Staff) session.getAttribute("staff");
-                                if (staff == null) {
-                                    response.sendRedirect("../account/signin.jsp?status=N");
-                                    return;
-                                }
+//                                Staff staff = (Staff) session.getAttribute("staff");
+//                                if (staff == null) {
+//                                    response.sendRedirect("../account/signin.jsp?status=N");
+//                                    return;
+//                                }
 
                                 MealService mealService = new MealService();
                                 List<Meal> MealList = mealService.findMealByCategoryID(
@@ -53,7 +55,7 @@
                             <tbody>
                                 <% for (Meal meal : MealList) {%>
                                 <tr>
-                                    <th scope="row"><%= meal.getMealId()%></th>
+                                    <td scope="row"><%= meal.getMealId()%></td>
                                     <td><%= meal.getName()%></td>
                                     <td><%= meal.getDescription()%></td>
                                     <td><%= meal.getPrice()%></td>
@@ -65,34 +67,52 @@
                         </table>
 
                         <div class="row">
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                 <a class="btn btn-dark btn-lg" href="add.jsp" role="button">Add Item</a>
                             </div>
-                            <div class="col-sm-5">
+                            <div class="col-sm-4">
                                 <form>
-                                    <div class="input-group mt-1">
+                                    <div class="input-group mt-2 ml-5">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Search Item</span>
                                         </div>
-                                        <input type="text" class="form-control col-5" id="itemid" placeholder="Item ID">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-success" type="submit" id="search">Search</button>
-                                        </div>
+                                        <input type="text" class="form-control col-5" id="itemid" placeholder="Item ID" onkeyup="myFunction()">
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                 <a class="btn btn-dark btn-lg" href="modify.jsp" role="button">Modify Item</a>
                             </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-dark btn-lg" href="delete.jsp" role="button">Delete Item</a>
-                            </div>
+                            
                         </div>
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks ï¿½ 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
                 </main>
             </div>
         </div>
         <%@include file="../layout/scripts.jsp" %>
+        <script>
+            function myFunction() {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("itemid");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>
+
+
+
     </body>
 </html>
