@@ -1,6 +1,6 @@
 package service;
 
-import entity.Order1;
+import entity.Ordermeal;
 import entity.Payment;
 import entity.Customer;
 import entity.Orderlist;
@@ -19,57 +19,55 @@ public class OrderService {
     }
 
     public void addMealorder(
-            Order1 mealorder,
+            Ordermeal ordermeal,
             Payment payment,
             ArrayList<Orderlist> cart,
             Customer customer
     ) throws RollbackException {
         em.getTransaction().begin();
-        em.persist(mealorder);
+        em.persist(ordermeal);
         em.persist(payment);
         em.getTransaction().commit();
 
         cart.stream().map((orderlist) -> {
-            orderlist.setOrder1(mealorder);
+            orderlist.setOrdermeal(ordermeal);
             return orderlist;
         }).forEachOrdered((orderlist) -> {
             orderlist.setOrderlistPK(
                     new OrderlistPK(
                             orderlist.getMeal().getMealId(),
-                            mealorder.getOrderId()
+                            ordermeal.getOrderId()
                     )
             );
         });
 
         em.getTransaction().begin();
-        mealorder.setOrderlistList(cart);
-        mealorder.setCustId(customer);
+        ordermeal.setOrderlistList(cart);
+        ordermeal.setCustId(customer);
         em.getTransaction().commit();
     }
 
-    public Order1 findOrderByID(int id) {
-        return (Order1) em.find(Order1.class, id);
+    public Ordermeal findOrderByID(int id) {
+        return (Ordermeal) em.find(Ordermeal.class, id);
     }
 
     /**
-     * @param newMealorder The modified order
+     * @param newOrdermeal The modified order
      * @return true if successfully committed false if order not found
      * @throws RollbackException If commit fails
      */
-    public boolean updateMealorder(Order1 newMealorder) throws RollbackException {
-        Order1 oldMealorder = findOrderByID(newMealorder.getOrderId());
-        if (oldMealorder != null) {
+    public boolean updateMealorder(Ordermeal newOrdermeal) throws RollbackException {
+        Ordermeal oldOrdermeal = findOrderByID(newOrdermeal.getOrderId());
+        if (oldOrdermeal != null) {
             em.getTransaction().begin();
-            oldMealorder.setStutus(newMealorder.getStutus());
-            oldMealorder.setRedeemDate(newMealorder.getRedeemDate());
-            oldMealorder.setRedeemTime(newMealorder.getRedeemTime());
+            oldOrdermeal.setStatus(newOrdermeal.getStatus());
             em.getTransaction().commit();
             return true;
         }
         return false;
     }
 
-    public List<Order1> findAll() {
+    public List<Ordermeal> findAll() {
         List MealorderList = em.createNamedQuery("Mealorder.findAll").getResultList();
         return MealorderList;
     }
