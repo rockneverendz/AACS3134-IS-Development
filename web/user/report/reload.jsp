@@ -1,3 +1,7 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="service.CustomerService"%>
+<%@page import="entity.Reload"%>
+<%@page import="java.util.List"%>
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
@@ -30,7 +34,7 @@
 
             <section class="text-center">
                 <div class="container d-flex justify-content-between align-items-center">
-                    <h1 class="display-2">Intake List</h1>
+                    <h1 class="display-2">Reload List</h1>
                     <a href="#" class="btn btn-primary my-2">Print
                         <i class="fas fa-print"></i>
                     </a>
@@ -75,7 +79,7 @@
 
                             <div class="card shadow mb-4 w-100">
                                 <div class="card-header py-3 d-flex mb-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Intake Report</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Reload Report</h6>
                                     <div class="ml-auto">
                                         <form>
                                             <div class="input-group datepicker">
@@ -95,35 +99,47 @@
                                         <table class="table table-bordered" width="100%" cellspacing="0" role="grid" style="width: 100%;">
                                             <thead>
                                                 <tr role="row">
-                                                    <th rowspan="1" colspan="1" style="width: 5%;">No.</th>
-                                                    <th rowspan="1" colspan="1" style="width: 15%;">Date</th>
-                                                    <th rowspan="1" colspan="1" style="width: 15%;">Time</th>
-                                                    <th rowspan="1" colspan="1" style="width: 10%;">Amount</th>
-                                                    <th rowspan="1" colspan="1" style="width: 10%;">Staff</th>
+                                                    <th rowspan="1" colspan="1" style="width: 10%;">Reload ID</th>
+                                                    <th rowspan="1" colspan="1" style="width: 25%;">Date</th>
+                                                    <th rowspan="1" colspan="1" style="width: 25%;">Time</th>
+                                                    <th rowspan="1" colspan="1" style="width: 20%;">Staff</th>
+                                                    <th rowspan="1" colspan="1" style="width: 20%;">Amount</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <%
-                                                    for (int i = 1; i <= 12; i++) {
+                                                    //TODO Year Parameter
+                                                    //request.getAttribute("year");
+                                                    
+                                                    CustomerService cs = new CustomerService();
+                                                    customer = cs.findCustByID(customer.getCustId());
+                                                    List<Reload> list = customer.getReloadList();
+                                                    
+                                                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+                                                    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                                                    
+                                                    double totalAmount = 0;
+                                                    for (Reload reload : list) {
                                                 %>
                                                 <tr role="row">
-                                                    <td><%= i%></td>
-                                                    <td>1-<%= i%>-2019</td>
-                                                    <td><%= String.format("%02d", i * 59 % 24)%>:<%= String.format("%02d", i * 79 % 24)%></td>
-                                                    <td>RM <%= i * 7919 % 200%></td>
-                                                    <td>Gabe Newell</td>
+                                                    <td><%= reload.getReloadId() %></td>
+                                                    <td><%= dateFormat.format(reload.getDate()) %></td>
+                                                    <td><%= timeFormat.format(reload.getTime()) %></td>
+                                                    <td><%= reload.getStaffId().getUsername() %></td>
+                                                    <td>RM <%= String.format("%.2f", reload.getAmount()) %></td>
                                                 </tr>
                                                 <%
+                                                    totalAmount = totalAmount + reload.getAmount();
                                                     }
                                                 %>
                                             </tbody>
                                             <tfoot>
                                                 <tr role="row">
                                                     <td></td>
+                                                    <td></td>
+                                                    <td></td>
                                                     <td><strong>Total</strong></td>
-                                                    <td></td>
-                                                    <td>RM 9999</td>
-                                                    <td></td>
+                                                    <td>RM <%= String.format("%.2f", totalAmount) %></td>
                                                 </tr>
                                             </tfoot>
                                         </table>
