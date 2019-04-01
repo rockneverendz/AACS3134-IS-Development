@@ -30,14 +30,23 @@
         <servlet-class>control.staff.account.signup</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>staff.account.topup</servlet-name>
+        <servlet-class>control.staff.account.topup</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>staff.meal.AddMeal</servlet-name>
         <servlet-class>control.staff.meal.AddMeal</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>staff.meal.SearchMeal</servlet-name>
+        <servlet-class>control.staff.meal.SearchMeal</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>staff.ingredient.retriveIngre</servlet-name>
         <servlet-class>control.staff.ingredient.retriveIngre</servlet-class>
     </servlet>
     <!-- URL which leads to the specific servlet. -->
+    
     <servlet-mapping>
         <servlet-name>user.account.signin</servlet-name>
         <url-pattern>/user/account/signin</url-pattern>
@@ -67,6 +76,10 @@
         <url-pattern>/staff/account/signup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>staff.account.topup</servlet-name>
+        <url-pattern>/staff/account/topup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>staff.meal.AddMeal</servlet-name>
         <url-pattern>/staff/meal/AddMeal</url-pattern>
     </servlet-mapping>
@@ -74,7 +87,10 @@
         <servlet-name>staff.ingredient.retriveIngre</servlet-name>
         <url-pattern>/staff/ingredient/retriveIngre</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>staff.meal.SearchMeal</servlet-name>
+        <url-pattern>/staff/meal/SearchMeal</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

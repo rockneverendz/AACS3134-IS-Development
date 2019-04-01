@@ -37,16 +37,13 @@
                                     <th scope="col">Calories</th>
                                 </tr>
                             </thead>
-                            <%
-                                //Already initialize in sidebar.jsp
-                                
+                            <%                                //Already initialize in sidebar.jsp
                                 //If user is not logged in
 //                                Staff staff = (Staff) session.getAttribute("staff");
 //                                if (staff == null) {
 //                                    response.sendRedirect("../account/signin.jsp?status=N");
 //                                    return;
 //                                }
-
                                 MealService mealService = new MealService();
                                 List<Meal> MealList = mealService.findMealByCategoryID(
                                         staff.getCategoryId()
@@ -70,20 +67,20 @@
                             <div class="col-sm-4">
                                 <a class="btn btn-dark btn-lg" href="add.jsp" role="button">Add Item</a>
                             </div>
-                            <div class="col-sm-4">
-                                <form>
-                                    <div class="input-group mt-2 ml-5">
+                            <div class="col-sm-8">
+                                <form class="row" action="SearchMeal" method="get">
+                                    <div class="col input-group mt-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Search Item</span>
                                         </div>
-                                        <input type="text" class="form-control col-5" id="itemid" placeholder="Item ID" onkeyup="myFunction()">
+                                        <input type="text" name="mealid" class="form-control col-5" id="itemid" placeholder="Item ID" onkeyup="myFunction()">
+
+                                    </div>
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-dark btn-lg white" role="button">Modify Item</button>
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-sm-4">
-                                <a class="btn btn-dark btn-lg" href="modify.jsp" role="button">Modify Item</a>
-                            </div>
-                            
                         </div>
                     </div>
                     <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
