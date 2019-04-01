@@ -53,8 +53,7 @@
     <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
-            <%
-                String categoryId = request.getParameter("CategoryId");
+            <%                String categoryId = request.getParameter("CategoryId");
                 MealService ms = new MealService();
                 CategoryService cs = new CategoryService();
                 Category category = cs.findCategoryByID(Integer.parseInt(categoryId));
@@ -87,10 +86,10 @@
                                     }
                                 %>
                                 <div class="card-body">
-                                    <p class="card-text"><%= meal.getName() %></p>
+                                    <p class="card-text"><%= meal.getName()%></p>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted"><%= meal.getPrice() %> points</small>
-                                        <a href="#" class="btn btn-primary">Order</a>
+                                        <small class="text-muted"><%= meal.getPrice()%> points</small>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#orderModal" data-mealid="<%= meal.getMealId()%>">Order</button>
                                     </div>
                                 </div>
                             </div>
@@ -99,10 +98,50 @@
                             }
                         %>
                     </div>
+                    <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="orderModalLabel">Order</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Meal ID:</label>
+                                            <input type="text" class="form-control" id="mealId" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="message-text" class="col-form-label">Message:</label>
+                                            <textarea class="form-control" id="message-text"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Send message</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
         <%@include file="../layout/footer.jsp" %>
         <%@include file="../layout/scripts.jsp" %>
+        <link href="../../bootstrap/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../../bootstrap/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <script>
+            $('#orderModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // Button that triggered the modal
+                var id = button.data('mealid'); // Extract info from data-* attributes
+                var modal = $(this);
+                modal.find('#mealId').val(id);
+            });
+            
+            
+        </script>
     </body>
 </html>
