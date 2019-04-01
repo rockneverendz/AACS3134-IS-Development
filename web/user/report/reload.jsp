@@ -34,7 +34,7 @@
 
             <section class="text-center">
                 <div class="container d-flex justify-content-between align-items-center">
-                    <h1 class="display-2">Reload List</h1>
+                    <h1 class="display-2">Reload History</h1>
                     <a href="#" class="btn btn-primary my-2">Print
                         <i class="fas fa-print"></i>
                     </a>
