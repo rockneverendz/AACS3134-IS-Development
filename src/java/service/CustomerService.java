@@ -24,6 +24,12 @@ public class CustomerService {
                 .setParameter("username", username)
                 .getSingleResult();
     }
+    
+    public Customer findCustByUserIdCard(String userIdCard) {
+        return (Customer) em.createNamedQuery("Customer.findByUserIdCard")
+                .setParameter("userIdCard", userIdCard)
+                .getSingleResult();
+    }
 
     public Customer findCustByEmail(String email) {
         return (Customer) em.createNamedQuery("Customer.findByEmail")
