@@ -15,15 +15,29 @@ public class topup extends HttpServlet {
 
         // Get parameter from the form
         String studentID = request.getParameter("studid");
-        String amount = request.getParameter("amount");
-        
-        //Initialization
-        Customer customer = new Customer();
-        CustomerService cs = new CustomerService();
-        try {
-            
-        } catch (Exception e) {
+        int amount = Integer.parseInt(request.getParameter("amount"));
 
+        //Initialization
+        Customer customer;
+        CustomerService customerService = new CustomerService();
+
+        try {
+            //Find customer
+            customer = customerService.findCustByUserIdCard(studentID);
+            //Get current credit points
+            int currentCreditPoints = customer.getCreditpoints();
+            //Update credit points
+            int updatedCreditPoints = currentCreditPoints + amount;
+            customer.setCreditpoints(updatedCreditPoints);
+
+            if (customerService.updateCustomer(customer)) {
+                response.sendRedirect("topup.jsp?status=1");
+            } else {
+                response.sendRedirect("topup.jsp?status=0");
+            }
+
+        } catch (Exception e) {
+            e.getMessage();
         }
 
     }

@@ -29,7 +29,7 @@
                         <table id="myTable" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">No.</th>
+                                    <th scope="col">Item ID</th>
                                     <th scope="col">Food</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">Price</th>
