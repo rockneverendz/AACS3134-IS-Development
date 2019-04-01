@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Coupon.findAll", query = "SELECT c FROM Coupon c")
     , @NamedQuery(name = "Coupon.findByCouponId", query = "SELECT c FROM Coupon c WHERE c.couponId = :couponId")
-    , @NamedQuery(name = "Coupon.findByDate", query = "SELECT c FROM Coupon c WHERE c.date = :date")
-    , @NamedQuery(name = "Coupon.findByTime", query = "SELECT c FROM Coupon c WHERE c.time = :time")
+    , @NamedQuery(name = "Coupon.findByRedeemDate", query = "SELECT c FROM Coupon c WHERE c.redeemDate = :redeemDate")
+    , @NamedQuery(name = "Coupon.findByRedeemTime", query = "SELECT c FROM Coupon c WHERE c.redeemTime = :redeemTime")
     , @NamedQuery(name = "Coupon.findByStatus", query = "SELECT c FROM Coupon c WHERE c.status = :status")})
 public class Coupon implements Serializable {
 
@@ -36,13 +36,12 @@ public class Coupon implements Serializable {
     @Basic(optional = false)
     @Column(name = "COUPON_ID")
     private Integer couponId;
-    @Column(name = "DATE")
+    @Column(name = "REDEEM_DATE")
     @Temporal(TemporalType.DATE)
-    private Date date;
-    @Column(name = "TIME")
-    @Temporal(TemporalType.TIME)
-    private Date time;
+    private Date redeemDate;
     @Basic(optional = false)
+    @Column(name = "REDEEM_TIME")
+    private String redeemTime;
     @Column(name = "STATUS")
     private String status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "couponId")
@@ -55,9 +54,9 @@ public class Coupon implements Serializable {
         this.couponId = couponId;
     }
 
-    public Coupon(Integer couponId, String status) {
+    public Coupon(Integer couponId, String redeemTime) {
         this.couponId = couponId;
-        this.status = status;
+        this.redeemTime = redeemTime;
     }
 
     public Integer getCouponId() {
@@ -68,20 +67,20 @@ public class Coupon implements Serializable {
         this.couponId = couponId;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getRedeemDate() {
+        return redeemDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setRedeemDate(Date redeemDate) {
+        this.redeemDate = redeemDate;
     }
 
-    public Date getTime() {
-        return time;
+    public String getRedeemTime() {
+        return redeemTime;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setRedeemTime(String redeemTime) {
+        this.redeemTime = redeemTime;
     }
 
     public String getStatus() {

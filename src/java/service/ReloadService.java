@@ -1,5 +1,6 @@
 package service;
 
+import entity.Customer;
 import entity.Reload;
 import javax.persistence.*;
 import java.util.List;
@@ -21,6 +22,12 @@ public class ReloadService {
 
     public Reload findReloadByID(int id) {
         return (Reload) em.find(Reload.class, id);
+    }
+
+    public List<Reload> findReloadByCustID(Customer custId) {
+        return (List<Reload>) em.createNamedQuery("Meal.findByCategoryId")
+                .setParameter("custId", custId)
+                .getResultList();
     }
 
     public List<Reload> findAll() {

@@ -25,7 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Reload.findByReloadId", query = "SELECT r FROM Reload r WHERE r.reloadId = :reloadId")
     , @NamedQuery(name = "Reload.findByDate", query = "SELECT r FROM Reload r WHERE r.date = :date")
     , @NamedQuery(name = "Reload.findByTime", query = "SELECT r FROM Reload r WHERE r.time = :time")
-    , @NamedQuery(name = "Reload.findByAmount", query = "SELECT r FROM Reload r WHERE r.amount = :amount")})
+    , @NamedQuery(name = "Reload.findByAmount", query = "SELECT r FROM Reload r WHERE r.amount = :amount")
+    , @NamedQuery(name = "Reload.findByCustId", query = "SELECT r FROM Reload r WHERE r.custId = :custId")})
 public class Reload implements Serializable {
 
     private static final long serialVersionUID = 1L;

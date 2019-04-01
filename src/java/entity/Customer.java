@@ -49,7 +49,7 @@ public class Customer implements Serializable {
     @OneToMany(mappedBy = "custId")
     private List<Reload> reloadList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId")
-    private List<Order1> order1List;
+    private List<Ordermeal> ordermealList;
 
     public Customer() {
     }
@@ -121,12 +121,12 @@ public class Customer implements Serializable {
     }
 
     @XmlTransient
-    public List<Order1> getOrder1List() {
-        return order1List;
+    public List<Ordermeal> getOrdermealList() {
+        return ordermealList;
     }
 
-    public void setOrder1List(List<Order1> order1List) {
-        this.order1List = order1List;
+    public void setOrdermealList(List<Ordermeal> ordermealList) {
+        this.ordermealList = ordermealList;
     }
 
     @Override

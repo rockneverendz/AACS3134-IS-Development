@@ -17,7 +17,15 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle dropdown-menu-left" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-user"></i> Account</a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <div class="btm dropdown-item"> Points : 100 </div>
+                        <%@page import="entity.Customer"%>
+                        <%
+                            Customer customer = (Customer) session.getAttribute("customer");
+                            if (customer == null) {
+                                response.sendRedirect("../account/signin.jsp?status=N");
+                                return;
+                            }
+                        %>
+                        <div class="btm dropdown-item"> Points : <%= customer.getCreditpoints()%> </div>
                         <div class="dropdown-divider"></div>
                         <a class="btn dropdown-item" href="../report/coupon.jsp" role="button"><i class="float-right fas fa-money-check-alt" style="line-height:inherit"></i>Coupon List</a>
                         <a class="btn dropdown-item" href="../report/order.jsp" role="button"><i class="float-right fas fa-history" style="line-height:inherit"></i>Order List</a>

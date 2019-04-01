@@ -113,10 +113,36 @@
         <%@include file="../layout/navbar.jsp" %>
         <!-- Main -->
         <div class="container">
-            <form class="form-settings">
+            <form class="form-settings" action="settings">
                 <div class="text-center mb-4">
                     <h1 class="display-3">Settings</h1>
                 </div>
+                <%  String status = request.getParameter("status");
+                    String message;
+                    String type;
+                    if (status == null) {
+                    } else {
+                        char code = status.charAt(0);
+                        if (code == '1') {
+                            type = "success";
+                            message = "Successfully Updated!";
+                        } else if (code == 'P') {
+                            type = "warning";
+                            message = "Retyped new password does not match.";
+                        } else if (code == 'C') {
+                            type = "warning";
+                            message = "Sorry, current password isn't right.";
+                        } else {
+                            type = "danger";
+                            message = "An error has occured";
+                        }
+                %>            
+                <div class="alert alert-<%= type%>" role="alert">
+                    <%= message%>
+                </div>
+                <%
+                    }
+                %>
                 <div class="form-label-group">
                     <input id="inputNewPassword" name="NewPassword" type="password" class="form-control" placeholder="New Password" required>
                     <label for="inputNewPassword">New Password</label>
