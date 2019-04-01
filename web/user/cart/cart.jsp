@@ -96,9 +96,9 @@
                 </div>
             </div>
         </main>
+        <%@include file="../layout/footer.jsp" %>
         <%@include file="../layout/scripts.jsp" %>
         <script src="../../bootstrap/js/bootstrap-datepicker.min.js"></script>
-
         <script>
                                         $('#datepicker').datepicker({
                                             format: "dd/mm/yyyy",

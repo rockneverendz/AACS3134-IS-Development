@@ -70,6 +70,7 @@
                 </div>
             </div>
         </main>
+        <%@include file="../layout/footer.jsp" %>
         <%@include file="../layout/scripts.jsp" %>
     </body>
 </html>

@@ -72,7 +72,7 @@
             </div>
         </div>
         <footer class="fixed-bottom">
-            <p class="text-muted">Cover template for <a href="#">Bricks</a>, by <a href="#">St. Freya University</a>.</p>
+            <p class="text-muted"><a href="#">Bricks</a>, by <a href="#">St. Freya University</a>.</p>
         </footer>
         <%@include file="../layout/scripts.jsp" %>
     </body>

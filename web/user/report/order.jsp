@@ -19,10 +19,6 @@
                 margin-bottom: 0;
             }
 
-            .album {
-                height:75rem;
-            }
-
             .border-left-success {
                 border-left: .25rem solid #1cc88a!important;
             }
