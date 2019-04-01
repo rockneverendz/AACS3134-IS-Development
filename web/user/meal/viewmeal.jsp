@@ -68,12 +68,12 @@
     <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
-            <%                String categoryId = request.getParameter("CategoryId");
+            <%  String categoryId = request.getParameter("CategoryId");
                 MealService ms = new MealService();
                 CategoryService cs = new CategoryService();
                 Category category = cs.findCategoryByID(Integer.parseInt(categoryId));
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 Date today = new Date();
 
                 Calendar calendar = Calendar.getInstance();
@@ -139,22 +139,22 @@
                                     <form class="form-meal">
                                         <div class="row">
                                             <div class="col-12 form-label-group">
-                                                <label for="mealId" class="col-form-label">Meal ID</label>
+                                                <label for="mealName" class="col-form-label">Meal</label>
                                                 <input id="mealName" type="text" class="form-control" disabled>
                                                 <input id="mealId" name="mealId" type="text" class="form-control" disabled hidden>
                                             </div>
                                             <div class="col-6 form-label-group">
-                                                <label for="mealDate" class="col-form-label">Meal Date</label>
-                                                <input id="mealDate" type="text" class="form-control">
+                                                <label for="mealDate" class="col-form-label">Date</label>
+                                                <input id="mealDate" type="text" class="form-control" required>
                                             </div>
                                             <div class="col-6 form-label-group" data-toggle="buttons">
-                                                <label class="col-form-label">Meal Time</label>
+                                                <label class="col-form-label">Time</label>
                                                 <div class="btn-group btn-group-toggle btn-block">
                                                     <label class="btn btn-outline-primary w-50">
-                                                        <input type="radio" name="time" autocomplete="off"> Breakfast
+                                                        <input type="radio" name="time" autocomplete="off" required> Breakfast
                                                     </label>
                                                     <label class="btn btn-outline-primary w-50">
-                                                        <input type="radio" name="time" autocomplete="off"> Lunch
+                                                        <input type="radio" name="time" autocomplete="off" required> Lunch
                                                     </label>
                                                 </div>
                                             </div>
@@ -179,17 +179,17 @@
             $('#orderModal').on('show.bs.modal', function (event) {
                 if (event.namespace === 'bs.modal') {
                     var button = $(event.relatedTarget); // Button that triggered the modal
-                    var id = button.data('mealid'); // Extract info from data-* attributes
-                    var name = button.data('mealname');
-                    $('#mealId').val(id);
-                    $('#mealName').val(name);
+                    $('#mealId').val(button.data('mealid'));
+                    $('#mealName').val(button.data('mealname'));
                 }
             });
 
             $('#mealDate').datepicker({
                 format: "dd-mm-yyyy",
                 startDate: "<%= dateFormat.format(todayAdd2)%>",
-                maxViewMode: 0
+                maxViewMode: 0,
+                daysOfWeekDisabled: "0",
+                todayHighlight: true
             });
         </script>
     </body>
