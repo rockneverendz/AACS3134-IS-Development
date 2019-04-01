@@ -19,7 +19,7 @@ public class StaffService {
         em.getTransaction().commit();
     }
 
-    public Staff findProdByID(int id) {
+    public Staff findStaffByID(int id) {
         return (Staff) em.find(Staff.class, id);
     }
     
@@ -68,7 +68,7 @@ public class StaffService {
      * @throws RollbackException If commit fails
      */
     public boolean updateStaff(Staff newStaff) throws RollbackException {
-        Staff oldStaff = findProdByID(newStaff.getStaffId());
+        Staff oldStaff = findStaffByID(newStaff.getStaffId());
         if (oldStaff != null) {
             em.getTransaction().begin();
             oldStaff.setUsername(newStaff.getUsername());
