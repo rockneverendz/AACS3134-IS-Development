@@ -110,18 +110,27 @@
                                 <div class="modal-body">
                                     <form>
                                         <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Meal ID:</label>
-                                            <input type="text" class="form-control" id="mealId" disabled>
+                                            <label for="mealId" class="col-form-label">Meal ID:</label>
+                                            <input id="mealId" type="text" class="form-control" disabled>
                                         </div>
                                         <div class="form-group">
-                                            <label for="message-text" class="col-form-label">Message:</label>
-                                            <textarea class="form-control" id="message-text"></textarea>
+                                            <div class="input-group date" id="datepicker">
+                                                <label for="mealDate" class="col-form-label">Meal Date:</label>
+                                                <input id="mealDate" type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Meal Time:</label>
+                                            Breakfast
+                                            <input type="radio" name="time" value="Breakfast" />
+                                            Lunch
+                                            <input type="radio" name="time" value="Lunch" />
                                         </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Send message</button>
+                                    <button type="button" class="btn btn-primary">Add Meal</button>
                                 </div>
                             </div>
                         </div>
@@ -140,8 +149,12 @@
                 var modal = $(this);
                 modal.find('#mealId').val(id);
             });
-            
-            
+
+            $('#datepicker').datepicker({
+                format: "dd-mm-yyyy",
+                startDate: "04/04/2019",
+                maxViewMode: 0
+            });
         </script>
     </body>
 </html>
