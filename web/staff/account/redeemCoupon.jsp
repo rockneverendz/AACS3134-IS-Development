@@ -12,16 +12,14 @@
         <div class="container-fluid">
             <div class="row">
                 <%@include file="../layout/sidebar.jsp" %>
-
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
                     <!--        Reload Form-->
                     <div class="container mt-5 p-5" style="max-width: 420px; margin: auto;">
-                        <form class="form-reload" >
+                        <form action="redeemCoupon" method="get">
                             <div class="text-center mb-5">
                                 <h1>Redeem Coupon</h1>
                             </div>
-
                             <div class="row">
                                 <label for="inputCoupon">Coupon</label>
                                 <div class="input-group">
@@ -32,7 +30,7 @@
                                 <button class="btn btn-lg btn-primary btn-block mt-5" type="submit">Redeem</button>
                             </div>
 
-                            <p class="mt-5 mb-3 text-muted text-center">Bricks � 2019</p>
+                            <p class="mt-5 mb-3 text-muted text-center">Bricks <i class="far fa-copyright"></i> 2019</p>
                         </form>
                     </div>
                 </main>

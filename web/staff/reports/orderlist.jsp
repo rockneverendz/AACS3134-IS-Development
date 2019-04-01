@@ -13,7 +13,6 @@
             <div class="row">
                 <!-- Fixed-Sidebar Navs -->
                 <%@include file="../layout/sidebar.jsp" %>
-
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4">
                         <h3>Daily/Weekly Meals Order List</h3>
@@ -64,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks � 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks <i class="far fa-copyright"></i> 2019</p>
                 </main>
 
             </div>
