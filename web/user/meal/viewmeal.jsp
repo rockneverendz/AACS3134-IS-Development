@@ -1,3 +1,6 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="entity.Category"%>
 <%@page import="service.CategoryService"%>
 <%@page import="entity.Meal"%>
@@ -47,6 +50,18 @@
             .jumbotron .container {
                 max-width: 40rem;
             }
+
+            .form-signup {
+                width: 100%;
+                max-width: 420px;
+                padding: 15px;
+                margin: auto;
+            }
+
+            .form-label-group {
+                position: relative;
+                margin-bottom: 1rem;
+            }
         </style>
 
     </head>
@@ -57,6 +72,14 @@
                 MealService ms = new MealService();
                 CategoryService cs = new CategoryService();
                 Category category = cs.findCategoryByID(Integer.parseInt(categoryId));
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date today = new Date();
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(today);
+                calendar.add(Calendar.DATE, 2);
+                Date todayAdd2 = calendar.getTime();
             %>
             <section class="jumbotron text-center">
                 <div class="container">
@@ -86,10 +109,15 @@
                                     }
                                 %>
                                 <div class="card-body">
-                                    <p class="card-text"><%= meal.getName()%></p>
+                                    <h5 class="card-title"><%= meal.getName()%></h5>
+                                    <p class="card-text"><%= meal.getDescription()%></p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <small class="text-muted"><%= meal.getPrice()%> points</small>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#orderModal" data-mealid="<%= meal.getMealId()%>">Order</button>
+                                        <button type="button" class="btn btn-primary" 
+                                                data-toggle="modal" data-target="#orderModal" 
+                                                data-mealid="<%= meal.getMealId()%>"
+                                                data-mealname="<%= meal.getName()%>"
+                                                >Order</button>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +127,7 @@
                         %>
                     </div>
                     <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="orderModalLabel">Order</h5>
@@ -108,23 +136,28 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="mealId" class="col-form-label">Meal ID:</label>
-                                            <input id="mealId" type="text" class="form-control" disabled>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="input-group date" id="datepicker">
-                                                <label for="mealDate" class="col-form-label">Meal Date:</label>
-                                                <input id="mealDate" type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                    <form class="form-meal">
+                                        <div class="row">
+                                            <div class="col-12 form-label-group">
+                                                <label for="mealId" class="col-form-label">Meal ID</label>
+                                                <input id="mealName" type="text" class="form-control" disabled>
+                                                <input id="mealId" name="mealId" type="text" class="form-control" disabled hidden>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Meal Time:</label>
-                                            Breakfast
-                                            <input type="radio" name="time" value="Breakfast" />
-                                            Lunch
-                                            <input type="radio" name="time" value="Lunch" />
+                                            <div class="col-6 form-label-group">
+                                                <label for="mealDate" class="col-form-label">Meal Date</label>
+                                                <input id="mealDate" type="text" class="form-control">
+                                            </div>
+                                            <div class="col-6 form-label-group" data-toggle="buttons">
+                                                <label class="col-form-label">Meal Time</label>
+                                                <div class="btn-group btn-group-toggle btn-block">
+                                                    <label class="btn btn-outline-primary w-50">
+                                                        <input type="radio" name="time" autocomplete="off"> Breakfast
+                                                    </label>
+                                                    <label class="btn btn-outline-primary w-50">
+                                                        <input type="radio" name="time" autocomplete="off"> Lunch
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -144,15 +177,18 @@
         <script src="../../bootstrap/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
         <script>
             $('#orderModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); // Button that triggered the modal
-                var id = button.data('mealid'); // Extract info from data-* attributes
-                var modal = $(this);
-                modal.find('#mealId').val(id);
+                if (event.namespace === 'bs.modal') {
+                    var button = $(event.relatedTarget); // Button that triggered the modal
+                    var id = button.data('mealid'); // Extract info from data-* attributes
+                    var name = button.data('mealname');
+                    $('#mealId').val(id);
+                    $('#mealName').val(name);
+                }
             });
 
-            $('#datepicker').datepicker({
+            $('#mealDate').datepicker({
                 format: "dd-mm-yyyy",
-                startDate: "04/04/2019",
+                startDate: "<%= dateFormat.format(todayAdd2)%>",
                 maxViewMode: 0
             });
         </script>
