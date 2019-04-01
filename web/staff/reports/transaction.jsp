@@ -1,3 +1,8 @@
+<%@page import="entity.Staff"%>
+<%@page import="entity.Customer"%>
+<%@page import="entity.Reload"%>
+<%@page import="service.ReloadService" %>
+<%@page import="java.text.SimpleDateFormat"%>
 <!doctype html>
 <html lang="en">
     <head>
@@ -16,9 +21,19 @@
 
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4">
+
+                        <%                            ReloadService rs = new ReloadService();
+                            List<Reload> reloadList = rs.findAll();
+
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+                            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+                        %>
+
                         <h3>Top Up History</h3>
 
-                        <table class="table table-bordered table-hover">
+
+                        <table id="myTable" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">#ID</th>
@@ -30,18 +45,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% for (int i = 0; i < 10; i++) {%>
+                                <% for (Reload reload : reloadList) {%>
                                 <tr>
-                                    <th scope="row"><%= i + 1%></th>
-                                    <td>    
-                                        Name*
-                                    </td>
-                                    <td>
-                                        RM <%= i + 5%>
-                                    </td>
-                                    <td>dd/mm/yyyy</td>
-                                    <td><strong>hh:mm</strong></td>
-                                    <td><strong>Name</strong></td>
+                                    <th scope="row"><%= reload.getReloadId()%></th>
+                                    <td><%= reload.getCustId().getUsername()%></td>
+                                    <td><%= reload.getAmount()%></td>
+                                    <td><%= dateFormat.format(reload.getDate())%></td>
+                                    <td><%= timeFormat.format(reload.getTime())%></td>
+                                    <td><%= reload.getStaffId().getUsername()%></td>
                                 </tr>
                                 <% }%>
                             </tbody>
@@ -54,9 +65,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Search by Date/Week</span>
                                         </div>
-                                        <input type="date" class="form-control col-5" id="itemid" placeholder="Date">
+                                        <input type="date" class="form-control col-5" id="inputDate" placeholder="Date" onchange="myFunction()">
                                         <div class="input-group-append">
-                                            <button class="btn btn-outline-success" type="submit" id="search">Search</button>
+                                            <button class="btn btn-outline-success" type="submit" id="search" >Search</button>
                                         </div>
                                     </div>
                                 </form>
@@ -84,6 +95,26 @@
                 $("#mainContainer").addClass("col-md-9");
                 $("#mainContainer").addClass("ml-sm-auto");
                 $("#mainContainer").addClass("col-lg-10");
+            }
+
+
+            function myFunction() {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("inputDate");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[2];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
             }
         </script>
 
