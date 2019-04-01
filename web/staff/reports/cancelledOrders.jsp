@@ -66,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks � 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks <i class="far fa-copyright"></i> 2019</p>
                 </main>
             </div>
         </div>

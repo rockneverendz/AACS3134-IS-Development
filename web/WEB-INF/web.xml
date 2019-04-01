@@ -30,6 +30,14 @@
         <servlet-class>control.staff.account.signup</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>staff.account.setting</servlet-name>
+        <servlet-class>control.staff.account.setting</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>staff.account.changePassword</servlet-name>
+        <servlet-class>control.staff.account.changePassword</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>staff.account.topup</servlet-name>
         <servlet-class>control.staff.account.topup</servlet-class>
     </servlet>
@@ -46,7 +54,6 @@
         <servlet-class>control.staff.ingredient.retriveIngre</servlet-class>
     </servlet>
     <!-- URL which leads to the specific servlet. -->
-    
     <servlet-mapping>
         <servlet-name>user.account.signin</servlet-name>
         <url-pattern>/user/account/signin</url-pattern>
@@ -74,6 +81,14 @@
     <servlet-mapping>
         <servlet-name>staff.account.signup</servlet-name>
         <url-pattern>/staff/account/signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>staff.account.setting</servlet-name>
+        <url-pattern>/staff/account/setting</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>staff.account.changePassword</servlet-name>
+        <url-pattern>/staff/account/changePassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>staff.account.topup</servlet-name>

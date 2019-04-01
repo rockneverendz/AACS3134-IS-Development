@@ -1,66 +1,44 @@
 package control.staff.account;
 
 import entity.Staff;
-import entity.Reload;
-import entity.Customer;
+import service.StaffService;
 import java.io.IOException;
-import java.util.Date;
-import javax.persistence.NoResultException;
+import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import service.CustomerService;
-import service.ReloadService;
-import service.StaffService;
+import javax.servlet.http.HttpSession;
 
-public class topup extends HttpServlet {
+public class setting extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get parameter from the form
-        String studentID = request.getParameter("studid");
+        //Get parameters from the form
         int staffID = Integer.parseInt(request.getParameter("staffid"));
-        int amount = Integer.parseInt(request.getParameter("amount"));
+        String newName = request.getParameter("username");
+        String newEmail = request.getParameter("email");
 
         //Initialization
-        Date date = new Date();
-        Customer customer;
-        CustomerService customerService = new CustomerService();
-        Reload reload = new Reload();
-        ReloadService reloadService = new ReloadService();
-        Staff staff;
         StaffService staffService = new StaffService();
+        Staff staff = staffService.findStaffByID(staffID);
 
-        
-
+        //Update information
         try {
-            //Find customer and staff
-            customer = customerService.findCustByUserIdCard(studentID);
-            staff = staffService.findStaffByID(staffID);
-            //Get current credit points
-            int currentCreditPoints = customer.getCreditpoints();
-            //Update credit points
-            int updatedCreditPoints = currentCreditPoints + amount;
-            customer.setCreditpoints(updatedCreditPoints);
-            
-            //Update Reload table(Top-up History)
-            reload.setCustId(customer);
-            reload.setStaffId(staff);
-            reload.setDate(date);
-            reload.setTime(date);
-            reload.setAmount(amount);
-            
-            if (customerService.updateCustomer(customer)) {
-                reloadService.addReload(reload);                //Add new Topup record
-                response.sendRedirect("topup.jsp?status=1");    //Successful Update Credit Points
-            } else {
-                response.sendRedirect("topup.jsp?status=0");    //Failed Update Credit Points
-            }
+            staff.setUsername(newName);
+            staff.setEmail(newEmail);
+            staffService.updateStaff(staff);
 
-        } catch (NoResultException ex) {
-            response.sendRedirect("topup.jsp?status=U");        //Failed to get Student ID
+            HttpSession session = request.getSession();
+            session.setAttribute("staff", staff);
+            session.setMaxInactiveInterval(-1);
+
+            response.sendRedirect("setting.jsp?status=1");
+
+        } catch (RollbackException e) {
+            System.out.println(e.getMessage());
+            response.sendRedirect("setting.jsp?status=U");
         }
 
     }
