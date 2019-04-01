@@ -30,7 +30,10 @@
                                     if (code == '1') {
                                         type = "success";
                                         message = "Top-up Successfully !";
-                                    } else {
+                                    } else if(code == 'U') {
+                                        type = "warning";
+                                        message = "Student ID not found !";
+                                    }else {
                                         type = "danger";
                                         message = "An error has occured";
                                     }
@@ -44,14 +47,20 @@
                             <div class="row">
                                 <label for="inputStudid">Student ID</label>
                                 <div class="input-group">
-                                    <input name="studid" type="text" class="form-control" id="inputStudid" placeholder="Student ID">
+                                    <input name="studid" type="text" class="form-control" id="inputStudid" placeholder="Student ID" required>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <label for="inputEmail">Top-up Amount</label>
                                 <div class="input-group">
-                                    <input name="amount" type="number" class="form-control" id="inputAmount" placeholder="Top-up Amount">
+                                    <input name="amount" type="number" class="form-control" id="inputAmount" placeholder="Top-up Amount" required>
+                                </div>
+                            </div>
+                            <div class="row" hidden>
+                                <label for="inputStaffID">Staff ID</label>
+                                <div class="input-group">
+                                    <input name="staffid" type="text" class="form-control" id="inputStaffid" placeholder="Staff ID" value="<%= staff.getStaffId() %>">
                                 </div>
                             </div>
                             <hr>
