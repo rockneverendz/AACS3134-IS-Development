@@ -1,3 +1,6 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
@@ -17,11 +20,11 @@
             .border-left-primary {
                 border-left: .25rem solid #4e73df!important;
             }
-            
+
             .border-left-info {
                 border-left: .25rem solid #17a2b8!important;
             }
-            
+
             .border-left-success {
                 border-left: .25rem solid #1cc88a!important;
             }
@@ -30,10 +33,26 @@
     <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
+            <%  String dateString = request.getParameter("date");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                Calendar cal = Calendar.getInstance();
+                Date date;
+                Date endDate;
+                
+                if (dateString == null) {
+                    date = new Date();
+                } else {
+                    date = dateFormat.parse(dateString);
+                }
 
+                cal.setTime(date);
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                cal.add(Calendar.DATE, -7);
+                date = cal.getTime();
+            %>
             <section class="text-center">
                 <div class="container d-flex justify-content-between align-items-center">
-                    <h1 class="display-2">Intake List</h1>
+                    <h1 class="display-2">Intake History</h1>
                     <a href="#" class="btn btn-primary my-2">Print
                         <i class="fas fa-print"></i>
                     </a>
@@ -94,7 +113,7 @@
                                     </div>
                                 </div>
                             </div>
-                             
+
                             <div class="card shadow mb-4 w-100">
                                 <div class="card-header py-3 d-flex mb-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Intake Report</h6>
@@ -102,9 +121,9 @@
                                         <form>
                                             <div class="input-group datepicker">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Month</span>
+                                                    <span class="input-group-text">Week</span>
                                                 </div>
-                                                <input type="text" class="form-control" value="03-2019">
+                                                <input id="datepicker" type="text" class="form-control" value="<%= dateFormat.format(date)%>">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-outline-success" type="submit" id="search">Search</button>
                                                 </div>
@@ -124,8 +143,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <%
-                                                    for (int i = 1; i <= 26; i++) {
+                                                <%                                                    for (int i = 1; i <= 26; i++) {
                                                 %>
                                                 <tr role="row">
                                                     <td><%= i%></td>
@@ -161,11 +179,13 @@
         <link href="../../bootstrap/css/Chart.min.css" rel="stylesheet" type="text/css"/>
         <script src="../../bootstrap/js/Chart.min.js" type="text/javascript"></script>
         <script>
-            $('.datepicker input').datepicker({
-                format: "mm-yyyy",
-                startView: 1,
-                minViewMode: 1,
-                maxViewMode: 2
+            $('#datepicker').datepicker({
+                format: "dd-mm-yyyy",
+                endDate: "<%= dateFormat.format(date)%>",
+                maxViewMode: 1,
+                daysOfWeekDisabled: "0,2,3,4,5,6",
+                daysOfWeekHighlighted: "1",
+                todayHighlight: true
             });
 
             var ctx = document.getElementById('myChart');
