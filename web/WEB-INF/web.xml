@@ -26,6 +26,10 @@
         <servlet-class>control.staff.account.signup</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>staff.account.topup</servlet-name>
+        <servlet-class>control.staff.account.topup</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>staff.meal.AddMeal</servlet-name>
         <servlet-class>control.staff.meal.AddMeal</servlet-class>
     </servlet>
@@ -38,6 +42,7 @@
         <servlet-class>control.staff.ingredient.retriveIngre</servlet-class>
     </servlet>
     <!-- URL which leads to the specific servlet. -->
+    
     <servlet-mapping>
         <servlet-name>user.account.signin</servlet-name>
         <url-pattern>/user/account/signin</url-pattern>
@@ -61,6 +66,10 @@
     <servlet-mapping>
         <servlet-name>staff.account.signup</servlet-name>
         <url-pattern>/staff/account/signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>staff.account.topup</servlet-name>
+        <url-pattern>/staff/account/topup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>staff.meal.AddMeal</servlet-name>
