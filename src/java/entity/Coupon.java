@@ -42,6 +42,7 @@ public class Coupon implements Serializable {
     @Basic(optional = false)
     @Column(name = "REDEEM_TIME")
     private String redeemTime;
+    @Basic(optional = false)
     @Column(name = "STATUS")
     private String status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "couponId")
@@ -54,9 +55,10 @@ public class Coupon implements Serializable {
         this.couponId = couponId;
     }
 
-    public Coupon(Integer couponId, String redeemTime) {
+    public Coupon(Integer couponId, String redeemTime, String status) {
         this.couponId = couponId;
         this.redeemTime = redeemTime;
+        this.status = status;
     }
 
     public Integer getCouponId() {
