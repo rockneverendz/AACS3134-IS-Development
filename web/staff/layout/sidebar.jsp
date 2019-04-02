@@ -45,6 +45,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="../ingredient/manageIngredients.jsp">
+                    <i class="fas fa-fish feather"></i> Manage Ingredients
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="../meal/manageMeal.jsp">
                     <i class="fas fa-hamburger feather"></i> Manage Meals
                 </a>

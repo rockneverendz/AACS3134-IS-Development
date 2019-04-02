@@ -45,6 +45,22 @@ public class IngredientService {
         }
         return false;
     }
+    
+    /**
+     * @param id ID of the ingredient which needs to be deleted
+     * @return true if successfully committed false if product not found
+     * @throws RollbackException If commit fails
+     */
+    public boolean removeIngredient(int id) throws RollbackException {
+        Ingredient ingredient = findIngredientByID(id);
+        if (ingredient != null) {
+            em.getTransaction().begin();
+            em.remove(ingredient);
+            em.getTransaction().commit();
+            return true;
+        }
+        return false;
+    }
 
     public List<Ingredient> findAll() {
         List IngredientList = em.createNamedQuery("Ingredient.findAll").getResultList();

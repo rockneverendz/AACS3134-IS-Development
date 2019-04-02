@@ -1,7 +1,7 @@
-<%@page import="entity.Staff"%>
+<%@page import="entity.Ingredient"%>
+<%@page import="entity.Ingredientlist"%>
+<%@page import="service.IngredientService"%>
 <%@page import="java.util.List"%>
-<%@page import="entity.Meal"%>
-<%@page import = "service.MealService" %>
 
 <!doctype html>
 <html lang="en">
@@ -10,7 +10,7 @@
     <head>
         <%@include file="../layout/meta.jsp" %>
         <%@include file="../layout/css.jsp" %>
-        <title>Staff | Manage Meals</title>
+        <title>Staff | Manage Ingredient</title>
     </head>
 
     <body>
@@ -23,18 +23,37 @@
                 <%@include file="../layout/sidebar.jsp" %>
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                    <div class="container mt-4">
-                        <h3>Manage Meals</h3>
+                    <div class="container mt-4" style="max-width: 850px;">
 
-                        <table id="myTable" class="table table-bordered table-hover">
+                        <h3>Manage Ingredients</h3>
+                        <%                            String status = request.getParameter("status");
+                            String message;
+                            String type;
+                            if (status == null) {
+                            } else {
+                                char code = status.charAt(0);
+                                if (code == '1') {
+                                    type = "success";
+                                    message = "Added New Ingredient !";
+                                } else if (code == 'R') {
+                                    type = "success";
+                                    message = "Ingredient Removed !";
+                                } else {
+                                    type = "danger";
+                                    message = "An error has occured ";
+                                }
+                        %>            
+                        <div class="alert alert-<%= type%>" role="alert">
+                            <%= message%>
+                        </div>
+                        <%
+                            }
+                        %>
+                        <table id="myTable" class="table table-bordered table-hover table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">Item ID</th>
-                                    <th scope="col">Food</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Availability</th>
-                                    <th scope="col">Calories</th>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Ingredient</th>
                                 </tr>
                             </thead>
                             <%                                //Already initialize in sidebar.jsp
@@ -44,40 +63,68 @@
 //                                    response.sendRedirect("../account/signin.jsp?status=N");
 //                                    return;
 //                                }
-                                MealService mealService = new MealService();
-                                List<Meal> MealList = mealService.findMealByCategoryID(
-                                        staff.getCategoryId()
-                                );
+                                IngredientService ingredientService = new IngredientService();
+                                List<Ingredient> IngredientList = ingredientService.findAllWithoutList();
+
                             %>
                             <tbody>
-                                <% for (Meal meal : MealList) {%>
+                                <% for (Ingredient ingredients : IngredientList) {%>
                                 <tr>
-                                    <td scope="row"><%= meal.getMealId()%></td>
-                                    <td><%= meal.getName()%></td>
-                                    <td><%= meal.getDescription()%></td>
-                                    <td><%= meal.getPrice()%></td>
-                                    <td><%= meal.getAvailability()%></td>
-                                    <td><%= meal.getCalories()%></td>
+                                    <td scope="row"><%= ingredients.getIngredientId()%></td>
+                                    <td><%= ingredients.getIngredientName()%></td>
                                 </tr>
                                 <% }%>
                             </tbody>
                         </table>
 
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <a class="btn btn-dark btn-lg" href="add.jsp" role="button">Add Item</a>
-                            </div>
-                            <div class="col-sm-8">
-                                <form class="row" action="SearchMeal" method="get">
-                                    <div class="col input-group mt-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Search Item</span>
-                                        </div>
-                                        <input type="text" name="mealid" class="form-control col-5" id="itemid" placeholder="Item ID" onkeyup="myFunction()">
 
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <form action="addIngredient" method="get">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Add Ingredient</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                    <label for="inputPassword">Ingredient name</label>
+                                                    <div class="input-group">
+                                                        <input name="ingredient" type="text" id="inputIngred" class="form-control" placeholder="Ingredient name" required >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Add</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-4">
+                                <!-- Button trigger modal -->
+                                <button class="btn btn-dark btn-block" data-toggle="modal" data-target="#exampleModalCenter">Add item</button>
+                            </div>
+                            <div class="col-8">
+                                <form class="row" action="removeIngredient" method="get">
+                                    <div class="col input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Search</span>
+                                        </div>
+                                        <input type="text" name="ingredientid" class="form-control " id="itemid" placeholder="Item ID" onkeyup="myFunction()">
                                     </div>
                                     <div class="col">
-                                        <button type="submit" class="btn btn-dark btn-lg white" role="button">Modify Item</button>
+                                        <button type="submit" class="btn btn-dark btn-block white" role="button">Remove Item</button>
                                     </div>
                                 </form>
                             </div>
