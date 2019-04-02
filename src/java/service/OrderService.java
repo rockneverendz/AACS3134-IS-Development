@@ -5,7 +5,9 @@ import entity.Payment;
 import entity.Customer;
 import entity.Orderlist;
 import entity.OrderlistPK;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.persistence.*;
 import java.util.List;
 
@@ -49,6 +51,17 @@ public class OrderService {
 
     public Ordermeal findOrderByID(int id) {
         return (Ordermeal) em.find(Ordermeal.class, id);
+    }
+
+    public List<Ordermeal> findOrderByCustDateRange(int custId, Date startDate, Date endDate) {
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        return em.createNativeQuery("SELECT o.* FROM Ordermeal o"
+                + " INNER JOIN Payment p ON o.PAYMENT_ID = p.PAYMENT_ID"
+                + " WHERE o.CUST_ID = " + custId
+                + " AND p.date BETWEEN '"
+                + df.format(startDate) + "' AND '" + df.format(endDate) + "'",
+                 Ordermeal.class)
+                .getResultList();
     }
 
     /**

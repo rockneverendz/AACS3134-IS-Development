@@ -1,3 +1,6 @@
+<%@page import="entity.Ordermeal"%>
+<%@page import="java.util.List"%>
+<%@page import="service.OrderService"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -33,23 +36,6 @@
     <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
-            <%  String dateString = request.getParameter("date");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                Calendar cal = Calendar.getInstance();
-                Date date;
-                Date endDate;
-                
-                if (dateString == null) {
-                    date = new Date();
-                } else {
-                    date = dateFormat.parse(dateString);
-                }
-
-                cal.setTime(date);
-                cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                cal.add(Calendar.DATE, -7);
-                date = cal.getTime();
-            %>
             <section class="text-center">
                 <div class="container d-flex justify-content-between align-items-center">
                     <h1 class="display-2">Intake History</h1>
@@ -58,6 +44,30 @@
                     </a>
                 </div>
             </section>
+
+            <%  String dateString = request.getParameter("date");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                Calendar cal = Calendar.getInstance();
+                Date[] days = new Date[7];
+                Date date = new Date();
+
+                if (dateString == null) {
+                    cal.setTime(date);
+                    cal.add(Calendar.DATE, -7);
+                } else {
+                    cal.setTime(dateFormat.parse(dateString)); //Requested Date
+                }
+
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+
+                for (int i = 0; i < 6; i++) { //Get every date of the week into array
+                    days[i] = cal.getTime();
+                    cal.add(Calendar.DATE, 1);
+                }
+
+                OrderService os = new OrderService();
+                List<Ordermeal> list = os.findOrderByCustDateRange(customer.getCustId(), days[0], days[5]);
+            %>
 
             <div class="album py-5 bg-light">
                 <div class="container">
@@ -118,15 +128,13 @@
                                 <div class="card-header py-3 d-flex mb-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Intake Report</h6>
                                     <div class="ml-auto">
-                                        <form>
-                                            <div class="input-group datepicker">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">Week</span>
-                                                </div>
-                                                <input id="datepicker" type="text" class="form-control" value="<%= dateFormat.format(date)%>">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-outline-success" type="submit" id="search">Search</button>
-                                                </div>
+                                        <form class="input-group" action="./intake.jsp">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Week</span>
+                                            </div>
+                                            <input id="datepicker" name="date" type="text" class="form-control" value="<%= dateFormat.format(days[0])%>">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-success" type="submit" id="search">Search</button>
                                             </div>
                                         </form>
                                     </div>
@@ -143,13 +151,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <%                                                    for (int i = 1; i <= 26; i++) {
+                                                <%  for (Ordermeal om : list) {
+                                                        System.out.println(om.toString());
                                                 %>
                                                 <tr role="row">
-                                                    <td><%= i%></td>
-                                                    <td><%= i%>-3-2019</td>
-                                                    <td><%= i * 2%> points</td>
-                                                    <td><%= i * 40%></td>
+                                                    <td><%= om.getOrderId()%></td>
+                                                    <td><%= dateFormat.format(om.getPaymentId().getDate())%></td>
+                                                    <td><%= om.getPaymentId().getAmount()%></td>
+                                                    <td><%= 999%></td>
                                                 </tr>
                                                 <%
                                                     }
@@ -183,7 +192,7 @@
                 format: "dd-mm-yyyy",
                 endDate: "<%= dateFormat.format(date)%>",
                 maxViewMode: 1,
-                daysOfWeekDisabled: "0,2,3,4,5,6",
+                daysOfWeekDisabled: "0",
                 daysOfWeekHighlighted: "1",
                 todayHighlight: true
             });
@@ -192,7 +201,14 @@
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['21-3-19', '22-3-19', '23-3-19', '24-3-19', '25-3-19', '26-3-19'],
+                    labels: [
+                        '<%= dateFormat.format(days[0])%>',
+                        '<%= dateFormat.format(days[1])%>',
+                        '<%= dateFormat.format(days[2])%>',
+                        '<%= dateFormat.format(days[3])%>',
+                        '<%= dateFormat.format(days[4])%>',
+                        '<%= dateFormat.format(days[5])%>'
+                    ],
                     datasets: [{
                             label: 'Calories (kcal)',
                             data: [120, 190, 30, 50, 20, 30],
