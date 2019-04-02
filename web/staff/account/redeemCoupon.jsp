@@ -1,3 +1,5 @@
+<%@page import="entity.Coupon" %>
+<%@page import="service.CouponService" %>
 <!doctype html>
 <html lang="en">
     <head>
@@ -20,10 +22,42 @@
                             <div class="text-center mb-5">
                                 <h1>Redeem Coupon</h1>
                             </div>
+                            <%  String status = request.getParameter("status");
+                                String message;
+                                String type;
+                                if (status == null) {
+                                } else {
+                                    char code = status.charAt(0);
+                                    if (code == '1') {
+                                        type = "success";
+                                        message = "Coupon successfully redeemed !";
+                                    } else if (code == 'R') {
+                                        type = "warning";
+                                        message = "This Coupon has been redeemed !";
+                                    } else if (code == 'E') {
+                                        type = "warning";
+                                        message = "This Coupon has expired !";
+                                    } else if (code == 'D') {
+                                        type = "warning";
+                                        message = "Invalid date for redeem the coupon!";
+                                    } else if (code == 'U') {
+                                        type = "danger";
+                                        message = "Coupon ID not found !";
+                                    } else {
+                                        type = "danger";
+                                        message = "An error has occured";
+                                    }
+                            %>
+                            <div class="alert alert-<%= type%>" role="alert">
+                                <%= message%>
+                            </div>
+                            <%
+                                }
+                            %>
                             <div class="row">
                                 <label for="inputCoupon">Coupon</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="inputCoupon" placeholder="Coupon ID">
+                                    <input name="couponid" type="text" class="form-control" id="inputCoupon" placeholder="Coupon ID" required>
                                 </div>
                             </div>
                             <div class="row ">
