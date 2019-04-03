@@ -148,7 +148,7 @@
                                 </div>
                                 <div class="card-body row">
                                     <div class="col-sm-12">
-                                        <table class="table table-bordered w-100" cellspacing="0" role="grid">
+                                        <table class="table table-bordered table-hover w-100" cellspacing="0" role="grid">
                                             <thead>
                                                 <tr role="row">
                                                     <th rowspan="1" colspan="1" style="width: 10%;">Order ID.</th>
@@ -170,7 +170,7 @@
                                                     <td id="totalCalories<%= i%>"></td>
                                                 </tr>
 
-                                                <tr role="row" class="cat<%= i%>" style="display:none">
+                                                <tr role="row" class="table-secondary cat<%= i%>" style="display:none">
                                                     <th rowspan="1" colspan="1"></th>
                                                     <th rowspan="1" colspan="1">Meal</th>
                                                     <th rowspan="1" colspan="1">Quantity</th>
@@ -353,8 +353,8 @@
             %>
 
             $('#total').html("<%= grandTotalCalories%> kcal");
-                $('#range').html("<%= max%> ~ <%= min%> kcal");
-                    $('#mean').html("<%= mean%> kcal");
+            $('#range').html("<%= min%> ~ <%= max%> kcal");
+            $('#mean').html("<%= mean%> kcal");
 
         </script>
     </body>
