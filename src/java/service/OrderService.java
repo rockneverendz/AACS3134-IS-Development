@@ -59,8 +59,9 @@ public class OrderService {
                 + " INNER JOIN Payment p ON o.PAYMENT_ID = p.PAYMENT_ID"
                 + " WHERE o.CUST_ID = " + custId
                 + " AND p.date BETWEEN '"
-                + df.format(startDate) + "' AND '" + df.format(endDate) + "'",
-                 Ordermeal.class)
+                + df.format(startDate) + "' AND '" + df.format(endDate) + "'"
+                + " ORDER BY p.date ASC",
+                Ordermeal.class)
                 .getResultList();
     }
 
