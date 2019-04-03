@@ -28,6 +28,7 @@ public class redeemCoupon extends HttpServlet {
             //Initialization
             CouponService couponService = new CouponService();
             Coupon coupon = couponService.findCouponByID(couponID);
+            String active = "Active";
             String redeemed = "Redeemed";
             String expired = "Expired";
             String status = coupon.getStatus();
@@ -35,7 +36,7 @@ public class redeemCoupon extends HttpServlet {
             String redeemDateString = dateFormat.format(coupon.getRedeemDate());
             System.out.println(status);
             //Check Status
-            if (status.isEmpty()) {
+            if (status.equalsIgnoreCase(active)) {
                 //Check is today date
                 if (redeemDateString.equalsIgnoreCase(todayDateString)) {
                     //Update Status and send redirect

@@ -32,8 +32,6 @@ public class CouponService {
         Coupon couponDB = findCouponByID(id);
         if (couponDB == null) { // If coupon not found
             return false;
-        } else if (!couponDB.getStatus().isEmpty()) { // If already contained status
-            throw new RollbackException();
         } else {
             em.getTransaction().begin();
             couponDB.setStatus("Redeemed");
@@ -41,7 +39,7 @@ public class CouponService {
             return true;
         }
     }
-    
+
     /**
      * @param id The coupon ID which needs to be redeemed
      * @return true if successfully committed false if coupon not found
@@ -51,8 +49,6 @@ public class CouponService {
         Coupon couponDB = findCouponByID(id);
         if (couponDB == null) { // If coupon not found
             return false;
-        } else if (!couponDB.getStatus().isEmpty()) { // If already contained status
-            throw new RollbackException();
         } else {
             em.getTransaction().begin();
             couponDB.setStatus("Expired");
