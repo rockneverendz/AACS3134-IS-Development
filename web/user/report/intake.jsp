@@ -1,12 +1,11 @@
-<%@page import="java.util.StringJoiner"%>
-<%@page import="java.util.concurrent.TimeUnit"%>
 <%@page import="entity.Meal"%>
 <%@page import="entity.Orderlist"%>
 <%@page import="entity.Ordermeal"%>
-<%@page import="java.util.List"%>
 <%@page import="service.OrderService"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
+<%@page import="java.util.concurrent.TimeUnit"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
@@ -55,7 +54,8 @@
                 int[] totalcaloriesDays = new int[7];
                 Date[] days = new Date[7];
                 Date date = new Date();
-                StringJoiner joiner = new StringJoiner(",");
+                double grandTotalExpense = 0;
+                int grandTotalCalories = 0;
 
                 if (dateString == null) {
                     cal.setTime(date);
@@ -89,7 +89,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="h6 text-primary mb-2">Total Calories</div>
-                                                <div class="h5 mb-0 font-weight-bold">40,000 kcal</div>
+                                                <div class="h5 mb-0 font-weight-bold" id="total"></div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas fa-fire fa-2x text-black-50"></i>
@@ -105,7 +105,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="h6 text-info mb-2">Mean Calories</div>
-                                                <div class="h5 mb-0 font-weight-bold">6,666 kcal</div>
+                                                <div class="h5 mb-0 font-weight-bold" id="mean"></div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas fa-divide fa-2x text-black-50"></i>
@@ -121,7 +121,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="h6 text-success mb-2">Calories Range</div>
-                                                <div class="h5 mb-0 font-weight-bold">190~20 kcal</div>
+                                                <div class="h5 mb-0 font-weight-bold" id="range"></div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas fa-calendar-week fa-2x text-black-50"></i>
@@ -161,7 +161,6 @@
                                                 <%
                                                     for (int i = 0; i < list.size(); i++) {
                                                         Ordermeal om = list.get(i);
-                                                        double expenses = 0;
                                                         int calories = 0;
                                                 %>
                                                 <tr role="row" class="ordermeal" data-prod-cat="<%= i%>">
@@ -201,14 +200,18 @@
                                                         long diff = om.getPaymentId().getDate().getTime() - days[0].getTime();
                                                         int daydiff = (int) TimeUnit.MILLISECONDS.toDays(diff);
                                                         totalcaloriesDays[daydiff] += calories;
+
+                                                        // Grand Total
+                                                        grandTotalExpense += om.getPaymentId().getAmount();
+                                                        grandTotalCalories += calories;
                                                     }
                                                 %>
                                             </tbody>
                                             <tfoot>
                                                 <tr role="row">
                                                     <td colspan="3"><strong>Total</strong></td>
-                                                    <td>9999 points</td>
-                                                    <td>9999 kcal</td>
+                                                    <td><%= String.format("%.2f", grandTotalExpense)%></td>
+                                                    <td><%= grandTotalCalories%></td>
                                                 </tr>
                                                 </tfood>
                                         </table>
@@ -258,7 +261,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                            label: labels,
+                            label: 'Calories (kcal)',
                             data: data,
                             borderWidth: 3,
                             lineTension: 0.3,
@@ -328,13 +331,31 @@
                 });
             });
 
+            // Fill out holes in the pages
             <%
                 for (int i = 0; i < totalCaloriesOrder.length; i++) {
             %>
             $('#totalCalories<%= i%>').html(<%= totalCaloriesOrder[i]%>);
             <%
                 }
+                int mean = grandTotalCalories / 6;
+                int max = totalcaloriesDays[1];
+                int min = totalcaloriesDays[1];
+
+                for (int num : totalcaloriesDays) {
+                    if (max < num) {
+                        max = num;
+                    }
+                    if (num < min) {
+                        min = num;
+                    }
+                }
             %>
+
+            $('#total').html("<%= grandTotalCalories%> kcal");
+                $('#range').html("<%= max%> ~ <%= min%> kcal");
+                    $('#mean').html("<%= mean%> kcal");
+
         </script>
     </body>
 </html>
