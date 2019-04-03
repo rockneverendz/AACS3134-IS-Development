@@ -16,10 +16,10 @@ public class redeemCoupon extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //Get input
-        int couponID = Integer.parseInt(request.getParameter("couponid"));
-
         try {
+            //Get input
+            int couponID = Integer.parseInt(request.getParameter("couponid"));
+
             //Get today date
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
             Date todayDate = new Date();
@@ -57,6 +57,12 @@ public class redeemCoupon extends HttpServlet {
                 response.sendRedirect("redeemCoupon.jsp?status=E");
             }
         } catch (NoResultException ex) {
+            response.sendRedirect("redeemCoupon.jsp?status=U");
+            System.out.println(ex.getMessage());
+        } catch (NumberFormatException ex) {
+            response.sendRedirect("redeemCoupon.jsp?status=U");
+            System.out.println(ex.getMessage());
+        } catch (NullPointerException ex) {
             response.sendRedirect("redeemCoupon.jsp?status=U");
             System.out.println(ex.getMessage());
         }
