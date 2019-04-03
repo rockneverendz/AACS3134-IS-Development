@@ -1,27 +1,25 @@
 package control.user.order;
 
-import entity.Customer;
+import entity.Coupon;
 import entity.Meal;
 import entity.Orderlist;
-import entity.Ordermeal;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import javax.persistence.NoResultException;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import service.CustomerService;
 import service.MealService;
-import service.OrderService;
 
 public class addMeal extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // http://localhost:8080/AACS3134-IS-Development/user/order/addMeal?mealId=7&mealDate=17-04-2019&mealTime=B
         // Get parameter from the form
         String mealId = request.getParameter("mealId");
         String mealDate = request.getParameter("mealDate");
@@ -29,9 +27,11 @@ public class addMeal extends HttpServlet {
         String mealQty = request.getParameter("mealQty");
 
         // Initialize variables
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         StringBuilder url = new StringBuilder("../meal/viewmeal.jsp?CategoryId=" + request.getParameter("CategoryId"));
         MealService ms = new MealService();
         Orderlist orderlist;
+        Coupon coupon;
         Meal meal;
         int indexOfMeal = -1;
 
@@ -45,21 +45,24 @@ public class addMeal extends HttpServlet {
 
         try {
             // Find the meal by ID
-            meal = ms.findMealByID(
-                    Integer.parseInt(mealId)
-            );
+            meal = ms.findMealByID(Integer.parseInt(mealId));
 
-            // Find the index of product on the cart, return -1 if not found
+            // Find the index of meal on the cart, return -1 if not found
             for (int i = 0; i < order.size(); i++) {
                 if (order.get(i).getMeal().equals(meal)) {
                     indexOfMeal = i;
                 }
             }
 
-            if (indexOfMeal == -1) { // If product is not in the cart yet.
+            if (indexOfMeal == -1) { // If meal is not in the cart yet.
                 orderlist = new Orderlist();
                 orderlist.setMeal(meal);
                 orderlist.setQuantity(Integer.parseInt(mealQty));
+                orderlist.setPriceeach(meal.getPrice());
+                coupon = new Coupon();
+                coupon.setRedeemDate(df.parse(mealDate));
+                coupon.setRedeemTime(mealTime);
+                orderlist.setCouponId(coupon);
                 order.add(orderlist);
 
                 // Redirect back with status 'Success'
@@ -68,9 +71,8 @@ public class addMeal extends HttpServlet {
             } else { // If product is already in the cart.
                 // Redirect back with status 'Failed'
                 url.append("&status=2");
-
             }
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException | ParseException ex) {
             url.append("&status=X");
         }
         response.sendRedirect(url.toString());

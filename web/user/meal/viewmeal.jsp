@@ -190,10 +190,10 @@
                                                 <label class="col-form-label">Time</label>
                                                 <div class="btn-group btn-group-toggle btn-block">
                                                     <label class="btn btn-outline-primary w-50">
-                                                        <input name="mealTime" value="B" type="radio" required> Breakfast
+                                                        <input name="mealTime" value="Breakfast" type="radio" required> Breakfast
                                                     </label>
                                                     <label class="btn btn-outline-primary w-50">
-                                                        <input name="mealTime" value="L" type="radio" required> Lunch
+                                                        <input name="mealTime" value="Lunch" type="radio" required> Lunch
                                                     </label>
                                                 </div>
                                             </div>
