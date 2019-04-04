@@ -1,7 +1,6 @@
 package control.user.order;
 
 import entity.Coupon;
-import entity.Meal;
 import entity.Orderlist;
 import java.io.IOException;
 import java.text.ParseException;
@@ -12,61 +11,56 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import service.MealService;
 
-public class addMeal extends HttpServlet {
+public class updateMeal extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         // Get parameter from the form
-        String mealId = request.getParameter("mealId");
+        String mealIndex = request.getParameter("mealIndex");
+        String mealQty = request.getParameter("mealQty");
         String mealDate = request.getParameter("mealDate");
         String mealTime = request.getParameter("mealTime");
-        String mealQty = request.getParameter("mealQty");
 
         // Initialize variables
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        StringBuilder url = new StringBuilder("../meal/viewmeal.jsp?CategoryId=" + request.getParameter("CategoryId"));
-        MealService ms = new MealService();
+        StringBuilder url = new StringBuilder("../cart/cart.jsp");
         Orderlist orderlist;
         Coupon coupon;
-        Meal meal;
-        int indexOfMeal = -1;        
+        int indexOfMeal;
         int mealQtyInt;
 
-        // Get session order. If null, new order.
+        // Get session order. If null, redirect with status 'Error'.
         HttpSession session = request.getSession();
         ArrayList<Orderlist> order = (ArrayList) session.getAttribute("order");
         if (order == null) {
-            order = new ArrayList<>();
-            session.setAttribute("order", order);
+            response.sendRedirect("../account/signin.jsp?status=X");
+            return;
         }
 
         try {
-            // Find the meal by ID
-            meal = ms.findMealByID(Integer.parseInt(mealId));
+            // Parse the given parameter
+            indexOfMeal = Integer.parseInt(mealIndex);
             mealQtyInt = Integer.parseInt(mealQty);
-            
+
             // If out of range throw exception.
             if (mealQtyInt < 1 || mealQtyInt > 10) {
                 throw new NumberFormatException();
             }
-            
-            orderlist = new Orderlist();
-            orderlist.setMeal(meal);
+
+            // Retirve and update
+            orderlist = order.get(indexOfMeal);
+            coupon = orderlist.getCouponId();
+
             orderlist.setQuantity(mealQtyInt);
-            orderlist.setPriceeach(meal.getPrice());
-            coupon = new Coupon();
             coupon.setRedeemDate(df.parse(mealDate));
             coupon.setRedeemTime(mealTime);
-            orderlist.setCouponId(coupon);
-            order.add(orderlist);
 
-            // Redirect back with status 'Success'
-            url.append("&status=1");
-
+            // Update cart and redirect back to cart with status 'Update Success'
+            url.append("?status=1");
         } catch (NumberFormatException | ParseException ex) {
-            url.append("&status=X");
+            url.append("?status=X");
         }
         response.sendRedirect(url.toString());
     }

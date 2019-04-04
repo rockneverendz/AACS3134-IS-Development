@@ -9,7 +9,7 @@
         <%@include file="../layout/meta.jsp" %>
         <title>Reload</title>
         <style>
-            .dropdown-item:nth-child(4){
+            a.dropdown-item:nth-of-type(2){
                 color: #fff;
                 text-decoration: none;
                 background-color: #007bff;
@@ -80,7 +80,7 @@
 
                             <div class="card shadow mb-4 w-100">
                                 <div class="card-header py-3 d-flex mb-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Reload Report</h6>
+                                    <h6 class="my-auto text-primary">Reload Report</h6>
                                     <div class="ml-auto">
                                         <form>
                                             <div class="input-group datepicker">
@@ -97,10 +97,10 @@
                                 </div>
                                 <div class="card-body row">
                                     <div class="col-sm-12">
-                                        <table class="table table-bordered" width="100%" cellspacing="0" role="grid" style="width: 100%;">
-                                            <thead>
+                                        <table class="table" width="100%" cellspacing="0" role="grid" style="width: 100%;">
+                                            <thead class="thead-light">
                                                 <tr role="row">
-                                                    <th rowspan="1" colspan="1" style="width: 10%;">Order ID</th>
+                                                    <th rowspan="1" colspan="1" style="width: 10%;">Order #</th>
                                                     <th rowspan="1" colspan="1" style="width: 25%;">Type</th>
                                                     <th rowspan="1" colspan="1" style="width: 25%;">Order Date</th>
                                                     <th rowspan="1" colspan="1" style="width: 20%;">Status</th>
@@ -133,10 +133,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr role="row">
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td><strong>Total</strong></td>
+                                                    <td colspan="4"><strong>Total</strong></td>
                                                     <td>RM <%= String.format("%.2f", totalAmount)%></td>
                                                 </tr>
                                             </tfoot>

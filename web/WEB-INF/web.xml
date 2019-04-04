@@ -22,6 +22,14 @@
         <servlet-class>control.user.order.addMeal</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>user.order.removeMeal</servlet-name>
+        <servlet-class>control.user.order.removeMeal</servlet-class>
+    </servlet>    
+    <servlet>
+        <servlet-name>user.order.updateMeal</servlet-name>
+        <servlet-class>control.user.order.updateMeal</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>staff.account.signin</servlet-name>
         <servlet-class>control.staff.account.signin</servlet-class>
     </servlet>
@@ -89,6 +97,14 @@
     <servlet-mapping>
         <servlet-name>user.order.addMeal</servlet-name>
         <url-pattern>/user/order/addMeal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>user.order.removeMeal</servlet-name>
+        <url-pattern>/user/order/removeMeal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>user.order.updateMeal</servlet-name>
+        <url-pattern>/user/order/updateMeal</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>staff.account.signin</servlet-name>

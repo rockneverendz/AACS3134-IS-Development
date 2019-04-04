@@ -25,12 +25,13 @@
                                 return;
                             }
                         %>
-                        <div class="btm dropdown-item"> Points : <%= customer.getCreditpoints()%> </div>
+                        <div class="btn dropdown-item"> Points : <%= customer.getCreditpoints()%> </div>
+                        <a class="btn dropdown-item" href="../report/coupon.jsp" role="button"><i class="float-right fas fa-money-check-alt" style="line-height:inherit"></i>Coupons</a>
                         <div class="dropdown-divider"></div>
-                        <a class="btn dropdown-item" href="../report/coupon.jsp" role="button"><i class="float-right fas fa-money-check-alt" style="line-height:inherit"></i>Coupon List</a>
-                        <a class="btn dropdown-item" href="../report/order.jsp" role="button"><i class="float-right fas fa-history" style="line-height:inherit"></i>Order List</a>
-                        <a class="btn dropdown-item" href="../report/reload.jsp" role="button"><i class="float-right fas fa-coins" style="line-height:inherit"></i>Reload List</a>
-                        <a class="btn dropdown-item" href="../report/intake.jsp" role="button"><i class="float-right fas fa-file-contract" style="line-height:inherit"></i>Intake List</a>
+                        <h6 class="dropdown-header">Reports</h6>
+                        <a class="btn dropdown-item" href="../report/order.jsp" role="button"><i class="float-right fas fa-history" style="line-height:inherit"></i>Order</a>
+                        <a class="btn dropdown-item" href="../report/reload.jsp" role="button"><i class="float-right fas fa-coins" style="line-height:inherit"></i>Reload</a>
+                        <a class="btn dropdown-item" href="../report/intake.jsp" role="button"><i class="float-right fas fa-file-contract" style="line-height:inherit"></i>Intake</a>
                         <div class="dropdown-divider"></div>
                         <a class="btn dropdown-item" href="../account/settings.jsp" role="button"><i class="float-right fas fa-cog" style="line-height:inherit"></i>Settings</a>
                         <a class="btn dropdown-item" href="../account/signout" role="button"><i class="float-right fas fa-sign-out-alt" style="line-height:inherit"></i>Sign Out</a>

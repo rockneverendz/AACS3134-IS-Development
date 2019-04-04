@@ -108,9 +108,6 @@
                             if (code == '1') {
                                 type = "success";
                                 message = "Successfully added to cart!";
-                            } else if (code == '2') {
-                                type = "warning";
-                                message = "Already existed in cart!";
                             } else {
                                 type = "danger";
                                 message = "An error has occured";
@@ -180,7 +177,7 @@
                                             </div>
                                             <div class="col-6 form-label-group">
                                                 <label for="mealQty" class="col-form-label">Quantity</label>
-                                                <input id="mealQty" name="mealQty" type="number" class="form-control" required>
+                                                <input id="mealQty" name="mealQty" type="number" class="form-control" min="1" max="10" required>
                                             </div>
                                             <div class="col-6 form-label-group">
                                                 <label for="mealDate" class="col-form-label">Date</label>
