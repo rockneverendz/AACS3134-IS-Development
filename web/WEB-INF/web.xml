@@ -30,6 +30,10 @@
         <servlet-class>control.user.order.updateMeal</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>user.order.confirmOrder</servlet-name>
+        <servlet-class>control.user.order.confirmOrder</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>staff.account.signin</servlet-name>
         <servlet-class>control.staff.account.signin</servlet-class>
     </servlet>
@@ -105,6 +109,10 @@
     <servlet-mapping>
         <servlet-name>user.order.updateMeal</servlet-name>
         <url-pattern>/user/order/updateMeal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>user.order.confirmOrder</servlet-name>
+        <url-pattern>/user/order/confirmOrder</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>staff.account.signin</servlet-name>

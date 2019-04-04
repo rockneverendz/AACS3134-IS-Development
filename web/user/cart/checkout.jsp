@@ -17,11 +17,11 @@
             .table > tbody > tr > td {
                 vertical-align: middle;
             }
-            
+
             tr th:first-child, tr td:first-child{
                 padding-left: 2.25rem;
             }
-            
+
             tr th:nth-last-child(2), tr td:nth-last-child(2){
                 text-align: right;
             }
@@ -45,7 +45,7 @@
                     <div class="container-fluid">
                         <div class="card shadow mb-4 w-100">
                             <div class="card-body p-0">
-                                <table class="table table-hover">
+                                <table class="table">
                                     <thead class="thead-light">
                                         <tr>
                                             <th style="width: 5%;">#</th>
@@ -81,6 +81,7 @@
                                                 quantity = orderlist.getQuantity();
                                                 total = priceEach * quantity;
                                                 grandTotal += total;
+
                                         %>
                                         <tr>
                                             <td id="row<%= i%>"><%= i + 1%></td>
@@ -97,6 +98,14 @@
                                         <tr scope="row">
                                             <td colspan="6"><strong>Subtotal:</strong></td>
                                             <td><strong><%= String.format("%.2f", grandTotal)%></strong></td>
+                                        </tr> 
+                                        <tr scope="row">
+                                            <td colspan="6"><strong>Current Credit Points:</strong></td>
+                                            <td><strong><%= String.format("%.2f", customer.getCreditpoints())%></strong></td>
+                                        </tr>
+                                        <tr scope="row">
+                                            <td colspan="6"><strong>New Credit Points:</strong></td>
+                                            <td><strong><%= String.format("%.2f", customer.getCreditpoints() - grandTotal)%></strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -104,7 +113,7 @@
                             <div class="card-footer">
                                 <a href="javascript:history.back()" class="btn btn-secondary btn-lg" 
                                    role="button">Go Back</a>
-                                <a href="checkout.jsp" class="btn btn-primary btn-lg float-right" 
+                                <a href="../order/confirmOrder" class="btn btn-primary btn-lg float-right" 
                                    role="button">Confirm Order</a>
                             </div>
                         </div>

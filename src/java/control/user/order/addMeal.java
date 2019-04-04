@@ -59,6 +59,7 @@ public class addMeal extends HttpServlet {
             coupon = new Coupon();
             coupon.setRedeemDate(df.parse(mealDate));
             coupon.setRedeemTime(mealTime);
+            coupon.setStatus("Active");
             orderlist.setCouponId(coupon);
             order.add(orderlist);
 

@@ -29,6 +29,9 @@ public class OrderService {
         em.getTransaction().begin();
         em.persist(ordermeal);
         em.persist(payment);
+        cart.forEach((orderlist) -> {
+            em.persist(orderlist.getCouponId());
+        });
         em.getTransaction().commit();
 
         cart.stream().map((orderlist) -> {
@@ -45,7 +48,6 @@ public class OrderService {
 
         em.getTransaction().begin();
         ordermeal.setOrderlistList(cart);
-        ordermeal.setCustId(customer);
         em.getTransaction().commit();
     }
 
