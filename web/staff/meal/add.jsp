@@ -24,16 +24,7 @@
                                 <div class="text-center mb-4">
                                     <h1 class="h1 mb-3">Add New Meal</h1>
                                 </div>
-                                <%
-                                    //Already initialize in sidebar.jsp
-                                    //If user is not logged in
-//                                    Staff staff = (Staff) session.getAttribute("staff");
-//                                    if (staff == null) {
-//                                        response.sendRedirect("../account/signin.jsp?status=N");
-//                                        return;
-//                                    }
-
-                                    String status = request.getParameter("status");
+                                <%                                    String status = request.getParameter("status");
                                     String message;
                                     String type;
                                     if (status == null) {
@@ -122,8 +113,9 @@
                                         <button class="btn btn-outline-secondary" type="button" onclick="add_fields()"><i class="fas fa-plus"></i></button>
                                         <div class="input-group mb-2">
                                             <div id="ingredientList" class="row" style="margin-left: 0px; margin-right: 0px; width: 100%;">
-                                                <input name='Ingredient' type="text" class="flexdatalist form-control col-10" placeholder="Ingredient">
+                                                <input name='Ingredient' type="text" class="flexdatalist form-control col-8" placeholder="Ingredient">
                                                 <input name='Quantity' type="number" class="ingreQuantity form-control col-2" placeholder="Quantity" min="1" max="10" step="0.01">
+                                                <button class="removeBtn btn btn-outline-secondary col-2" type="button" onclick="remove_fields(this.id)" hidden>Remove</button>
                                             </div>
                                         </div>
                                     </div>
@@ -144,39 +136,56 @@
         <script src="../../bootstrap/js/jquery.flexdatalist.min.js" type="text/javascript"></script>
         <script>
 
-                                            var ingredients;
+                                                    var ingredients;
+                                                    var flag = 1;
 
-                                            $(document).ready(function () {
-                                                $.get("../ingredient/retriveIngre", function (responseJson) {    // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response JSON...
-                                                    ingredients = responseJson;
-                                                    $('.flexdatalist').flexdatalist({
-                                                        selectionRequired: true,
-                                                        minLength: 0,
-                                                        maxShownResults: 5,
-                                                        valueProperty: 'ingredientId',
-                                                        searchIn: 'ingredientName',
-                                                        data: responseJson
+                                                    $(document).ready(function () {
+                                                        $.get("../ingredient/retriveIngre", function (responseJson) {    // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response JSON...
+                                                            ingredients = responseJson;
+                                                            $('.flexdatalist').flexdatalist({
+                                                                selectionRequired: true,
+                                                                minLength: 0,
+                                                                maxShownResults: 5,
+                                                                valueProperty: 'ingredientId',
+                                                                searchIn: 'ingredientName',
+                                                                data: responseJson
+                                                            });
+                                                        });
                                                     });
-                                                });
-                                            });
-                                            
 
-                                            function add_fields() {
-                                                // clone
-                                                $('.flexdatalist:first').clone().appendTo('#ingredientList');
-                                                $('.ingreQuantity:first').clone().appendTo('#ingredientList');
 
-                                                //re-initialise
-                                                $('.flexdatalist:last').flexdatalist({
-                                                    selectionRequired: true,
-                                                    minLength: 0,
-                                                    maxShownResults: 5,
-                                                    valueProperty: 'ingredientId',
-                                                    searchIn: 'ingredientName',
-                                                    data: ingredients
-                                                });
-                                                $('.ingreQuantity:last').val("");
-                                            }
+                                                    function add_fields() {
+                                                        
+                                                        flag += 1; //counter increment by 1
+
+                                                        // clone
+                                                        $('.flexdatalist:first').clone().appendTo('#ingredientList').addClass(flag + 'input');
+                                                        $('.ingreQuantity:first').clone().appendTo('#ingredientList').addClass(flag + 'qty');
+                                                        $('.removeBtn:first').clone().appendTo('#ingredientList').removeAttr('hidden').attr('id', flag);
+
+                                                        //re-initialise
+                                                        $('.flexdatalist:last').flexdatalist({
+                                                            selectionRequired: true,
+                                                            minLength: 0,
+                                                            maxShownResults: 5,
+                                                            valueProperty: 'ingredientId',
+                                                            searchIn: 'ingredientName',
+                                                            data: ingredients
+                                                        });
+                                                        $('.ingreQuantity:last').val("");
+                                                    }
+
+                                                    function remove_fields(clicked_id) {
+                                                        // remove
+                                                        //Initialazation
+                                                        var setInputString = clicked_id + 'input';
+                                                        var setQtyString = clicked_id + 'qty';
+
+                                                        //Processing
+                                                        $("." + setInputString).hide();
+                                                        $("." + setQtyString).hide();
+                                                        $("#" + clicked_id).hide();
+                                                    }
         </script>
     </body>
 </html>
