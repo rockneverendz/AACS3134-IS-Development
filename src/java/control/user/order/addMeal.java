@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +31,8 @@ public class addMeal extends HttpServlet {
         Orderlist orderlist;
         Coupon coupon;
         Meal meal;
-        int indexOfMeal = -1;
+        int indexOfMeal = -1;        
+        int mealQtyInt;
 
         // Get session order. If null, new order.
         HttpSession session = request.getSession();
@@ -46,32 +45,26 @@ public class addMeal extends HttpServlet {
         try {
             // Find the meal by ID
             meal = ms.findMealByID(Integer.parseInt(mealId));
-
-            // Find the index of meal on the cart, return -1 if not found
-            for (int i = 0; i < order.size(); i++) {
-                if (order.get(i).getMeal().equals(meal)) {
-                    indexOfMeal = i;
-                }
+            mealQtyInt = Integer.parseInt(mealQty);
+            
+            // If out of range throw exception.
+            if (mealQtyInt < 1 || mealQtyInt > 10) {
+                throw new NumberFormatException();
             }
+            
+            orderlist = new Orderlist();
+            orderlist.setMeal(meal);
+            orderlist.setQuantity(mealQtyInt);
+            orderlist.setPriceeach(meal.getPrice());
+            coupon = new Coupon();
+            coupon.setRedeemDate(df.parse(mealDate));
+            coupon.setRedeemTime(mealTime);
+            orderlist.setCouponId(coupon);
+            order.add(orderlist);
 
-            if (indexOfMeal == -1) { // If meal is not in the cart yet.
-                orderlist = new Orderlist();
-                orderlist.setMeal(meal);
-                orderlist.setQuantity(Integer.parseInt(mealQty));
-                orderlist.setPriceeach(meal.getPrice());
-                coupon = new Coupon();
-                coupon.setRedeemDate(df.parse(mealDate));
-                coupon.setRedeemTime(mealTime);
-                orderlist.setCouponId(coupon);
-                order.add(orderlist);
+            // Redirect back with status 'Success'
+            url.append("&status=1");
 
-                // Redirect back with status 'Success'
-                url.append("&status=1");
-
-            } else { // If product is already in the cart.
-                // Redirect back with status 'Failed'
-                url.append("&status=2");
-            }
         } catch (NumberFormatException | ParseException ex) {
             url.append("&status=X");
         }
