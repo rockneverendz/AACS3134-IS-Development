@@ -25,6 +25,7 @@ public class removeMeal extends HttpServlet {
         HttpSession session = request.getSession();
         ArrayList<Orderlist> order = (ArrayList) session.getAttribute("order");
         if (order == null) {
+            session.invalidate();
             response.sendRedirect("../account/signin.jsp?status=X");
             return;
         }

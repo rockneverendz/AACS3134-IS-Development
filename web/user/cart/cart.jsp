@@ -8,7 +8,6 @@
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
-        <link rel="stylesheet" href="../../bootstrap/css/bootstrap-datepicker3.min.css">
         <title>Order</title>
         <style>
             html{

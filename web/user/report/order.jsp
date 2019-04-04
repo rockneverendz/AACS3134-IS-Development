@@ -80,7 +80,7 @@
 
                             <div class="card shadow mb-4 w-100">
                                 <div class="card-header py-3 d-flex mb-3">
-                                    <h6 class="my-auto text-primary">Reload Report</h6>
+                                    <h6 class="my-auto text-primary">Order Report</h6>
                                     <div class="ml-auto">
                                         <form>
                                             <div class="input-group datepicker">
