@@ -18,6 +18,10 @@
         <servlet-class>control.user.account.settings</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>user.order.addMeal</servlet-name>
+        <servlet-class>control.user.order.addMeal</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>staff.account.signin</servlet-name>
         <servlet-class>control.staff.account.signin</servlet-class>
     </servlet>
@@ -81,6 +85,10 @@
     <servlet-mapping>
         <servlet-name>user.account.settings</servlet-name>
         <url-pattern>/user/account/settings</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>user.order.addMeal</servlet-name>
+        <url-pattern>/user/order/addMeal</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>staff.account.signin</servlet-name>

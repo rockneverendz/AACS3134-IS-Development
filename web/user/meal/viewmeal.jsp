@@ -91,6 +91,41 @@
 
             <div class="album py-5 bg-light">
                 <div class="container">
+                    <%
+                        //If no object are recieved, create a new object.
+                        String username = (String) request.getAttribute("username");
+                        if (username == null) {
+                            username = "";
+                        }
+
+                        String status = request.getParameter("status");
+                        String message;
+                        String type;
+                        if (status == null) {
+                            message = "";
+                        } else {
+                            char code = status.charAt(0);
+                            if (code == '1') {
+                                type = "success";
+                                message = "Successfully added to cart!";
+                            } else if (code == '2') {
+                                type = "warning";
+                                message = "Already existed in cart!";
+                            } else {
+                                type = "danger";
+                                message = "An error has occured";
+                            }
+                    %>            
+                    <div class="alert alert-<%= type%>" role="alert">
+                        <%= message%>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <%
+                        }
+                    %>
+
                     <div class="row">
                         <% for (Meal meal : ms.findMealByCategoryID(category)) {
                         %>
@@ -116,8 +151,7 @@
                                         <button type="button" class="btn btn-primary" 
                                                 data-toggle="modal" data-target="#orderModal" 
                                                 data-mealid="<%= meal.getMealId()%>"
-                                                data-mealname="<%= meal.getName()%>"
-                                                >Order</button>
+                                                data-mealname="<%= meal.getName()%>">Order</button>
                                     </div>
                                 </div>
                             </div>
@@ -135,36 +169,41 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
-                                    <form class="form-meal">
+                                <form class="form-meal" action="../order/addMeal">
+                                    <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-12 form-label-group">
+                                            <div class="col-6 form-label-group">
                                                 <label for="mealName" class="col-form-label">Meal</label>
+                                                <input name="CategoryId" type="text" value="<%= categoryId%>" hidden>
+                                                <input id="mealId" name="mealId" type="text" hidden>
                                                 <input id="mealName" type="text" class="form-control" disabled>
-                                                <input id="mealId" name="mealId" type="text" class="form-control" disabled hidden>
+                                            </div>
+                                            <div class="col-6 form-label-group">
+                                                <label for="mealQty" class="col-form-label">Quantity</label>
+                                                <input id="mealQty" name="mealQty" type="number" class="form-control" required>
                                             </div>
                                             <div class="col-6 form-label-group">
                                                 <label for="mealDate" class="col-form-label">Date</label>
-                                                <input id="mealDate" type="text" class="form-control" required>
+                                                <input id="mealDate" name="mealDate" type="text" class="form-control" required>
                                             </div>
                                             <div class="col-6 form-label-group" data-toggle="buttons">
                                                 <label class="col-form-label">Time</label>
                                                 <div class="btn-group btn-group-toggle btn-block">
                                                     <label class="btn btn-outline-primary w-50">
-                                                        <input type="radio" name="time" autocomplete="off" required> Breakfast
+                                                        <input name="mealTime" value="Breakfast" type="radio" required> Breakfast
                                                     </label>
                                                     <label class="btn btn-outline-primary w-50">
-                                                        <input type="radio" name="time" autocomplete="off" required> Lunch
+                                                        <input name="mealTime" value="Lunch" type="radio" required> Lunch
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Add Meal</button>
-                                </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Add Meal</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
