@@ -14,7 +14,7 @@
             html{
                 background-color: #f8f9fa;
             }
-            
+
             .table > tbody > tr > td {
                 vertical-align: middle;
             }
@@ -148,6 +148,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
+                                            <a id="delbutton" class="mr-auto btn btn-danger" href="#" role="button">Remove Meal</a>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">Update Meal</button>
                                         </div>
@@ -168,6 +169,7 @@
                     // Button that triggered the modal
                     var button = $(event.relatedTarget);
                     var index = button.data('index');
+                    var dellink = "../order/removeMeal?mealIndex=";
 
                     // Get value from the table and then insert it into the Bootstrap's Modal
                     $('#mealIndex').val(index);
@@ -185,6 +187,8 @@
                         $("#mealTimeL").prop("checked", true);
                         $("#mealTimeL").parent().button('toggle');
                     }
+
+                    $('#delbutton').prop("href", dellink + index);
                 }
             });
 
