@@ -11,9 +11,9 @@
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
-        <title>Reload</title>
+        <title>Intake History</title>
         <style>
-            .dropdown-item:nth-child(6){
+            a.dropdown-item:nth-of-type(4){
                 color: #fff;
                 text-decoration: none;
                 background-color: #007bff;
@@ -33,6 +33,10 @@
 
             .border-left-success {
                 border-left: .25rem solid #1cc88a!important;
+            }
+
+            .ordermeal {
+                cursor: pointer;
             }
         </style>
     </head>
@@ -133,7 +137,7 @@
 
                             <div class="card shadow mb-4 w-100">
                                 <div class="card-header py-3 d-flex mb-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Intake Report</h6>
+                                    <h6 class="my-auto text-primary">Intake Report</h6>
                                     <div class="ml-auto">
                                         <form class="input-group" action="./intake.jsp">
                                             <div class="input-group-prepend">
@@ -148,10 +152,10 @@
                                 </div>
                                 <div class="card-body row">
                                     <div class="col-sm-12">
-                                        <table class="table table-bordered table-hover w-100" cellspacing="0" role="grid">
-                                            <thead>
+                                        <table class="table table-hover w-100" cellspacing="0" role="grid">
+                                            <thead class="thead-light">
                                                 <tr role="row">
-                                                    <th rowspan="1" colspan="1" style="width: 10%;">Order ID.</th>
+                                                    <th rowspan="1" colspan="1" style="width: 10%;">Order #</th>
                                                     <th rowspan="1" colspan="2" style="width: 50%;">Date</th>
                                                     <th rowspan="1" colspan="1" style="width: 20%;">Expenses</th>
                                                     <th rowspan="1" colspan="1" style="width: 20%;">Calories</th>

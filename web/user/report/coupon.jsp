@@ -2,9 +2,9 @@
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
-        <title>Bricks | Coupon</title>
+        <title>Coupon</title>
         <style>
-            .dropdown-item:nth-child(3){
+            a.dropdown-item:nth-of-type(1){
                 color: #fff;
                 text-decoration: none;
                 background-color: #007bff;
