@@ -1,72 +1,103 @@
+<%@page import="entity.Coupon"%>
+<%@page import="entity.Orderlist"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
-        <title>Bricks | Cart</title>
+        <title>Order Confirmation</title>
+        <style>
+            html{
+                background-color: #f8f9fa;
+            }
+
+            .table > tbody > tr > td {
+                vertical-align: middle;
+            }
+        </style>
     </head>
     <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
-            <div class="container" style="padding: 25px;">
+            <section class="text-center">
+                <div class="container d-flex justify-content-between align-items-center">
+                    <h1 class="display-2">Order Confirmation</h1>
+                </div>
+            </section>
+            <div class="album py-5 bg-light">
+                <div class="container">
+                    <div class="container-fluid">
+                        <div class="card shadow mb-4 w-100">
+                            <div class="card-body row">
+                                <div class="col-sm-12">
+                                    <table class="table table-hover">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th rowspan="1" colspan="1" style="width: 5%;">#</th>
+                                                <th rowspan="1" colspan="1" style="width: 27.5%;">Food</th>
+                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Quantity</th>
+                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Date</th>
+                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Time</th>
+                                                <th rowspan="1" colspan="1" style="width: 15%;">Price</th>
+                                                <th rowspan="1" colspan="1" style="width: 15%;">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%  List<Orderlist> order = (List<Orderlist>) session.getAttribute("order");
+                                                Orderlist orderlist;
+                                                Coupon coupon;
+                                                double priceEach;
+                                                int quantity;
+                                                double total;
+                                                double grandTotal = 0;
 
+                                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                                                Date today = new Date();
 
-                <h1>Order summary</h1>
+                                                Calendar calendar = Calendar.getInstance();
+                                                calendar.setTime(today);
+                                                calendar.add(Calendar.DATE, 2);
 
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Food</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for (int i = 0; i < 5; i++) {%>
-                        <tr>
-                            <th scope="row"><%= i + 1%></th>
-                            <td>    
-                                Chicken Rice
-                            </td>
-                            <td>
-                                <%= i + 1%>
-                            </td>
-                            <td>RM <%= i + 2%></td>
-                            <td><strong>RM <%= i * 2%></strong></td>
+                                                for (int i = 0; i < order.size(); i++) {
+                                                    orderlist = order.get(i);
+                                                    coupon = orderlist.getCouponId();
 
-                        </tr>
-                        <% }%>
-
-                        <tr scope="row">
-                            <td colspan="4"><strong>Subtotal:</strong></td>
-                            <td><strong>RM 9999.99</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <form >
-                    <div class="row font-weight-bold">
-                        <div class="col-sm-4">
-                            <label>Redeem Date:</label>
-                            <div class="input-group col-sm-6">
-                                <div class="input-daterange input-group" id="datepicker">
-                                    <input type="text" class="input-sm form-control-plaintext" name="redeem_date" readonly value="dd/mm/yyyy"/>
+                                                    priceEach = orderlist.getPriceeach();
+                                                    quantity = orderlist.getQuantity();
+                                                    total = priceEach * quantity;
+                                                    grandTotal += total;
+                                            %>
+                                            <tr>
+                                                <td id="row<%= i%>"><%= i + 1%></td>
+                                                <td><%= orderlist.getMeal().getName()%></td>
+                                                <td><%= orderlist.getQuantity()%></td>
+                                                <td><%= dateFormat.format(coupon.getRedeemDate())%></td>
+                                                <td><%= coupon.getRedeemTime()%></td>
+                                                <td>RM <%= String.format("%.2f", priceEach)%></td>
+                                                <td><strong>RM <%= String.format("%.2f", total)%></strong></td>
+                                            </tr>
+                                            <%
+                                                }
+                                            %>
+                                            <tr scope="row">
+                                                <td colspan="6"><strong>Subtotal:</strong></td>
+                                                <td><strong>RM <%= String.format("%.2f", grandTotal)%></strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-sm-4 ">
-                            <label>Redeem Time: </label>
-                            <input type="text" class="input-sm form-control-plaintext" name="redeem_time" readonly value="Breakfast/Lunch"/>
+                            <div class="card-footer">
+                                <a href="javascript:history.back()" class="btn btn-secondary btn-lg" 
+                                   role="button">Go Back</a>
+                                <a href="checkout.jsp" class="btn btn-primary btn-lg float-right" 
+                                   role="button">Confirm Order</a>
+                            </div>
                         </div>
                     </div>
-                </form>
-
-                <div id="checkoutBtn">
-                    <a href="checkout.jsp">
-                        <button class="btn btn-dark btn-lg float-right" type="submit" id="cekOut">Place Order</button>
-                    </a>
                 </div>
             </div>
         </main>

@@ -1,15 +1,15 @@
+<%@page import="entity.Coupon"%>
+<%@page import="entity.Orderlist"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.Calendar"%>
-<%@page import="entity.Coupon"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="entity.Orderlist"%>
 <%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
         <link rel="stylesheet" href="../../bootstrap/css/bootstrap-datepicker3.min.css">
-        <title>Bricks | Cart</title>
+        <title>Order</title>
         <style>
             html{
                 background-color: #f8f9fa;
@@ -43,8 +43,8 @@
                                                 <th rowspan="1" colspan="1" style="width: 12.5%;">Date</th>
                                                 <th rowspan="1" colspan="1" style="width: 12.5%;">Time</th>
                                                 <th rowspan="1" colspan="1" style="width: 5%;">Edit</th>
-                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Price (RM)</th>
-                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Total (RM)</th>
+                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Price</th>
+                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -100,12 +100,11 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div id="checkoutBtn">
-                                        <a href="checkout.jsp">
-                                            <button class="btn btn-dark btn-lg float-right" type="submit" id="cekOut">Proceed to Checkout</button>
-                                        </a>
-                                    </div>
                                 </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="checkout.jsp" class="btn btn-primary btn-lg float-right" 
+                                   role="button">Proceed to Checkout</a>
                             </div>
                         </div>
 
@@ -200,6 +199,5 @@
                 todayHighlight: true
             });
         </script>
-
     </body>
 </html>
