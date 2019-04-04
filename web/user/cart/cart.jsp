@@ -18,6 +18,19 @@
             .table > tbody > tr > td {
                 vertical-align: middle;
             }
+
+            tr th:first-child, tr td:first-child{
+                padding-left: 2.25rem;
+            }
+            
+            tr th:nth-last-child(2), tr td:nth-last-child(2){
+                text-align: right;
+            }
+
+            tr th:last-child, tr td:last-child{                
+                padding-right: 2.25rem;
+                text-align: right;
+            }
         </style>
     </head>
     <body style="margin-bottom: 60px;">
@@ -36,8 +49,6 @@
                                 <table class="table table-hover">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th style="width: 1.25rem;"></th>
-                                            <!-- Blended Padding -->
                                             <th style="width: 5%;">#</th>
                                             <th style="width: 27.5%;">Food</th>
                                             <th style="width: 12.5%;">Quantity</th>
@@ -46,8 +57,6 @@
                                             <th style="width: 5%;">Edit</th>
                                             <th style="width: 12.5%;">Price</th>
                                             <th style="width: 12.5%;">Total</th>
-                                            <!-- Blended Padding -->
-                                            <th style="width: 1.25rem;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -77,8 +86,6 @@
                                                 grandTotal += total;
                                         %>
                                         <tr>
-                                            <td></td>
-                                            <!-- Blended Padding -->
                                             <td id="row<%= i%>"><%= i + 1%></td>
                                             <td><%= orderlist.getMeal().getName()%></td>
                                             <td><%= orderlist.getQuantity()%></td>
@@ -95,19 +102,13 @@
                                             </td>
                                             <td><%= String.format("%.2f", priceEach)%></td>
                                             <td><strong><%= String.format("%.2f", total)%></strong></td>
-                                            <!-- Blended Padding -->
-                                            <td></td>
                                         </tr>
                                         <%
                                             }
                                         %>
                                         <tr scope="row">
-                                            <td></td>
-                                            <!-- Blended Padding -->
                                             <td colspan="7"><strong>Subtotal:</strong></td>
                                             <td><strong><%= String.format("%.2f", grandTotal)%></strong></td>
-                                            <!-- Blended Padding -->
-                                            <td></td>
                                         </tr>
                                     </tbody>
                                 </table>
