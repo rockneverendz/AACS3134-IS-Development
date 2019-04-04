@@ -31,64 +31,74 @@
                 <div class="container">
                     <div class="container-fluid">
                         <div class="card shadow mb-4 w-100">
-                            <div class="card-body row">
-                                <div class="col-sm-12">
-                                    <table class="table table-hover">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th rowspan="1" colspan="1" style="width: 5%;">#</th>
-                                                <th rowspan="1" colspan="1" style="width: 27.5%;">Food</th>
-                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Quantity</th>
-                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Date</th>
-                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Time</th>
-                                                <th rowspan="1" colspan="1" style="width: 15%;">Price</th>
-                                                <th rowspan="1" colspan="1" style="width: 15%;">Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <%  List<Orderlist> order = (List<Orderlist>) session.getAttribute("order");
-                                                Orderlist orderlist;
-                                                Coupon coupon;
-                                                double priceEach;
-                                                int quantity;
-                                                double total;
-                                                double grandTotal = 0;
+                            <div class="card-body p-0">
+                                <table class="table table-hover">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th style="width: 1.25rem;"></th>
 
-                                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                                                Date today = new Date();
+                                            <th style="width: 5%;">#</th>
+                                            <th style="width: 27.5%;">Food</th>
+                                            <th style="width: 12.5%;">Quantity</th>
+                                            <th style="width: 12.5%;">Date</th>
+                                            <th style="width: 12.5%;">Time</th>
+                                            <th style="width: 15%;">Price</th>
+                                            <th style="width: 15%;">Total</th>
 
-                                                Calendar calendar = Calendar.getInstance();
-                                                calendar.setTime(today);
-                                                calendar.add(Calendar.DATE, 2);
+                                            <th style="width: 1.25rem;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%  List<Orderlist> order = (List<Orderlist>) session.getAttribute("order");
+                                            Orderlist orderlist;
+                                            Coupon coupon;
+                                            double priceEach;
+                                            int quantity;
+                                            double total;
+                                            double grandTotal = 0;
 
-                                                for (int i = 0; i < order.size(); i++) {
-                                                    orderlist = order.get(i);
-                                                    coupon = orderlist.getCouponId();
+                                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                                            Date today = new Date();
 
-                                                    priceEach = orderlist.getPriceeach();
-                                                    quantity = orderlist.getQuantity();
-                                                    total = priceEach * quantity;
-                                                    grandTotal += total;
-                                            %>
-                                            <tr>
-                                                <td id="row<%= i%>"><%= i + 1%></td>
-                                                <td><%= orderlist.getMeal().getName()%></td>
-                                                <td><%= orderlist.getQuantity()%></td>
-                                                <td><%= dateFormat.format(coupon.getRedeemDate())%></td>
-                                                <td><%= coupon.getRedeemTime()%></td>
-                                                <td>RM <%= String.format("%.2f", priceEach)%></td>
-                                                <td><strong>RM <%= String.format("%.2f", total)%></strong></td>
-                                            </tr>
-                                            <%
-                                                }
-                                            %>
-                                            <tr scope="row">
-                                                <td colspan="6"><strong>Subtotal:</strong></td>
-                                                <td><strong>RM <%= String.format("%.2f", grandTotal)%></strong></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            Calendar calendar = Calendar.getInstance();
+                                            calendar.setTime(today);
+                                            calendar.add(Calendar.DATE, 2);
+
+                                            for (int i = 0; i < order.size(); i++) {
+                                                orderlist = order.get(i);
+                                                coupon = orderlist.getCouponId();
+
+                                                priceEach = orderlist.getPriceeach();
+                                                quantity = orderlist.getQuantity();
+                                                total = priceEach * quantity;
+                                                grandTotal += total;
+                                        %>
+                                        <tr>
+                                            <td></td>
+                                            
+                                            <td id="row<%= i%>"><%= i + 1%></td>
+                                            <td><%= orderlist.getMeal().getName()%></td>
+                                            <td><%= orderlist.getQuantity()%></td>
+                                            <td><%= dateFormat.format(coupon.getRedeemDate())%></td>
+                                            <td><%= coupon.getRedeemTime()%></td>
+                                            <td><%= String.format("%.2f", priceEach)%></td>
+                                            <td><strong><%= String.format("%.2f", total)%></strong></td>
+                                            
+                                            <td></td>
+                                        </tr>
+                                        <%
+                                            }
+                                        %>
+                                        <tr scope="row">
+                                            <td></td>
+                                            
+                                            <td colspan="6"><strong>Subtotal:</strong></td>
+                                            <td><strong><%= String.format("%.2f", grandTotal)%></strong></td>
+                                            
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="card-footer">
                                 <a href="javascript:history.back()" class="btn btn-secondary btn-lg" 

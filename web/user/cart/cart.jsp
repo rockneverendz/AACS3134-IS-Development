@@ -32,19 +32,22 @@
                 <div class="container">
                     <div class="container-fluid">
                         <div class="card shadow mb-4 w-100">
-                            <div class="card-body row">
-                                <div class="col-sm-12">
+                            <div class="card-body p-0">
                                     <table class="table table-hover">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th rowspan="1" colspan="1" style="width: 5%;">#</th>
-                                                <th rowspan="1" colspan="1" style="width: 27.5%;">Food</th>
-                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Quantity</th>
-                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Date</th>
-                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Time</th>
-                                                <th rowspan="1" colspan="1" style="width: 5%;">Edit</th>
-                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Price</th>
-                                                <th rowspan="1" colspan="1" style="width: 12.5%;">Total</th>
+                                                <th style="width: 1.25rem;"></th>
+
+                                                <th style="width: 5%;">#</th>
+                                                <th style="width: 27.5%;">Food</th>
+                                                <th style="width: 12.5%;">Quantity</th>
+                                                <th style="width: 12.5%;">Date</th>
+                                                <th style="width: 12.5%;">Time</th>
+                                                <th style="width: 5%;">Edit</th>
+                                                <th style="width: 12.5%;">Price</th>
+                                                <th style="width: 12.5%;">Total</th>
+
+                                                <th style="width: 1.25rem;"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -74,6 +77,8 @@
                                                     grandTotal += total;
                                             %>
                                             <tr>
+                                                <td></td>
+
                                                 <td id="row<%= i%>"><%= i + 1%></td>
                                                 <td><%= orderlist.getMeal().getName()%></td>
                                                 <td><%= orderlist.getQuantity()%></td>
@@ -88,19 +93,24 @@
                                                         </button>
                                                     </a>
                                                 </td>
-                                                <td>RM <%= String.format("%.2f", priceEach)%></td>
-                                                <td><strong>RM <%= String.format("%.2f", total)%></strong></td>
+                                                <td><%= String.format("%.2f", priceEach)%></td>
+                                                <td><strong><%= String.format("%.2f", total)%></strong></td>
+
+                                                <td></td>
                                             </tr>
                                             <%
                                                 }
                                             %>
                                             <tr scope="row">
+                                                <td></td>
+
                                                 <td colspan="7"><strong>Subtotal:</strong></td>
-                                                <td><strong>RM <%= String.format("%.2f", grandTotal)%></strong></td>
+                                                <td><strong><%= String.format("%.2f", grandTotal)%></strong></td>
+
+                                                <td></td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
                             <div class="card-footer">
                                 <a href="checkout.jsp" class="btn btn-primary btn-lg float-right" 
