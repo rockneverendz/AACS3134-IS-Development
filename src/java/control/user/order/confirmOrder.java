@@ -1,68 +1,69 @@
 package control.user.order;
 
-import entity.Coupon;
+import entity.Customer;
 import entity.Orderlist;
+import entity.Ordermeal;
+import entity.Payment;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import service.CustomerService;
+import service.OrderService;
 
-public class updateMeal extends HttpServlet {
+public class confirmOrder extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get parameter from the form
-        String mealIndex = request.getParameter("mealIndex");
-        String mealQty = request.getParameter("mealQty");
-        String mealDate = request.getParameter("mealDate");
-        String mealTime = request.getParameter("mealTime");
-
         // Initialize variables
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        StringBuilder url = new StringBuilder("../cart/cart.jsp");
-        Orderlist orderlist;
-        Coupon coupon;
-        int indexOfMeal;
-        int mealQtyInt;
+        StringBuilder url = new StringBuilder("../report/coupon.jsp");
+        CustomerService cs;
+        OrderService os;
+        Ordermeal ordermeal;
+        Payment payment;
+        Date date;
+        double total = 0;
 
         // Get session order. If null, redirect with status 'Error'.
         HttpSession session = request.getSession();
         ArrayList<Orderlist> order = (ArrayList) session.getAttribute("order");
-        if (order == null) {
+        Customer customer = (Customer) session.getAttribute("customer");
+        if (order == null && customer == null) {
             session.invalidate();
             response.sendRedirect("../account/signin.jsp?status=X");
             return;
         }
 
-        try {
-            // Parse the given parameter
-            indexOfMeal = Integer.parseInt(mealIndex);
-            mealQtyInt = Integer.parseInt(mealQty);
+        cs = new CustomerService();
+        os = new OrderService();
+        ordermeal = new Ordermeal();
+        payment = new Payment();
+        date = new Date();
 
-            // If out of range throw exception.
-            if (mealQtyInt < 1 || mealQtyInt > 10) {
-                throw new NumberFormatException();
-            }
-
-            // Retirve and update
-            orderlist = order.get(indexOfMeal);
-            coupon = orderlist.getCouponId();
-
-            orderlist.setQuantity(mealQtyInt);
-            coupon.setRedeemDate(df.parse(mealDate));
-            coupon.setRedeemTime(mealTime);
-
-            // Update cart and redirect back to cart with status 'Update Success'
-            url.append("?status=1");
-        } catch (NumberFormatException | ParseException ex) {
-            url.append("?status=X");
+        for (Orderlist orderlist : order) {
+            total =+ orderlist.getPriceeach() * orderlist.getQuantity();
         }
+        
+        payment.setDate(date);
+        payment.setTime(date);
+        payment.setAmount(total);
+
+        ordermeal.setPaymentId(payment);
+        ordermeal.setStatus("Paid");
+        ordermeal.setType("Single"); //TODO variable type
+        ordermeal.setCustId(cs.findCustByID(customer.getCustId()));
+
+        // Release the kraken
+        os.addMealorder(ordermeal, payment, order, customer);
+
+        // Redirect back with status 'Success'
+        url.append("?status=1");
+
         response.sendRedirect(url.toString());
     }
 

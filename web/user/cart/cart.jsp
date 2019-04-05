@@ -8,7 +8,6 @@
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
-        <link rel="stylesheet" href="../../bootstrap/css/bootstrap-datepicker3.min.css">
         <title>Order</title>
         <style>
             html{
@@ -19,15 +18,21 @@
                 vertical-align: middle;
             }
 
-            tr th:first-child, tr td:first-child{
+            .table > tbody > tr > th:first-child,
+            .table > tbody > tr > td:first-child
+            {
                 padding-left: 2.25rem;
             }
-            
-            tr th:nth-last-child(2), tr td:nth-last-child(2){
+
+            .table > tbody > tr > th:nth-last-child(2),
+            .table > tbody > tr > td:nth-last-child(2)
+            {
                 text-align: right;
             }
 
-            tr th:last-child, tr td:last-child{                
+            .table > tbody > tr > th:last-child,
+            .table > tbody > tr > td:last-child
+            {                
                 padding-right: 2.25rem;
                 text-align: right;
             }
@@ -173,6 +178,7 @@
         <%@include file="../layout/footer.jsp" %>
         <%@include file="../layout/scripts.jsp" %>
         <script src="../../bootstrap/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" href="../../bootstrap/css/bootstrap-datepicker3.min.css">
         <script>
             $('#orderModal').on('show.bs.modal', function (event) {
                 if (event.namespace === 'bs.modal') {

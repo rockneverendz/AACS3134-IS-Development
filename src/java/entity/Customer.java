@@ -45,7 +45,7 @@ public class Customer implements Serializable {
     private String password;
     @Basic(optional = false)
     @Column(name = "CREDITPOINTS")
-    private int creditpoints;
+    private double creditpoints;
     @OneToMany(mappedBy = "custId")
     private List<Reload> reloadList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "custId")
@@ -58,7 +58,7 @@ public class Customer implements Serializable {
         this.custId = custId;
     }
 
-    public Customer(Integer custId, int creditpoints) {
+    public Customer(Integer custId, double creditpoints) {
         this.custId = custId;
         this.creditpoints = creditpoints;
     }
@@ -103,11 +103,11 @@ public class Customer implements Serializable {
         this.password = password;
     }
 
-    public int getCreditpoints() {
+    public double getCreditpoints() {
         return creditpoints;
     }
 
-    public void setCreditpoints(int creditpoints) {
+    public void setCreditpoints(double creditpoints) {
         this.creditpoints = creditpoints;
     }
 

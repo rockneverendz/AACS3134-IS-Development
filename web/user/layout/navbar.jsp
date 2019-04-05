@@ -25,7 +25,7 @@
                                 return;
                             }
                         %>
-                        <div class="btn dropdown-item"> Points : <%= customer.getCreditpoints()%> </div>
+                        <div class="btn dropdown-item"> Points : <%= String.format("%.2f", customer.getCreditpoints()) %> </div>
                         <a class="btn dropdown-item" href="../report/coupon.jsp" role="button"><i class="float-right fas fa-money-check-alt" style="line-height:inherit"></i>Coupons</a>
                         <div class="dropdown-divider"></div>
                         <h6 class="dropdown-header">Reports</h6>
