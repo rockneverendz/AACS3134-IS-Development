@@ -1,3 +1,4 @@
+<%@page import="java.sql.*"%>
 <!doctype html>
 <html lang="en">
     <head>
@@ -14,38 +15,68 @@
                 <!-- Fixed-Sidebar Navs -->
                 <%@include file="../layout/sidebar.jsp" %>
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                    <div class="container mt-4">
-                        <h3>Daily/Weekly Meals Order List</h3>
+                    <div class="container mt-4" style="max-width: 1000px;">
+                        <h3>Daily Meals Order List</h3>
 
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-sm table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Food</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Ingredient</th>
-                                    <th scope="col">Total ingredient needed</th>
+                                    <th scope="col">Total food order</th>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <% for (int i = 0; i < 10; i++) {%>
+                                <%                                    
+                                    String spageid = request.getParameter("page");
+                                    int pageid = Integer.parseInt(spageid);
+                                    int total = 20;
+                                    int i = 1;
+                                    if (pageid == 1) {
+                                    } else {
+                                        pageid = pageid - 1;
+                                        pageid = pageid * total;
+                                    }
+
+                                    String host = "jdbc:derby://localhost:1527/canteenDB";
+                                    String user = "nbuser";
+                                    String password = "nbuser";
+                                    String sqlQuery = "SELECT M.NAME, COUNT(M.MEAL_ID) AS TOTAL_FOOD_ORDERED "
+                                            + "FROM ORDERMEAL O INNER JOIN  ORDERLIST OL ON O.ORDER_ID = OL.ORDER_ID "
+                                            + "INNER JOIN MEAL M ON OL.MEAL_ID = M.MEAL_ID "
+                                            + "INNER JOIN INGREDIENTLIST IL ON M.MEAL_ID = IL.MEAL_ID "
+                                            + "INNER JOIN INGREDIENT I ON IL.INGREDIENT_ID = I.INGREDIENT_ID "
+                                            + "GROUP BY M.NAME "
+                                            + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+                                    try {
+                                        Connection conn = DriverManager.getConnection(host, user, password);
+                                        PreparedStatement stmt = conn.prepareStatement(sqlQuery);
+                                        stmt.setString(1, Integer.toString(pageid-1));
+                                        stmt.setString(2, Integer.toString(total));
+                                        ResultSet rs = stmt.executeQuery();
+                                        while (rs.next()) {
+                                            String mealName = rs.getString("NAME");
+                                            String totalOrder = rs.getString("TOTAL_FOOD_ORDERED");
+                                %>   
                                 <tr>
-                                    <th scope="row"><%= i + 1%></th>
-                                    <td>    
-                                        Chicken Rice
-                                    </td>
-                                    <td>
-                                        <%= i + 1%>
-                                    </td>
-                                    <td>Ingredient</td>
-                                    <td><strong><%= i + 1%></strong></td>
+                                    <th scope="row"><%= i++ %></th>
+                                    <td><%= mealName %></td>
+                                    <td><%= totalOrder %></td>
                                 </tr>
-                                <% }%>
+                                <%
+
+                                        }
+                                        conn.close();
+                                    } catch (SQLException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                %>
                             </tbody>
                         </table>
 
                         <div class="row mt-3 d-print-none">
-                            <div class="col-sm-5">
+                            <div class="col-sm-7">
                                 <form>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -58,9 +89,28 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-sm-6">
-                                <button class="btn btn-outline-primary" onclick="printFn()" id="print"><i class="fas fa-print"></i> Print</button>
+                            <div class="col-sm-2">
+                                <button class="btn btn-outline-primary d-print-none" onclick="printFn()" id="print"><i class="fas fa-print"></i> Print</button>
                             </div>
+                            <nav class="col-sm-3" aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="orderlist.jsp?page=1">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="orderlist.jsp?page=2">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="orderlist.jsp?page=3">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                     <p class="mt-5 mb-3 text-muted text-center">Bricks <i class="far fa-copyright"></i> 2019</p>
