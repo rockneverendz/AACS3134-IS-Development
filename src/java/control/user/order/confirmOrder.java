@@ -7,7 +7,6 @@ import entity.Payment;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ public class confirmOrder extends HttpServlet {
             throws ServletException, IOException {
 
         // Initialize variables
-        StringBuilder url = new StringBuilder("../meal/report/order.jsp");
+        StringBuilder url = new StringBuilder("../report/coupon.jsp");
         CustomerService cs;
         OrderService os;
         Ordermeal ordermeal;
