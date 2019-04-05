@@ -54,7 +54,7 @@
                 <div class="container d-flex justify-content-between align-items-center">
                     <h1 class="display-2">Order History</h1>
                     <div class="btn-group">
-                        <a class="btn btn-secondary btn-lg" href="./order.jsp" role="button">Paid</a>
+                        <a class="btn btn-secondary btn-lg" href="./orderpaid.jsp" role="button">Paid</a>
                         <a class="btn btn-secondary btn-lg active" href="#" role="button">Completed</a>
                     </div>
                     <a href="#" class="btn btn-primary my-2">Print
