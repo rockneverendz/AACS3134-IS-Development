@@ -14,23 +14,23 @@
                 background-color: #f8f9fa;
             }
 
-            .table > tbody > tr > td {
-                vertical-align: middle;
+            td, th {
+                vertical-align: middle!important;
             }
 
-            .table > tbody > tr > th:first-child,
+            .table > thead > tr > th:first-child,
             .table > tbody > tr > td:first-child
             {
                 padding-left: 2.25rem;
             }
 
-            .table > tbody > tr > th:nth-last-child(2),
+            .table > thead > tr > th:nth-last-child(2),
             .table > tbody > tr > td:nth-last-child(2)
             {
                 text-align: right;
             }
 
-            .table > tbody > tr > th:last-child,
+            .table > thead > tr > th:last-child,
             .table > tbody > tr > td:last-child
             {                
                 padding-right: 2.25rem;
@@ -97,13 +97,11 @@
                                             <td><%= dateFormat.format(coupon.getRedeemDate())%></td>
                                             <td><%= coupon.getRedeemTime()%></td>
                                             <td>
-                                                <a href="#">
-                                                    <button type="button" class="btn btn-outline-info"
-                                                            data-toggle="modal" data-target="#orderModal"
-                                                            data-index="<%= i%>">
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                    </button>
-                                                </a>
+                                                <button type="button" class="btn btn-outline-info"
+                                                        data-toggle="modal" data-target="#orderModal"
+                                                        data-index="<%= i%>">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </button>
                                             </td>
                                             <td><%= String.format("%.2f", priceEach)%></td>
                                             <td><strong><%= String.format("%.2f", total)%></strong></td>

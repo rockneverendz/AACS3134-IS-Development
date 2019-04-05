@@ -36,8 +36,10 @@
             }
 
             .ordermeal {
+                background-color: rgba(0,0,0,.05);
                 cursor: pointer;
             }
+            
         </style>
     </head>
     <body style="margin-bottom: 60px;">

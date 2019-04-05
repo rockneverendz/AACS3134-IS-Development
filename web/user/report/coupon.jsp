@@ -11,6 +11,10 @@
         <%@include file="../layout/meta.jsp" %>
         <title>Coupon</title>
         <style>
+            html{
+                background-color: #f8f9fa;
+            }
+            
             a.dropdown-item:nth-of-type(1){
                 color: #fff;
                 text-decoration: none;
