@@ -69,22 +69,22 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../reports/transaction.jsp">
+                <a class="nav-link" href="../reports/transaction.jsp?page=1">
                     <i class="fas fa-file-alt feather"></i> Top Up History
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../reports/orderlist.jsp">
+                <a class="nav-link" href="../reports/orderlist.jsp?page=1">
                     <i class="fas fa-file-alt feather"></i> Meal Order List
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../reports/cancelledOrders.jsp">
+                <a class="nav-link" href="../reports/cancelledOrders.jsp?page=1">
                     <i class="fas fa-file-alt feather"></i> Order Cancellations
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../reports/topSales.jsp">
+                <a class="nav-link" href="../reports/topSales.jsp?page=1">
                     <i class="fas fa-file-alt feather"></i> Sales Report
                 </a>
             </li>
