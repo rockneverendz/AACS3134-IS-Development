@@ -63,6 +63,15 @@ public class OrderService {
                 Ordermeal.class)
                 .getResultList();
     }
+    
+    public List<Ordermeal> findOrderByCustCompleted(int custId) {
+        return em.createNativeQuery("SELECT o.* FROM Ordermeal o"
+                + " WHERE o.CUST_ID = " + custId
+                + " AND o.STATUS <> 'Paid'"
+                + " ORDER BY o.ORDER_ID ASC",
+                Ordermeal.class)
+                .getResultList();
+    }
 
     public List<Ordermeal> findOrderByCustDateRange(int custId, Date startDate, Date endDate) {
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
