@@ -54,6 +54,15 @@ public class OrderService {
     public Ordermeal findOrderByID(int id) {
         return (Ordermeal) em.find(Ordermeal.class, id);
     }
+    
+    public List<Ordermeal> findOrderByCustPaid(int custId) {
+        return em.createNativeQuery("SELECT o.* FROM Ordermeal o"
+                + " WHERE o.CUST_ID = " + custId
+                + " AND o.STATUS = 'Paid'"
+                + " ORDER BY o.ORDER_ID ASC",
+                Ordermeal.class)
+                .getResultList();
+    }
 
     public List<Ordermeal> findOrderByCustDateRange(int custId, Date startDate, Date endDate) {
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -72,11 +81,11 @@ public class OrderService {
      * @return true if successfully committed false if order not found
      * @throws RollbackException If commit fails
      */
-    public boolean updateMealorder(Ordermeal newOrdermeal) throws RollbackException {
+    public boolean cancelMealorder(Ordermeal newOrdermeal) throws RollbackException {
         Ordermeal oldOrdermeal = findOrderByID(newOrdermeal.getOrderId());
         if (oldOrdermeal != null) {
             em.getTransaction().begin();
-            oldOrdermeal.setStatus(newOrdermeal.getStatus());
+            oldOrdermeal.setStatus("Canceled");
             em.getTransaction().commit();
             return true;
         }
