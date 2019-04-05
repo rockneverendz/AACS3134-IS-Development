@@ -8,6 +8,9 @@ Direct jar file.
 https://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-java-plat-419418.html#jaf-1.1-fr-oth-JPR
 Accept TOC, download 1.1.1, open zip file, what you need is only the jar file.
 
+https://search.maven.org/artifact/com.google.code.gson/gson/2.8.5/jar
+Right side should there's a download button, click and select jar.
+
 ## Settings up Environment Variable for servers
 Why environment variable?  
 So we don't have to keep passwords and sensitive info in raw text inside the project.
