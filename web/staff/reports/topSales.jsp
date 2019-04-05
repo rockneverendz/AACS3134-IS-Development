@@ -19,7 +19,7 @@
                 <%@include file="../layout/sidebar.jsp" %>
 
                 <%                    
-                    String[] monthArr = {"January", "February", "March", "April", "May", "June", "July", "October", "November", "December"};
+                    String[] monthArr = {"January", "February", "March", "April", "May", "June", "July", "August", "September" , "October", "November", "December"};
                     int selectedMonth;
                     String monthString = request.getParameter("month");
                     System.out.println(monthString);
