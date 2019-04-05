@@ -1,3 +1,10 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="entity.Coupon"%>
+<%@page import="entity.Orderlist"%>
+<%@page import="entity.Ordermeal"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
+<%@page import="service.OrderService"%>
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
@@ -9,7 +16,7 @@
                 text-decoration: none;
                 background-color: #007bff;
             }
-            
+
             .card{
                 height: 200px;
                 margin-bottom: -1px;
@@ -36,17 +43,40 @@
                 <div class="container">
                     <div class="row">
 
-                        <% for (int i = 0; i < 10; i++) {%>
+                        <%  OrderService os = new OrderService();
+                            List<Ordermeal> list = os.findOrderByCustPaid(customer.getCustId());
+                            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                            Coupon coupon;
+
+                            for (Ordermeal ordermeal : list) {
+                                for (Orderlist orderlist : ordermeal.getOrderlistList()) {
+                                    coupon = orderlist.getCouponId();
+                                    if (coupon.getStatus().equals("Active")) {
+
+                        %>
                         <div class="card col-6">
                             <div class="card-body">
-                                <h5 class="card-title">Coupon Number : <%= i + 10000%></h5>
+                                <h5 class="card-title">Coupon Number : <%= coupon.getCouponId()%></h5>
                                 <div class="row">
-                                    <p class="card-text col-6">Meal : Chicken Rice <br>Price : RM 5.00 <br>Food Stall : Chicken Rice <br>Redeem Date & Time : dd/mm/yyyy Lunch</p>
-                                    <p class="card-text col-6">Qty : 1 <br>Type : Single Day<br>Barcode : <span class="barcode" ><i class="fas fa-barcode"></i></span></p>
+                                    <p class="card-text col-6">Meal : <%= orderlist.getMeal()%> 
+                                        <br>Price : RM <%= orderlist.getPriceeach()%> 
+                                        <br>Food Stall : <%= orderlist.getMeal().getCategoryId().getName()%> 
+                                        <br>Redeem Date & Time : 
+                                        <br><%= df.format(coupon.getRedeemDate())%> <%= coupon.getRedeemTime()%>
+                                    </p>
+                                    <p class="card-text col-6">Qty : <%= orderlist.getQuantity()%> 
+                                        <br>Type : <%= ordermeal.getType()%>
+                                        <br>Barcode : 
+                                        <span class="barcode" ><i class="fas fa-barcode"></i></span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <% }%>
+                        <%
+                                    }
+                                }
+                            }
+                        %>
                     </div>
                 </div>
             </div>
