@@ -56,13 +56,7 @@
                                     <th scope="col">Ingredient</th>
                                 </tr>
                             </thead>
-                            <%                                //Already initialize in sidebar.jsp
-                                //If user is not logged in
-//                                Staff staff = (Staff) session.getAttribute("staff");
-//                                if (staff == null) {
-//                                    response.sendRedirect("../account/signin.jsp?status=N");
-//                                    return;
-//                                }
+                            <%  
                                 IngredientService ingredientService = new IngredientService();
                                 List<Ingredient> IngredientList = ingredientService.findAllWithoutList();
 
