@@ -20,7 +20,7 @@
                 <%@include file="../layout/sidebar.jsp" %>
 
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                    <div class="container mt-4">
+                    <div class="container mt-4" style="max-width: 1000px;">
 
                         <%                            ReloadService rs = new ReloadService();
                             List<Reload> reloadList = rs.findAll();
@@ -33,7 +33,7 @@
                         <h3>Top Up History</h3>
 
 
-                        <table id="myTable" class="table table-bordered table-hover">
+                        <table id="myTable" class="table table-sm table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">#ID</th>
@@ -59,22 +59,41 @@
                         </table>
 
                         <div class="row mt-3 d-print-none">
-                            <div class="col-sm-5">
+                            <div class="col-sm-7">
                                 <form>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Search by Date/Week</span>
                                         </div>
-                                        <input type="date" class="form-control col-5" id="inputDate" placeholder="Date" onchange="myFunction()">
+                                        <input type="date" class="form-control col-5" id="itemid" placeholder="Date">
                                         <div class="input-group-append">
-                                            <button class="btn btn-outline-success" type="submit" id="search" >Search</button>
+                                            <button class="btn btn-outline-success" type="submit" id="search">Search</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-2">
                                 <button class="btn btn-outline-primary d-print-none" onclick="printFn()" id="print"><i class="fas fa-print"></i> Print</button>
                             </div>
+                            <nav class="col-sm-3" aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="transaction.jsp?page=1">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="transaction.jsp?page=2">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="transaction.jsp?page=3">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                     <p class="mt-5 mb-3 text-muted text-center">Bricks <i class="far fa-copyright"></i> 2019</p>
