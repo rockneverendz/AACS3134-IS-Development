@@ -144,9 +144,7 @@
                 String status = request.getParameter("status");
                 String message;
                 String type;
-                if (status == null) {
-                    message = "";
-                } else {
+                if (status != null) {
                     char code = status.charAt(0);
                     if (code == 'U') {
                         type = "warning";
@@ -199,8 +197,9 @@
                 <label for="inputConfirmPass">Confirm Password</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
+            <hr/>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to Sign-In</a>
-            <p class="mt-5 mb-3 text-muted text-center">Bricks ï¿½ 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
         </form>
         <%@include file="../layout/scripts.jsp" %>
         <script>

@@ -194,5 +194,25 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
             <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
         </form>
+        <%@include file="../layout/scripts.jsp" %>
+        <script>
+            var inputPassword = document.getElementById("inputNewPassword"),
+                    inputCPassword = document.getElementById("inputNewCPassword");
+
+            function validatePassword() {
+                if (inputPassword.value !== inputCPassword.value) {
+                    inputCPassword.setCustomValidity("Passwords Don't Match");
+                } else {
+                    inputCPassword.setCustomValidity('');
+                }
+            }
+
+            inputPassword.onchange = validatePassword;
+            inputCPassword.onkeyup = validatePassword;
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
     </body>
 </html>
