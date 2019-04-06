@@ -40,7 +40,7 @@ public class topup extends HttpServlet {
             customer = customerService.findCustByUserIdCard(studentID);
             staff = staffService.findStaffByID(staffID);
             //Get current credit points
-            int currentCreditPoints = customer.getCreditpoints();
+            int currentCreditPoints = (int) customer.getCreditpoints();
             //Update credit points
             int updatedCreditPoints = currentCreditPoints + amount;
             customer.setCreditpoints(updatedCreditPoints);
