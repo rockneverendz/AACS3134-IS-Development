@@ -73,7 +73,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Search Item</span>
                                         </div>
-                                        <input type="text" name="mealid" class="form-control col-5" id="itemid" placeholder="Item ID" onkeyup="myFunction()">
+                                        <input type="text" name="mealid" class="form-control col-5" id="itemid" placeholder="Item ID" onkeyup="myFunction()" required>
 
                                     </div>
                                     <div class="col">
