@@ -132,7 +132,7 @@
     <body style="margin-bottom: 60px;">
         <form class="form-recovery" action="recovery">
             <div class="text-center mb-4">
-                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="50%"/>
+                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="75%"/>
                 <h1>Password Recovery</h1>
             </div>
             <%
@@ -158,7 +158,7 @@
                         message = "Success! Please check your email.";
                     } else if (code == 'U') {
                         type = "warning";
-                        message = "Sorry, we couldn't find an account with that username.";
+                        message = "Sorry, we couldn't find an account with that ID.";
                     } else if (code == 'E') {
                         type = "warning";
                         message = "Sorry, that email isn't right.";
@@ -184,8 +184,9 @@
                 <label for="inputEmail">E-mail</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Proceed Password Recovery</button>
+            <hr/>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to login</a>
-            <p class="mt-5 mb-3 text-muted text-center">ï¿½ 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
         </form>
     </body>
 </html>

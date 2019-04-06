@@ -136,13 +136,11 @@
                 if (username == null) {
                     username = "";
                 }
-                
+
                 String status = request.getParameter("status");
                 String message;
                 String type;
-                if (status == null) {
-                    message = "";
-                } else {
+                if (status != null) {
                     char code = status.charAt(0);
                     if (code == '0') {
                         type = "success";
@@ -156,6 +154,12 @@
                     } else if (code == 'N') {
                         type = "danger";
                         message = "You have to be logged in to do that!";
+                    } else if (code == 'T') {
+                        type = "danger";
+                        message = "Token is invalid or expired.";
+                    } else if (code == 'C') {
+                        type = "success";
+                        message = "Password change successful!";
                     } else {
                         type = "danger";
                         message = "An error has occured";
@@ -169,7 +173,7 @@
             %>
             <div class="form-label-group">
                 <input id="inputUsername" name="Username" type="text" class="form-control" 
-                       placeholder="Username" value="<%= username %>" required autofocus>
+                       placeholder="Username" value="<%= username%>" required autofocus>
                 <label for="inputUsername">Username</label>
             </div>
             <div class="form-label-group">
@@ -179,8 +183,9 @@
                 <p><small><a href="./passrecovery.jsp">Forget Password?</a></small></p>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+            <hr/>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signup.jsp">Create New Account</a>
-            <p class="mt-5 mb-3 text-muted text-center">Bricks ï¿½ 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
         </form>
     </body>
 </html>

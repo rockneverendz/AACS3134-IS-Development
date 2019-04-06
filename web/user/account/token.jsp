@@ -1,9 +1,12 @@
 <%@page import="entity.Customer"%>
+<%@page import="service.CustomerService"%>
+<%@page import="entity.Token"%>
+<%@page import="service.TokenService"%>
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
-        <title>Create Account</title>
+        <title>Token</title>
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -35,7 +38,12 @@
                 background-color: #f5f5f5;
             }
 
-            .form-signup {
+            .h1, h1 {
+                font-weight: 300;
+                line-height: 1.2;
+            }
+
+            .form-token {
                 width: 100%;
                 max-width: 420px;
                 padding: 15px;
@@ -126,19 +134,27 @@
     </head>
 
     <body style="margin-bottom: 60px;">
-        <form class="form-signup" action="signup" method="POST">           
+        <form class="form-token" action="token">
             <div class="text-center mb-4">
                 <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="75%"/>
-                <h1 class="display-3">Sign Up</h1>
+                <h1>Password Recovery</h1>
             </div>
             <%
-                //If no object are recieved, create a new object.
-                Customer customer = (Customer) request.getAttribute("customer");
-                if (customer == null) {
-                    customer = new Customer();
-                    customer.setUserIdCard("");
-                    customer.setUsername("");
-                    customer.setEmail("");
+                // If no token are recieved, redirect.
+                String tokenS = request.getParameter("token");
+                if (tokenS == null) {
+                    response.sendRedirect("../account/signin.jsp?status=X");
+                    return;
+                }
+
+                // Find token
+                TokenService ts = new TokenService();
+                Token token = ts.findTokenByToken(tokenS);
+
+                // If Token not found
+                if (token == null) {
+                    response.sendRedirect("../account/signin.jsp?status=T");
+                    return;
                 }
 
                 String status = request.getParameter("status");
@@ -146,16 +162,7 @@
                 String type;
                 if (status != null) {
                     char code = status.charAt(0);
-                    if (code == 'U') {
-                        type = "warning";
-                        message = "Account with that User ID Card already exists.";
-                    } else if (code == 'N') {
-                        type = "warning";
-                        message = "Account with that Username already exists.";
-                    } else if (code == 'E') {
-                        type = "warning";
-                        message = "Account with that E-mail already exists.";
-                    } else if (code == 'P') {
+                    if (code == 'P') {
                         type = "warning";
                         message = "Retyped password does not match.";
                     } else {
@@ -169,42 +176,28 @@
             <%
                 }
             %>
+            <input name="token" type="text" hidden value="<%= tokenS%>"> 
             <div class="form-label-group">
-                <input id="inputUserID" name="UserIDCard" type="text" class="form-control" 
-                       placeholder="User ID Card" value="<%= customer.getUserIdCard()%>" required autofocus>
-                <label for="inputUserID">User ID Card</label>
-            </div>
-            <div class="form-label-group">
-                <input id="inputUsername" name="Username" type="text" class="form-control" 
-                       placeholder="Username" value="<%= customer.getUsername()%>" required>
-                <label for="inputUsername">Username</label>
-            </div>
-            <div class="form-label-group">
-                <input id="inputEmail" name="Email" type="email" class="form-control" 
-                       placeholder="Email address" value="<%= customer.getEmail()%>" required>
-                <label for="inputEmail">Email address</label>
-            </div>
-            <div class="form-label-group">
-                <input id="inputPassword" name="Password" type="password" class="form-control" 
-                       placeholder="Password" required data-toggle="tooltip" data-placement="left" 
+                <input id="inputNewPassword" name="NewPassword" type="password" class="form-control" 
+                       placeholder="New Password" required data-toggle="tooltip" data-placement="left" 
                        title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter"
                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                <label for="inputPassword">Password</label>
+                <label for="inputNewPassword">New Password</label>
             </div>
             <div class="form-label-group">
-                <input id="inputConfirmPass" name="CPassword" type="password" class="form-control" 
-                       placeholder=" Confirm Password" required>
-                <label for="inputConfirmPass">Confirm Password</label>
+                <input id="inputNewCPassword" name="NewCPassword" type="password" class="form-control" 
+                       placeholder="Confirm Password" required data-toggle="tooltip" data-placement="left" 
+                       title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter"
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                <label for="inputNewCPassword">Confirm Password</label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
-            <hr/>
-            <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to Sign-In</a>
-            <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
+            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
         </form>
         <%@include file="../layout/scripts.jsp" %>
         <script>
-            var inputPassword = document.getElementById("inputPassword"),
-                    inputCPassword = document.getElementById("inputCPassword");
+            var inputPassword = document.getElementById("inputNewPassword"),
+                    inputCPassword = document.getElementById("inputNewCPassword");
 
             function validatePassword() {
                 if (inputPassword.value !== inputCPassword.value) {

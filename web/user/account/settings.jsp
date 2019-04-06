@@ -120,8 +120,7 @@
                 <%  String status = request.getParameter("status");
                     String message;
                     String type;
-                    if (status == null) {
-                    } else {
+                    if (status != null) {
                         char code = status.charAt(0);
                         if (code == '1') {
                             type = "success";
@@ -144,11 +143,17 @@
                     }
                 %>
                 <div class="form-label-group">
-                    <input id="inputNewPassword" name="NewPassword" type="password" class="form-control" placeholder="New Password" required>
+                    <input id="inputNewPassword" name="NewPassword" type="password" class="form-control"
+                           placeholder="New Password" required data-toggle="tooltip" data-placement="left" 
+                           title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                     <label for="inputNewPassword">New Password</label>
                 </div>
                 <div class="form-label-group">
-                    <input id="inputNewCPassword" name="NewCPassword" type="password" class="form-control" placeholder="Confirm Password" required>
+                    <input id="inputNewCPassword" name="NewCPassword" type="password" class="form-control"
+                           placeholder="Confirm Password" required data-toggle="tooltip" data-placement="left" 
+                           title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
                     <label for="inputNewCPassword">Confirm Password</label>
                 </div>
                 <hr/>
@@ -158,9 +163,28 @@
                     <p><small><a href="./passrecovery.jsp">Forget Password?</a></small></p>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
-                <p class="mt-5 mb-3 text-muted text-center">Bricks ï¿½ 2019</p>
+                <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
             </form>
         </div>
         <%@include file="../layout/scripts.jsp" %>
+        <script>
+            var inputPassword = document.getElementById("inputNewPassword"),
+                    inputCPassword = document.getElementById("inputNewCPassword");
+
+            function validatePassword() {
+                if (inputPassword.value !== inputCPassword.value) {
+                    inputCPassword.setCustomValidity("Passwords Don't Match");
+                } else {
+                    inputCPassword.setCustomValidity('');
+                }
+            }
+
+            inputPassword.onchange = validatePassword;
+            inputCPassword.onkeyup = validatePassword;
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
     </body>
 </html>
