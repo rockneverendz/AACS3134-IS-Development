@@ -3,7 +3,7 @@
     <head>
         <%@include file="../layout/meta.jsp" %>
         <%@include file="../layout/css.jsp" %>
-        <title>Staff | Manage Meals</title>
+        <title>Staff | Manage Packages</title>
     </head>
     <body>
         <!-- Fixed-top Navs -->
