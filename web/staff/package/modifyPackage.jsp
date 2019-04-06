@@ -1,3 +1,33 @@
+<%@page import="entity.Package" %>
+<%@page import="entity.Packageist"%>
+<%@page import="service.PackageService"%>
+<%@page import="entity.Meal"%>
+<%@page import="service.MealService"%>
+<%@page import="java.util.List"%>
+<%
+    Package mealPackage = (Package) session.getAttribute("MealPackage");
+    PackageService ps = new PackageService();
+    mealPackage = ps.findPackageByID(mealPackage.getPackageId());
+    List<Packageist> mealPackageList = mealPackage.getPackageistList();
+    int[] mealOfWeekOfDays = new int[10];
+
+    //this part is to convert the 6 dayOfWeekMeal's ID in to a Array
+    int j = 0;
+    for (Packageist mealList : mealPackageList) {
+
+        mealOfWeekOfDays[j] = mealList.getMeal().getMealId();
+//        System.out.println(mealList.getMeal().getMealId()); // Testing oni
+        System.out.println(mealOfWeekOfDays[j]);
+    }
+    
+    MealService mealService = new MealService();
+    List<Meal> MealList = mealService.findMealByAvailability(true);
+
+    String dayOfWeeks[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    String colorClass[] = {"bg-primary", "bg-info", "bg-success ", "bg-danger ", "bg-warning ", "bg-dark "};
+%>
+
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -16,101 +46,103 @@
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4">
-                        <!--        Add New Meal Form-->
-                        <div class="form-container col-md-9 mt-5" style="max-width: 800px; margin: auto;">
-                            <form class="form-signup" >
-                                <div class="text-center mb-4">
-                                    <h1 class="h1 mb-3">Update Meal Information</h1>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <label for="inputName">Name</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="inputName" placeholder="Name">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="inputDesc">Description</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="inputDesc" placeholder="Description">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <label for="inputPrice">Price</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="inputPrice" placeholder="Price RM :">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="inputAvailability">Availability</label>
-                                        <div class="input-group">
-                                            <select class="custom-select" id="inputGroupSelect">
-                                                <option selected>Available</option>
-                                                <option value="2">Unavailable</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <label for="inputIngred">Main Ingredient</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="inputIngred" placeholder="Ingredient">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="inputIngredQty">Ingredient Qty</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" id="inputIngredQty" placeholder="Quantity">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <label for="inputCal">Calories</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="inputCal" placeholder="Calories">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="inputCal">Image</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <label for="inputCategory">Category</label>
-                                        <div class="input-group">
-                                            <select class="custom-select" id="inputGroupSelect" data-toggle="tooltip" data-placement="right" title="Please select your category">
-                                                <option selected>Choose...</option>
-                                                <option value="1">Chicken Rice</option>
-                                                <option value="2">Masakan Malaysia</option>
-                                                <option value="3">Noodles</option>
-                                                <option value="4">IndoDeli</option>
-                                                <option value="5">Vegetarian Cuisine</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                        <!--        Add New Package Form-->
+                        <div class=" mt-5" style="max-width: 1000px; margin: auto">
+                            <form action="AddPackage" method="get">
+                                <h3>Update Package</h3>
                                 <hr>
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">Update Meal</button>
-                                <a href="managePackage.jsp" class="btn btn-lg btn-secondary btn-block" style="color: white;">Back</a>
+                                <h3>Package ID : <%= mealPackage.getPackageId()%></h3>
+                                <div class="row mt-4">
+                                    <div class="form-group col-md-4">
+                                        <label>Select Time : </label>
+                                        <select name="maelTime" class="custom-select" required>
+                                            <option value="Breakfast"
+                                                    <% if (mealPackage.getPackageTime() == "Breakfast") {    //Set the meal time to breakfast to selected if it is found %>selected<% } %>
+                                                    >Breakfast</option>
+                                            <option value="Lunch"
+                                                    <% if (mealPackage.getPackageTime() == "Lunch") {    //Set the meal time to lunch to selected if it is found %>selected<% } %>
+                                                    >Lunch</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4 ml-5">
+                                        <label>Availability : </label>
+                                        <select name="availability" class="custom-select" required>
+                                            <option value="true"
+                                                    <% if(mealPackage.getAvailability() == true) { %>
+                                                    selected
+                                                    <% } %>
+                                                    >Active</option>
+                                            <option value="false"
+                                                    <% if(mealPackage.getAvailability() == false) { %>
+                                                    selected
+                                                    <% } %>
+                                                    >Disable</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Description :</label>
+                                    <textarea name="desc" class="form-control w-50" rows="3" placeholder="Please enter some description for this package" required><%= mealPackage.getDescription()%></textarea>
+                                </div> 
+                                <div class="row mt-4">
+                                    <%
+                                        int i = 0;
+                                        for (Packageist mealList : mealPackageList) {
+                                    %>
+
+                                    <div class="col-md-4">
+                                        <div class="<%= colorClass[i]%> text-white card mb-4 rounded shadow">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><%= dayOfWeeks[i]%></h5>
+                                                <hr>
+                                                <h6>Current Meal : <%= mealList.getMeal().getName()%></h6>
+                                            </div>
+                                            <div class="card-footer text-right">
+                                                <select name="maelArr" class="custom-select" required="true">
+                                                    <option value="" selected="true" disabled="true">Choose...</option>
+                                                    <% for (Meal meal : MealList) {%>
+                                                    <option value="<%= meal.getMealId()%>" 
+                                                            <% if (meal.getMealId() == mealList.getMeal().getMealId()) {%>
+                                                            selected
+                                                            <% }%>
+                                                            >
+                                                        <%= meal.getName()%>
+                                                    </option>
+                                                    <% } %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%
+                                            i++;
+                                        }
+                                    %>
+                                </div>
+                                <div class="row mt-5 mb-5">
+                                    <div class="mr-auto">
+                                        <a class="btn btn-lg btn-secondary" href="managePackage.jsp">Back</a>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <button class="btn btn-lg btn-outline-primary" type="submit">Update Package</button>
+                                        <button class="btn btn-lg btn-outline-danger" type="submit">Delete Package</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks ï¿½ 2019</p>
+                    <hr>
+                    <p class="mb-3 text-muted text-center">Bricks © 2019</p>
                 </main>
             </div>
         </div>
 
         <%@include file="../layout/scripts.jsp" %>
+        <script>
+
+
+        </script>
+
+
     </body>
 </html>

@@ -14,8 +14,7 @@
         <%@include file="../layout/css.jsp" %>
         <title>Staff | Manage Packages</title>
 
-        <%            
-            String dayOfWeeks[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        <%            String dayOfWeeks[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
             String colorClass[] = {"bg-primary", "bg-info", "bg-success ", "bg-danger ", "bg-warning ", "bg-dark "};
         %>
 
@@ -63,7 +62,7 @@
                                 <div class="row mt-4">
                                     <% for (int i = 0; i < 6; i++) {%>
                                     <div class="col-md-4">
-                                        <div class="<%= colorClass[i] %> text-white card mb-4 rounded shadow">
+                                        <div class="<%= colorClass[i]%> text-white card mb-4 rounded shadow">
                                             <div class="card-body">
                                                 <h5 class="card-title"><%= dayOfWeeks[i]%></h5>
                                                 <hr>
@@ -81,9 +80,13 @@
                                     </div>
                                     <% }%>
                                 </div>
-
-                                <div class="text-right">
-                                    <button class="btn btn-lg btn-outline-primary" type="submit">Add Package</button>
+                                <div class="row">
+                                    <div class="mr-auto">
+                                        <a class="btn btn-lg btn-secondary" href="managePackage.jsp">Back</a>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <button class="btn btn-lg btn-outline-primary" type="submit">Add Package</button>
+                                    </div>
                                 </div>
                             </form>
 

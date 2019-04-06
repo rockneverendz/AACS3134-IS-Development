@@ -1,5 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="entity.Package"%>
+<%@page import="entity.Packageist"%>
+<%@page import="service.PackageService"%>
 
 
 <!doctype html>
@@ -19,63 +21,72 @@
                 <%@include file="../layout/sidebar.jsp" %>
 
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                    <div class="container mt-5">
+                    <div class="container mt-5 mb-5">
                         <h3>Manage Packages</h3>
+                        <hr>
+                        <%                            
+                            String dayOdWeeksString[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+                            String colorClass[] = {"text-primary", "text-info", "text-success ", "text-danger ", "text-warning ", "text-sdark "};
+                            PackageService ps = new PackageService();
+                            List<Package> PackageList = ps.findAll();
+
+                        %>
 
                         <div class="row mt-5">
-                            <%
-                                for (int i = 0; i < 6; i++) {
-                            %>
+                            <%  for (Package apackage : PackageList) {%>
                             <div class="col-md-4">
-                                <div class="card mb-4 shadow-sm">
-                                    <img src="..." class="card-img-top" alt="...">
+                                <div class="card mb-4 shadow-sm border-dark">
+
                                     <div class="card-body">
-                                        <h5 class="card-title">Package ID</h5>
-                                        <p class="card-text">Descriptions // Lunch or Breakfast</p>
+                                        <h5 class="card-title">Package ID : <%= apackage.getPackageId()%></h5>
+                                        <p class="card-text"><%= apackage.getDescription()%></p>
+                                        <p class="card-text">Meal Time : <%= apackage.getPackageTime()%></p>
                                     </div>
+                                    <%
+                                        List<Packageist> MealList = apackage.getPackageistList();
+                                        int i = 0;
+                                    %>
+
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Meal 1</li>
-                                        <li class="list-group-item">Meal 2</li>
-                                        <li class="list-group-item">Meal 3</li>
+                                        <% for (Packageist packList : MealList) {%>
+
+                                        <li class="list-group-item <%= colorClass[i] %>"><%= dayOdWeeksString[i] %> : <%= packList.getMeal().getName() %></li>
+                                            <%
+                                                    i++;
+                                                }
+                                            %>
                                     </ul>
                                 </div>
                             </div>
-                            <%
-                                }
-                            %>
+                            <% } %>
                         </div>
 
                         <div class="row mt-5">
                             <div class="col-sm-2">
                                 <a class="btn btn-dark btn-lg" href="addPackage.jsp" role="button">Add Item</a>
                             </div>
-                            <div class="col-sm-5">
-                                <form>
+                            <form action="SearchPackage" method="get" class="row col-sm-10 ml-auto">
+                                <div class="col ">
                                     <div class="input-group mt-1">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Search Item</span>
                                         </div>
-                                        <input type="text" class="form-control col-5" id="itemid" placeholder="Item ID">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-success" type="submit" id="search">Search</button>
-                                        </div>
+                                        <input name="packageid" type="text" class="form-control col-5" id="itemid" placeholder="Item ID" required>
+                                        
                                     </div>
-                                </form>
-                            </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-dark btn-lg" href="modifyPackage.jsp" role="button">Modify Item</a>
-                            </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-dark btn-lg" href="deletePackage.jsp" role="button">Delete Item</a>
-                            </div>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-dark btn-lg" type="submit">Modify Item</button>
+                                </div>
+                            </form>
                         </div>
-
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
+                    <hr>
+                    <p class="mb-3 text-muted text-center">Bricks © 2019</p>
                 </main>
             </div>
         </div>
-                        
+
         <%@include file="../layout/scripts.jsp" %>
     </body>
 </html>
