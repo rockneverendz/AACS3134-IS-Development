@@ -1,3 +1,6 @@
+<%@page import="entity.Packageist"%>
+<%@page import="service.PackageService"%>
+<%@page import="java.util.List"%>
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
@@ -62,23 +65,30 @@
             <div class="album py-5 bg-light">
                 <div class="container">
                     <div class="row">
-                        <%
-                            for (int i = 0; i < 6; i++) {
+                        <%  PackageService ps = new PackageService();
+                            List<entity.Package> list = ps.findAll();
+                            for (entity.Package packagee : list) {
                         %>
                         <div class="col-md-4">
                             <div class="card mb-4 shadow-sm">
                                 <img src="..." class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <p class="card-text"><%= packagee.getDescription()%></p>
                                 </div>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
+                                    <%
+                                        for (Packageist packagelist : packagee.getPackageistList()) {
+                                    %>
+                                    <li class="list-group-item"><%= packagelist.getMeal().getName()%></li>
+                                        <%
+                                            }
+                                        %>
                                 </ul>
                                 <div class="card-body">
-                                    <a href="#" class="btn btn-dark float-right">Order</a>
+                                    <div class="btn-group float-right">
+                                        <a class="btn btn-outline-primary" href="../meal/viewpackagelistweekly.jsp?packageId=<%= packagee.getPackageId()%>" role="button">Weekly</a>
+                                        <a class="btn btn-outline-primary" href="../meal/viewpackagelistmonthly.jsp?packageId=<%= packagee.getPackageId()%>" role="button">Monthly</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
