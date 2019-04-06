@@ -24,7 +24,7 @@ public class cancelOrder extends HttpServlet {
         String orderId = request.getParameter("orderId");
 
         // Initialize variables
-        StringBuilder url = new StringBuilder("../report/order.jsp");
+        StringBuilder url = new StringBuilder("../report/orderpaid.jsp");
         OrderService os = new OrderService();
         CustomerService cs = new CustomerService();
         int indexOfMeal = -1;
