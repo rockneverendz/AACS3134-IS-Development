@@ -5,29 +5,34 @@ import entity.Customer;
 import entity.Orderlist;
 import entity.Ordermeal;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import service.CustomerService;
-import service.OrderService;
+import service.CouponService;
 
-public class cancelOrder extends HttpServlet {
+public class updateOrder extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Get parameter from the form
-        String orderId = request.getParameter("orderId");
+        String couponId = request.getParameter("couponId");
+        String mealDate = request.getParameter("mealDate");
+        String mealTime = request.getParameter("mealTime");
 
         // Initialize variables
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         StringBuilder url = new StringBuilder("../report/orderpaid.jsp");
-        OrderService os = new OrderService();
-        CustomerService cs = new CustomerService();
-        int indexOfMeal = -1;
+        CouponService cs = new CouponService();
 
         try {
             Date date = new Date();
@@ -39,57 +44,41 @@ public class cancelOrder extends HttpServlet {
                 throw new IllegalArgumentException();
             }
 
-            // Find the order from parameter
-            Ordermeal ordermeal = os.findOrderByID(Integer.parseInt(orderId));
-            List<Orderlist> list = ordermeal.getOrderlistList();
+            // Get the coupon and the ordermeal
+            Coupon coupon = cs.findCouponByID(Integer.parseInt(couponId));
+            Ordermeal ordermeal = coupon.getOrderlistList().get(0).getOrdermeal();
 
             // Validate order status
             if (ordermeal.getStatus().equals("Canceled")) {
                 throw new IllegalArgumentException();
             }
 
-            // Check if every coupon has more than 1 day left
-            for (int i = 0; i < list.size(); i++) {
-                // Get coupon
-                Coupon coupon = list.get(i).getCouponId();
-
-                // Math
-                long diff = coupon.getRedeemDate().getTime() - date.getTime();
-                int daydiff = (int) TimeUnit.MILLISECONDS.toDays(diff);
-
-                // If found less than 1 day left, terminate loop
-                if (daydiff < 1) {
-                    indexOfMeal = i;
-                    i = list.size();
-                }
+            // Check if the order belongs to the custoemr.
+            if (!Objects.equals(ordermeal.getCustId().getCustId(), customer.getCustId())) {
+                throw new IllegalArgumentException();
             }
 
-            if (indexOfMeal == -1) { // Cancellable order
+            // Math
+            long diff = coupon.getRedeemDate().getTime() - date.getTime();
+            int daydiff = (int) TimeUnit.MILLISECONDS.toDays(diff);
 
-                // Get genuine customer object
-                customer = cs.findCustByID(customer.getCustId());
+            if (daydiff >= 2) { // Updatable coupon
 
-                // Cancel
-                os.cancelMealorder(ordermeal);
+                coupon.setRedeemDate(df.parse(mealDate));
+                coupon.setRedeemTime(mealTime);
+                cs.updateCoupon(coupon);
 
-                // Refund
-                customer.setCreditpoints(
-                        customer.getCreditpoints()
-                        + ordermeal.getPaymentId().getAmount()
-                );
-                cs.updateCustomer(customer);
-
-            } else { // Uncancellable order due to 'indexOfMeal'
+            } else { // Unupdatable coupon
                 throw new IllegalArgumentException();
             }
 
             // Redirect back with status 'Success'
-            url.append("?status=1");
+            url.append("?status=2");
 
-        } catch (IllegalArgumentException ex) {
+        } catch (IllegalArgumentException | ParseException ex) {
+            Logger.getLogger(updateOrder.class.getName()).log(Level.SEVERE, null, ex);
             url.append("?status=X");
         } finally {
-            os.close();
             cs.close();
         }
 

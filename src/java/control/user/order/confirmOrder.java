@@ -62,6 +62,7 @@ public class confirmOrder extends HttpServlet {
         os.addMealorder(ordermeal, payment, order, customer);
 
         // Redirect back with status 'Success'
+        session.removeAttribute("order");
         url.append("?status=1");
 
         response.sendRedirect(url.toString());

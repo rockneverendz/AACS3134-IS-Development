@@ -1,7 +1,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -14,8 +13,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -25,8 +22,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Package.findAll", query = "SELECT p FROM Package p")
     , @NamedQuery(name = "Package.findByPackageId", query = "SELECT p FROM Package p WHERE p.packageId = :packageId")
-    , @NamedQuery(name = "Package.findByType", query = "SELECT p FROM Package p WHERE p.type = :type")
-    , @NamedQuery(name = "Package.findByStartDate", query = "SELECT p FROM Package p WHERE p.startDate = :startDate")})
+    , @NamedQuery(name = "Package.findByDescription", query = "SELECT p FROM Package p WHERE p.description = :description")
+    , @NamedQuery(name = "Package.findByAvailability", query = "SELECT p FROM Package p WHERE p.availability = :availability")
+    , @NamedQuery(name = "Package.findByPackageTime", query = "SELECT p FROM Package p WHERE p.packageTime = :packageTime")})
 public class Package implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,13 +33,14 @@ public class Package implements Serializable {
     @Basic(optional = false)
     @Column(name = "PACKAGE_ID")
     private Integer packageId;
+    @Column(name = "DESCRIPTION")
+    private String description;
     @Basic(optional = false)
-    @Column(name = "TYPE")
-    private String type;
+    @Column(name = "AVAILABILITY")
+    private Boolean availability;
     @Basic(optional = false)
-    @Column(name = "START_DATE")
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
+    @Column(name = "PACKAGE_TIME")
+    private String packageTime;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "package1")
     private List<Packageist> packageistList;
 
@@ -52,10 +51,10 @@ public class Package implements Serializable {
         this.packageId = packageId;
     }
 
-    public Package(Integer packageId, String type, Date startDate) {
+    public Package(Integer packageId, Boolean availability, String packageTime) {
         this.packageId = packageId;
-        this.type = type;
-        this.startDate = startDate;
+        this.availability = availability;
+        this.packageTime = packageTime;
     }
 
     public Integer getPackageId() {
@@ -66,20 +65,28 @@ public class Package implements Serializable {
         this.packageId = packageId;
     }
 
-    public String getType() {
-        return type;
+    public String getDescription() {
+        return description;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Boolean getAvailability() {
+        return availability;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setAvailability(Boolean availability) {
+        this.availability = availability;
+    }
+
+    public String getPackageTime() {
+        return packageTime;
+    }
+
+    public void setPackageTime(String packageTime) {
+        this.packageTime = packageTime;
     }
 
     @XmlTransient

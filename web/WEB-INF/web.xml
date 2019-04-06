@@ -15,6 +15,10 @@
         <servlet-class>control.user.account.signup</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>user.account.recovery</servlet-name>
+        <servlet-class>control.user.account.recovery</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>user.account.settings</servlet-name>
         <servlet-class>control.user.account.settings</servlet-class>
     </servlet>
@@ -33,6 +37,10 @@
     <servlet>
         <servlet-name>user.order.confirmOrder</servlet-name>
         <servlet-class>control.user.order.confirmOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>user.order.updateOrder</servlet-name>
+        <servlet-class>control.user.order.updateOrder</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>user.order.cancelOrder</servlet-name>
@@ -123,6 +131,10 @@
         <url-pattern>/user/account/signup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>user.account.recovery</servlet-name>
+        <url-pattern>/user/account/recovery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>user.account.settings</servlet-name>
         <url-pattern>/user/account/settings</url-pattern>
     </servlet-mapping>
@@ -141,6 +153,10 @@
     <servlet-mapping>
         <servlet-name>user.order.confirmOrder</servlet-name>
         <url-pattern>/user/order/confirmOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>user.order.updateOrder</servlet-name>
+        <url-pattern>/user/order/updateOrder</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>user.order.cancelOrder</servlet-name>

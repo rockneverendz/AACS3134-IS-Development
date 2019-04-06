@@ -1,3 +1,5 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
 <%@page import="service.OrderService"%>
 <%@page import="entity.Coupon"%>
 <%@page import="entity.Orderlist"%>
@@ -74,6 +76,9 @@
                                 if (code == '1') {
                                     type = "success";
                                     message = "Successfully Canceled Order!";
+                                } else if (code == '2') {
+                                    type = "success";
+                                    message = "Successfully Updated Order!";
                                 } else {
                                     type = "danger";
                                     message = "An error has occured";
@@ -100,9 +105,14 @@
                                     <tbody>
                                         <%  OrderService os = new OrderService();
                                             List<Ordermeal> list = os.findOrderByCustPaid(customer.getCustId());
-                                            int j = 0;
 
                                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+                                            Date today = new Date();
+
+                                            Calendar calendar = Calendar.getInstance();
+                                            calendar.setTime(today);
+                                            calendar.add(Calendar.DATE, 2);
+                                            Date todayAdd2 = calendar.getTime();
 
                                             for (int i = 0; i < list.size(); i++) {
                                                 Ordermeal order = list.get(i);
@@ -131,10 +141,10 @@
                                                 Coupon coupon = ol.getCouponId();
                                         %>
                                         <tr role="row" class="cat<%= i%>" style="display:none">
-                                            <td id="row<%= j%>">
+                                            <td id="row<%= coupon.getCouponId()%>">
                                                 <button type="button" class="btn btn-outline-info btn-sm"
                                                         data-toggle="modal" data-target="#orderModal"
-                                                        data-index="<%= j%>">
+                                                        data-couponid="<%= coupon.getCouponId()%>">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </button>
                                             </td>
@@ -144,7 +154,6 @@
                                             <td><%= coupon.getRedeemTime()%></td>
                                         </tr>
                                         <%
-                                                    j++;
                                                 }
                                             }
                                         %>
@@ -162,12 +171,12 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form class="form-meal" action="../order/updateMeal">
+                                    <form class="form-meal" action="../order/updateOrder">
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col-6 form-label-group">
                                                     <label for="mealName" class="col-form-label">Meal</label>
-                                                    <input id="mealIndex" name="mealIndex" type="text" hidden>
+                                                    <input id="couponId" name="couponId" type="text" hidden>
                                                     <input id="mealName" type="text" class="form-control" disabled>
                                                 </div>
                                                 <div class="col-6 form-label-group">
@@ -213,11 +222,10 @@
             if (event.namespace === 'bs.modal') {
                 // Button that triggered the modal
                 var button = $(event.relatedTarget);
-                var index = button.data('index');
-                var dellink = "../order/removeMeal?mealIndex=";
+                var index = button.data('couponid');
 
                 // Get value from the table and then insert it into the Bootstrap's Modal
-                $('#mealIndex').val(index);
+                $('#couponId').val(index);
                 $('#mealName').val($('#row' + index).next().html());
                 $('#mealQty').val($('#row' + index).next().next().html());
                 $('#mealDate').val($('#row' + index).next().next().next().html());
@@ -232,9 +240,15 @@
                     $("#mealTimeL").prop("checked", true);
                     $("#mealTimeL").parent().button('toggle');
                 }
-
-                $('#delbutton').prop("href", dellink + index);
             }
+        });
+
+        $('#mealDate').datepicker({
+            format: "dd-mm-yyyy",
+            startDate: "<%= dateFormat.format(todayAdd2)%>",
+            maxViewMode: 0,
+            daysOfWeekDisabled: "0",
+            todayHighlight: true
         });
 
         $(document).ready(function () {

@@ -1,15 +1,7 @@
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
-
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="../../resource/Icon.png" rel="icon" />
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
-
+        <%@include file="../layout/meta.jsp" %>
         <title>Password Recovery</title>
         <style>
             .bd-placeholder-img {
@@ -41,7 +33,7 @@
                 padding-bottom: 40px;
                 background-color: #f5f5f5;
             }
-            
+
             .h1, h1 {
                 font-weight: 300;
                 line-height: 1.2;
@@ -138,17 +130,57 @@
     </head>
 
     <body style="margin-bottom: 60px;">
-        <form class="form-recovery" >
+        <form class="form-recovery" action="recovery">
             <div class="text-center mb-4">
                 <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="50%"/>
-                <h1>Retrieve Password</h1>
+                <h1>Password Recovery</h1>
+            </div>
+            <%
+                //If no object are recieved, create a new object.
+                String idcard = (String) request.getAttribute("idcard");
+                String email = (String) request.getAttribute("email");
+                if (idcard == null) {
+                    idcard = "";
+                }
+                if (email == null) {
+                    email = "";
+                }
+
+                String status = request.getParameter("status");
+                String message;
+                String type;
+                if (status == null) {
+                    message = "";
+                } else {
+                    char code = status.charAt(0);
+                    if (code == '0') {
+                        type = "success";
+                        message = "Success! Please check your email.";
+                    } else if (code == 'U') {
+                        type = "warning";
+                        message = "Sorry, we couldn't find an account with that username.";
+                    } else if (code == 'E') {
+                        type = "warning";
+                        message = "Sorry, that email isn't right.";
+                    } else {
+                        type = "danger";
+                        message = "An error has occured";
+                    }
+            %>            
+            <div class="alert alert-<%= type%>" role="alert">
+                <%= message%>
+            </div>
+            <%
+                }
+            %>
+            <div class="form-label-group">
+                <input id="inputUserID" name="UserIDCard" type="text" class="form-control" 
+                       placeholder="User ID Card" value="<%= idcard %>" required autofocus>
+                <label for="inputUserID">User ID Card</label>
             </div>
             <div class="form-label-group">
-                <input id="inputUserID" type="text" class="form-control" placeholder="User ID" required autofocus>
-                <label for="inputUserID">User ID</label>
-            </div>
-            <div class="form-label-group">
-                <input id="inputEmail" type="email" class="form-control" placeholder="E-mail" required>
+                <input id="inputEmail" name="Email" type="email" class="form-control" 
+                       placeholder="E-mail" value="<%= email%>" required autofocus>
                 <label for="inputEmail">E-mail</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Proceed Password Recovery</button>
