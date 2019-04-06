@@ -11,6 +11,10 @@
         <%@include file="../layout/meta.jsp" %>
         <title>Coupon</title>
         <style>
+            html{
+                background-color: #f8f9fa;
+            }
+            
             a.dropdown-item:nth-of-type(1){
                 color: #fff;
                 text-decoration: none;
@@ -22,6 +26,18 @@
                 margin-bottom: -1px;
                 margin-left: -1px;
                 border-radius: 0;
+            }
+
+            .border-left-single {
+                border-left: 1.25rem solid #4e73df!important;
+            }
+
+            .border-left-weekly {
+                border-left: 1.25rem solid #17a2b8!important;
+            }
+
+            .border-left-monthly {
+                border-left: 1.25rem solid #1cc88a!important;
             }
         </style>
 
@@ -52,20 +68,20 @@
                                 for (Orderlist orderlist : ordermeal.getOrderlistList()) {
                                     coupon = orderlist.getCouponId();
                                     if (coupon.getStatus().equals("Active")) {
-
                         %>
-                        <div class="card col-6">
+                        <div class="card col-6 border-left-<%= ordermeal.getType().toLowerCase()%>">
                             <div class="card-body">
                                 <h5 class="card-title">Coupon Number : <%= coupon.getCouponId()%></h5>
                                 <div class="row">
-                                    <p class="card-text col-6">Meal : <%= orderlist.getMeal()%> 
-                                        <br>Price : RM <%= orderlist.getPriceeach()%> 
+                                    <p class="card-text col-6">
+                                        Meal : <%= orderlist.getMeal().getName()%> 
                                         <br>Food Stall : <%= orderlist.getMeal().getCategoryId().getName()%> 
                                         <br>Redeem Date & Time : 
                                         <br><%= df.format(coupon.getRedeemDate())%> <%= coupon.getRedeemTime()%>
                                     </p>
-                                    <p class="card-text col-6">Qty : <%= orderlist.getQuantity()%> 
-                                        <br>Type : <%= ordermeal.getType()%>
+                                    <p class="card-text col-6">
+                                        Qty : <%= orderlist.getQuantity()%> 
+                                        <br>Price : RM <%= orderlist.getPriceeach()%>
                                         <br>Barcode : 
                                         <span class="barcode" ><i class="fas fa-barcode"></i></span>
                                     </p>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <!-- Determine which servlet's location in the project. -->
+    <!-- Student -->
     <servlet>
         <servlet-name>user.account.signin</servlet-name>
         <servlet-class>control.user.account.signin</servlet-class>
@@ -33,6 +34,11 @@
         <servlet-name>user.order.confirmOrder</servlet-name>
         <servlet-class>control.user.order.confirmOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>user.order.cancelOrder</servlet-name>
+        <servlet-class>control.user.order.cancelOrder</servlet-class>
+    </servlet>
+    <!-- Staff -->
     <servlet>
         <servlet-name>staff.account.signin</servlet-name>
         <servlet-class>control.staff.account.signin</servlet-class>
@@ -82,6 +88,7 @@
         <servlet-class>control.staff.ingredient.removeIngredient</servlet-class>
     </servlet>
     <!-- URL which leads to the specific servlet. -->
+    <!-- Student -->
     <servlet-mapping>
         <servlet-name>user.account.signin</servlet-name>
         <url-pattern>/user/account/signin</url-pattern>
@@ -114,6 +121,11 @@
         <servlet-name>user.order.confirmOrder</servlet-name>
         <url-pattern>/user/order/confirmOrder</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>user.order.cancelOrder</servlet-name>
+        <url-pattern>/user/order/cancelOrder</url-pattern>
+    </servlet-mapping>
+    <!-- Staff -->
     <servlet-mapping>
         <servlet-name>staff.account.signin</servlet-name>
         <url-pattern>/staff/account/signin</url-pattern>
