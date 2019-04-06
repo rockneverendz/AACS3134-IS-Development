@@ -35,6 +35,10 @@
         <servlet-class>control.user.order.confirmOrder</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>user.order.updateOrder</servlet-name>
+        <servlet-class>control.user.order.updateOrder</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>user.order.cancelOrder</servlet-name>
         <servlet-class>control.user.order.cancelOrder</servlet-class>
     </servlet>
@@ -83,7 +87,7 @@
         <servlet-name>staff.ingredient.addIngredient</servlet-name>
         <servlet-class>control.staff.ingredient.addIngredient</servlet-class>
     </servlet>
-        <servlet>
+    <servlet>
         <servlet-name>staff.ingredient.removeIngredient</servlet-name>
         <servlet-class>control.staff.ingredient.removeIngredient</servlet-class>
     </servlet>
@@ -120,6 +124,10 @@
     <servlet-mapping>
         <servlet-name>user.order.confirmOrder</servlet-name>
         <url-pattern>/user/order/confirmOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>user.order.updateOrder</servlet-name>
+        <url-pattern>/user/order/updateOrder</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>user.order.cancelOrder</servlet-name>

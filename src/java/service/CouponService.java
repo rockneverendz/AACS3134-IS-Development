@@ -22,6 +22,18 @@ public class CouponService {
     public Coupon findCouponByID(int id) {
         return (Coupon) em.find(Coupon.class, id);
     }
+    
+    public boolean updateCoupon(Coupon newCoupon) throws RollbackException {
+        Coupon oldCoupon = findCouponByID(newCoupon.getCouponId());
+        if (oldCoupon != null) {
+            em.getTransaction().begin();
+            oldCoupon.setRedeemDate(newCoupon.getRedeemDate());
+            oldCoupon.setRedeemTime(newCoupon.getRedeemTime());
+            em.getTransaction().commit();
+            return true;
+        }
+        return false;
+    }
 
     /**
      * @param id The coupon ID which needs to be redeemed
