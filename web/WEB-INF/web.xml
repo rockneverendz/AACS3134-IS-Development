@@ -47,7 +47,6 @@
         <servlet-class>control.user.order.cancelOrder</servlet-class>
     </servlet>
     <!-- Staff -->
-    <!-- Account -->
     <servlet>
         <servlet-name>staff.account.signin</servlet-name>
         <servlet-class>control.staff.account.signin</servlet-class>
@@ -76,7 +75,6 @@
         <servlet-name>staff.account.redeemCoupon</servlet-name>
         <servlet-class>control.staff.account.redeemCoupon</servlet-class>
     </servlet>
-    <!-- Manage Meal -->
     <servlet>
         <servlet-name>staff.meal.SearchMeal</servlet-name>
         <servlet-class>control.staff.meal.SearchMeal</servlet-class>
@@ -85,8 +83,6 @@
         <servlet-name>staff.meal.AddMeal</servlet-name>
         <servlet-class>control.staff.meal.AddMeal</servlet-class>
     </servlet>
-
-    <!-- Manage Packages -->
     <servlet>
         <servlet-name>staff.packages.SearchPackage</servlet-name>
         <servlet-class>control.staff.packages.SearchPackage</servlet-class>
@@ -99,7 +95,6 @@
         <servlet-name>staff.packages.UpdatePackage</servlet-name>
         <servlet-class>control.staff.packages.UpdatePackage</servlet-class>
     </servlet>
-    <!-- Manage Ingredients -->
     <servlet>
         <servlet-name>staff.ingredient.retriveIngre</servlet-name>
         <servlet-class>control.staff.ingredient.retriveIngre</servlet-class>
@@ -114,10 +109,6 @@
     </servlet>
     <!-- URL which leads to the specific servlet. -->
     <!-- Student -->
-    <servlet>
-        <servlet-name>UpdatePackage</servlet-name>
-        <servlet-class>control.staff.packages.UpdatePackage</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>user.account.signin</servlet-name>
         <url-pattern>/user/account/signin</url-pattern>
@@ -163,7 +154,6 @@
         <url-pattern>/user/order/cancelOrder</url-pattern>
     </servlet-mapping>
     <!-- Staff -->
-    <!-- Account -->
     <servlet-mapping>
         <servlet-name>staff.account.signin</servlet-name>
         <url-pattern>/staff/account/signin</url-pattern>
@@ -192,7 +182,6 @@
         <servlet-name>staff.account.redeemCoupon</servlet-name>
         <url-pattern>/staff/account/redeemCoupon</url-pattern>
     </servlet-mapping>
-    <!-- Manage Meal -->
     <servlet-mapping>
         <servlet-name>staff.meal.SearchMeal</servlet-name>
         <url-pattern>/staff/meal/SearchMeal</url-pattern>
@@ -201,7 +190,6 @@
         <servlet-name>staff.meal.AddMeal</servlet-name>
         <url-pattern>/staff/meal/AddMeal</url-pattern>
     </servlet-mapping>
-    <!-- Manage Package -->
     <servlet-mapping>
         <servlet-name>staff.packages.SearchPackage</servlet-name>
         <url-pattern>/staff/packages/SearchPackage</url-pattern>
@@ -214,7 +202,6 @@
         <servlet-name>staff.packages.UpdatePackage</servlet-name>
         <url-pattern>/staff/packages/UpdatePackage</url-pattern>
     </servlet-mapping>
-    <!-- Manage Ingredient -->
     <servlet-mapping>
         <servlet-name>staff.ingredient.retriveIngre</servlet-name>
         <url-pattern>/staff/ingredient/retriveIngre</url-pattern>
