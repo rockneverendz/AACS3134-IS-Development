@@ -23,6 +23,12 @@ public class TokenService {
         return (Token) em.find(Token.class, id);
     }
 
+    public Token findTokenByToken(String token) {
+        return (Token) em.createNamedQuery("Token.findByToken")
+                .setParameter("token", token)
+                .getSingleResult();
+    }
+
     /**
      * @param newToken The modified token
      * @return true if successfully committed false if token not found

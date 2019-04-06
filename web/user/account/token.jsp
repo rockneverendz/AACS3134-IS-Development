@@ -1,8 +1,12 @@
+<%@page import="entity.Customer"%>
+<%@page import="service.CustomerService"%>
+<%@page import="entity.Token"%>
+<%@page import="service.TokenService"%>
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
-        <title>Password Recovery</title>
+        <title>Token</title>
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -39,7 +43,7 @@
                 line-height: 1.2;
             }
 
-            .form-recovery {
+            .form-token {
                 width: 100%;
                 max-width: 420px;
                 padding: 15px;
@@ -130,38 +134,37 @@
     </head>
 
     <body style="margin-bottom: 60px;">
-        <form class="form-recovery" action="recovery">
+        <form class="form-token" action="token">
             <div class="text-center mb-4">
                 <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="75%"/>
                 <h1>Password Recovery</h1>
             </div>
             <%
-                //If no object are recieved, create a new object.
-                String idcard = (String) request.getAttribute("idcard");
-                String email = (String) request.getAttribute("email");
-                if (idcard == null) {
-                    idcard = "";
+                // If no token are recieved, redirect.
+                String tokenS = request.getParameter("token");
+                if (tokenS == null) {
+                    response.sendRedirect("../account/signin.jsp?status=X");
+                    return;
                 }
-                if (email == null) {
-                    email = "";
+
+                // Find token
+                TokenService ts = new TokenService();
+                Token token = ts.findTokenByToken(tokenS);
+
+                // If Token not found
+                if (token == null) {
+                    response.sendRedirect("../account/signin.jsp?status=T");
+                    return;
                 }
 
                 String status = request.getParameter("status");
                 String message;
                 String type;
-                if (status == null) {
-                    message = "";
-                } else {
+                if (status != null) {
                     char code = status.charAt(0);
-                    if (code == '0') {
-                        type = "success";
-                        message = "Success! Please check your email.";
-                    } else if (code == 'U') {
+                    if (code == 'P') {
                         type = "warning";
-                        message = "Sorry, we couldn't find an account with that ID.";
-                    } else if (code == 'E') {
-                        type = "warning";
-                        message = "Sorry, that email isn't right.";
+                        message = "Retyped password does not match.";
                     } else {
                         type = "danger";
                         message = "An error has occured";
@@ -173,19 +176,22 @@
             <%
                 }
             %>
+            <input name="token" type="text" hidden value="<%= tokenS%>"> 
             <div class="form-label-group">
-                <input id="inputUserID" name="UserIDCard" type="text" class="form-control" 
-                       placeholder="User ID Card" value="<%= idcard %>" required autofocus>
-                <label for="inputUserID">User ID Card</label>
+                <input id="inputNewPassword" name="NewPassword" type="password" class="form-control" 
+                       placeholder="New Password" required data-toggle="tooltip" data-placement="left" 
+                       title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter"
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                <label for="inputNewPassword">New Password</label>
             </div>
             <div class="form-label-group">
-                <input id="inputEmail" name="Email" type="email" class="form-control" 
-                       placeholder="E-mail" value="<%= email%>" required autofocus>
-                <label for="inputEmail">E-mail</label>
+                <input id="inputNewCPassword" name="NewCPassword" type="password" class="form-control" 
+                       placeholder="Confirm Password" required data-toggle="tooltip" data-placement="left" 
+                       title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter"
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                <label for="inputNewCPassword">Confirm Password</label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Proceed Password Recovery</button>
-            <hr/>
-            <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to login</a>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
             <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
         </form>
     </body>

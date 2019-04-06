@@ -19,6 +19,10 @@
         <servlet-class>control.user.account.recovery</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>user.account.token</servlet-name>
+        <servlet-class>control.user.account.token</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>user.account.settings</servlet-name>
         <servlet-class>control.user.account.settings</servlet-class>
     </servlet>
@@ -124,6 +128,10 @@
     <servlet-mapping>
         <servlet-name>user.account.recovery</servlet-name>
         <url-pattern>/user/account/recovery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>user.account.token</servlet-name>
+        <url-pattern>/user/account/token</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>user.account.settings</servlet-name>

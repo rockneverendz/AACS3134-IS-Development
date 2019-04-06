@@ -27,7 +27,7 @@ public class recovery extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Get email and password from enviornment variables
+        // Get email and password from enviornment variables (or change it yourself)
         final String user = System.getProperty("mail");
         final String password = System.getProperty("pass");
 
@@ -80,7 +80,7 @@ public class recovery extends HttpServlet {
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             message.setSubject("St. Freya Bricks");
-            message.setText("Token is " + uniqueID);
+            message.setText("http://localhost:8080/AACS3134-IS-Development/user/account/token.jsp?token=" + uniqueID);
 
             //send the message  
             Transport.send(message);
