@@ -33,25 +33,23 @@ public class topup extends HttpServlet {
         Staff staff;
         StaffService staffService = new StaffService();
 
-        
-
         try {
             //Find customer and staff
             customer = customerService.findCustByUserIdCard(studentID);
             staff = staffService.findStaffByID(staffID);
             //Get current credit points
-            int currentCreditPoints = customer.getCreditpoints();
+            double currentCreditPoints = customer.getCreditpoints();
             //Update credit points
-            int updatedCreditPoints = currentCreditPoints + amount;
+            double updatedCreditPoints = currentCreditPoints + amount;
             customer.setCreditpoints(updatedCreditPoints);
-            
+
             //Update Reload table(Top-up History)
             reload.setCustId(customer);
             reload.setStaffId(staff);
             reload.setDate(date);
             reload.setTime(date);
             reload.setAmount(amount);
-            
+
             if (customerService.updateCustomer(customer)) {
                 reloadService.addReload(reload);                //Add new Topup record
                 response.sendRedirect("topup.jsp?status=1");    //Successful Update Credit Points
@@ -61,8 +59,11 @@ public class topup extends HttpServlet {
 
         } catch (NoResultException ex) {
             response.sendRedirect("topup.jsp?status=U");        //Failed to get Student ID
+        } finally  {
+            customerService.close();
+            reloadService.close();
+            staffService.close();
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
