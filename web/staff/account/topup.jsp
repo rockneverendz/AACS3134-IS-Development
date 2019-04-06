@@ -54,7 +54,16 @@
                             <div class="row">
                                 <label for="inputEmail">Top-up Amount</label>
                                 <div class="input-group">
-                                    <input name="amount" type="number" class="form-control" id="inputAmount" placeholder="Top-up Amount" required>
+                                    <select name="amount" class="custom-select" id="inputAmount" placeholder="Top-up Amount" required>
+                                        <option value="" selected="" disabled="">Choose...</option>
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="30">30</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    
                                 </div>
                             </div>
                             <div class="row" hidden>

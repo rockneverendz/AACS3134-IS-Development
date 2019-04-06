@@ -1,3 +1,7 @@
+<%@page import="java.util.List"%>
+<%@page import="entity.Package"%>
+
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -34,7 +38,6 @@
                                         <li class="list-group-item">Meal 2</li>
                                         <li class="list-group-item">Meal 3</li>
                                     </ul>
-
                                 </div>
                             </div>
                             <%
@@ -68,7 +71,7 @@
                         </div>
 
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks ï¿½ 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
                 </main>
             </div>
         </div>

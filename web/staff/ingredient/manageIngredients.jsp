@@ -115,7 +115,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Search</span>
                                         </div>
-                                        <input type="text" name="ingredientid" class="form-control " id="itemid" placeholder="Item ID" onkeyup="myFunction()">
+                                        <input type="text" name="ingredientid" class="form-control " id="itemid" placeholder="Item ID" onkeyup="myFunction()" required>
                                     </div>
                                     <div class="col">
                                         <button type="submit" class="btn btn-dark btn-block white" role="button">Remove Item</button>
