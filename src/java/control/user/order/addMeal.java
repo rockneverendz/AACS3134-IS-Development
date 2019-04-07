@@ -30,8 +30,7 @@ public class addMeal extends HttpServlet {
         MealService ms = new MealService();
         Orderlist orderlist;
         Coupon coupon;
-        Meal meal;
-        int indexOfMeal = -1;        
+        Meal meal;       
         int mealQtyInt;
 
         // Get session order. If null, new order.
@@ -60,7 +59,7 @@ public class addMeal extends HttpServlet {
             coupon.setRedeemDate(df.parse(mealDate));
             coupon.setRedeemTime(mealTime);
             coupon.setStatus("Active");
-            orderlist.setCouponId(coupon);
+            orderlist.setCoupon(coupon);
             order.add(orderlist);
 
             // Redirect back with status 'Success'

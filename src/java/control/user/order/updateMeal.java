@@ -52,7 +52,7 @@ public class updateMeal extends HttpServlet {
 
             // Retirve and update
             orderlist = order.get(indexOfMeal);
-            coupon = orderlist.getCouponId();
+            coupon = orderlist.getCoupon();
 
             orderlist.setQuantity(mealQtyInt);
             coupon.setRedeemDate(df.parse(mealDate));

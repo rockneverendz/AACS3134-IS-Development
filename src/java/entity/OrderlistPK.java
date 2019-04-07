@@ -14,13 +14,17 @@ public class OrderlistPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "ORDER_ID")
     private int orderId;
+    @Basic(optional = false)
+    @Column(name = "COUPON_ID")
+    private int couponId;
 
     public OrderlistPK() {
     }
 
-    public OrderlistPK(int mealId, int orderId) {
+    public OrderlistPK(int mealId, int orderId, int couponId) {
         this.mealId = mealId;
         this.orderId = orderId;
+        this.couponId = couponId;
     }
 
     public int getMealId() {
@@ -39,11 +43,20 @@ public class OrderlistPK implements Serializable {
         this.orderId = orderId;
     }
 
+    public int getCouponId() {
+        return couponId;
+    }
+
+    public void setCouponId(int couponId) {
+        this.couponId = couponId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) mealId;
         hash += (int) orderId;
+        hash += (int) couponId;
         return hash;
     }
 
@@ -60,12 +73,15 @@ public class OrderlistPK implements Serializable {
         if (this.orderId != other.orderId) {
             return false;
         }
+        if (this.couponId != other.couponId) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "entity.OrderlistPK[ mealId=" + mealId + ", orderId=" + orderId + " ]";
+        return "entity.OrderlistPK[ mealId=" + mealId + ", orderId=" + orderId + ", couponId=" + couponId + " ]";
     }
 
 }

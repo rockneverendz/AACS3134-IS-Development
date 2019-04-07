@@ -64,13 +64,12 @@ public class MealService {
                 .setParameter("categoryId", categoryId)
                 .getResultList();
     }
-    
+
     public List<Meal> findMealByAvailability(Boolean availability) {
         return (List<Meal>) em.createNamedQuery("Meal.findByAvailability")
                 .setParameter("availability", availability)
                 .getResultList();
     }
-    
 
     /**
      * @param newMeal The modified meal
@@ -81,6 +80,13 @@ public class MealService {
     public boolean updateMeal(Meal newMeal, ArrayList<Ingredientlist> arrayList) throws RollbackException {
         Meal oldMeal = findMealByID(newMeal.getMealId());
         if (oldMeal != null) {
+
+            em.getTransaction().begin();
+            // DO NOT USE FUNCTIONAL OPERATION
+            for (Ingredientlist ingredientlist : oldMeal.getIngredientlistList()) {
+                em.remove(ingredientlist);
+            }
+            em.getTransaction().commit();
 
             arrayList.stream().map((ingredientlist) -> {
                 ingredientlist.setMeal(newMeal);

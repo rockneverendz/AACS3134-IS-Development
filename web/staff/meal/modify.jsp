@@ -28,7 +28,7 @@
                     <div class="container mt-4">
                         <!--        Add New Meal Form-->
                         <div class="form-container col-md-9 mt-5" style="max-width: 800px; margin: auto;">
-                            <form class="form-signup" action="" method="get">
+                            <form class="form-signup" action="UpdateMeal" enctype="multipart/form-data" method="post">
                                 <div class="text-center mb-4">
                                     <h1 class="h1 mb-3">Update Meal Information</h1>
                                 </div>
@@ -36,22 +36,25 @@
                                     <div class="col">
                                         <label for="inputName">Name</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="inputName" placeholder="Name" value="<%= currentMeal.getName()%>">
+                                            <input value="<%= currentMeal.getMealId() %>" name="mealId" hidden>
+                                            <input id="inputName" name="Name" type="text" class="form-control"  
+                                                   placeholder="Name" value="<%= currentMeal.getName()%>" required>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label for="inputPrice">Price</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="inputPrice" placeholder="Price RM :" value="<%= currentMeal.getPrice()%>">
+                                            <input id="inputPrice" name="Price" type="number" class="form-control" min="0" max="20" step="0.01"
+                                                   placeholder="Price RM :" value="<%= currentMeal.getPrice()%>" required>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col">
                                         <label for="inputDesc">Description</label>
                                         <div class="input-group">
-                                            <textarea  type="text" rows="3" class="form-control" id="inputDesc" placeholder="Description"><%= currentMeal.getDescription()%></textarea>
+                                            <textarea id="inputDesc" name="Description" type="text" rows="3" class="form-control"
+                                                      placeholder="Description"><%= currentMeal.getDescription()%></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -59,31 +62,30 @@
                                     <div class="col">
                                         <label for="inputCal">Calories</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="inputCal" placeholder="Calories" value="<%= currentMeal.getCalories()%>">
+                                            <input id="inputCal" name="Calories" type="text" class="form-control"
+                                                   placeholder="Calories" value="<%= currentMeal.getCalories()%>" required>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <label for="inputCal">Image</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                                <label for="inputFile" class="form-control custom-file-label">Choose file</label>
+                                                <input id="inputFile" name="image" type="file" class="custom-file-input" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <label for="inputIngred">Ingredient</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="inputIngred" placeholder="Ingredient">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="inputIngredQty">Ingredient Qty</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" id="inputIngredQty" placeholder="Quantity">
+                                        <label for="inputIngredients">Ingredient List</label>
+                                        <button class="btn btn-outline-secondary" type="button" onclick="add_fields()"><i class="fas fa-plus"></i></button>
+                                        <div class="input-group mb-2">
+                                            <div id="ingredientList" class="row" style="margin-left: 0px; margin-right: 0px; width: 100%;">
+                                                <input name='Ingredient' type="text" class="flexdatalist form-control col-8" placeholder="Ingredient">
+                                                <input name='Quantity' type="number" class="ingreQuantity form-control col-2" placeholder="Quantity" min="1" max="10" step="0.01">
+                                                <button class="removeBtn btn btn-outline-secondary col-2" type="button" onclick="remove_fields(this.id)" hidden>Remove</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -106,5 +108,60 @@
             </div>
         </div>
         <%@include file="../layout/scripts.jsp" %>
+        <link href="../../bootstrap/css/jquery.flexdatalist.css" rel="stylesheet" type="text/css"/>
+        <script src="../../bootstrap/js/jquery.flexdatalist.min.js" type="text/javascript"></script>
+        <script>
+
+                                                    var ingredients;
+                                                    var flag = 1;
+
+                                                    $(document).ready(function () {
+                                                        $.get("../ingredient/retriveIngre", function (responseJson) {    // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response JSON...
+                                                            ingredients = responseJson;
+                                                            $('.flexdatalist').flexdatalist({
+                                                                selectionRequired: true,
+                                                                minLength: 0,
+                                                                maxShownResults: 5,
+                                                                valueProperty: 'ingredientId',
+                                                                searchIn: 'ingredientName',
+                                                                data: responseJson
+                                                            });
+                                                        });
+                                                    });
+
+
+                                                    function add_fields() {
+
+                                                        flag += 1; //counter increment by 1
+
+                                                        // clone
+                                                        $('.flexdatalist:first').clone().appendTo('#ingredientList').addClass(flag + 'input');
+                                                        $('.ingreQuantity:first').clone().appendTo('#ingredientList').addClass(flag + 'qty');
+                                                        $('.removeBtn:first').clone().appendTo('#ingredientList').removeAttr('hidden').attr('id', flag);
+
+                                                        //re-initialise
+                                                        $('.flexdatalist:last').flexdatalist({
+                                                            selectionRequired: true,
+                                                            minLength: 0,
+                                                            maxShownResults: 5,
+                                                            valueProperty: 'ingredientId',
+                                                            searchIn: 'ingredientName',
+                                                            data: ingredients
+                                                        });
+                                                        $('.ingreQuantity:last').val("");
+                                                    }
+
+                                                    function remove_fields(clicked_id) {
+                                                        // remove
+                                                        //Initialazation
+                                                        var setInputString = clicked_id + 'input';
+                                                        var setQtyString = clicked_id + 'qty';
+
+                                                        //Processing
+                                                        $("." + setInputString).hide();
+                                                        $("." + setQtyString).hide();
+                                                        $("#" + clicked_id).hide();
+                                                    }
+        </script>
     </body>
 </html>

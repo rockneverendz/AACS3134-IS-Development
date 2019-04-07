@@ -67,7 +67,7 @@
 
                             for (Ordermeal ordermeal : list) {
                                 for (Orderlist orderlist : ordermeal.getOrderlistList()) {
-                                    coupon = orderlist.getCouponId();
+                                    coupon = orderlist.getCoupon();
                                     if (coupon.getStatus().equals("Active")) {
                                         numberOfCoupons++;
                         %>

@@ -30,7 +30,7 @@ public class OrderService {
         em.persist(ordermeal);
         em.persist(payment);
         cart.forEach((orderlist) -> {
-            em.persist(orderlist.getCouponId());
+            em.persist(orderlist.getCoupon());
         });
         em.getTransaction().commit();
 
@@ -41,7 +41,8 @@ public class OrderService {
             orderlist.setOrderlistPK(
                     new OrderlistPK(
                             orderlist.getMeal().getMealId(),
-                            ordermeal.getOrderId()
+                            ordermeal.getOrderId(),
+                            orderlist.getCoupon().getCouponId()
                     )
             );
         });

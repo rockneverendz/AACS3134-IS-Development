@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +53,7 @@ public class cancelOrder extends HttpServlet {
             // Check if every coupon has more than 1 day left
             for (int i = 0; i < list.size(); i++) {
                 // Get coupon
-                Coupon coupon = list.get(i).getCouponId();
+                Coupon coupon = list.get(i).getCoupon();
 
                 // Math
                 long diff = coupon.getRedeemDate().getTime() - date.getTime();
@@ -87,7 +89,7 @@ public class cancelOrder extends HttpServlet {
             url.append("?status=1");
 
         } catch (IllegalArgumentException ex) {
-            url.append("?status=X");
+            url.append("?status=L");
         } finally {
             os.close();
             cs.close();

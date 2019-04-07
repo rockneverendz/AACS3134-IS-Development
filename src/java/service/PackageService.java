@@ -49,6 +49,13 @@ public class PackageService {
         if (oldPackage != null) {
 
             em.getTransaction().begin();
+            // DO NOT USE FUNCTIONAL OPERATION
+            for (Packageist packageist : oldPackage.getPackageistList()) {
+                em.remove(packageist);
+            }
+            em.getTransaction().commit();
+            
+            em.getTransaction().begin();
             oldPackage.getPackageistList().forEach((packageist) -> {
                 em.remove(packageist);
             });
