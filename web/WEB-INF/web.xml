@@ -92,6 +92,10 @@
         <servlet-class>control.staff.meal.AddMeal</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>staff.meal.UpdateMeal</servlet-name>
+        <servlet-class>control.staff.meal.UpdateMeal</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>staff.packages.SearchPackage</servlet-name>
         <servlet-class>control.staff.packages.SearchPackage</servlet-class>
     </servlet>
@@ -205,6 +209,10 @@
     <servlet-mapping>
         <servlet-name>staff.meal.AddMeal</servlet-name>
         <url-pattern>/staff/meal/AddMeal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>staff.meal.UpdateMeal</servlet-name>
+        <url-pattern>/staff/meal/UpdateMeal</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>staff.packages.SearchPackage</servlet-name>
