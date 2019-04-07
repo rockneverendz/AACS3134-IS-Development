@@ -46,7 +46,7 @@
         <main role="main">
             <section class="text-center">
                 <div class="container d-flex justify-content-between align-items-center">
-                    <h1 class="display-2">Package List - Monthly</h1>
+                    <h1 class="display-2">Package List - Weekly</h1>
                 </div>
             </section>
             <div class="album py-5 bg-light">
@@ -93,7 +93,6 @@
                                             int quantity;
                                             double total;
                                             double grandTotal = 0;
-                                            int index;
 
                                             // Get next week's monday
                                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -104,36 +103,38 @@
                                             calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
                                             Date nextWeekMonday = calendar.getTime();
 
-                                            //One month have 4 weeks
-                                            for (int j = 0; j < 4; j++) {
+                                            // Loop the packagelist
+                                            for (int i = 0; i < 6; i++) {
+                                                pl = packageList.get(i);
 
-                                                // Loop the packagelist
-                                                for (int i = 0; i < 6; i++) {
-                                                    pl = packageList.get(i);
-
-                                                    index = (j * 6) + i + 1;
-
-                                                    priceEach = pl.getPriceeach();
-                                                    quantity = pl.getQuantity();
-                                                    total = priceEach * quantity;
-                                                    grandTotal += total;
+                                                priceEach = pl.getPriceeach();
+                                                quantity = pl.getQuantity();
+                                                total = priceEach * quantity;
+                                                grandTotal += total;
                                         %>
                                         <tr>
-                                            <td><%= index%></td>
+                                            <td><%= i + 1%></td>
                                             <td><%= pl.getMeal().getName()%></td>
                                             <td><%= quantity%></td>
-                                            <td id="row<%= index%>"></td>
+                                            <td id="row<%= i + 1%>"></td>
                                             <td><%= mealTime%></td>
                                             <td><%= String.format("%.2f", priceEach)%></td>
                                             <td><strong><%= String.format("%.2f", total)%></strong></td>
                                         </tr>
                                         <%
-                                                }
                                             }
                                         %>
                                         <tr scope="row">
                                             <td colspan="6"><strong>Subtotal:</strong></td>
                                             <td><strong><%= String.format("%.2f", grandTotal)%></strong></td>
+                                        </tr> 
+                                        <tr scope="row">
+                                            <td colspan="6"><strong>Current Credit Points:</strong></td>
+                                            <td><strong><%= String.format("%.2f", customer.getCreditpoints())%></strong></td>
+                                        </tr>
+                                        <tr scope="row">
+                                            <td colspan="6"><strong>New Credit Points:</strong></td>
+                                            <td><strong><%= String.format("%.2f", customer.getCreditpoints() - grandTotal)%></strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -142,7 +143,7 @@
                                 <form class="form-row" action="./intake.jsp">
                                     <div class="input-group col-md-4">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">Month</span>
+                                            <span class="input-group-text">Week</span>
                                         </div>
                                         <input id="datepicker" name="date" type="text" 
                                                class="form-control form-control-lg input-group-append" 
@@ -165,11 +166,8 @@
         <script>
             var date = moment("<%= dateFormat.format(nextWeekMonday)%>", "DD-MM-YYYY");
             date.add(-1, 'd');
-            for (var i = 0; i < 4; i++) {
-                for (var j = 1; j <= 6; j++) {
-                    $('#row' + (i * 6 + j)).html(date.add(1, 'd').format("DD-MM-YYYY"));
-                }
-                date.add(1, 'd');
+            for (var i = 1; i <= 6; i++) {
+                $('#row' + (i)).html(date.add(1, 'd').format("DD-MM-YYYY"));
             }
 
             $('#datepicker').datepicker({
@@ -182,11 +180,8 @@
             }).on('changeDate', function (e) {
                 date = moment($('#datepicker').val(), "DD-MM-YYYY");
                 date.add(-1, 'd');
-                for (var i = 0; i < 4; i++) {
-                    for (var j = 1; j <= 6; j++) {
-                        $('#row' + (i * 6 + j)).html(date.add(1, 'd').format("DD-MM-YYYY"));
-                    }
-                    date.add(1, 'd');
+                for (var i = 1; i <= 6; i++) {
+                    $('#row' + (i)).html(date.add(1, 'd').format("DD-MM-YYYY"));
                 }
             });
         </script>

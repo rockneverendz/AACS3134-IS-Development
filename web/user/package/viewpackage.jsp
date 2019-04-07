@@ -86,8 +86,8 @@
                                 </ul>
                                 <div class="card-body">
                                     <div class="btn-group float-right">
-                                        <a class="btn btn-outline-primary" href="../meal/viewpackagelistweekly.jsp?packageId=<%= packagee.getPackageId()%>" role="button">Weekly</a>
-                                        <a class="btn btn-outline-primary" href="../meal/viewpackagelistmonthly.jsp?packageId=<%= packagee.getPackageId()%>" role="button">Monthly</a>
+                                        <a class="btn btn-outline-primary" href="../package/viewpackagelistweekly.jsp?packageId=<%= packagee.getPackageId()%>" role="button">Weekly</a>
+                                        <a class="btn btn-outline-primary" href="../package/viewpackagelistmonthly.jsp?packageId=<%= packagee.getPackageId()%>" role="button">Monthly</a>
                                     </div>
                                 </div>
                             </div>
