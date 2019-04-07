@@ -1,7 +1,9 @@
 package control.staff.meal;
 
 import entity.Meal;
+import entity.Ingredientlist;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,21 +16,22 @@ public class SearchMeal extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {
+            
+            //Get Parameters
             int mealID = Integer.parseInt(request.getParameter("mealid"));
 
-            System.out.println(mealID);
-            
-            // Initialization
-            Meal meal = new Meal();
-            MealService ms = new MealService();
+            //Initialization
+            Meal meal;
+            MealService mealService = new MealService();
+            meal = mealService.findMealByID(mealID);
+            List<Ingredientlist> ingredientList =  meal.getIngredientlistList();
 
-            meal = ms.findMealByID(mealID);
+            //Set sessions and redirect
             HttpSession session = request.getSession();
             session.setAttribute("Meal", meal);
+            session.setAttribute("IngredientList", ingredientList);
             response.sendRedirect("modify.jsp");
-        } catch (Exception e) {
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
