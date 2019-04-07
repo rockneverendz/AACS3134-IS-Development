@@ -50,6 +50,10 @@
         <servlet-name>user.order.cancelOrder</servlet-name>
         <servlet-class>control.user.order.cancelOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>user.package.confirmPackage</servlet-name>
+        <servlet-class>control.user.packages.confirmPackage</servlet-class>
+    </servlet>
     <!-- Staff -->
     <servlet>
         <servlet-name>staff.account.signin</servlet-name>
@@ -160,6 +164,10 @@
     <servlet-mapping>
         <servlet-name>user.order.cancelOrder</servlet-name>
         <url-pattern>/user/order/cancelOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>user.package.confirmPackage</servlet-name>
+        <url-pattern>/user/package/confirmPackage</url-pattern>
     </servlet-mapping>
     <!-- Staff -->
     <servlet-mapping>

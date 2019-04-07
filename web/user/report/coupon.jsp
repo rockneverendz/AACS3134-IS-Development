@@ -14,7 +14,7 @@
             html{
                 background-color: #f8f9fa;
             }
-            
+
             a.dropdown-item:nth-of-type(1){
                 color: #fff;
                 text-decoration: none;
@@ -63,11 +63,13 @@
                             List<Ordermeal> list = os.findOrderByCustPaid(customer.getCustId());
                             SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                             Coupon coupon;
+                            int numberOfCoupons = 0;
 
                             for (Ordermeal ordermeal : list) {
                                 for (Orderlist orderlist : ordermeal.getOrderlistList()) {
                                     coupon = orderlist.getCouponId();
                                     if (coupon.getStatus().equals("Active")) {
+                                        numberOfCoupons++;
                         %>
                         <div class="card col-6 border-left-<%= ordermeal.getType().toLowerCase()%>">
                             <div class="card-body">
@@ -82,8 +84,8 @@
                                     <p class="card-text col-6">
                                         Qty : <%= orderlist.getQuantity()%> 
                                         <br>Price : RM <%= orderlist.getPriceeach()%>
-                                        <br>Barcode : 
-                                        <span class="barcode" ><i class="fas fa-barcode"></i></span>
+                                        <br>
+                                        <svg id="bar<%= numberOfCoupons%>" data-id="<%= coupon.getCouponId()%>"></svg>
                                     </p>
                                 </div>
                             </div>
@@ -99,5 +101,23 @@
         </main>
         <%@include file="../layout/footer.jsp" %>
         <%@include file="../layout/scripts.jsp" %>
+        <script src="../../bootstrap/js/JsBarcode.all.js" type="text/javascript"></script>
+        <!--
+        Minified doesn't work for some reason
+        <script src="../../bootstrap/js/JsBarcode.all.min.js" type="text/javascript"></script>
+        -->
+        <script>
+
+            for (var i = 1; i <= <%= numberOfCoupons%>; i++) {
+                bar = $("#bar" + i);
+                bar.JsBarcode(bar.data('id'), {
+                    lineColor: "#343a40",
+                    width: 2,
+                    height: 40,
+                    displayValue: false
+                });
+            }
+
+        </script>
     </body>
 </html>
