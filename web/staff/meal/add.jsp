@@ -20,7 +20,7 @@
                     <div class="container mt-4">
                         <!--        Add New Meal Form-->
                         <div class="form-container col-md-9 mt-5" style="max-width: 800px; margin: auto;">
-                            <form class="form-signup" action="AddMeal" enctype="multipart/form-data">
+                            <form class="form-signup" action="AddMeal" enctype="multipart/form-data" method="post">
                                 <div class="text-center mb-4">
                                     <h1 class="h1 mb-3">Add New Meal</h1>
                                 </div>
@@ -37,7 +37,7 @@
                                             type = "danger";
                                             message = "An error has occured";
                                         }
-                                %>            
+                                %>
                                 <div class="alert alert-<%= type%>" role="alert">
                                     <%= message%>
                                 </div>
@@ -52,7 +52,6 @@
                                                    placeholder="Name" required>
                                         </div>
                                     </div>
-
                                     <div class="col">
                                         <label for="inputCategory">Category</label>
                                         <div class="input-group">
@@ -102,7 +101,7 @@
                                         <div class="input-group">
                                             <div class="custom-file">
                                                 <label for="inputFile" class="form-control custom-file-label">Choose file</label>
-                                                <input id="inputFile" name="image" type="file" class="custom-file-input" >
+                                                <input id="inputFile" name="image" type="file" class="custom-file-input" required>
                                             </div>
                                         </div>
                                     </div>
