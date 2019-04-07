@@ -75,7 +75,7 @@ public class confirmPackage extends HttpServlet {
                     coupon.setRedeemTime(packagee.getPackageTime());
                     coupon.setStatus("Active");
 
-                    orderlist.setCouponId(coupon);
+                    orderlist.setCoupon(coupon);
                     orderlist.setQuantity(1);
                     orderlist.setPriceeach(packageist.getPriceeach());
                     orderlist.setMeal(packageist.getMeal());

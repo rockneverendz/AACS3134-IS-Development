@@ -125,7 +125,7 @@
                                         </tr>
                                         <%
                                             for (Orderlist ol : order.getOrderlistList()) {
-                                                Coupon coupon = ol.getCouponId();
+                                                Coupon coupon = ol.getCoupon();
                                         %>
                                         <tr role="row" class="cat<%= i%>" style="display:none">
                                             <td></td>

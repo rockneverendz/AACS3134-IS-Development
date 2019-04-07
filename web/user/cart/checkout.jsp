@@ -75,7 +75,7 @@
 
                                             for (int i = 0; i < order.size(); i++) {
                                                 orderlist = order.get(i);
-                                                coupon = orderlist.getCouponId();
+                                                coupon = orderlist.getCoupon();
 
                                                 priceEach = orderlist.getPriceeach();
                                                 quantity = orderlist.getQuantity();
