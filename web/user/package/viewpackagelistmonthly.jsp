@@ -147,17 +147,19 @@
                                 </table>
                             </div>
                             <div class="card-footer">
-                                <form class="form-row" action="./intake.jsp">
+                                <form class="form-row" action="confirmPackage">
                                     <div class="input-group col-md-4">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Month</span>
                                         </div>
-                                        <input id="datepicker" name="date" type="text" 
+                                        <input id="datepicker" name="packageDate" type="text" 
                                                class="form-control form-control-lg input-group-append" 
                                                value="<%= dateFormat.format(nextWeekMonday)%>">
                                     </div>
+                                    <input name="packageId" type="text" value="<%= packagee.getPackageId()%>" hidden/>
+                                    <input name="packageType" type="text" value="Monthly" hidden/>
                                     <button type="submit" class="btn btn-primary btn-lg offset-md-4 col-md-4">
-                                        Proceed to Checkout</button>
+                                        Confirm Order</button>
                                 </form>
                             </div>
                         </div>
