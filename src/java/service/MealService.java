@@ -64,6 +64,13 @@ public class MealService {
                 .setParameter("categoryId", categoryId)
                 .getResultList();
     }
+    
+    public List<Meal> findMealByAvailability(Boolean availability) {
+        return (List<Meal>) em.createNamedQuery("Meal.findByAvailability")
+                .setParameter("availability", availability)
+                .getResultList();
+    }
+    
 
     /**
      * @param newMeal The modified meal

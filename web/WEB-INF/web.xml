@@ -208,15 +208,15 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>staff.packages.SearchPackage</servlet-name>
-        <url-pattern>/staff/packages/SearchPackage</url-pattern>
+        <url-pattern>/staff/package/SearchPackage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>staff.packages.AddPackage</servlet-name>
-        <url-pattern>/staff/packages/AddPackage</url-pattern>
+        <url-pattern>/staff/package/AddPackage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>staff.packages.UpdatePackage</servlet-name>
-        <url-pattern>/staff/packages/UpdatePackage</url-pattern>
+        <url-pattern>/staff/package/UpdatePackage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>staff.ingredient.retriveIngre</servlet-name>

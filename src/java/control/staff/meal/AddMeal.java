@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import service.CategoryService;
 import service.IngredientService;
 import service.MealService;
 
+@MultipartConfig(maxFileSize = 16177215)
 public class AddMeal extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,14 +59,8 @@ public class AddMeal extends HttpServlet {
         for (int i = 0; i < ingredient.length; i++) {
             if (ingredient[i] != null) {
                 ingredientlist = new Ingredientlist();
-                ingredientlist.setQuantity(
-                        Double.parseDouble(quantity[i])
-                );
-                ingredientlist.setIngredient(
-                        is.findIngredientByID(
-                                Integer.parseInt(ingredient[i])
-                        )
-                );
+                ingredientlist.setQuantity(Double.parseDouble(quantity[i]));
+                ingredientlist.setIngredient(is.findIngredientByID(Integer.parseInt(ingredient[i])));
                 
                 arraylist.add(ingredientlist);
             }
@@ -71,32 +68,33 @@ public class AddMeal extends HttpServlet {
         
         is.close();
 
-//        // Obtains the upload file part in this multipart request
-//        Part filePart = request.getPart("image");
-//        if (filePart != null) {
-//            // Prints out some information for debugging
-//            System.out.println(filePart.getName());
-//            System.out.println(filePart.getSize());
-//            System.out.println(filePart.getContentType());
-//
-//            // Obtains input stream of the upload file
-//            InputStream inputStream = filePart.getInputStream();
-//
-//            // Convert InputSteam to Byte[]
-//            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//            byte[] buffer = new byte[4096];
-//            int bytesRead;
-//            while ((bytesRead = inputStream.read(buffer)) != -1) {
-//                outputStream.write(buffer, 0, bytesRead);
-//            }
-//
-//            // Set in Byte[]
-//            meal.setImage(outputStream.toByteArray());
-//
-//            // Close
-//            inputStream.close();
-//            outputStream.close();
-//        }
+        
+        // Obtains the upload file part in this multipart request
+        Part filePart = request.getPart("image");
+        if (filePart != null) {
+            // Prints out some information for debugging
+            System.out.println(filePart.getName());
+            System.out.println(filePart.getSize());
+            System.out.println(filePart.getContentType());
+
+            // Obtains input stream of the upload file
+            InputStream inputStream = filePart.getInputStream();
+
+            // Convert InputSteam to Byte[]
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            // Set in Byte[]
+            meal.setImage(outputStream.toByteArray());
+
+            // Close
+            inputStream.close();
+            outputStream.close();
+        }
         
         ms.addMeal(meal, arraylist);
         ms.close();

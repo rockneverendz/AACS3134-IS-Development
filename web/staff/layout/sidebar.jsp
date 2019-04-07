@@ -29,7 +29,7 @@
                     <%= cat.getName()%>
                 </a>
             </li>
-            <li class="nav-item mt-4">
+            <li class="nav-item">
                 <a class="nav-link">
                     <h5><i class="fas fa-home"></i> Dashboard</h5>
                 </a>
@@ -42,6 +42,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="../account/redeemCoupon.jsp">
                     <i class="fas fa-money-check-alt feather"></i> Redeem Coupon
+                </a>
+            </li>
+            <li class="nav-item mt-3">
+                <a class="nav-link">
+                    <h5><i class="fas fa-tasks"></i> Manage</h5>
                 </a>
             </li>
             <li class="nav-item">

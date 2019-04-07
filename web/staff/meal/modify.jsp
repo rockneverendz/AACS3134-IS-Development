@@ -2,8 +2,9 @@
 <%@page import="java.util.List"%>
 <%@page import="entity.Staff"%>
 <%@page import="entity.Meal"%>
+<%@page import="entity.Ingredient"%>
 <%@page import="service.MealService" %>
-<!-- retrieve session object, ProductList -->
+<%@page import="service.IngredientService" %>
 <%
     Meal currentMeal = (Meal) session.getAttribute("Meal");
 %>
@@ -81,30 +82,6 @@
                                     </div>
                                     <div class="col">
                                         <label for="inputIngredQty">Ingredient Qty</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" id="inputIngredQty" placeholder="Quantity">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="inputIngred" placeholder="Ingredient">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" id="inputIngredQty" placeholder="Quantity">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" id="inputIngred" placeholder="Ingredient">
-                                        </div>
-                                    </div>
-                                    <div class="col">
                                         <div class="input-group">
                                             <input type="number" class="form-control" id="inputIngredQty" placeholder="Quantity">
                                         </div>

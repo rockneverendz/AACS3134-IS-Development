@@ -19,8 +19,7 @@ public class PackageService {
 
     public void addMealpackage(
             Package packagemeal,
-            ArrayList<Packageist> arrayList,
-            Customer customer
+            ArrayList<Packageist> arrayList
     ) throws RollbackException {
         em.getTransaction().begin();
         em.persist(packagemeal);
@@ -49,14 +48,20 @@ public class PackageService {
         Package oldPackage = findPackageByID(newPackage.getPackageId());
         if (oldPackage != null) {
 
+            em.getTransaction().begin();
+            oldPackage.getPackageistList().forEach((packageist) -> {
+                em.remove(packageist);
+            });
+            em.getTransaction().commit();
+            
             arrayList.stream().map((packageist) -> {
                 packageist.setPackage1(newPackage);
                 return packageist;
             }).forEachOrdered((packageist) -> {
                 packageist.setPackageistPK(
                         new PackageistPK(
-                                oldPackage.getPackageId(),
-                                packageist.getPackage1().getPackageId()
+                                packageist.getMeal().getMealId(),
+                                oldPackage.getPackageId()
                         )
                 );
             });
@@ -67,6 +72,15 @@ public class PackageService {
             oldPackage.setPackageTime(newPackage.getPackageTime());
             oldPackage.setPackageistList(arrayList);
             em.getTransaction().commit();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deletePackageList(Package newPackage, ArrayList<Packageist> arrayList) throws RollbackException {
+        Package oldPackage = findPackageByID(newPackage.getPackageId());
+        if (oldPackage != null) {
+            //Still In Progress
             return true;
         }
         return false;
