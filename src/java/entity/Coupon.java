@@ -45,7 +45,7 @@ public class Coupon implements Serializable {
     @Basic(optional = false)
     @Column(name = "STATUS")
     private String status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "couponId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "coupon")
     private List<Orderlist> orderlistList;
 
     public Coupon() {

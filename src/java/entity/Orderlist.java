@@ -20,7 +20,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Orderlist.findByMealId", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.mealId = :mealId")
     , @NamedQuery(name = "Orderlist.findByOrderId", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.orderId = :orderId")
     , @NamedQuery(name = "Orderlist.findByQuantity", query = "SELECT o FROM Orderlist o WHERE o.quantity = :quantity")
-    , @NamedQuery(name = "Orderlist.findByPriceeach", query = "SELECT o FROM Orderlist o WHERE o.priceeach = :priceeach")})
+    , @NamedQuery(name = "Orderlist.findByPriceeach", query = "SELECT o FROM Orderlist o WHERE o.priceeach = :priceeach")
+    , @NamedQuery(name = "Orderlist.findByCouponId", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.couponId = :couponId")})
 public class Orderlist implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,9 +33,9 @@ public class Orderlist implements Serializable {
     @Basic(optional = false)
     @Column(name = "PRICEEACH")
     private double priceeach;
-    @JoinColumn(name = "COUPON_ID", referencedColumnName = "COUPON_ID")
+    @JoinColumn(name = "COUPON_ID", referencedColumnName = "COUPON_ID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Coupon couponId;
+    private Coupon coupon;
     @JoinColumn(name = "MEAL_ID", referencedColumnName = "MEAL_ID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Meal meal;
@@ -55,8 +56,8 @@ public class Orderlist implements Serializable {
         this.priceeach = priceeach;
     }
 
-    public Orderlist(int mealId, int orderId) {
-        this.orderlistPK = new OrderlistPK(mealId, orderId);
+    public Orderlist(int mealId, int orderId, int couponId) {
+        this.orderlistPK = new OrderlistPK(mealId, orderId, couponId);
     }
 
     public OrderlistPK getOrderlistPK() {
@@ -83,12 +84,12 @@ public class Orderlist implements Serializable {
         this.priceeach = priceeach;
     }
 
-    public Coupon getCouponId() {
-        return couponId;
+    public Coupon getCoupon() {
+        return coupon;
     }
 
-    public void setCouponId(Coupon couponId) {
-        this.couponId = couponId;
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
     }
 
     public Meal getMeal() {
