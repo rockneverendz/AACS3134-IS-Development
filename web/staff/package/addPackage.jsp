@@ -35,6 +35,28 @@
                             <form action="AddPackage" method="get">
                                 <h3>Add Package</h3>
                                 <hr>
+                                <%  
+                                    String status = request.getParameter("status");
+                                    String message;
+                                    String type;
+
+                                    if (status == null) {
+                                    } else {
+                                        char code = status.charAt(0);
+                                        if (code == 'S') {
+                                            type = "warning";
+                                            message = "Days cannot have the same meal because customer will loss of appetite !";
+                                        } else {
+                                            type = "danger";
+                                            message = "An error has occured";
+                                        }
+                                %>
+                                <div class="alert alert-<%= type%>" role="alert">
+                                    <%= message%>
+                                </div>
+                                <%
+                                    }
+                                %>
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <label>Select Time : </label>
@@ -99,15 +121,7 @@
             </div>
         </div>
 
-        <%@include file="../layout/scripts.jsp" %>
-        <script>
-
-
-
-
-        </script>
-
-
+        <%@include file="../layout/scripts.jsp" %>        
 
     </body>
 </html>

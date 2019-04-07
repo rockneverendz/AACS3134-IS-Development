@@ -24,18 +24,37 @@
                     <div class="container mt-5 mb-5">
                         <h3>Manage Packages</h3>
                         <hr>
-                        <%                            
+                        <%  
+                            String status = request.getParameter("status");
+                            String message;
+                            String type;
+                            if (status == null) {
+                            } else {
+                                char code = status.charAt(0);
+                                if (code == '1') {
+                                    type = "success";
+                                    message = "Successfully Added Package!";
+                                } else {
+                                    type = "danger";
+                                    message = "An error has occured";
+                                }
+                        %>            
+                        <div class="alert alert-<%= type%>" role="alert">
+                            <%= message%>
+                        </div>
+                        <%
+                            }
+                        
                             String dayOdWeeksString[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-                            String colorClass[] = {"text-primary", "text-info", "text-success ", "text-danger ", "text-warning ", "text-sdark "};
+                            String colorClass[] = {"text-primary", "text-info", "text-success ", "text-danger ", "text-warning ", "text-dark "};
                             PackageService ps = new PackageService();
                             List<Package> PackageList = ps.findAll();
-
                         %>
 
                         <div class="row mt-5">
                             <%  for (Package apackage : PackageList) {%>
                             <div class="col-md-4">
-                                <div class="card mb-4 shadow-sm border-dark">
+                                <div class="card text-white bg-dark mb-4 shadow-sm">
 
                                     <div class="card-body">
                                         <h5 class="card-title">Package ID : <%= apackage.getPackageId()%></h5>
@@ -50,7 +69,7 @@
                                     <ul class="list-group list-group-flush">
                                         <% for (Packageist packList : MealList) {%>
 
-                                        <li class="list-group-item <%= colorClass[i] %>"><%= dayOdWeeksString[i] %> : <%= packList.getMeal().getName() %></li>
+                                        <li class="list-group-item bg-light <%= colorClass[i]%>"><%= dayOdWeeksString[i]%> : <%= packList.getMeal().getName()%></li>
                                             <%
                                                     i++;
                                                 }
@@ -58,12 +77,12 @@
                                     </ul>
                                 </div>
                             </div>
-                            <% } %>
+                            <% }%>
                         </div>
 
                         <div class="row mt-5">
                             <div class="col-sm-2">
-                                <a class="btn btn-dark btn-lg" href="addPackage.jsp" role="button">Add Item</a>
+                                <a class="btn btn-primary btn-lg" href="addPackage.jsp" role="button">Add Item</a>
                             </div>
                             <form action="SearchPackage" method="get" class="row col-sm-10 ml-auto">
                                 <div class="col ">
@@ -72,11 +91,11 @@
                                             <span class="input-group-text">Search Item</span>
                                         </div>
                                         <input name="packageid" type="text" class="form-control col-5" id="itemid" placeholder="Item ID" required>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-dark btn-lg" type="submit">Modify Item</button>
+                                    <button class="btn btn-primary btn-lg" type="submit">Modify Item</button>
                                 </div>
                             </form>
                         </div>

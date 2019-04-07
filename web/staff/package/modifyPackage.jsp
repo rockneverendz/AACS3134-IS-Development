@@ -9,7 +9,7 @@
     PackageService ps = new PackageService();
     mealPackage = ps.findPackageByID(mealPackage.getPackageId());
     List<Packageist> mealPackageList = mealPackage.getPackageistList();
-    int[] mealOfWeekOfDays = new int[10];
+    int[] mealOfWeekOfDays = new int[5];
 
     //this part is to convert the 6 dayOfWeekMeal's ID in to a Array
     int j = 0;
@@ -19,7 +19,7 @@
 //        System.out.println(mealList.getMeal().getMealId()); // Testing oni
         System.out.println(mealOfWeekOfDays[j]);
     }
-    
+
     MealService mealService = new MealService();
     List<Meal> MealList = mealService.findMealByAvailability(true);
 
@@ -48,19 +48,44 @@
                     <div class="container mt-4">
                         <!--        Add New Package Form-->
                         <div class=" mt-5" style="max-width: 1000px; margin: auto">
-                            <form action="AddPackage" method="get">
+                            <form action="UpdatePackage" method="get">
                                 <h3>Update Package</h3>
                                 <hr>
-                                <h3>Package ID : <%= mealPackage.getPackageId()%></h3>
-                                <div class="row mt-4">
+                                <%                                    
+                                    String status = request.getParameter("status");
+                                    String message;
+                                    String type;
+
+                                    if (status == null) {
+                                    } else {
+                                        char code = status.charAt(0);
+                                        if (code == 'S') {
+                                            type = "warning";
+                                            message = "Days cannot have the same meal because customer will loss of appetite !";
+                                        } else {
+                                            type = "danger";
+                                            message = "An error has occured";
+                                        }
+                                %>
+                                <div class="alert alert-<%= type%>" role="alert">
+                                    <%= message%>
+                                </div>
+                                <%
+                                    }
+                                %>
+                                <div class="row form-group">
+                                    <label class="col-form-label col-sm-2">Package ID : </label>
+                                    <input name="packageId" type="text" class="form-group form-control col-sm-5 mr-auto" value="<%= mealPackage.getPackageId()%>"  readonly >
+                                </div>
+                                <div class="row">
                                     <div class="form-group col-md-4">
                                         <label>Select Time : </label>
                                         <select name="maelTime" class="custom-select" required>
                                             <option value="Breakfast"
-                                                    <% if (mealPackage.getPackageTime() == "Breakfast") {    //Set the meal time to breakfast to selected if it is found %>selected<% } %>
+                                                    <% if (mealPackage.getPackageTime() == "Breakfast") { %>selected<% } %>
                                                     >Breakfast</option>
                                             <option value="Lunch"
-                                                    <% if (mealPackage.getPackageTime() == "Lunch") {    //Set the meal time to lunch to selected if it is found %>selected<% } %>
+                                                    <% if (mealPackage.getPackageTime() == "Lunch") { %>selected<% } %>
                                                     >Lunch</option>
                                         </select>
                                     </div>
@@ -68,14 +93,14 @@
                                         <label>Availability : </label>
                                         <select name="availability" class="custom-select" required>
                                             <option value="true"
-                                                    <% if(mealPackage.getAvailability() == true) { %>
+                                                    <% if (mealPackage.getAvailability() == true) { %>
                                                     selected
                                                     <% } %>
                                                     >Active</option>
                                             <option value="false"
-                                                    <% if(mealPackage.getAvailability() == false) { %>
+                                                    <% if (mealPackage.getAvailability() == false) { %>
                                                     selected
-                                                    <% } %>
+                                                    <% }%>
                                                     >Disable</option>
                                         </select>
                                     </div>
