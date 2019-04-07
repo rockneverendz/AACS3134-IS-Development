@@ -30,37 +30,6 @@
                     </div>
                 </div>
                 <hr>
-
-                <form action="./SendMail">
-                    This is of course not going to be here, I was just testing here.
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">From</label>
-                        <div class="col">
-                            <input type="text" readonly class="form-control-plaintext" value=<%= System.getProperty("mail")%>>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Email</label>
-                        <div class="col">
-                            <input type="email" name="email" class="form-control" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Subject</label>
-                        <div class="col">
-                            <input type="text" name="subject" class="form-control" placeholder="Subject">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Content</label>
-                        <div class="col">
-                            <textarea class="form-control" name="subject" placeholder="Content"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row offset-2">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
             </div>
         </main>
     </body>
