@@ -65,11 +65,11 @@
                             calendar.add(Calendar.DATE, 2);
                             Date todayAdd2 = calendar.getTime();
 
-                            if (order == null) {
+                            if (order == null || order.isEmpty()) { // Cart is empty
                         %>
                         <p class="display-1 text-muted text-center" > Your cart is empty! :( </p>
                         <%
-                        } else {
+                        } else { // Cart is not empty
                         %>
                         <div class="card shadow mb-4 w-100">
                             <div class="card-body p-0">
@@ -87,9 +87,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%                                            for (int i = 0;
-                                                    i < order.size();
-                                                    i++) {
+                                        <%  for (int i = 0; i < order.size(); i++) {
                                                 orderlist = order.get(i);
                                                 coupon = orderlist.getCouponId();
 
