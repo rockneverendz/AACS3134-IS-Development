@@ -49,6 +49,28 @@
             <div class="album py-5 bg-light">
                 <div class="container">
                     <div class="container-fluid">
+                        <%  List<Orderlist> order = (List<Orderlist>) session.getAttribute("order");
+                            Orderlist orderlist;
+                            Coupon coupon;
+                            double priceEach;
+                            int quantity;
+                            double total;
+                            double grandTotal = 0;
+
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                            Date today = new Date();
+
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTime(today);
+                            calendar.add(Calendar.DATE, 2);
+                            Date todayAdd2 = calendar.getTime();
+
+                            if (order == null) {
+                        %>
+                        <p class="display-1 text-muted text-center" > Your cart is empty! :( </p>
+                        <%
+                        } else {
+                        %>
                         <div class="card shadow mb-4 w-100">
                             <div class="card-body p-0">
                                 <table class="table table-hover">
@@ -65,23 +87,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%  List<Orderlist> order = (List<Orderlist>) session.getAttribute("order");
-                                            Orderlist orderlist;
-                                            Coupon coupon;
-                                            double priceEach;
-                                            int quantity;
-                                            double total;
-                                            double grandTotal = 0;
-
-                                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                                            Date today = new Date();
-
-                                            Calendar calendar = Calendar.getInstance();
-                                            calendar.setTime(today);
-                                            calendar.add(Calendar.DATE, 2);
-                                            Date todayAdd2 = calendar.getTime();
-
-                                            for (int i = 0; i < order.size(); i++) {
+                                        <%                                            for (int i = 0;
+                                                    i < order.size();
+                                                    i++) {
                                                 orderlist = order.get(i);
                                                 coupon = orderlist.getCouponId();
 
@@ -93,7 +101,7 @@
                                         <tr>
                                             <td id="row<%= i%>"><%= i + 1%></td>
                                             <td><%= orderlist.getMeal().getName()%></td>
-                                            <td><%= orderlist.getQuantity()%></td>
+                                            <td><%= quantity%></td>
                                             <td><%= dateFormat.format(coupon.getRedeemDate())%></td>
                                             <td><%= coupon.getRedeemTime()%></td>
                                             <td>
@@ -120,6 +128,7 @@
                                 <a href="checkout.jsp" class="btn btn-primary btn-lg float-right" 
                                    role="button">Proceed to Checkout</a>
                             </div>
+
                         </div>
 
                         <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
@@ -169,6 +178,9 @@
                                 </div>
                             </div>
                         </div>
+                        <%
+                            }
+                        %>
                     </div>
                 </div>
             </div>
