@@ -43,6 +43,25 @@
             <div class="album py-5 bg-light">
                 <div class="container">
                     <div class="container-fluid">
+                        <%  String status = request.getParameter("status");
+                            String message;
+                            String type;
+                            if (status != null) {
+                                char code = status.charAt(0);
+                                if (code == 'C') {
+                                    type = "warning";
+                                    message = "Not enough credit points!";
+                                } else {
+                                    type = "danger";
+                                    message = "An error has occured";
+                                }
+                        %>            
+                        <div class="alert alert-<%= type%>" role="alert">
+                            <%= message%>
+                        </div>
+                        <%
+                            }
+                        %>
                         <div class="card shadow mb-4 w-100">
                             <div class="card-body p-0">
                                 <table class="table">

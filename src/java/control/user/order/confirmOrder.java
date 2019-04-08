@@ -7,6 +7,7 @@ import entity.Payment;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,18 +50,24 @@ public class confirmOrder extends HttpServlet {
             total =+ orderlist.getPriceeach() * orderlist.getQuantity();
         }
         
+        if (total > customer.getCreditpoints()) {
+            response.sendRedirect("../cart/checkout.jsp?status=C");
+            return;
+        }
+        
         // Get genuine customer object and pay
         customer = cs.findCustByID(customer.getCustId());
         customer.setCreditpoints(customer.getCreditpoints() - total);
-        cs.updateCustomer(customer);
-        
+        cs.updateCustomer(customer);            
+        session.setAttribute("customer", customer); // Update session credit points
+
         payment.setDate(date);
         payment.setTime(date);
         payment.setAmount(total);
 
         ordermeal.setPaymentId(payment);
         ordermeal.setStatus("Paid");
-        ordermeal.setType("Single"); //TODO variable type
+        ordermeal.setType("Single");
         ordermeal.setCustId(customer);
 
         // Release the kraken

@@ -92,6 +92,17 @@ public class confirmPackage extends HttpServlet {
                 }
                 cal.add(Calendar.DATE, 1);
             }
+            
+            if (total > customer.getCreditpoints()) {
+                response.sendRedirect("../package/viewpackage.jsp?status=C");
+                return;
+            }
+            
+            // Get genuine customer object and pay
+            customer = cs.findCustByID(customer.getCustId());
+            customer.setCreditpoints(customer.getCreditpoints() - total);
+            cs.updateCustomer(customer);
+            session.setAttribute("customer", customer); // Update session credit points
 
             Payment payment = new Payment();
 
@@ -101,7 +112,7 @@ public class confirmPackage extends HttpServlet {
 
             Ordermeal ordermeal = new Ordermeal();
 
-            ordermeal.setCustId(cs.findCustByID(customer.getCustId()));
+            ordermeal.setCustId(customer);
             ordermeal.setStatus("Paid");
             ordermeal.setType(pacakgeType);
             ordermeal.setPaymentId(payment);
