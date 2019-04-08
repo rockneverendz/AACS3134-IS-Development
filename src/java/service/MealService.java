@@ -82,10 +82,9 @@ public class MealService {
         if (oldMeal != null) {
 
             em.getTransaction().begin();
-            // DO NOT USE FUNCTIONAL OPERATION
-            for (Ingredientlist ingredientlist : oldMeal.getIngredientlistList()) {
-                em.remove(ingredientlist);
-            }
+            em.createNativeQuery(
+                    "DELETE FROM INGREDIENTLIST"
+                    + " WHERE MEAL_ID = " + oldMeal.getMealId()).executeUpdate();
             em.getTransaction().commit();
 
             arrayList.stream().map((ingredientlist) -> {
