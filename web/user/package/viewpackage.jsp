@@ -65,22 +65,26 @@
             <div class="album py-5 bg-light">
                 <div class="container">
                     <div class="row">
-                        <%  PackageService ps = new PackageService();
+                        <%  String dayOdWeeksString[] = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+                            
+                            PackageService ps = new PackageService();
                             List<entity.Package> list = ps.findAll();
                             for (entity.Package packagee : list) {
                         %>
                         <div class="col-md-4">
                             <div class="card mb-4 shadow-sm">
-                                <img src="..." class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <p class="card-text"><%= packagee.getDescription()%></p>
+                                    <h5 class="card-title"><%= packagee.getDescription()%></h5>
+                                    <p class="card-text">Meal Time : <%= packagee.getPackageTime()%></p>
                                 </div>
                                 <ul class="list-group list-group-flush">
                                     <%
+                                        int i = 0;
                                         for (Packageist packagelist : packagee.getPackageistList()) {
                                     %>
-                                    <li class="list-group-item"><%= packagelist.getMeal().getName()%></li>
+                                    <li class="list-group-item bg-light"><%= dayOdWeeksString[i]%> : <%= packagelist.getMeal().getName()%></li>
                                         <%
+                                                i++;
                                             }
                                         %>
                                 </ul>

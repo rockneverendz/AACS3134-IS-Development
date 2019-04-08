@@ -41,6 +41,7 @@ public class updateOrder extends HttpServlet {
             HttpSession session = request.getSession();
             Customer customer = (Customer) session.getAttribute("customer");
             if (customer == null) {
+                url.append("?status=X");
                 throw new IllegalArgumentException();
             }
 
@@ -50,11 +51,13 @@ public class updateOrder extends HttpServlet {
 
             // Validate order status
             if (ordermeal.getStatus().equals("Canceled")) {
+                url.append("?status=X");
                 throw new IllegalArgumentException();
             }
 
             // Check if the order belongs to the custoemr.
             if (!Objects.equals(ordermeal.getCustId().getCustId(), customer.getCustId())) {
+                url.append("?status=X");
                 throw new IllegalArgumentException();
             }
 
@@ -69,6 +72,7 @@ public class updateOrder extends HttpServlet {
                 cs.updateCoupon(coupon);
 
             } else { // Unupdatable coupon
+                url.append("?status=U");
                 throw new IllegalArgumentException();
             }
 
@@ -77,7 +81,6 @@ public class updateOrder extends HttpServlet {
 
         } catch (IllegalArgumentException | ParseException ex) {
             Logger.getLogger(updateOrder.class.getName()).log(Level.SEVERE, null, ex);
-            url.append("?status=X");
         } finally {
             cs.close();
         }

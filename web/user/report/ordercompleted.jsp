@@ -1,3 +1,5 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
 <%@page import="service.OrderService"%>
 <%@page import="entity.Coupon"%>
 <%@page import="entity.Orderlist"%>
@@ -66,7 +68,27 @@
             <div class="album py-5 bg-light">
                 <div class="container">
                     <div class="container-fluid">
-                        <%  String status = request.getParameter("status");
+                        <%  String dateString = request.getParameter("date");
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("MM-yyyy");
+                            Calendar c = Calendar.getInstance();
+                            Date date;
+
+                            if (dateString == null) {
+                                date = new Date();
+                            } else {
+                                date = dateFormat.parse(dateString);
+                            }
+
+                            c.setTime(date);
+                            int month = c.get(Calendar.MONTH) + 1; // beware of month indexing from zero
+
+                            OrderService os = new OrderService();
+                            List<Ordermeal> list = os.findOrderByCustCompleted(customer.getCustId(), month);
+
+                            double amount;
+                            double totalAmount = 0;
+
+                            String status = request.getParameter("status");
                             String message;
                             String type;
                             if (status != null) {
@@ -86,6 +108,20 @@
                             }
                         %>
                         <div class="card shadow mb-4 w-100">
+                            <div class="card-header py-3 d-flex mb-3">
+                                <h6 class="my-auto text-primary">Order Report</h6>
+                                <div class="ml-auto">
+                                    <form class="input-group" action="./ordercompleted.jsp">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Month</span>
+                                        </div>
+                                        <input id="datepicker" name="date" type="text" class="form-control" value="<%= dateFormat.format(date)%>">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-success" type="submit" id="search">Search</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                             <div class="card-body p-0">
                                 <table class="table" width="100%" cellspacing="0" role="grid" style="width: 100%;">
                                     <thead class="thead-light">
@@ -98,14 +134,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%  OrderService os = new OrderService();
-                                            List<Ordermeal> list = os.findOrderByCustCompleted(customer.getCustId());
-                                            
-                                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
-
-                                            double amount;
-                                            double totalAmount = 0;
-                                            for (int i = 0; i < list.size(); i++) {
+                                        <%  for (int i = 0; i < list.size(); i++) {
                                                 Ordermeal order = list.get(i);
                                                 amount = order.getPaymentId().getAmount();
                                         %>
@@ -164,6 +193,13 @@
                 e.preventDefault();
                 $('.cat' + $(this).attr('data-prod-cat')).toggle();
             });
+        });
+
+        $('#datepicker').datepicker({
+            format: "mm-yyyy",
+            startView: 1,
+            minViewMode: 1,
+            maxViewMode: 2
         });
     </script>
 </body>

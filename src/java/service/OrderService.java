@@ -55,7 +55,7 @@ public class OrderService {
     public Ordermeal findOrderByID(int id) {
         return (Ordermeal) em.find(Ordermeal.class, id);
     }
-    
+
     public List<Ordermeal> findOrderByCustPaid(int custId) {
         return em.createNativeQuery("SELECT o.* FROM Ordermeal o"
                 + " WHERE o.CUST_ID = " + custId
@@ -64,12 +64,15 @@ public class OrderService {
                 Ordermeal.class)
                 .getResultList();
     }
-    
-    public List<Ordermeal> findOrderByCustCompleted(int custId) {
+
+    public List<Ordermeal> findOrderByCustCompleted(int custId, int month) {
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         return em.createNativeQuery("SELECT o.* FROM Ordermeal o"
+                + " INNER JOIN Payment p ON o.PAYMENT_ID = p.PAYMENT_ID"
                 + " WHERE o.CUST_ID = " + custId
                 + " AND o.STATUS <> 'Paid'"
-                + " ORDER BY o.ORDER_ID ASC",
+                + " AND MONTH(p.date) = " + month
+                + " ORDER BY p.date ASC",
                 Ordermeal.class)
                 .getResultList();
     }
@@ -95,6 +98,7 @@ public class OrderService {
         Ordermeal oldOrdermeal = findOrderByID(newOrdermeal.getOrderId());
         if (oldOrdermeal != null) {
             em.getTransaction().begin();
+            oldOrdermeal.getPaymentId().setAmount(0);
             oldOrdermeal.setStatus("Canceled");
             em.getTransaction().commit();
             return true;

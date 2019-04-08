@@ -24,7 +24,7 @@
                                 <div class="text-center mb-4">
                                     <h1 class="h1 mb-3">Add New Meal</h1>
                                 </div>
-                                <%                                    String status = request.getParameter("status");
+                                <%  String status = request.getParameter("status");
                                     String message;
                                     String type;
                                     if (status == null) {
@@ -154,7 +154,7 @@
 
 
                                                     function add_fields() {
-                                                        
+
                                                         flag += 1; //counter increment by 1
 
                                                         // clone

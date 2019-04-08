@@ -79,6 +79,12 @@
                                 } else if (code == '2') {
                                     type = "success";
                                     message = "Successfully Updated Order!";
+                                } else if (code == 'L') {
+                                    type = "warning";
+                                    message = "Order cannot be canceled less than 1 day before the meal order!";
+                                } else if (code == 'U') {
+                                    type = "warning";
+                                    message = "Order cannot be updated less than 1 day before the meal order!";
                                 } else {
                                     type = "danger";
                                     message = "An error has occured";
@@ -142,11 +148,17 @@
                                         %>
                                         <tr role="row" class="cat<%= i%>" style="display:none">
                                             <td id="row<%= coupon.getCouponId()%>">
+                                                <%
+                                                    if (order.getType().equals("Single")) {
+                                                %>
                                                 <button type="button" class="btn btn-outline-info btn-sm"
                                                         data-toggle="modal" data-target="#orderModal"
                                                         data-couponid="<%= coupon.getCouponId()%>">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </button>
+                                                <%
+                                                    }
+                                                %>
                                             </td>
                                             <td><%= ol.getMeal().getName()%></td>
                                             <td><%= ol.getQuantity()%></td>

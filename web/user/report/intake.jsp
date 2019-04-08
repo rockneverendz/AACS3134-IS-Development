@@ -152,7 +152,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="card-body row">
+                                <div class="card-body">
                                     <div class="col-sm-12">
                                         <table class="table table-hover w-100" cellspacing="0" role="grid">
                                             <thead class="thead-light">
