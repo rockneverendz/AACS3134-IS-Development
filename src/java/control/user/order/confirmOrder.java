@@ -49,6 +49,11 @@ public class confirmOrder extends HttpServlet {
             total =+ orderlist.getPriceeach() * orderlist.getQuantity();
         }
         
+        // Get genuine customer object and pay
+        customer = cs.findCustByID(customer.getCustId());
+        customer.setCreditpoints(customer.getCreditpoints() - total);
+        cs.updateCustomer(customer);
+        
         payment.setDate(date);
         payment.setTime(date);
         payment.setAmount(total);
@@ -56,7 +61,7 @@ public class confirmOrder extends HttpServlet {
         ordermeal.setPaymentId(payment);
         ordermeal.setStatus("Paid");
         ordermeal.setType("Single"); //TODO variable type
-        ordermeal.setCustId(cs.findCustByID(customer.getCustId()));
+        ordermeal.setCustId(customer);
 
         // Release the kraken
         os.addMealorder(ordermeal, payment, order, customer);
