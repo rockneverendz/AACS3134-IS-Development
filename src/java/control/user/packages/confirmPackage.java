@@ -10,8 +10,10 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -50,6 +52,8 @@ public class confirmPackage extends HttpServlet {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             StringBuilder url = new StringBuilder("../report/coupon.jsp");
             Date date = dateFormat.parse(dateS);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
 
             PackageService ps = new PackageService();
             entity.Package packagee = ps.findPackageByID(Integer.parseInt(packageId));
@@ -71,7 +75,7 @@ public class confirmPackage extends HttpServlet {
                     orderlist = new Orderlist();
                     coupon = new Coupon();
 
-                    coupon.setRedeemDate(date);
+                    coupon.setRedeemDate(cal.getTime());
                     coupon.setRedeemTime(packagee.getPackageTime());
                     coupon.setStatus("Active");
 
@@ -83,7 +87,10 @@ public class confirmPackage extends HttpServlet {
                     total += packageist.getPriceeach();
 
                     list.add(orderlist);
+
+                    cal.add(Calendar.DATE, 1);
                 }
+                cal.add(Calendar.DATE, 1);
             }
 
             Payment payment = new Payment();
