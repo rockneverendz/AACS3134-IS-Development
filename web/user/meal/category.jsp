@@ -1,3 +1,4 @@
+<%@page import="java.util.Base64"%>
 <%@page import="entity.Category"%>
 <%@page import="service.CategoryService"%>
 <!DOCTYPE html>
@@ -67,10 +68,17 @@
             .card-deck > a{
                 color: black;
             }
+            
             .card-deck > a:hover{
                 color: black;
                 text-decoration: none;
             }
+            
+            h5 {
+                color: white;
+                text-shadow: 1px 1px 2px black, 0 0 25px gray, 0 0 5px darkgray;
+            }
+            
         </style>
     </head>
     <body style="margin-bottom: 60px;" class="text-center">
@@ -85,8 +93,7 @@
                 </div>
             </section>
             <div class="row">
-                <%
-                    CategoryService cs = new CategoryService();
+                <%                    CategoryService cs = new CategoryService();
                     for (Category category : cs.findAll()) {
                 %>
                 <a href="../meal/viewmeal.jsp?CategoryId=<%= category.getCategoryId()%>" class="card bg-dark text-white col-6">
@@ -94,8 +101,9 @@
                         <%
                             byte[] image = category.getImage();
                             if (image != null) { //Image found
+                                String base64Image = Base64.getEncoder().encodeToString(image);
                         %>
-                        <!--Insert Image here-->
+                        <img class="card-img" src="data:image/jpg;base64,<%= base64Image%>"/>
                         <%
                         } else { //No image found
                         %>
