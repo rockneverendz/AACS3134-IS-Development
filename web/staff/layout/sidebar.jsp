@@ -35,6 +35,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="../reports/mealPreparation.jsp?page=1">
+                    <i class="fas fa-calendar-day feather"></i> View Meal Orders
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="../account/topup.jsp">
                     <i class="fas fa-money-check-alt feather"></i> Top-Up and Reload
                 </a>
