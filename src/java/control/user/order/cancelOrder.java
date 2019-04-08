@@ -69,15 +69,16 @@ public class cancelOrder extends HttpServlet {
                 // Get genuine customer object
                 customer = cs.findCustByID(customer.getCustId());
 
-                // Cancel
-                os.cancelMealorder(ordermeal);
-
                 // Refund
                 customer.setCreditpoints(
                         customer.getCreditpoints()
                         + ordermeal.getPaymentId().getAmount()
                 );
                 cs.updateCustomer(customer);
+                session.setAttribute("customer", customer); // Update session credit points
+
+                // Cancel
+                os.cancelMealorder(ordermeal);
 
             } else { // Uncancellable order due to 'indexOfMeal'
                 throw new IllegalArgumentException();
