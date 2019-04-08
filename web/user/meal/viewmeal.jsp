@@ -1,3 +1,4 @@
+<%@page import="java.util.Base64"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -85,7 +86,6 @@
                 <div class="container">
                     <h1 class="jumbotron-heading"><%= category.getName()%></h1>
                     <p class="lead text-muted"><%= category.getDescription()%></p>
-
                 </div>
             </section>
 
@@ -131,8 +131,9 @@
                                 <%
                                     byte[] image = meal.getImage();
                                     if (image != null) { //Image found
+                                        String base64Image = Base64.getEncoder().encodeToString(image);
                                 %>
-                                <!--Insert Image here-->
+                                <img class="card-img-top" src="data:image/jpg;base64,<%= base64Image%>"/>
                                 <%
                                 } else { //No image found
                                 %>
