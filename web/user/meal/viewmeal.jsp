@@ -48,8 +48,9 @@
                 font-weight: 300;
             }
 
-            .jumbotron .container {
+            #jumbotron .card-img-overlay {
                 max-width: 40rem;
+                max-height: 12.5rem;
             }
 
             .form-signup {
@@ -63,6 +64,12 @@
                 position: relative;
                 margin-bottom: 1rem;
             }
+
+            .img-fluid {
+                object-fit: cover; 
+                filter: brightness(50%);
+            }
+
         </style>
 
     </head>
@@ -82,13 +89,21 @@
                 calendar.add(Calendar.DATE, 2);
                 Date todayAdd2 = calendar.getTime();
             %>
-            <section class="jumbotron text-center">
-                <div class="container">
-                    <h1 class="jumbotron-heading"><%= category.getName()%></h1>
-                    <p class="lead text-muted"><%= category.getDescription()%></p>
+            <div id="jumbotron" class="card rounded-0 border-0 text-center text-white">
+                <%
+                    byte[] catImage = category.getImage();
+                    if (catImage != null) { //Image found
+                        String base64Image = Base64.getEncoder().encodeToString(catImage);
+                %>
+                <img class="img-fluid" src="data:image/jpg;base64,<%= base64Image%>"/>
+                <%
+                    }
+                %>
+                <div class="card-img-overlay mx-auto my-auto">
+                    <h1 class="card-title"><%= category.getName()%></h1>
+                    <p class="card-text"><%= category.getDescription()%></p>
                 </div>
-            </section>
-
+            </div>
             <div class="album py-5 bg-light">
                 <div class="container">
                     <%
