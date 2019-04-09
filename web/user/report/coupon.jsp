@@ -39,6 +39,18 @@
             .border-left-monthly {
                 border-left: 1.25rem solid #1cc88a!important;
             }
+
+            .color-single g{
+                fill: #4e73df!important;
+            }
+
+            .color-weekly g{
+                fill: #17a2b8!important;
+            }
+
+            .color-monthly g{
+                fill: #1cc88a!important;
+            }
         </style>
 
     </head>
@@ -85,7 +97,8 @@
                                         Qty : <%= orderlist.getQuantity()%> 
                                         <br>Price : RM <%= orderlist.getPriceeach()%>
                                         <br>
-                                        <svg id="bar<%= numberOfCoupons%>" data-id="<%= coupon.getCouponId()%>"></svg>
+                                        <svg class="barcode color-<%= ordermeal.getType().toLowerCase()%> mx-auto" jsbarcode-value="<%= coupon.getCouponId()%>">
+                                        </svg>
                                     </p>
                                 </div>
                             </div>
@@ -108,16 +121,15 @@
         -->
         <script>
 
-            for (var i = 1; i <= <%= numberOfCoupons%>; i++) {
-                bar = $("#bar" + i);
-                bar.JsBarcode(bar.data('id'), {
-                    lineColor: "#343a40",
-                    width: 2,
-                    height: 40,
-                    displayValue: false
-                });
-            }
-
+            JsBarcode(".barcode")
+                    .options({
+                        lineColor: "#343a40",
+                        width: 2,
+                        height: 40,
+                        displayValue: false
+                    })
+                    .init();
+            
         </script>
     </body>
 </html>
