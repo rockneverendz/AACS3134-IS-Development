@@ -59,9 +59,12 @@ public class MealService {
         return (Meal) em.find(Meal.class, id);
     }
 
-    public List<Meal> findMealByCategoryID(Category categoryId) {
-        return (List<Meal>) em.createNamedQuery("Meal.findByCategoryId")
+    public List<Meal> findMealByCategoryID(Category categoryId, Boolean availability) {
+        return (List<Meal>) em.createQuery("SELECT m FROM Meal m"
+                + " WHERE m.categoryId = :categoryId"
+                + " AND m.availability = :availability")
                 .setParameter("categoryId", categoryId)
+                .setParameter("availability", availability)
                 .getResultList();
     }
 
