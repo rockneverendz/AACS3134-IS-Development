@@ -2,9 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,8 +45,8 @@ public class Payment implements Serializable {
     @Basic(optional = false)
     @Column(name = "AMOUNT")
     private double amount;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "paymentId")
-    private List<Ordermeal> ordermealList;
+    @OneToOne(mappedBy = "paymentId")
+    private Ordermeal ordermeal;
 
     public Payment() {
     }
@@ -97,12 +95,12 @@ public class Payment implements Serializable {
     }
 
     @XmlTransient
-    public List<Ordermeal> getOrdermealList() {
-        return ordermealList;
+    public Ordermeal getOrdermeal() {
+        return ordermeal;
     }
 
-    public void setOrdermealList(List<Ordermeal> ordermealList) {
-        this.ordermealList = ordermealList;
+    public void setOrdermeal(Ordermeal ordermeal) {
+        this.ordermeal = ordermeal;
     }
 
     @Override

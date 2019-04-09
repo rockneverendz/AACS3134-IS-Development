@@ -47,7 +47,7 @@ public class updateOrder extends HttpServlet {
 
             // Get the coupon and the ordermeal
             Coupon coupon = cs.findCouponByID(Integer.parseInt(couponId));
-            Ordermeal ordermeal = coupon.getOrderlistList().get(0).getOrdermeal();
+            Ordermeal ordermeal = coupon.getOrderlist().getOrdermeal();
 
             // Validate order status
             if (ordermeal.getStatus().equals("Canceled")) {
