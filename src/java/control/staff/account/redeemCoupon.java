@@ -20,72 +20,93 @@ public class redeemCoupon extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        CouponService couponService = new CouponService();
+        OrderService orderService = new OrderService();
+        StringBuilder url = new StringBuilder("redeemCoupon.jsp");
         try {
-            //Get input
+            // Get input
             int couponID = Integer.parseInt(request.getParameter("couponid"));
+            String redeemTime = request.getParameter("redeemTime");
 
-            //Get today date
+            // Get today date
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
             Date todayDate = new Date();
-            String todayDateString = dateFormat.format(todayDate);
 
-            //Initialization
-            CouponService couponService = new CouponService();
+            // Initialization
             Coupon coupon = couponService.findCouponByID(couponID);
-            String status = coupon.getStatus();
-            Date redeemDate = coupon.getRedeemDate();
-            String redeemDateString = dateFormat.format(coupon.getRedeemDate());
-            System.out.println(status);
 
-            int i;
-            //Check Status
-            switch (status) {
-                case "Active":
-                    //Check is today date
-                    if (redeemDateString.equalsIgnoreCase(todayDateString)) {
-                        //Update Status and send redirect
-                        couponService.setStatusRedeem(couponID);
-                        response.sendRedirect("redeemCoupon.jsp?status=1");
-                    } else if (redeemDate.before(todayDate)) {    //Check if coupon is expired
-                        //Update coupon status and send redirect
-                        couponService.setStatusExpried(couponID);
-                        response.sendRedirect("redeemCoupon.jsp?status=E");
-                    } else {
-                        response.sendRedirect("redeemCoupon.jsp?status=D");  //Not valid date for redeem
+            // Get ordermeal from coupon.
+            Ordermeal ordermeal = orderService.findOrderByID(coupon.getOrderlist().getOrdermeal().getOrderId());
+            switch (ordermeal.getStatus()) {
+                case "Paid":
+                    switch (coupon.getStatus()) {
+                        case "Active":
+
+                            // Check is today date
+                            if (dateFormat.format(coupon.getRedeemDate()).equals(dateFormat.format(todayDate))) {
+
+                                // Check time matches the option selected
+                                if (coupon.getRedeemTime().equals(redeemTime)) {
+                                    couponService.setStatusRedeem(couponID); // Update Status and send redirect
+                                    url.append("?status=1");
+                                } else {
+                                    url.append("?status=T"); // Does not match time selected
+                                }
+
+                            } else if (coupon.getRedeemDate().before(todayDate)) { // Check if coupon is expired
+                                couponService.setStatusExpried(couponID); // Update coupon status and send redirect
+                                url.append("?status=E");
+                            } else {
+                                url.append("?status=D"); // Not valid date for redeem (Maybe too early)
+                            }
+
+                            // Get orderlist from the order
+                            List<Orderlist> list = ordermeal.getOrderlistList();
+                            int i;
+
+                            // Check if every coupon is redeem
+                            for (i = 0; i < list.size(); i++) {
+                                if (list.get(i).getCoupon().getStatus().equals("Active")) {
+                                    i = list.size() + 1;
+                                }
+                            }
+
+                            // If 'i' made it through the whole list
+                            if (i == list.size()) {
+                                ordermeal.setStatus("Completed");
+                            }
+
+                            break;
+                        case "Redeemed":
+                            url.append("?status=R");
+                            break;
+                        case "Expired":
+                            url.append("?status=E");
+                            break;
+                        default:
+                            url.append("?status=X"); // Unknown error occured.
+                            break;
                     }
                     break;
-                case "Redeemed":
-                    response.sendRedirect("redeemCoupon.jsp?status=R");
+                case "Completed":
+                    url.append("?status=O");
                     break;
-                case "Expired":
-                    response.sendRedirect("redeemCoupon.jsp?status=E");
+                case "Canceled":
+                    url.append("?status=C");
                     break;
                 default:
+                    url.append("?status=X"); // Unknown error occured.
                     break;
             }
 
-            // Get ordermeal from database to ensure it's up to date. ( From coupon update above )
-            OrderService orderservice = new OrderService();
-            Ordermeal ordermeal = orderservice.findOrderByID(coupon.getOrderlistList().get(0).getOrdermeal().getOrderId());
-            List<Orderlist> list = ordermeal.getOrderlistList();
-
-            // Check if every coupon is redeem
-            for (i = 0; i < list.size(); i++) {
-                if (list.get(i).getCoupon().getStatus().equals("Active")) {
-                    i = list.size() + 1;
-                }
-            }
-
-            // If 'i' made it through the whole list
-            if (i == list.size()) {
-                ordermeal.setStatus("Completed");
-            }
+            response.sendRedirect(url.toString());
 
         } catch (NoResultException | NumberFormatException | NullPointerException ex) {
-            response.sendRedirect("redeemCoupon.jsp?status=U");
-            System.out.println(ex.getMessage());
+            response.sendRedirect("redeemCoupon.jsp?status=X");
+        } finally {
+            couponService.close();
+            orderService.close();
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

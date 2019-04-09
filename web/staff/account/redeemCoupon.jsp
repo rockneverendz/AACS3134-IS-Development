@@ -10,13 +10,12 @@
     <body>
         <!-- Fixed-top Navs -->
         <%@include file="../layout/topnavbar.jsp" %>
-
         <div class="container-fluid">
             <div class="row">
                 <%@include file="../layout/sidebar.jsp" %>
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-                    <!--        Reload Form-->
+                    <!-- Reload Form-->
                     <div class="container mt-5 p-5" style="max-width: 420px; margin: auto;">
                         <form action="redeemCoupon" method="get">
                             <div class="text-center mb-5">
@@ -30,19 +29,25 @@
                                     char code = status.charAt(0);
                                     if (code == '1') {
                                         type = "success";
-                                        message = "Coupon successfully redeemed !";
+                                        message = "Coupon successfully redeemed!";
                                     } else if (code == 'R') {
                                         type = "warning";
-                                        message = "This Coupon has been redeemed !";
+                                        message = "This Coupon has been redeemed!";
                                     } else if (code == 'E') {
                                         type = "warning";
-                                        message = "This Coupon has expired !";
+                                        message = "This Coupon has expired!";
                                     } else if (code == 'D') {
                                         type = "warning";
                                         message = "Invalid date for redeem the coupon!";
+                                    } else if (code == 'O') {
+                                        type = "warning";
+                                        message = "Order already completed!";
+                                    } else if (code == 'C') {
+                                        type = "warning";
+                                        message = "Order already canceled!";
                                     } else if (code == 'U') {
                                         type = "danger";
-                                        message = "Coupon ID not found !";
+                                        message = "Coupon ID not found!";
                                     } else {
                                         type = "danger";
                                         message = "An error has occured";
@@ -58,6 +63,17 @@
                                 <label for="inputCoupon">Coupon</label>
                                 <div class="input-group">
                                     <input name="couponid" type="text" class="form-control" id="inputCoupon" placeholder="Coupon ID" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-form-label">Time</label>
+                                <div class="btn-group btn-group-toggle btn-block">
+                                    <label class="btn btn-outline-primary w-50">
+                                        <input name="redeemTime" value="Breakfast" type="radio" required> Breakfast
+                                    </label>
+                                    <label class="btn btn-outline-primary w-50">
+                                        <input name="redeemTime" value="Lunch" type="radio" required> Lunch
+                                    </label>
                                 </div>
                             </div>
                             <div class="row ">
