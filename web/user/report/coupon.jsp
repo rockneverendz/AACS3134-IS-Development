@@ -75,13 +75,11 @@
                             List<Ordermeal> list = os.findOrderByCustPaid(customer.getCustId());
                             SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                             Coupon coupon;
-                            int numberOfCoupons = 0;
 
                             for (Ordermeal ordermeal : list) {
-                                for (Orderlist orderlist : ordermeal.getOrderlistList()) {
+                                for (Orderlist orderlist : os.findOrderlistByOrderId(ordermeal.getOrderId())) {
                                     coupon = orderlist.getCoupon();
                                     if (coupon.getStatus().equals("Active")) {
-                                        numberOfCoupons++;
                         %>
                         <div class="card col-6 border-left-<%= ordermeal.getType().toLowerCase()%>">
                             <div class="card-body">
@@ -127,8 +125,7 @@
                         width: 2,
                         height: 40,
                         displayValue: false
-                    })
-                    .init();
+                    }).init();
             
         </script>
     </body>
