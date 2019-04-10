@@ -40,6 +40,19 @@
                 cursor: pointer;
             }
 
+            .table > thead > tr > th:first-child,
+            .table > tbody > tr > td:first-child
+            {
+                padding-left: 2.25rem;
+                text-align: center;
+            }
+
+            .table > thead > tr > th:last-child,
+            .table > tbody > tr > td:last-child
+            {                
+                padding-right: 2.25rem;
+            }
+
         </style>
     </head>
     <body style="margin-bottom: 60px;">
@@ -138,7 +151,7 @@
                             </div>
 
                             <div class="card shadow mb-4 w-100">
-                                <div class="card-header py-3 d-flex mb-3">
+                                <div class="card-header py-3 d-flex">
                                     <h6 class="my-auto text-primary">Intake Report</h6>
                                     <div class="ml-auto">
                                         <form class="input-group" action="./intake.jsp">
@@ -152,76 +165,74 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="card-body">
-                                    <div class="col-sm-12">
-                                        <table class="table table-hover w-100" cellspacing="0" role="grid">
-                                            <thead class="thead-light">
-                                                <tr role="row">
-                                                    <th rowspan="1" colspan="1" style="width: 10%;">Order #</th>
-                                                    <th rowspan="1" colspan="2" style="width: 50%;">Date</th>
-                                                    <th rowspan="1" colspan="1" style="width: 20%;">Expenses</th>
-                                                    <th rowspan="1" colspan="1" style="width: 20%;">Calories</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <%
-                                                    for (int i = 0; i < list.size(); i++) {
-                                                        Ordermeal om = list.get(i);
-                                                        int calories = 0;
-                                                %>
-                                                <tr role="row" class="ordermeal" data-prod-cat="<%= i%>">
-                                                    <td><%= om.getOrderId()%></td>
-                                                    <td colspan="2"><%= dateFormat.format(om.getPaymentId().getDate())%></td>
-                                                    <td><%= om.getPaymentId().getAmount()%></td>
-                                                    <td id="totalCalories<%= i%>"></td>
-                                                </tr>
+                                <div class="card-body p-0">
+                                    <table class="table table-hover w-100" cellspacing="0" role="grid">
+                                        <thead class="thead-light">
+                                            <tr role="row">
+                                                <th rowspan="1" colspan="1" style="width: 10%;">Order #</th>
+                                                <th rowspan="1" colspan="2" style="width: 50%;">Date</th>
+                                                <th rowspan="1" colspan="1" style="width: 20%;">Expenses</th>
+                                                <th rowspan="1" colspan="1" style="width: 20%;">Calories</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%
+                                                for (int i = 0; i < list.size(); i++) {
+                                                    Ordermeal om = list.get(i);
+                                                    int calories = 0;
+                                            %>
+                                            <tr role="row" class="ordermeal" data-prod-cat="<%= i%>">
+                                                <td><%= om.getOrderId()%></td>
+                                                <td colspan="2"><%= dateFormat.format(om.getPaymentId().getDate())%></td>
+                                                <td><%= om.getPaymentId().getAmount()%></td>
+                                                <td id="totalCalories<%= i%>"></td>
+                                            </tr>
 
-                                                <tr role="row" class="table-secondary cat<%= i%>" style="display:none">
-                                                    <th rowspan="1" colspan="1"></th>
-                                                    <th rowspan="1" colspan="1">Meal</th>
-                                                    <th rowspan="1" colspan="1">Quantity</th>
-                                                    <th rowspan="1" colspan="1">Price Each</th>
-                                                    <th rowspan="1" colspan="1">Calories</th>
-                                                </tr>
-                                                <%
-                                                    for (Orderlist ol : om.getOrderlistList()) {
-                                                        Meal meal = ol.getMeal();
-                                                        calories += meal.getCalories();
-                                                %>
-                                                <tr role="row" class="cat<%= i%>" style="display:none">
-                                                    <td></td>
-                                                    <td><%= meal.getName()%></td>
-                                                    <td><%= ol.getQuantity()%></td>
-                                                    <td><%= String.format("%.2f", ol.getPriceeach())%></td>
-                                                    <td><%= meal.getCalories()%></td>
-                                                </tr>
-                                                <%
-                                                        }
-                                                        // inject to innerHTML later.
-                                                        totalCaloriesOrder[i] = calories;
-
-                                                        // For Graph.js
-                                                        // Find the difference between Day0 and the OrderDate,
-                                                        // and the calories to the day.
-                                                        long diff = om.getPaymentId().getDate().getTime() - days[0].getTime();
-                                                        int daydiff = (int) TimeUnit.MILLISECONDS.toDays(diff);
-                                                        totalcaloriesDays[daydiff] += calories;
-
-                                                        // Grand Total
-                                                        grandTotalExpense += om.getPaymentId().getAmount();
-                                                        grandTotalCalories += calories;
+                                            <tr role="row" class="table-secondary cat<%= i%>" style="display:none">
+                                                <th rowspan="1" colspan="1"></th>
+                                                <th rowspan="1" colspan="1">Meal</th>
+                                                <th rowspan="1" colspan="1">Quantity</th>
+                                                <th rowspan="1" colspan="1">Price Each</th>
+                                                <th rowspan="1" colspan="1">Calories</th>
+                                            </tr>
+                                            <%
+                                                for (Orderlist ol : om.getOrderlistList()) {
+                                                    Meal meal = ol.getMeal();
+                                                    calories += meal.getCalories();
+                                            %>
+                                            <tr role="row" class="cat<%= i%>" style="display:none">
+                                                <td></td>
+                                                <td><%= meal.getName()%></td>
+                                                <td><%= ol.getQuantity()%></td>
+                                                <td><%= String.format("%.2f", ol.getPriceeach())%></td>
+                                                <td><%= meal.getCalories()%></td>
+                                            </tr>
+                                            <%
                                                     }
-                                                %>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr role="row">
-                                                    <td colspan="3"><strong>Total</strong></td>
-                                                    <td><%= String.format("%.2f", grandTotalExpense)%></td>
-                                                    <td><%= grandTotalCalories%></td>
-                                                </tr>
-                                                </tfood>
-                                        </table>
-                                    </div>
+                                                    // inject to innerHTML later.
+                                                    totalCaloriesOrder[i] = calories;
+
+                                                    // For Graph.js
+                                                    // Find the difference between Day0 and the OrderDate,
+                                                    // and the calories to the day.
+                                                    long diff = om.getPaymentId().getDate().getTime() - days[0].getTime();
+                                                    int daydiff = (int) TimeUnit.MILLISECONDS.toDays(diff);
+                                                    totalcaloriesDays[daydiff] += calories;
+
+                                                    // Grand Total
+                                                    grandTotalExpense += om.getPaymentId().getAmount();
+                                                    grandTotalCalories += calories;
+                                                }
+                                            %>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr role="row" class="table-primary">
+                                                <td colspan="3" class="text-right"><strong>Total</strong></td>
+                                                <td><%= String.format("%.2f", grandTotalExpense)%></td>
+                                                <td><%= grandTotalCalories%></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
                                 </div>
                             </div>
                         </div>
