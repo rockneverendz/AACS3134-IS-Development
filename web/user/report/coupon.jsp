@@ -70,18 +70,23 @@
                 <div class="container">
                     <div class="container-fluid">
 
+                        <%  CouponService cs = new CouponService();
+                            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                            SimpleDateFormat dateJS = new SimpleDateFormat("yyyy, MM-1, dd");
+                            StringBuilder stringBuilder = new StringBuilder();
+                            List<Coupon> list = cs.findCouponByCustPaid(customer.getCustId());
+                            Ordermeal ordermeal;
+                            Orderlist orderlist;
+                            if (list.isEmpty()) {
+                        %>
+                        <p class="display-1 text-muted text-center"> You have no coupon. :( </p>
+                        <p class="display-4 text-muted text-right"><a href="../meal/main.jsp"> Go order some! </a></p>
+                        <%
+                        } else {
+                        %>
                         <div class="calendar mb-4"></div>
-
                         <div class="row">
-
-                            <%  CouponService cs = new CouponService();
-                                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                                SimpleDateFormat dateJS = new SimpleDateFormat("yyyy, MM-1, dd");
-                                StringBuilder stringBuilder = new StringBuilder();
-                                List<Coupon> list = cs.findCouponByCustPaid(customer.getCustId());
-                                Ordermeal ordermeal;
-                                Orderlist orderlist;
-
+                            <%
                                 for (Coupon coupon : list) {
                                     orderlist = coupon.getOrderlist();
                                     ordermeal = orderlist.getOrdermeal();
@@ -107,13 +112,15 @@
                                 </div>
                             </div>
                             <%
-                                    stringBuilder.append(
-                                            "\n{"
-                                            + "name: " + coupon.getCouponId() + ","
-                                            + "time: '" + coupon.getRedeemTime() + "',"
-                                            + "startDate: new Date(" + dateJS.format(coupon.getRedeemDate()) + "), "
-                                            + "endDate: new Date(" + dateJS.format(coupon.getRedeemDate()) + ")"
-                                            + "},");
+                                        stringBuilder.append(
+                                                "\n{"
+                                                + "name: " + coupon.getCouponId() + ","
+                                                + "time: '" + coupon.getRedeemTime() + "',"
+                                                + "startDate: new Date(" + dateJS.format(coupon.getRedeemDate()) + "), "
+                                                + "endDate: new Date(" + dateJS.format(coupon.getRedeemDate()) + ")"
+                                                + "},");
+                                    }
+                                    stringBuilder.deleteCharAt(stringBuilder.length() - 1);
                                 }
                             %>
                         </div>
@@ -168,7 +175,6 @@
                         }
                     },
                     dataSource: [
-            <% stringBuilder.deleteCharAt(stringBuilder.length() - 1);%>
             <%= stringBuilder.toString()%>
                     ]
                 });
