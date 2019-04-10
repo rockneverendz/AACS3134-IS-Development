@@ -87,7 +87,7 @@ public class OrderService {
                 Ordermeal.class)
                 .getResultList();
     }
-    
+
     public List<Orderlist> findOrderlistByOrderId(int orderId) {
         return em.createNativeQuery("SELECT o.* FROM Orderlist o"
                 + " INNER JOIN Coupon c ON o.COUPON_ID = c.COUPON_ID"

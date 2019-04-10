@@ -25,20 +25,19 @@
                 background-color: #f8f9fa;
             }
 
-            td, th {
+            .table > tbody > tr > td, 
+            .table > tbody > tr > th {
                 vertical-align: middle!important;
             }
 
             .table > thead > tr > th:first-child,
-            .table > tbody > tr > td:first-child
-            {
+            .table > tbody > tr > td:first-child{
                 padding-left: 2.25rem;
                 text-align: center;
             }
 
             .table > thead > tr > th:last-child,
-            .table > tbody > tr > td:last-child
-            {                
+            .table > tbody > tr > td:last-child{                
                 padding-right: 2.25rem;
             }
 
@@ -97,9 +96,12 @@
                         <%
                             }
                         %>
+
+                        <div class="calendar mb-4"></div>
+
                         <div class="card shadow mb-4 w-100">
                             <div class="card-body p-0">
-                                <table class="table" width="100%" cellspacing="0" role="grid" style="width: 100%;">
+                                <table class="table mb-0" width="100%" cellspacing="0" role="grid" style="width: 100%;">
                                     <thead class="thead-light">
                                         <tr role="row">
                                             <th rowspan="1" colspan="1" style="width: 10%;">Order #</th>
@@ -114,6 +116,8 @@
                                             List<Ordermeal> list = os.findOrderByCustPaid(customer.getCustId());
 
                                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+                                            SimpleDateFormat dateJS = new SimpleDateFormat("yyyy, MM-1, dd");
+                                            StringBuilder stringBuilder = new StringBuilder();
                                             Date today = new Date();
 
                                             Calendar calendar = Calendar.getInstance();
@@ -144,7 +148,8 @@
                                             <th>Time</th>
                                         </tr>
                                         <%
-                                            for (Orderlist ol : os.findOrderlistByOrderId(order.getOrderId())) {
+                                            List<Orderlist> orderlistList = os.findOrderlistByOrderId(order.getOrderId());
+                                            for (Orderlist ol : orderlistList) {
                                                 Coupon coupon = ol.getCoupon();
                                         %>
                                         <tr role="row" class="cat<%= i%>" style="display:none">
@@ -158,6 +163,13 @@
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </button>
                                                 <%
+                                                        stringBuilder.append(
+                                                                "\n{"
+                                                                + "name: " + order.getOrderId() + ","
+                                                                + "type: '" + order.getType() + "',"
+                                                                + "startDate: new Date(" + dateJS.format(coupon.getRedeemDate()) + "), "
+                                                                + "endDate: new Date(" + dateJS.format(coupon.getRedeemDate()) + ")"
+                                                                + "},");
                                                     }
                                                 %>
                                             </td>
@@ -168,7 +180,19 @@
                                         </tr>
                                         <%
                                                 }
+
+                                                // If the order is 'monthly' or 'weekly', insert earliest and lastest date of the order.
+                                                if (!order.getType().equals("Single")) {
+                                                    stringBuilder.append(
+                                                            "\n{"
+                                                            + "name: " + order.getOrderId() + ","
+                                                            + "type: '" + order.getType() + "',"
+                                                            + "startDate: new Date(" + dateJS.format(orderlistList.get(0).getCoupon().getRedeemDate()) + "), "
+                                                            + "endDate: new Date(" + dateJS.format(orderlistList.get(orderlistList.size() - 1).getCoupon().getRedeemDate()) + ")"
+                                                            + "},");
+                                                }
                                             }
+
                                         %>
                                     </tbody>
                                 </table>
@@ -230,6 +254,8 @@
     <%@include file="../layout/scripts.jsp" %>
     <link href="../../bootstrap/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css"/>
     <script src="../../bootstrap/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+    <link href="../../bootstrap/css/bootstrap-year-calendar.css" rel="stylesheet" type="text/css"/>
+    <script src="../../bootstrap/js/bootstrap-year-calendar.js" type="text/javascript"></script>
     <script>
         $('#orderModal').on('show.bs.modal', function (event) {
             if (event.namespace === 'bs.modal') {
@@ -268,6 +294,37 @@
             $(".ordermeal").click(function (e) {
                 e.preventDefault();
                 $('.cat' + $(this).attr('data-prod-cat')).toggle();
+            });
+            $('.calendar').calendar({
+                mouseOnDay: function (e) {
+                    if (e.events.length > 0) {
+                        var content = '';
+
+                        for (var i in e.events) {
+                            content += '<div class="event-tooltip-content">'
+                                    + '<div class="event-name"> Order #' + e.events[i].name + ' : ' + e.events[i].type + '</div>'
+                                    + '</div>';
+                        }
+
+                        $(e.element).popover({
+                            trigger: 'manual',
+                            container: 'body',
+                            html: true,
+                            content: content
+                        });
+
+                        $(e.element).popover('show');
+                    }
+                },
+                mouseOutDay: function (e) {
+                    if (e.events.length > 0) {
+                        $(e.element).popover('hide');
+                    }
+                },
+                dataSource: [
+        <% stringBuilder.deleteCharAt(stringBuilder.length() - 1);%>
+        <%= stringBuilder.toString()%>
+                ]
             });
         });
 

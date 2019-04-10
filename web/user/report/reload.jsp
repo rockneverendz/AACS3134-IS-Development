@@ -13,13 +13,26 @@
                 text-decoration: none;
                 background-color: #007bff;
             }
-            
+
             html{
                 background-color: #f8f9fa;
             }
 
             .table {
                 margin-bottom: 0;
+            }
+            
+            .table > thead > tr > th:first-child,
+            .table > tbody > tr > td:first-child
+            {
+                padding-left: 2.25rem;
+                text-align: center;
+            }
+
+            .table > thead > tr > th:last-child,
+            .table > tbody > tr > td:last-child
+            {                
+                padding-right: 2.25rem;
             }
 
             .border-left-success {
@@ -48,73 +61,69 @@
             <div class="album py-5 bg-light">
                 <div class="container">
                     <div class="container-fluid">
-                        <div class="row">
-                            <div class="card shadow mb-4 w-100">
-                                <div class="card-header py-3 d-flex mb-3">
-                                    <h6 class="my-auto text-primary">Reload Report</h6>
-                                    <div class="ml-auto">
-                                        <form>
-                                            <div class="input-group datepicker">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">Year</span>
-                                                </div>
-                                                <input type="text" class="form-control" value="2019">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-outline-success" type="submit" id="search">Search</button>
-                                                </div>
+                        <div class="card shadow mb-4 w-100">
+                            <div class="card-header py-3 d-flex">
+                                <h6 class="my-auto text-primary">Reload Report</h6>
+                                <div class="ml-auto">
+                                    <form>
+                                        <div class="input-group datepicker">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Year</span>
                                             </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="card-body row">
-                                    <div class="col-sm-12">
-                                        <table class="table" width="100%" cellspacing="0" role="grid" style="width: 100%;">
-                                            <thead class="thead-light">
-                                                <tr role="row">
-                                                    <th rowspan="1" colspan="1" style="width: 10%;">Reload #</th>
-                                                    <th rowspan="1" colspan="1" style="width: 25%;">Date</th>
-                                                    <th rowspan="1" colspan="1" style="width: 25%;">Time</th>
-                                                    <th rowspan="1" colspan="1" style="width: 20%;">Staff</th>
-                                                    <th rowspan="1" colspan="1" style="width: 20%;">Amount</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <%                                                    //TODO Year Parameter
-                                                    //request.getAttribute("year");
-                                                    CustomerService cs = new CustomerService();
-                                                    customer = cs.findCustByID(customer.getCustId());
-                                                    List<Reload> list = customer.getReloadList();
-
-                                                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
-                                                    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-
-                                                    double totalAmount = 0;
-                                                    for (Reload reload : list) {
-                                                %>
-                                                <tr role="row">
-                                                    <td><%= reload.getReloadId()%></td>
-                                                    <td><%= dateFormat.format(reload.getDate())%></td>
-                                                    <td><%= timeFormat.format(reload.getTime())%></td>
-                                                    <td><%= reload.getStaffId().getUsername()%></td>
-                                                    <td>RM <%= String.format("%.2f", reload.getAmount())%></td>
-                                                </tr>
-                                                <%
-                                                        totalAmount = totalAmount + reload.getAmount();
-                                                    }
-                                                %>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr role="row">
-                                                    <td colspan="4"><strong>Total</strong></td>
-                                                    <td>RM <%= String.format("%.2f", totalAmount)%></td>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
+                                            <input type="text" class="form-control" value="2019">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-success" type="submit" id="search">Search</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+                            <div class="card-body p-0">
+                                <table class="table" width="100%" cellspacing="0" role="grid" style="width: 100%;">
+                                    <thead class="thead-light">
+                                        <tr role="row">
+                                            <th rowspan="1" colspan="1" style="width: 12.5%;">Reload #</th>
+                                            <th rowspan="1" colspan="1" style="width: 22.5%;">Date</th>
+                                            <th rowspan="1" colspan="1" style="width: 22.5%;">Time</th>
+                                            <th rowspan="1" colspan="1" style="width: 20%;">Staff</th>
+                                            <th rowspan="1" colspan="1" style="width: 22.5%;">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%                                                    //TODO Year Parameter
+                                            //request.getAttribute("year");
+                                            CustomerService cs = new CustomerService();
+                                            customer = cs.findCustByID(customer.getCustId());
+                                            List<Reload> list = customer.getReloadList();
+
+                                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
+                                            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+                                            double totalAmount = 0;
+                                            for (Reload reload : list) {
+                                        %>
+                                        <tr role="row">
+                                            <td><%= reload.getReloadId()%></td>
+                                            <td><%= dateFormat.format(reload.getDate())%></td>
+                                            <td><%= timeFormat.format(reload.getTime())%></td>
+                                            <td><%= reload.getStaffId().getUsername()%></td>
+                                            <td>RM <%= String.format("%.2f", reload.getAmount())%></td>
+                                        </tr>
+                                        <%
+                                                totalAmount = totalAmount + reload.getAmount();
+                                            }
+                                        %>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr role="row" class="table-primary">
+                                            <td colspan="4" class="text-right"><strong>Total</strong></td>
+                                            <td>RM <%= String.format("%.2f", totalAmount)%></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
-                    </div>      
+                    </div>
                 </div>
             </div>
         </main>

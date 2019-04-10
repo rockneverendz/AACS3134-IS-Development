@@ -1,3 +1,4 @@
+<%@page import="service.CouponService"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="entity.Coupon"%>
 <%@page import="entity.Orderlist"%>
@@ -22,9 +23,7 @@
             }
 
             .card{
-                height: 200px;
                 margin-bottom: -1px;
-                margin-left: -1px;
                 border-radius: 0;
             }
 
@@ -69,43 +68,55 @@
 
             <div class="album py-5 bg-light">
                 <div class="container">
-                    <div class="row">
+                    <div class="container-fluid">
 
-                        <%  OrderService os = new OrderService();
-                            List<Ordermeal> list = os.findOrderByCustPaid(customer.getCustId());
-                            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                            Coupon coupon;
+                        <div class="calendar mb-4"></div>
 
-                            for (Ordermeal ordermeal : list) {
-                                for (Orderlist orderlist : os.findOrderlistByOrderId(ordermeal.getOrderId())) {
-                                    coupon = orderlist.getCoupon();
-                                    if (coupon.getStatus().equals("Active")) {
-                        %>
-                        <div class="card col-6 border-left-<%= ordermeal.getType().toLowerCase()%>">
-                            <div class="card-body">
-                                <h5 class="card-title">Coupon Number : <%= coupon.getCouponId()%></h5>
-                                <div class="row">
-                                    <p class="card-text col-6">
-                                        Meal : <%= orderlist.getMeal().getName()%> 
-                                        <br>Food Stall : <%= orderlist.getMeal().getCategoryId().getName()%> 
-                                        <br>Redeem Date & Time : 
-                                        <br><%= df.format(coupon.getRedeemDate())%> <%= coupon.getRedeemTime()%>
-                                    </p>
-                                    <p class="card-text col-6">
-                                        Qty : <%= orderlist.getQuantity()%> 
-                                        <br>Price : RM <%= orderlist.getPriceeach()%>
-                                        <br>
-                                        <svg class="barcode color-<%= ordermeal.getType().toLowerCase()%> mx-auto" jsbarcode-value="<%= coupon.getCouponId()%>">
-                                        </svg>
-                                    </p>
+                        <div class="row">
+
+                            <%  CouponService cs = new CouponService();
+                                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                                SimpleDateFormat dateJS = new SimpleDateFormat("yyyy, MM-1, dd");
+                                StringBuilder stringBuilder = new StringBuilder();
+                                List<Coupon> list = cs.findCouponByCustPaid(customer.getCustId());
+                                Ordermeal ordermeal;
+                                Orderlist orderlist;
+
+                                for (Coupon coupon : list) {
+                                    orderlist = coupon.getOrderlist();
+                                    ordermeal = orderlist.getOrdermeal();
+                            %>
+                            <div class="card col-6 border-left-<%= ordermeal.getType().toLowerCase()%>">
+                                <div class="card-body">
+                                    <h5 class="card-title">Coupon Number : <%= coupon.getCouponId()%></h5>
+                                    <div class="row">
+                                        <p class="card-text col-6">
+                                            Meal : <%= orderlist.getMeal().getName()%> 
+                                            <br>Food Stall : <%= orderlist.getMeal().getCategoryId().getName()%> 
+                                            <br>Redeem Date & Time : 
+                                            <br><%= df.format(coupon.getRedeemDate())%> <%= coupon.getRedeemTime()%>
+                                        </p>
+                                        <p class="card-text col-6">
+                                            Qty : <%= orderlist.getQuantity()%> 
+                                            <br>Price : RM <%= orderlist.getPriceeach()%>
+                                            <br>
+                                            <svg class="barcode color-<%= ordermeal.getType().toLowerCase()%> mx-auto" jsbarcode-value="<%= coupon.getCouponId()%>">
+                                            </svg>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <%
-                                    }
+                            <%
+                                    stringBuilder.append(
+                                            "\n{"
+                                            + "name: " + coupon.getCouponId() + ","
+                                            + "time: '" + coupon.getRedeemTime() + "',"
+                                            + "startDate: new Date(" + dateJS.format(coupon.getRedeemDate()) + "), "
+                                            + "endDate: new Date(" + dateJS.format(coupon.getRedeemDate()) + ")"
+                                            + "},");
                                 }
-                            }
-                        %>
+                            %>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -113,10 +124,8 @@
         <%@include file="../layout/footer.jsp" %>
         <%@include file="../layout/scripts.jsp" %>
         <script src="../../bootstrap/js/JsBarcode.all.js" type="text/javascript"></script>
-        <!--
-        Minified doesn't work for some reason
-        <script src="../../bootstrap/js/JsBarcode.all.min.js" type="text/javascript"></script>
-        -->
+        <link href="../../bootstrap/css/bootstrap-year-calendar.css" rel="stylesheet" type="text/css"/>
+        <script src="../../bootstrap/js/bootstrap-year-calendar.js" type="text/javascript"></script>
         <script>
 
             JsBarcode(".barcode")
@@ -126,7 +135,45 @@
                         height: 40,
                         displayValue: false
                     }).init();
-            
+
+            $(document).ready(function () {
+                $(".ordermeal").click(function (e) {
+                    e.preventDefault();
+                    $('.cat' + $(this).attr('data-prod-cat')).toggle();
+                });
+                $('.calendar').calendar({
+                    mouseOnDay: function (e) {
+                        if (e.events.length > 0) {
+                            var content = '';
+
+                            for (var i in e.events) {
+                                content += '<div class="event-tooltip-content">'
+                                        + '<div class="event-name"> Coupon #' + e.events[i].name + ' : ' + e.events[i].time + '</div>'
+                                        + '</div>';
+                            }
+
+                            $(e.element).popover({
+                                trigger: 'manual',
+                                container: 'body',
+                                html: true,
+                                content: content
+                            });
+
+                            $(e.element).popover('show');
+                        }
+                    },
+                    mouseOutDay: function (e) {
+                        if (e.events.length > 0) {
+                            $(e.element).popover('hide');
+                        }
+                    },
+                    dataSource: [
+            <% stringBuilder.deleteCharAt(stringBuilder.length() - 1);%>
+            <%= stringBuilder.toString()%>
+                    ]
+                });
+            });
+
         </script>
     </body>
 </html>
