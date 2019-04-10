@@ -132,8 +132,7 @@
             }
         </style>
     </head>
-
-    <body style="margin-bottom: 60px;">
+    <body>
         <form class="form-token" action="token">
             <div class="text-center mb-4">
                 <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="75%"/>
