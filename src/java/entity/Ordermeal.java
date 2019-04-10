@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -46,7 +48,7 @@ public class Ordermeal implements Serializable {
     @ManyToOne(optional = false)
     private Customer custId;
     @JoinColumn(name = "PAYMENT_ID", referencedColumnName = "PAYMENT_ID")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private Payment paymentId;
 
     public Ordermeal() {

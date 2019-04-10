@@ -39,7 +39,7 @@
                 background-color: rgba(0,0,0,.05);
                 cursor: pointer;
             }
-            
+
         </style>
     </head>
     <body style="margin-bottom: 60px;">
@@ -247,12 +247,13 @@
 
             var ctx = document.getElementById('myChart');
             var labels = [
+            <% dateFormat.applyPattern("dd-MM");%>
                 '<%= dateFormat.format(days[0])%>',
                 '<%= dateFormat.format(days[1])%>',
                 '<%= dateFormat.format(days[2])%>',
                 '<%= dateFormat.format(days[3])%>',
                 '<%= dateFormat.format(days[4])%>',
-                '<%= dateFormat.format(days[5])%>'
+                        '<%= dateFormat.format(days[5])%>'
             ];
             var data = [
             <%=totalcaloriesDays[0]%>,

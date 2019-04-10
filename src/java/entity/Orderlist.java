@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -34,7 +35,7 @@ public class Orderlist implements Serializable {
     @Column(name = "PRICEEACH")
     private double priceeach;
     @JoinColumn(name = "COUPON_ID", referencedColumnName = "COUPON_ID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private Coupon coupon;
     @JoinColumn(name = "MEAL_ID", referencedColumnName = "MEAL_ID", insertable = false, updatable = false)
     @ManyToOne(optional = false)

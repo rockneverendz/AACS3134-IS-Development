@@ -1,3 +1,4 @@
+<%@page import="service.CouponService"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
 <%@page import="service.OrderService"%>
@@ -143,7 +144,7 @@
                                             <th>Time</th>
                                         </tr>
                                         <%
-                                            for (Orderlist ol : order.getOrderlistList()) {
+                                            for (Orderlist ol : os.findOrderlistByOrderId(order.getOrderId())) {
                                                 Coupon coupon = ol.getCoupon();
                                         %>
                                         <tr role="row" class="cat<%= i%>" style="display:none">

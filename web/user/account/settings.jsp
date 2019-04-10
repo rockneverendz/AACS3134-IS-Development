@@ -108,8 +108,7 @@
             }
         </style>
     </head>
-
-    <body style="margin-bottom: 60px;">
+    <body>
         <%@include file="../layout/navbar.jsp" %>
         <!-- Main -->
         <div class="container">

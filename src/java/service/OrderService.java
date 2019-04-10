@@ -66,7 +66,6 @@ public class OrderService {
     }
 
     public List<Ordermeal> findOrderByCustCompleted(int custId, int month) {
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         return em.createNativeQuery("SELECT o.* FROM Ordermeal o"
                 + " INNER JOIN Payment p ON o.PAYMENT_ID = p.PAYMENT_ID"
                 + " WHERE o.CUST_ID = " + custId
@@ -86,6 +85,15 @@ public class OrderService {
                 + df.format(startDate) + "' AND '" + df.format(endDate) + "'"
                 + " ORDER BY p.date ASC",
                 Ordermeal.class)
+                .getResultList();
+    }
+    
+    public List<Orderlist> findOrderlistByOrderId(int orderId) {
+        return em.createNativeQuery("SELECT o.* FROM Orderlist o"
+                + " INNER JOIN Coupon c ON o.COUPON_ID = c.COUPON_ID"
+                + " WHERE o.ORDER_ID = " + orderId
+                + " ORDER BY c.REDEEM_DATE ASC",
+                Orderlist.class)
                 .getResultList();
     }
 
