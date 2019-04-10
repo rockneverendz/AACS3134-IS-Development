@@ -30,6 +30,7 @@ public class DBII {
             "/structure/CategoryImages/hainanese-chicken-83.jpg",
             "/structure/CategoryImages/indomee.jpg",
             "/structure/CategoryImages/veg.jpg"
+        // Fresh Code
         };
 
         String[] foodImages = {
@@ -44,6 +45,9 @@ public class DBII {
             "/structure/FoodImages/MasakanMalaysia/nasi-lemak.jpg",
             "/structure/FoodImages/MasakanMalaysia/NasiLemakRendang.jpg",
             "/structure/FoodImages/MasakanMalaysia/NasiGorengKampung.jpg",
+            "/structure/FoodImages/MasakanMalaysia/KuetiaoGoreng.jpg",
+            "/structure/FoodImages/MasakanMalaysia/nasi-goreng-pattaya.jpg",
+            "/structure/FoodImages/MasakanMalaysia/MeeGoreng.jpg",
             // Noodle
             "/structure/FoodImages/Noodles/fishballnoodlesoup.jpg",
             "/structure/FoodImages/Noodles/MushroomRamen.jpg",
@@ -54,7 +58,24 @@ public class DBII {
             // Indomee
             "/structure/FoodImages/IndoDeli/Indomee.jpg",
             "/structure/FoodImages/IndoDeli/IndomeeSpicy.jpg",
-            "/structure/FoodImages/IndoDeli/IndomieWithChicken.jpg"
+            "/structure/FoodImages/IndoDeli/SaltedIndoMie.jpg",
+            "/structure/FoodImages/IndoDeli/IndomieWithChicken.jpg",
+            "/structure/FoodImages/IndoDeli/IndoMieFish.jpg",
+            "/structure/FoodImages/IndoDeli/IndoMieSeafood.jpg",
+            // Vegetarian cuisine
+            "/structure/FoodImages/Veggie/CurryVegetable.jpg",
+            "/structure/FoodImages/Veggie/SpicySweetPotatoCurry.jpg",
+            "/structure/FoodImages/Veggie/SauteedGingerSoyChicken.jpg",
+            "/structure/FoodImages/Veggie/SpicyMonogolianDelight.jpg",
+            "/structure/FoodImages/Veggie/SpicySzechuanPineappleBeef.jpg",
+            "/structure/FoodImages/Veggie/PineappleSeaweedSoyFish.jpg",
+            // Fresh Code
+            "/structure/FoodImages/FreshCode/Carrot.jpg",
+            "/structure/FoodImages/FreshCode/lycheejuice.jpg",
+            "/structure/FoodImages/FreshCode/pineappleJuice.jpg",
+            "/structure/FoodImages/FreshCode/Passion-Fruit-Juice.jpg",
+            "/structure/FoodImages/FreshCode/mango-juice.jpg",
+            "/structure/FoodImages/FreshCode/watermelonJuice.jpg"
         };
 
         DBII dbii = new DBII();
