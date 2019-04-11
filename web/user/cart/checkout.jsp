@@ -77,8 +77,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%  List<Orderlist> order = (List<Orderlist>) session.getAttribute("order");
-                                            Orderlist orderlist;
+                                        <%  Orderlist orderlist;
                                             Coupon coupon;
                                             double priceEach;
                                             int quantity;

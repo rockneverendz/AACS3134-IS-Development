@@ -49,8 +49,7 @@
             <div class="album py-5 bg-light">
                 <div class="container">
                     <div class="container-fluid">
-                        <%  List<Orderlist> order = (List<Orderlist>) session.getAttribute("order");
-                            Orderlist orderlist;
+                        <%  Orderlist orderlist;
                             Coupon coupon;
                             double priceEach;
                             int quantity;

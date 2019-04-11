@@ -9,10 +9,18 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../cart/cart.jsp"><i class="fas fa-shopping-cart"></i> Cart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../meal/main.jsp"><i class="fas fa-edit"></i> Order</a>
+                    <a class="nav-link" href="../cart/cart.jsp"><i class="fas fa-shopping-cart"></i> Cart 
+                        <%@page import="entity.Orderlist"%>
+                        <%@page import="java.util.List"%>
+                        <%
+                            List<Orderlist> order = (List<Orderlist>) session.getAttribute("order");
+                            if (order != null && !order.isEmpty()) {
+                        %>
+                        <span class="badge badge-pill badge-danger"><%= order.size()%></span>
+                        <%
+                            }
+                        %>
+                    </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle dropdown-menu-left" href="#" id="navbardrop" data-toggle="dropdown"><i class="fas fa-user"></i> Account</a>
@@ -25,7 +33,7 @@
                                 return;
                             }
                         %>
-                        <div class="btn dropdown-item"> Points : <%= String.format("%.2f", customer.getCreditpoints()) %> </div>
+                        <div class="btn dropdown-item"> Points : <%= String.format("%.2f", customer.getCreditpoints())%> </div>
                         <a class="btn dropdown-item" href="../report/coupon.jsp" role="button"><i class="float-right fas fa-money-check-alt" style="line-height:inherit"></i>Coupons</a>
                         <div class="dropdown-divider"></div>
                         <h6 class="dropdown-header">Reports</h6>
