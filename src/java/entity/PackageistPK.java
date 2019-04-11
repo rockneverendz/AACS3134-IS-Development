@@ -9,26 +9,18 @@ import javax.persistence.Embeddable;
 public class PackageistPK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "MEAL_ID")
-    private int mealId;
-    @Basic(optional = false)
     @Column(name = "PACKAGE_ID")
     private int packageId;
+    @Basic(optional = false)
+    @Column(name = "DAY_OF_WEEK")
+    private int dayOfWeek;
 
     public PackageistPK() {
     }
 
-    public PackageistPK(int mealId, int packageId) {
-        this.mealId = mealId;
+    public PackageistPK(int packageId, int dayOfWeek) {
         this.packageId = packageId;
-    }
-
-    public int getMealId() {
-        return mealId;
-    }
-
-    public void setMealId(int mealId) {
-        this.mealId = mealId;
+        this.dayOfWeek = dayOfWeek;
     }
 
     public int getPackageId() {
@@ -39,11 +31,19 @@ public class PackageistPK implements Serializable {
         this.packageId = packageId;
     }
 
+    public int getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(int dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) mealId;
         hash += (int) packageId;
+        hash += (int) dayOfWeek;
         return hash;
     }
 
@@ -54,10 +54,10 @@ public class PackageistPK implements Serializable {
             return false;
         }
         PackageistPK other = (PackageistPK) object;
-        if (this.mealId != other.mealId) {
+        if (this.packageId != other.packageId) {
             return false;
         }
-        if (this.packageId != other.packageId) {
+        if (this.dayOfWeek != other.dayOfWeek) {
             return false;
         }
         return true;
@@ -65,7 +65,7 @@ public class PackageistPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.PackageistPK[ mealId=" + mealId + ", packageId=" + packageId + " ]";
+        return "entity.PackageistPK[ packageId=" + packageId + ", dayOfWeek=" + dayOfWeek + " ]";
     }
 
 }

@@ -17,8 +17,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Packageist.findAll", query = "SELECT p FROM Packageist p")
-    , @NamedQuery(name = "Packageist.findByMealId", query = "SELECT p FROM Packageist p WHERE p.packageistPK.mealId = :mealId")
     , @NamedQuery(name = "Packageist.findByPackageId", query = "SELECT p FROM Packageist p WHERE p.packageistPK.packageId = :packageId")
+    , @NamedQuery(name = "Packageist.findByDayOfWeek", query = "SELECT p FROM Packageist p WHERE p.packageistPK.dayOfWeek = :dayOfWeek")
     , @NamedQuery(name = "Packageist.findByQuantity", query = "SELECT p FROM Packageist p WHERE p.quantity = :quantity")
     , @NamedQuery(name = "Packageist.findByPriceeach", query = "SELECT p FROM Packageist p WHERE p.priceeach = :priceeach")})
 public class Packageist implements Serializable {
@@ -32,9 +32,9 @@ public class Packageist implements Serializable {
     @Basic(optional = false)
     @Column(name = "PRICEEACH")
     private double priceeach;
-    @JoinColumn(name = "MEAL_ID", referencedColumnName = "MEAL_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "MEAL_ID", referencedColumnName = "MEAL_ID")
     @ManyToOne(optional = false)
-    private Meal meal;
+    private Meal mealId;
     @JoinColumn(name = "PACKAGE_ID", referencedColumnName = "PACKAGE_ID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Package package1;
@@ -52,8 +52,8 @@ public class Packageist implements Serializable {
         this.priceeach = priceeach;
     }
 
-    public Packageist(int mealId, int packageId) {
-        this.packageistPK = new PackageistPK(mealId, packageId);
+    public Packageist(int packageId, int dayOfWeek) {
+        this.packageistPK = new PackageistPK(packageId, dayOfWeek);
     }
 
     public PackageistPK getPackageistPK() {
@@ -80,12 +80,12 @@ public class Packageist implements Serializable {
         this.priceeach = priceeach;
     }
 
-    public Meal getMeal() {
-        return meal;
+    public Meal getMealId() {
+        return mealId;
     }
 
-    public void setMeal(Meal meal) {
-        this.meal = meal;
+    public void setMealId(Meal mealId) {
+        this.mealId = mealId;
     }
 
     public Package getPackage1() {
