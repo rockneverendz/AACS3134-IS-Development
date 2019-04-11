@@ -36,6 +36,19 @@ public class CouponService {
                 .getResultList();
     }
     
+    public List findCouponSummary(int custId) {
+        return em.createNativeQuery("SELECT COUNT(c.COUPON_ID) AS NumberOfFood, ca.\"NAME\""
+                + " FROM COUPON c"
+                + " INNER JOIN ORDERLIST ol ON ol.COUPON_ID = c.COUPON_ID"
+                + " INNER JOIN MEAL m ON ol.MEAL_ID = m.MEAL_ID"
+                + " INNER JOIN ORDERMEAL om ON om.ORDER_ID = ol.ORDER_ID"
+                + " INNER JOIN CATEGORY ca ON ca.CATEGORY_ID = m.CATEGORY_ID"
+                + " WHERE om.CUST_ID = " + custId
+                + " AND om.STATUS = 'Completed'"
+                + " GROUP BY ca.\"NAME\"")
+                .getResultList();
+    }
+    
     public boolean updateCoupon(Coupon newCoupon) throws RollbackException {
         Coupon oldCoupon = findCouponByID(newCoupon.getCouponId());
         if (oldCoupon != null) {
