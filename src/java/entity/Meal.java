@@ -63,7 +63,7 @@ public class Meal implements Serializable {
     private Category categoryId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "meal")
     private List<Orderlist> orderlistList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "meal")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mealId")
     private List<Packageist> packageistList;
 
     public Meal() {
