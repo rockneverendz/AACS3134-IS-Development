@@ -139,7 +139,7 @@
                     %>
 
                     <div class="row">
-                        <% for (Meal meal : ms.findMealByCategoryID(category, true)) {
+                        <% for (Meal meal : ms.findMealByCategoryIDAvail(category, true)) {
                         %>
                         <div class="col-md-4">
                             <div class="card mb-4 shadow-sm">

@@ -58,13 +58,20 @@ public class MealService {
     public Meal findMealByID(int id) {
         return (Meal) em.find(Meal.class, id);
     }
-
-    public List<Meal> findMealByCategoryID(Category categoryId, Boolean availability) {
+    
+    public List<Meal> findMealByCategoryIDAvail(Category categoryId, Boolean availability) {
         return (List<Meal>) em.createQuery("SELECT m FROM Meal m"
                 + " WHERE m.categoryId = :categoryId"
                 + " AND m.availability = :availability")
                 .setParameter("categoryId", categoryId)
                 .setParameter("availability", availability)
+                .getResultList();
+    }
+
+    public List<Meal> findMealByCategoryID(Category categoryId) {
+        return (List<Meal>) em.createQuery("SELECT m FROM Meal m"
+                + " WHERE m.categoryId = :categoryId")
+                .setParameter("categoryId", categoryId)
                 .getResultList();
     }
 
