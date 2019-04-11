@@ -41,7 +41,7 @@
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4" style="max-width: 1000px;">
                         <% if (dateString == null) {%>
-                        <h3>Today Meal Orders</h3>
+                        <h3>Tomorrow Meal Orders</h3>
                         <% } else {%>
                         <h3>Meal Orders for <%= todayDateString%></h3>
                         <% } %>
@@ -59,16 +59,7 @@
                             </thead>
                             <tbody>
                                 <%
-                                    String spageid = request.getParameter("page");
-                                    int pageid = Integer.parseInt(spageid);
-                                    int total = 20;
                                     int i = 1;
-                                    if (pageid == 1) {
-                                    } else {
-                                        pageid = pageid - 1;
-                                        pageid = pageid * total;
-                                    }
-
                                     String host = "jdbc:derby://localhost:1527/canteenDB";
                                     String user = "nbuser";
                                     String password = "nbuser";
@@ -79,15 +70,12 @@
                                             + "INNER JOIN CATEGORY CA ON CA.CATEGORY_ID = M.CATEGORY_ID "
                                             + "WHERE C.REDEEM_DATE = ? AND M.CATEGORY_ID = ? "
                                             + "GROUP BY OL.MEAL_ID, M.NAME "
-                                            + "ORDER BY OL.MEAL_ID "
-                                            + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+                                            + "ORDER BY OL.MEAL_ID ";
                                     try {
                                         Connection conn = DriverManager.getConnection(host, user, password);
                                         PreparedStatement stmt = conn.prepareStatement(sqlQuery);
                                         stmt.setString(1, todayDateString);
                                         stmt.setString(2, Integer.toString(catID));
-                                        stmt.setString(3, Integer.toString(pageid - 1));
-                                        stmt.setString(4, Integer.toString(total));
                                         ResultSet rs = stmt.executeQuery();
                                         while (rs.next()) {
                                             String mealID = rs.getString("MEAL_ID");
@@ -124,7 +112,7 @@
                             
                             <tbody>
                                 <%    
-                                    int j=0;
+                                    int j=1;
                                     String sqlQuery2 = "SELECT IL.INGREDIENT_ID, I.INGREDIENT_NAME, SUM(IL.QUANTITY) AS TOTAL_INGREDIENTS "
                                             + "FROM ORDERMEAL O INNER JOIN  ORDERLIST OL ON O.ORDER_ID = OL.ORDER_ID "
                                             + "INNER JOIN MEAL M ON OL.MEAL_ID = M.MEAL_ID "
@@ -134,15 +122,15 @@
                                             + "INNER JOIN INGREDIENT I ON I.INGREDIENT_ID = IL.INGREDIENT_ID "
                                             + "WHERE C.REDEEM_DATE = ? AND M.CATEGORY_ID = ? "
                                             + "GROUP BY IL.INGREDIENT_ID, I.INGREDIENT_NAME "
-                                            + "ORDER BY IL.INGREDIENT_ID "
-                                            + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+                                            + "ORDER BY IL.INGREDIENT_ID ";
+                                         //   + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
                                     try {
                                         Connection conn = DriverManager.getConnection(host, user, password);
                                         PreparedStatement stmt = conn.prepareStatement(sqlQuery2);
                                         stmt.setString(1, todayDateString);
                                         stmt.setString(2, Integer.toString(catID));
-                                        stmt.setString(3, Integer.toString(pageid - 1));
-                                        stmt.setString(4, Integer.toString(total));
+//                                        stmt.setString(3, Integer.toString(pageid - 1));
+//                                        stmt.setString(4, Integer.toString(total));
                                         ResultSet rs = stmt.executeQuery();
                                         while (rs.next()) {
                                             String ingredientID = rs.getString("INGREDIENT_ID");
@@ -213,7 +201,7 @@
                             </nav>
                         </div>
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks <i class="far fa-copyright"></i> 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
                 </main>
             </div>
         </div>
@@ -235,7 +223,7 @@
 
             function setDate() {
                 var month = $('.inputMonth').val();
-                var url = 'mealPreparation.jsp?page=' + '<%= pageid%>' + '&date=' + month;
+                var url = 'mealPreparation.jsp?&date=' + month;
 
                 $('#search').attr('href', url);
             }

@@ -62,6 +62,7 @@
                                         <option value="30">30</option>
                                         <option value="50">50</option>
                                         <option value="100">100</option>
+                                        <option value="500">500</option>
                                     </select>
                                     
                                 </div>
@@ -74,7 +75,7 @@
                             </div>
                             <hr>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Reload</button>
-                            <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
+                            <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
                         </form>
                     </div>
                 </main>

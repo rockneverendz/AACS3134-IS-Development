@@ -101,7 +101,7 @@
                         </div>
                     </div>
                     <hr>
-                    <p class="mb-3 text-muted text-center">Bricks © 2019</p>
+                    <p class="mb-3 text-muted text-center">Bricks &copy; 2019</p>
                 </main>
             </div>
         </div>

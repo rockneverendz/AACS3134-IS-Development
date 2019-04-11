@@ -18,8 +18,7 @@
                 <!-- Fixed-Sidebar Navs -->
                 <%@include file="../layout/sidebar.jsp" %>
 
-                <%                    
-                    String[] monthArr = {"January", "February", "March", "April", "May", "June", "July", "August", "September" , "October", "November", "December"};
+                <%                    String[] monthArr = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
                     int selectedMonth;
                     String monthString = request.getParameter("month");
                     System.out.println(monthString);
@@ -36,7 +35,17 @@
                 %>
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4" style="max-width: 1000px;">
-                        <h3>Sales Report for <%= monthArr[selectedMonth-1]%></h3>
+
+                        <div id="reportHeader" class="row mb-3">
+                            <div class="col-6  d-none d-print-block">
+                                <img class="img-fluid" src="../../resource/Logo2.png" alt="logo" width="200px">
+                            </div>
+                            <div class="col-6 text-right mt-1  d-none d-print-block">
+                                <h6>Block B, Tunku Abdul Rahman University College,<br>53100 Kuala Lumpur,<br>Federal Territory of Kuala Lumpur</h6>
+                            </div>                            
+                        </div>
+
+                        <h3>Sales Report for <%= monthArr[selectedMonth - 1]%></h3>
 
                         <table class="table table-sm table-bordered table-hover">
                             <thead>
@@ -52,12 +61,14 @@
 
                                     String spageid = request.getParameter("page");
                                     int pageid = Integer.parseInt(spageid);
-                                    int total = 20;
+                                    int offset = 1;
+                                    int total = 15;
                                     int i = 1;
                                     if (pageid == 1) {
+                                        //offset = offset - 1;
                                     } else {
-                                        pageid = pageid - 1;
-                                        pageid = pageid * total;
+                                        offset = (pageid - 1) * total + 1;
+                                        System.out.println(offset);
                                     }
 
                                     String host = "jdbc:derby://localhost:1527/canteenDB";
@@ -75,7 +86,7 @@
                                         Connection conn = DriverManager.getConnection(host, user, password);
                                         PreparedStatement stmt = conn.prepareStatement(sqlQuery);
                                         stmt.setString(1, Integer.toString(selectedMonth));
-                                        stmt.setString(2, Integer.toString(pageid - 1));
+                                        stmt.setString(2, Integer.toString(offset - 1));
                                         stmt.setString(3, Integer.toString(total));
                                         ResultSet rs = stmt.executeQuery();
                                         while (rs.next()) {
@@ -137,9 +148,9 @@
                                             <span class="sr-only">Previous</span>
                                         </a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="topSales.jsp?page=1">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="topSales.jsp?page=2">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="topSales.jsp?page=3">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="topSales.jsp?page=1&month=<%= selectedMonth%>">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="topSales.jsp?page=2&month=<%= selectedMonth%>">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="topSales.jsp?page=3&month=<%= selectedMonth%>">3</a></li>
                                     <li class="page-item">
                                         <a class="page-link" href="#" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
@@ -150,7 +161,7 @@
                             </nav>
                         </div>
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks <i class="far fa-copyright"></i> 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
                 </main>
             </div>
         </div>

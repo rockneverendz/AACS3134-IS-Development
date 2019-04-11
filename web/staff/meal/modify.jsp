@@ -32,11 +32,31 @@
                                 <div class="text-center mb-4">
                                     <h1 class="h1 mb-3">Update Meal Information</h1>
                                 </div>
+                                <%  String status = request.getParameter("status");
+                                    String message;
+                                    String type;
+                                    if (status == null) {
+                                    } else {
+                                        char code = status.charAt(0);
+                                        if (code == '1') {
+                                            type = "success";
+                                            message = "Successfully Added Meal!";
+                                        } else {
+                                            type = "danger";
+                                            message = "An error has occured";
+                                        }
+                                %>
+                                <div class="alert alert-<%= type%>" role="alert">
+                                    <%= message%>
+                                </div>
+                                <%
+                                    }
+                                %>
                                 <div class="row mb-4">
                                     <div class="col">
                                         <label for="inputName">Name</label>
                                         <div class="input-group">
-                                            <input value="<%= currentMeal.getMealId() %>" name="mealId" hidden>
+                                            <input value="<%= currentMeal.getMealId()%>" name="mealId" hidden>
                                             <input id="inputName" name="Name" type="text" class="form-control"  
                                                    placeholder="Name" value="<%= currentMeal.getName()%>" required>
                                         </div>
@@ -71,7 +91,7 @@
                                         <div class="input-group">
                                             <div class="custom-file">
                                                 <label for="inputFile" class="form-control custom-file-label">Choose file</label>
-                                                <input id="inputFile" name="image" type="file" class="custom-file-input" required>
+                                                <input id="inputFile" name="image" type="file" class="custom-file-input">
                                             </div>
                                         </div>
                                     </div>
@@ -83,27 +103,105 @@
                                         <div class="input-group mb-2">
                                             <div id="ingredientList" class="row" style="margin-left: 0px; margin-right: 0px; width: 100%;">
                                                 <input name='Ingredient' type="text" class="flexdatalist form-control col-8" placeholder="Ingredient">
-                                                <input name='Quantity' type="number" class="ingreQuantity form-control col-2" placeholder="Quantity" min="1" max="10" step="0.01">
+                                                <input name='Quantity' type="number" class="ingreQuantity form-control col-2" placeholder="Quantity" min="1" max="10" step="0.01" required>
                                                 <button class="removeBtn btn btn-outline-secondary col-2" type="button" onclick="remove_fields(this.id)" hidden>Remove</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
-                                <div class="row p-1 mb-3">
-                                    <div class="col">
-                                        <button class="btn btn-lg btn-primary btn-block" type="submit">Update Meal</button>
-                                    </div>
-                                    <div class="col">
-                                        <button class="btn btn-lg btn-danger btn-block" type="submit">Disable</button>
+                                <div class="row m-auto">
+                                    <button class="btn btn-lg btn-primary btn-block" type="submit">Update Meal</button>
+                                </div>
+                            </form>
+                            <hr>
+
+                            <%
+                                if (currentMeal.getAvailability() == true) {
+                            %>
+                            <button type="button" class="btn btn-lg btn-danger btn-block mb-4" data-toggle="modal" data-target="#exampleModalCenter">
+                                Deactivate
+                            </button>
+                            <!-- Button trigger modal -->
+
+                            <form action="UpdateAvail" method="get">
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Confirmation to deactivate meal</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input value="<%= currentMeal.getMealId()%>" name="mealId" hidden>
+                                                <p>Are you sure you want to deactivate this meal?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-outline-danger">Yes</button>
+                                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">No</button>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
-                                <a href="manageMeal.jsp" class="btn btn-lg btn-secondary btn-block" style="color: white;">Back</a>
                             </form>
+
+                            <% } else {%>
+                            <button type="button" class="btn btn-lg btn-success btn-block mb-4" data-toggle="modal" data-target="#exampleModalCenter">
+                                Activate
+                            </button>
+                            <!-- Button trigger modal -->
+
+                            <form action="UpdateAvail" method="get">
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Confirmation to activate meal</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input value="<%= currentMeal.getMealId()%>" name="mealId" hidden>
+                                                <p>Are you sure you want to activate this meal?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-outline-success">Yes</button>
+                                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">No</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+
+                            <% }%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <a href="manageMeal.jsp" class="btn btn-lg btn-secondary btn-block" style="color: white;">Back</a>
+
                         </div>
 
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
                 </main>
             </div>
         </div>

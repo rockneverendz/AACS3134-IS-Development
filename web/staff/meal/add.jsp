@@ -7,7 +7,6 @@
         <title>Staff | Manage Meals</title>
     </head>
     <body>
-
         <!-- Fixed-top Navs -->
         <%@include file="../layout/topnavbar.jsp" %>
 
@@ -109,14 +108,15 @@
                                 <div class="row mb-4">
                                     <div class="col">
                                         <label for="inputIngredients">Ingredient List</label>
-                                        <button class="btn btn-outline-secondary" type="button" onclick="add_fields()"><i class="fas fa-plus"></i></button>
+                                        
                                         <div class="input-group mb-2">
                                             <div id="ingredientList" class="row" style="margin-left: 0px; margin-right: 0px; width: 100%;">
-                                                <input name='Ingredient' type="text" class="flexdatalist form-control col-8" placeholder="Ingredient">
-                                                <input name='Quantity' type="number" class="ingreQuantity form-control col-2" placeholder="Quantity" min="1" max="10" step="0.01">
+                                                <input name='Ingredient' type="text" class="flexdatalist form-control col-8" placeholder="Ingredient" required>
+                                                <input name='Quantity' type="number" class="ingreQuantity form-control col-2" placeholder="Quantity" min="1" max="10" step="0.5">
                                                 <button class="removeBtn btn btn-outline-secondary col-2" type="button" onclick="remove_fields(this.id)" hidden>Remove</button>
                                             </div>
                                         </div>
+                                        <button class="btn btn-outline-info" type="button" onclick="add_fields()">Add More Ingredient</button>
                                     </div>
                                 </div>
                                 <hr>
@@ -126,7 +126,7 @@
                         </div>
                     </div>
                     <div id="somediv"></div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks <i class="far fa-copyright"></i> 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
                 </main>
             </div>
         </div>

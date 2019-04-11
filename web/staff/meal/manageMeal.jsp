@@ -45,9 +45,7 @@
 //                                    return;
 //                                }
                                 MealService mealService = new MealService();
-                                List<Meal> MealList = mealService.findMealByCategoryID(
-                                        staff.getCategoryId()
-                                );
+                                List<Meal> MealList = mealService.findMealByCategoryID(staff.getCategoryId());
                             %>
                             <tbody>
                                 <% for (Meal meal : MealList) {%>
@@ -83,7 +81,7 @@
                             </div>
                         </div>
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
                 </main>
             </div>
         </div>

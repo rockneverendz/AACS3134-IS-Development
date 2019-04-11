@@ -58,7 +58,7 @@ public class MealService {
     public Meal findMealByID(int id) {
         return (Meal) em.find(Meal.class, id);
     }
-    
+
     public List<Meal> findMealByCategoryIDAvail(Category categoryId, Boolean availability) {
         return (List<Meal>) em.createQuery("SELECT m FROM Meal m"
                 + " WHERE m.categoryId = :categoryId"
@@ -121,6 +121,26 @@ public class MealService {
             return true;
         }
         return false;
+    }
+
+    public boolean updateMealAvailably(Meal newMeal) {
+        Meal oldMeal = findMealByID(newMeal.getMealId());
+
+        if (oldMeal != null) {
+            if (oldMeal.getAvailability()) {
+                em.getTransaction().begin();
+                oldMeal.setAvailability(Boolean.FALSE);
+                em.getTransaction().commit();
+            } else{
+                em.getTransaction().begin();
+                oldMeal.setAvailability(Boolean.TRUE);
+                em.getTransaction().commit();
+            }
+
+            return true;
+        }
+        return false;
+
     }
 
     public List<Meal> findAll() {

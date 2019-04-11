@@ -85,12 +85,14 @@
                                     <% for (int i = 0; i < 6; i++) {%>
                                     <div class="col-md-4">
                                         <div class="<%= colorClass[i]%> text-white card mb-4 rounded shadow">
+                                            
                                             <div class="card-body">
                                                 <h5 class="card-title"><%= dayOfWeeks[i]%></h5>
                                                 <hr>
                                                 <h6>Please select a meal for the day.</h6>
                                             </div>
-                                            <div class="card-footer text-right">
+                                            <div class="card-footer">
+                                                <input name="dayOfWeek" value="<%= i+1 %>" class="form-control" type="text" hidden>
                                                 <select name="maelArr" class="custom-select" required="true">
                                                     <option value="" selected="true" disabled="true">Choose...</option>
                                                     <% for (Meal meal : MealList) {%>
@@ -116,7 +118,7 @@
                         </div>
                     </div>
                     <hr>
-                    <p class="mb-3 text-muted text-center">Bricks © 2019</p>
+                    <p class="mb-3 text-muted text-center">Bricks &copy; 2019</p>
                 </main>
             </div>
         </div>
