@@ -126,19 +126,19 @@
                                             Date todayAdd2 = calendar.getTime();
 
                                             for (int i = 0; i < list.size(); i++) {
-                                                Ordermeal order = list.get(i);
+                                                Ordermeal ordermeal = list.get(i);
                                         %>
                                         <tr role="row" class="ordermeal" data-prod-cat="<%= i%>">
-                                            <td><%= order.getOrderId()%></td>
-                                            <td><%= order.getType()%></td>
-                                            <td><%= dateFormat.format(order.getPaymentId().getDate())%></td>
-                                            <td><%= order.getStatus()%></td>
-                                            <td>RM <%= String.format("%.2f", order.getPaymentId().getAmount())%></td>
+                                            <td><%= ordermeal.getOrderId()%></td>
+                                            <td><%= ordermeal.getType()%></td>
+                                            <td><%= dateFormat.format(ordermeal.getPaymentId().getDate())%></td>
+                                            <td><%= ordermeal.getStatus()%></td>
+                                            <td>RM <%= String.format("%.2f", ordermeal.getPaymentId().getAmount())%></td>
                                         </tr>
                                         <tr role="row" class="table-secondary cat<%= i%>" style="display:none">
                                             <td>
                                                 <a class="btn btn-outline-danger btn-sm" role="button"
-                                                   href="../order/cancelOrder?orderId=<%= order.getOrderId()%>">
+                                                   href="../order/cancelOrder?orderId=<%= ordermeal.getOrderId()%>">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                             </td>
@@ -148,14 +148,14 @@
                                             <th>Time</th>
                                         </tr>
                                         <%
-                                            List<Orderlist> orderlistList = os.findOrderlistByOrderId(order.getOrderId());
+                                            List<Orderlist> orderlistList = os.findOrderlistByOrderId(ordermeal.getOrderId());
                                             for (Orderlist ol : orderlistList) {
                                                 Coupon coupon = ol.getCoupon();
                                         %>
                                         <tr role="row" class="cat<%= i%>" style="display:none">
                                             <td id="row<%= coupon.getCouponId()%>">
                                                 <%
-                                                    if (order.getType().equals("Single")) {
+                                                    if (ordermeal.getType().equals("Single")) {
                                                 %>
                                                 <button type="button" class="btn btn-outline-info btn-sm"
                                                         data-toggle="modal" data-target="#orderModal"
@@ -165,8 +165,8 @@
                                                 <%
                                                         stringBuilder.append(
                                                                 "\n{"
-                                                                + "name: " + order.getOrderId() + ","
-                                                                + "type: '" + order.getType() + "',"
+                                                                + "name: " + ordermeal.getOrderId() + ","
+                                                                + "type: '" + ordermeal.getType() + "',"
                                                                 + "startDate: new Date(" + dateJS.format(coupon.getRedeemDate()) + "), "
                                                                 + "endDate: new Date(" + dateJS.format(coupon.getRedeemDate()) + ")"
                                                                 + "},");
@@ -182,11 +182,11 @@
                                                 }
 
                                                 // If the order is 'monthly' or 'weekly', insert earliest and lastest date of the order.
-                                                if (!order.getType().equals("Single")) {
+                                                if (!ordermeal.getType().equals("Single")) {
                                                     stringBuilder.append(
                                                             "\n{"
-                                                            + "name: " + order.getOrderId() + ","
-                                                            + "type: '" + order.getType() + "',"
+                                                            + "name: " + ordermeal.getOrderId() + ","
+                                                            + "type: '" + ordermeal.getType() + "',"
                                                             + "startDate: new Date(" + dateJS.format(orderlistList.get(0).getCoupon().getRedeemDate()) + "), "
                                                             + "endDate: new Date(" + dateJS.format(orderlistList.get(orderlistList.size() - 1).getCoupon().getRedeemDate()) + ")"
                                                             + "},");
@@ -322,7 +322,6 @@
                     }
                 },
                 dataSource: [
-        <% stringBuilder.deleteCharAt(stringBuilder.length() - 1);%>
         <%= stringBuilder.toString()%>
                 ]
             });
