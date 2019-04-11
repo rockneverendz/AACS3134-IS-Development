@@ -130,11 +130,7 @@
 
                         <!-- Button trigger modal -->
                         <button class="btn btn-lg btn-outline-danger btn-block" data-toggle="modal" data-target="#exampleModalCenter">Change Password</button>
-
-
-                        <p class="mt-5 mb-3 text-muted text-center">Bricks © 2019</p>
-
-
+                        <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
 
                     </div>
                 </main>

@@ -80,7 +80,7 @@
                                 <button class="btn btn-lg btn-primary btn-block mt-5" type="submit">Redeem</button>
                             </div>
 
-                            <p class="mt-5 mb-3 text-muted text-center">Bricks <i class="far fa-copyright"></i> 2019</p>
+                            <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
                         </form>
                     </div>
                 </main>

@@ -35,6 +35,16 @@
                 %>
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4" style="max-width: 1000px;">
+                        
+                        <div id="reportHeader" class="row mb-3">
+                            <div class="col-6  d-none d-print-block">
+                                <img class="img-fluid" src="../../resource/Logo2.png" alt="logo" width="200px">
+                            </div>
+                            <div class="col-6 text-right mt-1  d-none d-print-block">
+                                <h6>Block B, Tunku Abdul Rahman University College,<br>53100 Kuala Lumpur,<br>Federal Territory of Kuala Lumpur</h6>
+                            </div>                            
+                        </div>
+                        
                         <h3>Daily Meals Order List for <%= monthArr[selectedMonth - 1]%></h3>
 
                         <table class="table table-sm table-bordered table-hover">
@@ -42,8 +52,7 @@
                                 <tr>
                                     <th scope="col">Customer ID</th>
                                     <th scope="col">Username</th>
-                                    <th scope="col">Order ID</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Order Status</th>
                                     <th scope="col">Payment ID</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Time</th>
@@ -54,12 +63,12 @@
                                 <%
                                     String spageid = request.getParameter("page");
                                     int pageid = Integer.parseInt(spageid);
-                                    int total = 20;
+                                    int offset = 1;
+                                    int total = 30;
                                     if (pageid == 1) {
-//                                        pageid = pageid - 1;  // Set offset to 0 and total = 15
                                     } else {
-                                        pageid = pageid - 1;    //page id = 2 then - 1 then == 1 then offest = 1 * 15 + 1 
-                                        pageid = (pageid * total) + 1;
+                                        offset = (pageid - 1) * total + 1;
+                                        System.out.println(offset);
                                     }
 
                                     String host = "jdbc:derby://localhost:1527/canteenDB";
@@ -74,13 +83,12 @@
                                         Connection conn = DriverManager.getConnection(host, user, password);
                                         PreparedStatement stmt = conn.prepareStatement(sqlQuery);
                                         stmt.setString(1, Integer.toString(selectedMonth));
-                                        stmt.setString(2, Integer.toString(pageid - 1));
+                                        stmt.setString(2, Integer.toString(offset - 1));
                                         stmt.setString(3, Integer.toString(total));
                                         ResultSet rs = stmt.executeQuery();
                                         while (rs.next()) {
                                             String custid = rs.getString("CUST_ID");
                                             String uname = rs.getString("USERNAME");
-                                            String orderid = rs.getString("ORDER_ID");
                                             String statusid = rs.getString("STATUS");
                                             String payid = rs.getString("PAYMENT_ID");
                                             String date = rs.getString("DATE");
@@ -90,7 +98,6 @@
                                 <tr>
                                     <td><%= custid%></td>
                                     <td><%= uname%></td>
-                                    <td><%= orderid%></td>
                                     <td><%= statusid%></td>
                                     <td><%= payid%></td>
                                     <td><%= date%></td>
@@ -118,7 +125,7 @@
                                         Connection conn = DriverManager.getConnection(host, user, password);
                                         PreparedStatement stmt = conn.prepareStatement(sqlQuery2);
                                         stmt.setString(1, Integer.toString(selectedMonth));
-                                        stmt.setString(2, Integer.toString(pageid - 1));
+                                        stmt.setString(2, Integer.toString(offset - 1));
                                         stmt.setString(3, Integer.toString(total));
                                         ResultSet rs = stmt.executeQuery();
                                         while (rs.next()) {
@@ -128,9 +135,9 @@
                                 %>
                                 <tr>
                                     <th colspan="2" scope="th">Total Number of Paid Orders</th>
-                                    <th colspan="3" ><%= totalPaidOrder %></th>
+                                    <th colspan="2" ><%= totalPaidOrder%></th>
                                     <th colspan="2" scope="th">Total Amount of Earning</th>
-                                    <th class="text-right"><%= totalEarning %></th>
+                                    <th class="text-right"><%= totalEarning%></th>
                                 </tr>
 
 
@@ -183,9 +190,9 @@
                                             <span class="sr-only">Previous</span>
                                         </a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="orderlist.jsp?page=1">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="orderlist.jsp?page=2">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="orderlist.jsp?page=3">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="orderlist.jsp?page=1&month=<%= selectedMonth%>">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="orderlist.jsp?page=2&month=<%= selectedMonth%>">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="orderlist.jsp?page=3&month=<%= selectedMonth%>">3</a></li>
                                     <li class="page-item">
                                         <a class="page-link" href="#" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
@@ -196,7 +203,7 @@
                             </nav>
                         </div>
                     </div>
-                    <p class="mt-5 mb-3 text-muted text-center">Bricks <i class="far fa-copyright"></i> 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
                 </main>
 
             </div>
