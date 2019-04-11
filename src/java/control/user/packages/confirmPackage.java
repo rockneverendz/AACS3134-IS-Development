@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -82,7 +81,7 @@ public class confirmPackage extends HttpServlet {
                     orderlist.setCoupon(coupon);
                     orderlist.setQuantity(1);
                     orderlist.setPriceeach(packageist.getPriceeach());
-                    orderlist.setMeal(packageist.getMeal());
+                    orderlist.setMeal(packageist.getMealId());
 
                     total += packageist.getPriceeach();
 

@@ -45,7 +45,7 @@ public class UpdatePackage extends HttpServlet {
             if (!flagSameMeal.equalsIgnoreCase(meal)) {
                 if (meal != null) {
                     pList = new Packageist();
-                    pList.setMeal(ms.findMealByID(Integer.parseInt(meal)));
+                    pList.setMealId(ms.findMealByID(Integer.parseInt(meal)));
                     pList.setPriceeach(ms.findMealByID(Integer.parseInt(meal)).getPrice());
                     //Finally Add Meal
                     arraylist.add(pList);

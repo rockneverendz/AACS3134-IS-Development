@@ -30,7 +30,7 @@ public class PackageService {
             return packageist;
         }).forEachOrdered((packageist) -> {
             packageist.setPackageistPK(new PackageistPK(
-                    packageist.getMeal().getMealId(),
+                    packageist.getMealId().getMealId(),
                     packagemeal.getPackageId()
             ));
         });
@@ -67,7 +67,7 @@ public class PackageService {
             }).forEachOrdered((packageist) -> {
                 packageist.setPackageistPK(
                         new PackageistPK(
-                                packageist.getMeal().getMealId(),
+                                packageist.getMealId().getMealId(),
                                 oldPackage.getPackageId()
                         )
                 );
