@@ -29,8 +29,8 @@ public class DBII {
             "/structure/CategoryImages/ramen.jpg",
             "/structure/CategoryImages/hainanese-chicken-83.jpg",
             "/structure/CategoryImages/indomee.jpg",
-            "/structure/CategoryImages/veg.jpg"
-        // Fresh Code
+            "/structure/CategoryImages/veg.jpg",
+            "/structure/CategoryImages/fresh_code.jpg"
         };
 
         String[] foodImages = {
@@ -80,7 +80,9 @@ public class DBII {
 
         DBII dbii = new DBII();
 
-        for (int i = 0; i < foodImages.length; i++) {
+        for (int i = 0;
+                i < foodImages.length;
+                i++) {
 
             // Construct path
             File file = new File(projectRoot + foodImages[i]);
@@ -100,7 +102,9 @@ public class DBII {
             }
         }
 
-        for (int i = 0; i < categoryImages.length; i++) {
+        for (int i = 0;
+                i < categoryImages.length;
+                i++) {
 
             // Construct path
             File file = new File(projectRoot + categoryImages[i]);
@@ -124,17 +128,21 @@ public class DBII {
     private DBII() {
         EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("AACS3134-IS-DevelopmentPU");
         em = emfactory.createEntityManager();
+
     }
 
     private void updateMealImage(int id, byte[] image) {
-        Meal oldMeal = (Meal) em.find(Meal.class, id);
+        Meal oldMeal = (Meal) em.find(Meal.class,
+                 id);
         em.getTransaction().begin();
         oldMeal.setImage(image);
         em.getTransaction().commit();
+
     }
 
     private void updateCategoryImage(int id, byte[] image) {
-        Category category = (Category) em.find(Category.class, id);
+        Category category = (Category) em.find(Category.class,
+                 id);
         em.getTransaction().begin();
         category.setImage(image);
         em.getTransaction().commit();

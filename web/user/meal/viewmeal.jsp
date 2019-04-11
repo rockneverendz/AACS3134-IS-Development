@@ -68,6 +68,7 @@
             .img-fluid {
                 object-fit: cover; 
                 filter: brightness(50%);
+                height: 25rem;
             }
 
         </style>
