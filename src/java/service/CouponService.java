@@ -23,19 +23,6 @@ public class CouponService {
         return (Coupon) em.find(Coupon.class, id);
     }
     
-    public List<Coupon> findCouponByCustPaid(int custId) {
-        return em.createNativeQuery("SELECT c.*"
-                + " FROM COUPON c"
-                + " INNER JOIN ORDERLIST ol ON c.COUPON_ID = ol.COUPON_ID"
-                + " INNER JOIN ORDERMEAL om ON ol.ORDER_ID = om.ORDER_ID"
-                + " WHERE c.REDEEM_DATE > CURRENT_DATE"
-                + " AND c.STATUS = 'Active'"
-                + " AND om.CUST_ID = " + custId
-                + " ORDER BY REDEEM_DATE, REDEEM_TIME ASC",
-                Coupon.class)
-                .getResultList();
-    }
-    
     public List findCouponSummary(int custId) {
         return em.createNativeQuery("SELECT COUNT(c.COUPON_ID) AS NumberOfFood, ca.\"NAME\""
                 + " FROM COUPON c"

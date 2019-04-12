@@ -96,6 +96,19 @@ public class OrderService {
                 Orderlist.class)
                 .getResultList();
     }
+    
+    public List<Orderlist> findOrderlistByCustPaid(int custId) {
+        return em.createNativeQuery("SELECT ol.*"
+                + " FROM ORDERLIST ol"
+                + " INNER JOIN COUPON c ON c.COUPON_ID = ol.COUPON_ID"
+                + " INNER JOIN ORDERMEAL om ON ol.ORDER_ID = om.ORDER_ID"
+                + " WHERE c.REDEEM_DATE > CURRENT_DATE"
+                + " AND c.STATUS = 'Active'"
+                + " AND om.CUST_ID = " + custId
+                + " ORDER BY c.REDEEM_DATE, c.REDEEM_TIME ASC",
+                Orderlist.class)
+                .getResultList();
+    }
 
     /**
      * @param newOrdermeal The modified order

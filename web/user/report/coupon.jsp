@@ -70,13 +70,13 @@
                 <div class="container">
                     <div class="container-fluid">
 
-                        <%  CouponService cs = new CouponService();
+                        <%  OrderService os = new OrderService();
                             SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                             SimpleDateFormat dateJS = new SimpleDateFormat("yyyy, MM-1, dd");
                             StringBuilder stringBuilder = new StringBuilder();
-                            List<Coupon> list = cs.findCouponByCustPaid(customer.getCustId());
+                            List<Orderlist> list = os.findOrderlistByCustPaid(customer.getCustId());
                             Ordermeal ordermeal;
-                            Orderlist orderlist;
+                            Coupon coupon;
                             if (list.isEmpty()) {
                         %>
                         <p class="display-1 text-muted text-center"> You have no coupon. :( </p>
@@ -87,8 +87,8 @@
                         <div class="calendar mb-4"></div>
                         <div class="row">
                             <%
-                                for (Coupon coupon : list) {
-                                    orderlist = coupon.getOrderlist();
+                                for (Orderlist orderlist : list) {
+                                    coupon = orderlist.getCoupon();
                                     ordermeal = orderlist.getOrdermeal();
                             %>
                             <div class="card col-6 border-left-<%= ordermeal.getType().toLowerCase()%>">
