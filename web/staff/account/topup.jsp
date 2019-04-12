@@ -30,10 +30,10 @@
                                     if (code == '1') {
                                         type = "success";
                                         message = "Top-up Successfully !";
-                                    } else if(code == 'U') {
+                                    } else if (code == 'U') {
                                         type = "warning";
                                         message = "Student ID not found !";
-                                    }else {
+                                    } else {
                                         type = "danger";
                                         message = "An error has occured";
                                     }
@@ -44,35 +44,26 @@
                             <%
                                 }
                             %>
-                            <div class="row">
-                                <label for="inputStudid">Student ID</label>
-                                <div class="input-group">
-                                    <input name="studid" type="text" class="form-control" id="inputStudid" placeholder="Student ID" required>
-                                </div>
+                            <label for="inputStudid">Student ID</label>
+                            <div class="input-group">
+                                <input name="studid" type="text" class="form-control" id="inputStudid" placeholder="Student ID" required>
                             </div>
                             <br>
-                            <div class="row">
-                                <label for="inputEmail">Top-up Amount</label>
-                                <div class="input-group">
-                                    <select name="amount" class="custom-select" id="inputAmount" placeholder="Top-up Amount" required>
-                                        <option value="" selected="" disabled="">Choose...</option>
-                                        <option value="5">5</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
-                                        <option value="30">30</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                        <option value="500">500</option>
-                                    </select>
-                                    
-                                </div>
+                            <label for="inputEmail">Top-up Amount</label>
+                            <div class="input-group">
+                                <select name="amount" class="custom-select" id="inputAmount" placeholder="Top-up Amount" required>
+                                    <option value="" selected="" disabled="">Choose...</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="500">500</option>
+                                </select>
                             </div>
-                            <div class="row" hidden>
-                                <label for="inputStaffID">Staff ID</label>
-                                <div class="input-group">
-                                    <input name="staffid" type="text" class="form-control" id="inputStaffid" placeholder="Staff ID" value="<%= staff.getStaffId() %>">
-                                </div>
-                            </div>
+                            <input name="staffid" type="text" class="form-control" id="inputStaffid" 
+                                   placeholder="Staff ID" value="<%= staff.getStaffId()%>" hidden>
                             <hr>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Reload</button>
                             <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
