@@ -52,7 +52,7 @@ public class UpdatePackage extends HttpServlet {
         ps.updatePackage(apackage, arraylist);
         ms.close();
         ps.close();
-        response.sendRedirect("../package/managePackage.jsp?status=1");
+        response.sendRedirect("../package/managePackage.jsp?status=2");
 
     }
 
