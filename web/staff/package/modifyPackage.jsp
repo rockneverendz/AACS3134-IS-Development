@@ -8,7 +8,7 @@
     Package mealPackage = (Package) session.getAttribute("MealPackage");
     PackageService ps = new PackageService();
     mealPackage = ps.findPackageByID(mealPackage.getPackageId());
-    List<Packageist> mealPackageList = mealPackage.getPackageistList();
+    List<Packageist> mealPackageList = ps.findPackageistByPackage(mealPackage.getPackageId());
     int[] mealOfWeekOfDays = new int[5];
 
     //this part is to convert the 6 dayOfWeekMeal's ID in to a Array

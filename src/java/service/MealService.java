@@ -131,7 +131,7 @@ public class MealService {
                 em.getTransaction().begin();
                 oldMeal.setAvailability(Boolean.FALSE);
                 em.getTransaction().commit();
-            } else{
+            } else {
                 em.getTransaction().begin();
                 oldMeal.setAvailability(Boolean.TRUE);
                 em.getTransaction().commit();

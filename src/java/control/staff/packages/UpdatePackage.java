@@ -1,5 +1,6 @@
 package control.staff.packages;
 
+import entity.Package;
 import entity.Packageist;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,13 +23,9 @@ public class UpdatePackage extends HttpServlet {
         String description = request.getParameter("desc");
         String[] mealList = request.getParameterValues("maelArr");
 
-        //Trace 
-        for (String meallist : mealList) {
-            System.out.println(meallist);
-        }
         //Initialization
         PackageService ps = new PackageService();
-        entity.Package apackage = ps.findPackageByID(packageID);
+        Package apackage = ps.findPackageByID(packageID);
         MealService ms = new MealService();
         Packageist pList;
         ArrayList<Packageist> arraylist = new ArrayList();
@@ -38,30 +35,24 @@ public class UpdatePackage extends HttpServlet {
         apackage.setAvailability(Boolean.parseBoolean(availability));
         apackage.setDescription(description);
 
-        String flagSameMeal = "flag";
-        int flagDoNotCommit = 0;
-        //Loop meal List 
-        for (String meal : mealList) {
-            if (!flagSameMeal.equalsIgnoreCase(meal)) {
-                if (meal != null) {
-                    pList = new Packageist();
-                    pList.setMealId(ms.findMealByID(Integer.parseInt(meal)));
-                    pList.setPriceeach(ms.findMealByID(Integer.parseInt(meal)).getPrice());
-                    //Finally Add Meal
-                    arraylist.add(pList);
-                    flagSameMeal = meal;
-                }
-            } else {
-                flagDoNotCommit = 1;
-                response.sendRedirect("../package/modifyPackage.jsp?status=S");
-            }
+        //Loop meal List
+        String meal;
+        for (int i = 0; i < 6; i++) {
+            meal = mealList[i];
+            System.out.println(meal); //Trace
+            pList = new Packageist();
+            pList.setMealId(ms.findMealByID(Integer.parseInt(meal)));
+            pList.setQuantity(1);
+            pList.setPriceeach(ms.findMealByID(Integer.parseInt(meal)).getPrice());
+
+            //Finally Add Meal
+            arraylist.add(pList);
+
         }
-        if (flagDoNotCommit != 1) {
-            ps.updatePackage(apackage, arraylist);
-            ms.close();
-            ps.close();
-            response.sendRedirect("../package/managePackage.jsp?status=1");
-        }
+        ps.updatePackage(apackage, arraylist);
+        ms.close();
+        ps.close();
+        response.sendRedirect("../package/managePackage.jsp?status=1");
 
     }
 

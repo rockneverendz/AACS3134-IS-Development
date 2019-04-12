@@ -39,13 +39,13 @@ public class AddPackage extends HttpServlet {
 
             String flagSameMeal = "flag";
             int flagDoNotCommit = 0;
-            //Loop meal List 
+            //Loop meal List  *6 days == 6 meal
             for (String meal : mealList) {
                 if (!flagSameMeal.equalsIgnoreCase(meal)) {
                     if (meal != null) {
                         pList = new Packageist();
-                        
                         pList.setMealId(ms.findMealByID(Integer.parseInt(meal)));
+                        pList.setQuantity(1);
                         pList.setPriceeach(ms.findMealByID(Integer.parseInt(meal)).getPrice());
                         //Finally Add Meal
                         arraylist.add(pList);

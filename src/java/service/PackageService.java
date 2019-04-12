@@ -42,6 +42,15 @@ public class PackageService {
         return (Package) em.find(Package.class, id);
     }
 
+    public List<Packageist> findPackageistByPackage(int packageId) {
+        return (List<Packageist>) em.createNativeQuery("SELECT pl.* FROM PACKAGEIST pl"
+                + " INNER JOIN MEAL m ON pl.MEAL_ID = m.MEAL_ID"
+                + " WHERE pl.PACKAGE_ID = " + packageId
+                + " ORDER BY pl.DAY_OF_WEEK",
+                 Packageist.class)
+                .getResultList();
+    }
+
     public boolean updatePackage(Package newPackage, ArrayList<Packageist> arrayList) throws RollbackException {
         Package oldPackage = findPackageByID(newPackage.getPackageId());
         if (oldPackage != null) {
@@ -58,7 +67,7 @@ public class PackageService {
                 em.remove(packageist);
             });
             em.getTransaction().commit();
-            
+
             for (int i = 0; i < arrayList.size(); i++) {
                 Packageist packageist = arrayList.get(i);
 

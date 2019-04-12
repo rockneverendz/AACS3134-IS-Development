@@ -62,7 +62,7 @@
                                         <p class="card-text">Meal Time : <%= apackage.getPackageTime()%></p>
                                     </div>
                                     <%
-                                        List<Packageist> MealList = apackage.getPackageistList();
+                                        List<Packageist> MealList = ps.findPackageistByPackage(apackage.getPackageId());
                                         int i = 0;
                                     %>
 
