@@ -185,7 +185,7 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">Proceed Password Recovery</button>
             <hr/>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to login</a>
-            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
         </form>
     </body>
 </html>

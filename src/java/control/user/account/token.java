@@ -3,9 +3,7 @@ package control.user.account;
 import entity.Customer;
 import entity.Token;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,15 +24,16 @@ public class token extends HttpServlet {
         // Initialize variables
         TokenService ts = new TokenService();
         CustomerService cs = new CustomerService();
+        Date now = new Date();
 
         try {
             // Find token
             Token token = ts.findTokenByToken(tokenS);
 
-            // If Token not found
-            if (token == null) {
-                response.sendRedirect("../account/signin.jsp?status=T");
-                return;
+            // If Token not found OR (now > tokenDate+1)
+            if (token == null || now.after(
+                    TokenService.combinePlusOne(token.getDate(), token.getTime()))) {
+                throw new RollbackException();
             }
 
             // Use token to find customer
@@ -51,15 +50,13 @@ public class token extends HttpServlet {
                 throw new IllegalArgumentException();
             }
 
-            // TODO CHECK TOKEN EXPIRY HERE
-            
             // Set and Update record
             token.setStutus("Used");
             ts.updateToken(token);
-            
+
             customer.setPassword(newPassword);
             cs.updateCustomer(customer);
-            
+
             // Redirect back to signin page with status 'Success'
             response.sendRedirect("../account/signin.jsp?status=C");
         } catch (IllegalArgumentException ex) {

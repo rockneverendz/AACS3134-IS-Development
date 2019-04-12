@@ -1,6 +1,8 @@
 package service;
 
 import entity.Token;
+import java.util.Calendar;
+import java.util.Date;
 import javax.persistence.*;
 import java.util.List;
 
@@ -43,6 +45,18 @@ public class TokenService {
             return true;
         }
         return false;
+    }
+
+    public static Date combinePlusOne(Date date, Date time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int min = cal.get(Calendar.MINUTE);
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, min);
+        cal.add(Calendar.DATE, 1); //plus one
+        return cal.getTime();
     }
 
     public List<Token> findAll() {

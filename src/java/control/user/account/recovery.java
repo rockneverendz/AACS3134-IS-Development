@@ -79,15 +79,24 @@ public class recovery extends HttpServlet {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-            message.setSubject("St. Freya Bricks");
-            message.setText("http://localhost:8080/AACS3134-IS-Development/user/account/token.jsp?token=" + uniqueID);
+            message.setSubject("Account Recovery - St. Freya Bricks");
+            message.setText(
+                    "Hello " + customer.getUsername() + "!\n"
+                    + "You recently requested to reset your password for your St. Freya Bricks account. Use the link below to reset it.\n"
+                    + "This password reset is only valid for the next 24 hours.\n"
+                    + "http://localhost:8080/AACS3134-IS-Development/user/account/token.jsp?token=" + uniqueID + '\n'
+                    + "If you did not request a password reset, please ignore this email or contact support if you have questions.\n"
+                    + "\n"
+                    + "Thanks, \n"
+                    + "The St. Freya Bricks Team"
+            );
 
             //send the message  
             Transport.send(message);
-            
+
             // Redirect back with status 'Success'
             url.append("?status=0");
-            
+
         } catch (MessagingException ex) {
             Logger.getLogger(recovery.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoResultException ex) {

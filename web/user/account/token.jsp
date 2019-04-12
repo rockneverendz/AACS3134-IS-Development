@@ -1,7 +1,6 @@
-<%@page import="entity.Customer"%>
-<%@page import="service.CustomerService"%>
 <%@page import="entity.Token"%>
 <%@page import="service.TokenService"%>
+<%@page import="java.util.Date"%>
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
@@ -138,8 +137,8 @@
                 <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="75%"/>
                 <h1>Password Recovery</h1>
             </div>
-            <%
-                // If no token are recieved, redirect.
+            <%  // If no token are recieved, redirect.
+                Date now = new Date();
                 String tokenS = request.getParameter("token");
                 if (tokenS == null) {
                     response.sendRedirect("../account/signin.jsp?status=X");
@@ -150,8 +149,9 @@
                 TokenService ts = new TokenService();
                 Token token = ts.findTokenByToken(tokenS);
 
-                // If Token not found
-                if (token == null) {
+                // If Token not found OR (now > tokenDate+1)
+                if (token == null || now.after(
+                        TokenService.combinePlusOne(token.getDate(), token.getTime()))) {
                     response.sendRedirect("../account/signin.jsp?status=T");
                     return;
                 }
@@ -191,7 +191,7 @@
                 <label for="inputNewCPassword">Confirm Password</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
-            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
         </form>
         <%@include file="../layout/scripts.jsp" %>
         <script>
