@@ -11,6 +11,10 @@ Accept TOC, download 1.1.1, open zip file, what you need is only the jar file.
 https://search.maven.org/artifact/com.google.code.gson/gson/2.8.5/jar
 Right side should there's a download button, click and select jar.
 
+## Using DBII to initialize images
+
+Run `/src/java/DBII.java` to insert image into Database.
+
 ## Settings up Environment Variable for servers
 Why environment variable?  
 So we don't have to keep passwords and sensitive info in raw text inside the project.
@@ -34,36 +38,3 @@ So we don't have to keep passwords and sensitive info in raw text inside the pro
 
 Project design and database scripts should be in the folder `./structure`  
 Try to make root directory clean as possible tnx.
-
-## Using ij to export/import LOB data
-
-& "C:\Program Files\db-derby-10.14.2.0-bin\bin\ij.bat"
-connect 'jdbc:derby:canteenDB;user=nbuser;password=nbuser';
-
-SYSCS_UTIL.SYSCS_EXPORT_TABLE
- (IN SCHEMANAME VARCHAR(128),
-  IN TABLENAME VARCHAR(128),
-  IN FILENAME VARCHAR(32672),
-  IN COLUMNDELIMITER CHAR(1),
-  IN CHARACTERDELIMITER CHAR(1),
-  IN CODESET VARCHAR(128))
-
-CALL SYSCS_UTIL.SYSCS_EXPORT_TABLE(
-    'NBUSER', 'MEAL', 'D:\Downloads\Database Dump\Meal.del', 
-    ';', '%', null);
-
-SYSCS_UTIL.SYSCS_IMPORT_TABLE 
- (IN SCHEMANAME VARCHAR(128), 
-  IN TABLENAME VARCHAR(128), 
-  IN FILENAME VARCHAR(32672), 
-  IN COLUMNDELIMITER CHAR(1), 
-  IN CHARACTERDELIMITER  CHAR(1), 
-  IN CODESET VARCHAR(128), 
-  IN REPLACE SMALLINT)
-
-CALL SYSCS_UTIL.SYSCS_IMPORT_DATA(
-    'NBUSER', 'MEAL',
-    'NAME,DESCRIPTION,PRICE,AVAILABILITY,CALORIES,IMAGE,CATEGORY_ID',
-    '2,3,4,5,6,7,8',
-    'D:\Downloads\Database Dump\Meal.del',
-    ';', '%', null, 0);
