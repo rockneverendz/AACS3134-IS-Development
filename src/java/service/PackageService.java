@@ -1,6 +1,5 @@
 package service;
 
-import entity.Customer;
 import entity.Package;
 import entity.Packageist;
 import entity.PackageistPK;
@@ -25,15 +24,14 @@ public class PackageService {
         em.persist(packagemeal);
         em.getTransaction().commit();
 
-        arrayList.stream().map((packageist) -> {
+        for (int i = 0; i < arrayList.size(); i++) {
+            Packageist packageist = arrayList.get(i);
+
             packageist.setPackage1(packagemeal);
-            return packageist;
-        }).forEachOrdered((packageist) -> {
-            packageist.setPackageistPK(new PackageistPK(
-                    packageist.getMealId().getMealId(),
-                    packagemeal.getPackageId()
-            ));
-        });
+            packageist.setPackageistPK(
+                    new PackageistPK(packagemeal.getPackageId(), i)
+            );
+        }
 
         em.getTransaction().begin();
         packagemeal.setPackageistList(arrayList);
@@ -54,24 +52,21 @@ public class PackageService {
                 em.remove(packageist);
             }
             em.getTransaction().commit();
-            
+
             em.getTransaction().begin();
             oldPackage.getPackageistList().forEach((packageist) -> {
                 em.remove(packageist);
             });
             em.getTransaction().commit();
             
-            arrayList.stream().map((packageist) -> {
+            for (int i = 0; i < arrayList.size(); i++) {
+                Packageist packageist = arrayList.get(i);
+
                 packageist.setPackage1(newPackage);
-                return packageist;
-            }).forEachOrdered((packageist) -> {
                 packageist.setPackageistPK(
-                        new PackageistPK(
-                                packageist.getMealId().getMealId(),
-                                oldPackage.getPackageId()
-                        )
+                        new PackageistPK(newPackage.getPackageId(), i)
                 );
-            });
+            }
 
             em.getTransaction().begin();
             oldPackage.setAvailability(newPackage.getAvailability());
