@@ -37,33 +37,24 @@ public class AddPackage extends HttpServlet {
             apackage.setAvailability(Boolean.parseBoolean(availability));
             apackage.setDescription(description);
 
-            String flagSameMeal = "flag";
-            int flagDoNotCommit = 0;
             //Loop meal List  *6 days == 6 meal
             for (String meal : mealList) {
-                if (!flagSameMeal.equalsIgnoreCase(meal)) {
-                    if (meal != null) {
-                        pList = new Packageist();
-                        pList.setMealId(ms.findMealByID(Integer.parseInt(meal)));
-                        pList.setQuantity(1);
-                        pList.setPriceeach(ms.findMealByID(Integer.parseInt(meal)).getPrice());
-                        //Finally Add Meal
-                        arraylist.add(pList);
-                        flagSameMeal = meal;
-                    }
-                } else {
-                    flagDoNotCommit = 1;
-                    response.sendRedirect("../package/addPackage.jsp?status=S");
+                if (meal != null) {
+                    pList = new Packageist();
+                    pList.setMealId(ms.findMealByID(Integer.parseInt(meal)));
+                    pList.setQuantity(1);
+                    pList.setPriceeach(ms.findMealByID(Integer.parseInt(meal)).getPrice());
+                    //Finally Add Meal
+                    arraylist.add(pList);
                 }
+
             }
 
-            if (flagDoNotCommit != 1) {
-                ps.addMealpackage(apackage, arraylist);
-                ms.close();
-                ps.close();
-                response.sendRedirect("../package/managePackage.jsp?status=1");
-            }
-            
+            ps.addMealpackage(apackage, arraylist);
+            ms.close();
+            ps.close();
+            response.sendRedirect("../package/managePackage.jsp?status=1");
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
