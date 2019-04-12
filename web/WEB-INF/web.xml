@@ -112,6 +112,10 @@
         <servlet-class>control.staff.packages.UpdatePackage</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>staff.packages.RemovePackage</servlet-name>
+        <servlet-class>control.staff.packages.RemovePackage</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>staff.ingredient.retriveIngre</servlet-name>
         <servlet-class>control.staff.ingredient.retriveIngre</servlet-class>
     </servlet>
@@ -233,6 +237,10 @@
     <servlet-mapping>
         <servlet-name>staff.packages.UpdatePackage</servlet-name>
         <url-pattern>/staff/package/UpdatePackage</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>staff.packages.RemovePackage</servlet-name>
+        <url-pattern>/staff/package/RemovePackage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>staff.ingredient.retriveIngre</servlet-name>
