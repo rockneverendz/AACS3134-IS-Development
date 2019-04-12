@@ -48,31 +48,59 @@
                     <div class="container mt-4">
                         <!--        Add New Package Form-->
                         <div class=" mt-5" style="max-width: 1000px; margin: auto">
-                            <form action="UpdatePackage" method="get">
+                            <div class="row m-2">
                                 <h3>Update Package</h3>
-                                <hr>
-                                <%                                    
-                                    String status = request.getParameter("status");
-                                    String message;
-                                    String type;
+                                <form action="RemovePackage" method="get" class="ml-auto">
+                                    <button type="button" class="btn btn-outline-danger btn-block" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Remove Package
+                                    </button>                                     
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Confirmation to remove package</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input value="<%= mealPackage.getPackageId()%>" name="packageid" hidden>
+                                                    <p>Are you sure you want to remove this package ?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-outline-danger">Yes</button>
+                                                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
 
-                                    if (status == null) {
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <hr>
+                            <%                                    String status = request.getParameter("status");
+                                String message;
+                                String type;
+
+                                if (status == null) {
+                                } else {
+                                    char code = status.charAt(0);
+                                    if (code == 'S') {
+                                        type = "warning";
+                                        message = "Days cannot have the same meal because customer will loss of appetite !";
                                     } else {
-                                        char code = status.charAt(0);
-                                        if (code == 'S') {
-                                            type = "warning";
-                                            message = "Days cannot have the same meal because customer will loss of appetite !";
-                                        } else {
-                                            type = "danger";
-                                            message = "An error has occured";
-                                        }
-                                %>
-                                <div class="alert alert-<%= type%>" role="alert">
-                                    <%= message%>
-                                </div>
-                                <%
+                                        type = "danger";
+                                        message = "An error has occured";
                                     }
-                                %>
+                            %>
+                            <div class="alert alert-<%= type%>" role="alert">
+                                <%= message%>
+                            </div>
+                            <%
+                                }
+                            %>
+                            <form action="UpdatePackage" method="get">
                                 <div class="row form-group">
                                     <label class="col-form-label col-sm-2">Package ID : </label>
                                     <input name="packageId" type="text" class="form-group form-control col-sm-5 mr-auto" value="<%= mealPackage.getPackageId()%>"  readonly >
@@ -144,16 +172,17 @@
                                         }
                                     %>
                                 </div>
-                                <div class="row mt-5 mb-5">
+                                <div class="row m-2">
                                     <div class="mr-auto">
                                         <a class="btn btn-lg btn-secondary" href="managePackage.jsp">Back</a>
                                     </div>
                                     <div class="ml-auto">
                                         <button class="btn btn-lg btn-outline-primary" type="submit">Update Package</button>
-                                        <button class="btn btn-lg btn-outline-danger" type="submit">Delete Package</button>
                                     </div>
                                 </div>
                             </form>
+                            <hr>
+
                         </div>
                     </div>
                     <hr>

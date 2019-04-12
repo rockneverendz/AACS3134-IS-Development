@@ -24,8 +24,7 @@
                     <div class="container mt-5 mb-5">
                         <h3>Manage Packages</h3>
                         <hr>
-                        <%  
-                            String status = request.getParameter("status");
+                        <%                            String status = request.getParameter("status");
                             String message;
                             String type;
                             if (status == null) {
@@ -34,7 +33,13 @@
                                 if (code == '1') {
                                     type = "success";
                                     message = "Successfully Added Package!";
-                                } else {
+                                } else if (code == '2') {
+                                    type = "success";
+                                    message = "Successfully Updated Package!";
+                                } else if (code == 'R') {
+                                    type = "success";
+                                    message = "Successfully Removed Package!";
+                                }else {
                                     type = "danger";
                                     message = "An error has occured";
                                 }
@@ -44,7 +49,7 @@
                         </div>
                         <%
                             }
-                        
+
                             String dayOdWeeksString[] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
                             String colorClass[] = {"text-primary", "text-info", "text-success ", "text-danger ", "text-warning ", "text-dark "};
                             PackageService ps = new PackageService();
@@ -60,6 +65,7 @@
                                         <h5 class="card-title">Package ID : <%= apackage.getPackageId()%></h5>
                                         <p class="card-text"><%= apackage.getDescription()%></p>
                                         <p class="card-text">Meal Time : <%= apackage.getPackageTime()%></p>
+                                        <p class="card-text">Availability : <%= apackage.getAvailability()%></p>
                                     </div>
                                     <%
                                         List<Packageist> MealList = ps.findPackageistByPackage(apackage.getPackageId());
@@ -69,7 +75,7 @@
                                     <ul class="list-group list-group-flush">
                                         <% for (Packageist packList : MealList) {%>
 
-                                        <li class="list-group-item bg-light <%= colorClass[i]%>"><%= dayOdWeeksString[i]%> : <%= packList.getMealId().getName() %></li>
+                                        <li class="list-group-item bg-light <%= colorClass[i]%>"><%= dayOdWeeksString[i]%> : <%= packList.getMealId().getName()%></li>
                                             <%
                                                     i++;
                                                 }
@@ -80,24 +86,24 @@
                             <% }%>
                         </div>
 
-                        <div class="row mt-5">
-                            <div class="col-sm-2">
-                                <a class="btn btn-primary btn-lg" href="addPackage.jsp" role="button">Add Item</a>
-                            </div>
-                            <form action="SearchPackage" method="get" class="row col-sm-10 ml-auto">
-                                <div class="col ">
+                        <div class="row m-3">
+                            <a class="btn btn- btn-primary" href="addPackage.jsp" role="button">Add Package</a>
+
+                            <div class="ml-auto">
+                                <form action="SearchPackage" method="get">
+
                                     <div class="input-group mt-1">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Search Item</span>
                                         </div>
                                         <input name="packageid" type="text" class="form-control col-5" id="itemid" placeholder="Item ID" required>
-
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="submit" >Modify Package</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-primary btn-lg" type="submit">Modify Item</button>
-                                </div>
-                            </form>
+
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <hr>

@@ -47,7 +47,7 @@ public class PackageService {
                 + " INNER JOIN MEAL m ON pl.MEAL_ID = m.MEAL_ID"
                 + " WHERE pl.PACKAGE_ID = " + packageId
                 + " ORDER BY pl.DAY_OF_WEEK",
-                 Packageist.class)
+                Packageist.class)
                 .getResultList();
     }
 
@@ -88,10 +88,19 @@ public class PackageService {
         return false;
     }
 
-    public boolean deletePackageList(Package newPackage, ArrayList<Packageist> arrayList) throws RollbackException {
+    public boolean deletePackageList(Package newPackage) throws RollbackException {
         Package oldPackage = findPackageByID(newPackage.getPackageId());
         if (oldPackage != null) {
-            //Still In Progress
+            em.getTransaction().begin();
+            // DO NOT USE FUNCTIONAL OPERATION
+            for (Packageist packageist : oldPackage.getPackageistList()) {
+                em.remove(packageist);
+            }
+            em.getTransaction().commit();
+
+            em.getTransaction().begin();
+            em.remove(oldPackage);
+            em.getTransaction().commit();
             return true;
         }
         return false;
