@@ -1,8 +1,11 @@
+<%@page import="entity.Token"%>
+<%@page import="service.TokenService"%>
+<%@page import="java.util.Date"%>
 <!doctype html>
-<html lang="en">
+<html lang="en" style="position: relative; min-height: 100%;">
     <head>
         <%@include file="../layout/meta.jsp" %>
-        <title>Staff Login</title>
+        <title>Token</title>
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -34,7 +37,12 @@
                 background-color: #f5f5f5;
             }
 
-            .form-signin {
+            .h1, h1 {
+                font-weight: 300;
+                line-height: 1.2;
+            }
+
+            .form-token {
                 width: 100%;
                 max-width: 420px;
                 padding: 15px;
@@ -123,18 +131,29 @@
             }
         </style>
     </head>
-
     <body>
-        <form class="form-signin" action="signin" method="POST">
+        <form class="form-token" action="token">
             <div class="text-center mb-4">
-                <img class="img-fluid mb-5" src="../../resource/Logo1.png" alt="logo" width="75%"/>
-                <h1 class="display-3">Staff Sign In</h1>
+                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="75%"/>
+                <h1>Password Recovery</h1>
             </div>
-            <%
-                //If no object are recieved, create a new object.
-                String username = (String) request.getAttribute("username");
-                if (username == null) {
-                    username = "";
+            <%  // If no token are recieved, redirect.
+                Date now = new Date();
+                String tokenS = request.getParameter("token");
+                if (tokenS == null) {
+                    response.sendRedirect("../account/signin.jsp?status=X");
+                    return;
+                }
+
+                // Find token
+                TokenService ts = new TokenService();
+                Token token = ts.findTokenByToken(tokenS);
+
+                // If Token not found OR (now > tokenDate+1)
+                if (token == null || now.after(
+                        TokenService.combinePlusOne(token.getDate(), token.getTime()))) {
+                    response.sendRedirect("../account/signin.jsp?status=T");
+                    return;
                 }
 
                 String status = request.getParameter("status");
@@ -142,24 +161,9 @@
                 String type;
                 if (status != null) {
                     char code = status.charAt(0);
-                    if (code == '0') {
-                        type = "success";
-                        message = "Successfully Signed Out!";
-                    } else if (code == 'U') {
+                    if (code == 'P') {
                         type = "warning";
-                        message = "Sorry, we couldn't find an account with that username.<br><a href='./signup.jsp' class='alert-link'>Do you want to create a new account?</a>";
-                    } else if (code == 'P') {
-                        type = "warning";
-                        message = "Sorry, that password isn't right.<br><a href='./passrecovery.jsp' class='alert-link'>We can help you recover your password.</a>";
-                    } else if (code == 'N') {
-                        type = "danger";
-                        message = "You have to be logged in to do that!";
-                    } else if (code == 'T') {
-                        type = "danger";
-                        message = "Token is invalid or expired.";
-                    } else if (code == 'C') {
-                        type = "success";
-                        message = "Password change successful!";
+                        message = "Retyped password does not match.";
                     } else {
                         type = "danger";
                         message = "An error has occured";
@@ -171,20 +175,43 @@
             <%
                 }
             %>
+            <input name="token" type="text" hidden value="<%= tokenS%>"> 
             <div class="form-label-group">
-                <input id="inputStaffUsername" name="StaffUsername" type="text" class="form-control" 
-                       placeholder="Staff Username" value="<%= username%>" required autofocus>
-                <label for="inputStaffUsername">Staff Username</label>
+                <input id="inputNewPassword" name="NewPassword" type="password" class="form-control" 
+                       placeholder="New Password" required data-toggle="tooltip" data-placement="left" 
+                       title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter"
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                <label for="inputNewPassword">New Password</label>
             </div>
             <div class="form-label-group">
-                <input id="inputPassword" name="Password" type="password" class="form-control" 
-                       placeholder="Password" required>
-                <label for="inputPassword">Password</label>
-                <p><small><a href="./passrecovery.jsp">Forget Password?</a></small></p>
+                <input id="inputNewCPassword" name="NewCPassword" type="password" class="form-control" 
+                       placeholder="Confirm Password" required data-toggle="tooltip" data-placement="left" 
+                       title="At least 8 Alpanumeric characters with at least one uppercase and lowercase letter"
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                <label for="inputNewCPassword">Confirm Password</label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
-            <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="signup.jsp">Create New Account</a>
-            <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
+            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
         </form>
+        <%@include file="../layout/scripts.jsp" %>
+        <script>
+            var inputPassword = document.getElementById("inputNewPassword"),
+                    inputCPassword = document.getElementById("inputNewCPassword");
+
+            function validatePassword() {
+                if (inputPassword.value !== inputCPassword.value) {
+                    inputCPassword.setCustomValidity("Passwords Don't Match");
+                } else {
+                    inputCPassword.setCustomValidity('');
+                }
+            }
+
+            inputPassword.onchange = validatePassword;
+            inputCPassword.onkeyup = validatePassword;
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
     </body>
 </html>

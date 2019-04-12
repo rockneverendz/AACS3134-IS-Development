@@ -29,6 +29,12 @@ public class StaffService {
                 .getSingleResult();
     }
 
+     public Staff findStaffByUserIdCard(String staffIdCard) {
+        return (Staff) em.createNamedQuery("Staff.findByUserIdCard")
+                .setParameter("userIdCard", staffIdCard)
+                .getSingleResult();
+    }
+     
     public Staff findStaffByEmail(String email) {
         return (Staff) em.createNamedQuery("Staff.findByEmail")
                 .setParameter("email", email)
