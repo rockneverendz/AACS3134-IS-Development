@@ -234,8 +234,8 @@
                 datasets: [{
                         data: [<%= data.toString()%>],
                         // I hate these colors.
-                        backgroundColor: ['#ff0000', '#cc00ff', '#0000ff', '#33cccc', '#33cc33', '#ffff00'],
-                        hoverBackgroundColor: ['#800000', '#660080', '#000080', '#196666', '#196619', '#808000'],
+                        backgroundColor: ['#ff6358', '#ffd246', '#78d237', '#28b4c8', '#2d73f5', '#aa46be'],
+                        //hoverBackgroundColor: ['#4C1E1A', '#4C3F15', '#243F10', '#0C363C', '#0D2249', '#331539'],
                         borderWidth: 0
                     }]
             },

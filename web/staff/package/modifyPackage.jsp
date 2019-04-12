@@ -15,7 +15,7 @@
     int j = 0;
     for (Packageist mealList : mealPackageList) {
 
-        mealOfWeekOfDays[j] = mealList.getMeal().getMealId();
+        mealOfWeekOfDays[j] = mealList.getMealId().getMealId();
 //        System.out.println(mealList.getMeal().getMealId()); // Testing oni
         System.out.println(mealOfWeekOfDays[j]);
     }
@@ -121,14 +121,14 @@
                                             <div class="card-body">
                                                 <h5 class="card-title"><%= dayOfWeeks[i]%></h5>
                                                 <hr>
-                                                <h6>Current Meal : <%= mealList.getMeal().getName()%></h6>
+                                                <h6>Current Meal : <%= mealList.getMealId().getName()%></h6>
                                             </div>
                                             <div class="card-footer text-right">
                                                 <select name="maelArr" class="custom-select" required="true">
                                                     <option value="" selected="true" disabled="true">Choose...</option>
                                                     <% for (Meal meal : MealList) {%>
                                                     <option value="<%= meal.getMealId()%>" 
-                                                            <% if (meal.getMealId() == mealList.getMeal().getMealId()) {%>
+                                                            <% if (meal.getMealId() == mealList.getMealId().getMealId()) {%>
                                                             selected
                                                             <% }%>
                                                             >

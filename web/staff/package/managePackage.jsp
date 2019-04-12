@@ -69,7 +69,7 @@
                                     <ul class="list-group list-group-flush">
                                         <% for (Packageist packList : MealList) {%>
 
-                                        <li class="list-group-item bg-light <%= colorClass[i]%>"><%= dayOdWeeksString[i]%> : <%= packList.getMeal().getName()%></li>
+                                        <li class="list-group-item bg-light <%= colorClass[i]%>"><%= dayOdWeeksString[i]%> : <%= packList.getMealId().getName() %></li>
                                             <%
                                                     i++;
                                                 }
