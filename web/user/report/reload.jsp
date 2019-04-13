@@ -168,16 +168,15 @@
                 Object[] elem;
 
                 int idx;
-                int jdx = 0;
 
                 for (idx = 0; idx < summaryReload.size(); idx++) {
                     elem = summaryReload.get(idx);
-                    reloadData[(Integer) elem[0]] = String.format("%.2f", (Double) elem[1]);
+                    reloadData[(Integer) elem[0] - 1] = String.format("%.2f", (Double) elem[1]);
                 }
 
                 for (idx = 0; idx < summaryPayment.size(); idx++) {
                     elem = summaryPayment.get(idx);
-                    paymentData[(Integer) elem[0]] = String.format("%.2f", (Double) elem[1]);
+                    paymentData[(Integer) elem[0] - 1] = String.format("%.2f", (Double) elem[1]);
                 }
             %>
 
