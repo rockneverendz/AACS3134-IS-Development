@@ -110,6 +110,17 @@ public class OrderService {
                 .getResultList();
     }
 
+    public List findPaymentSummary(int custId, int year) {
+        return em.createNativeQuery("SELECT MONTH(pay.\"DATE\"), SUM(pay.AMOUNT)"
+                + " FROM ORDERMEAL om"
+                + " INNER JOIN ORDERLIST ol ON ol.ORDER_ID = om.ORDER_ID"
+                + " INNER JOIN PAYMENT pay on pay.PAYMENT_ID = om.PAYMENT_ID"
+                + " WHERE om.CUST_ID = " + custId
+                + " AND YEAR(pay.\"DATE\") = " + year
+                + " GROUP BY MONTH(pay.\"DATE\")")
+                .getResultList();
+    }
+    
     /**
      * @param newOrdermeal The modified order
      * @return true if successfully committed false if order not found

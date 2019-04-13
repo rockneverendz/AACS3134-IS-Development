@@ -29,6 +29,15 @@ public class ReloadService {
                 .setParameter("custId", custId)
                 .getResultList();
     }
+    
+    public List findReloadSummary(int custId, int year) {
+        return em.createNativeQuery("SELECT MONTH(r.\"DATE\"), SUM(r.AMOUNT)"
+                + " FROM RELOAD r"
+                + " WHERE r.CUST_ID = " + custId
+                + " AND YEAR(r.\"DATE\") = " + year
+                + " GROUP BY MONTH(r.\"DATE\")")
+                .getResultList();
+    }
 
     public List<Reload> findAll() {
         List ReloadList = em.createNamedQuery("Reload.findAll").getResultList();
