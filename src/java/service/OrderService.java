@@ -139,7 +139,7 @@ public class OrderService {
     }
 
     public List<Ordermeal> findAll() {
-        List MealorderList = em.createNamedQuery("Mealorder.findAll").getResultList();
+        List MealorderList = em.createNamedQuery("Ordermeal.findAll").getResultList();
         return MealorderList;
     }
 
