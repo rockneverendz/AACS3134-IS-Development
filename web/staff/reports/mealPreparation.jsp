@@ -8,6 +8,7 @@
         <%@include file="../layout/meta.jsp" %>
         <%@include file="../layout/css.jsp" %>
         <title>Report | View Meal Orders</title>
+        <link rel="stylesheet" type="text/css" href="../../bootstrap/css/dataTables.bootstrap4.min.css">
     </head>
     <body>
         <!-- Fixed-top Navs -->
@@ -41,20 +42,18 @@
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4" style="max-width: 1000px;">
                         <% if (dateString == null) {%>
-                        <h3>Tomorrow Meal Orders</h3>
+                        <h3 class="m-3 mt-5 mb-3">Tomorrow Meal Orders</h3>
                         <% } else {%>
-                        <h3>Meal Orders for <%= todayDateString%></h3>
+                        <h3 class="m-3">Meal Orders for <%= todayDateString%></h3>
                         <% } %>
-
-
-
-                        <table class="table table-sm table-bordered table-hover mb-5">
+                        <hr>
+                        <table id="myTable"  class="table table-sm table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">No.</th>
-                                    <th scope="col">Meal ID</th>
-                                    <th scope="col">Food</th>
-                                    <th scope="col">Total food order</th>
+                                    <th>No.</th>
+                                    <th>Meal ID</th>
+                                    <th>Food</th>
+                                    <th>Total food order</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,23 +95,33 @@
                                         ex.printStackTrace();
                                     }
                                 %>
-                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Meal ID</th>
+                                    <th>Food</th>
+                                    <th>Total food order</th>
+                                </tr>
+                            <tfoot>
+                                </tbody>
                         </table>
 
-                        <table class="table table-sm table-bordered table-hover mt-">
-                            <h4>Ingredients to be prepared</h4>
+                            <hr class="border-dark">
+                        <table id="myTable2"  class="table table-sm table-striped table-bordered" style="width:100%">
+                            <h4 class="m-3 mt-5 mb-3">Ingredients to be prepared</h4>
+                            <hr>
                             <thead>
                                 <tr>
-                                    <th scope="col">No.</th>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Ingredients</th>
-                                    <th scope="col">Total Ingredients</th>
+                                    <th>No.</th>
+                                    <th>ID</th>
+                                    <th>Ingredients</th>
+                                    <th>Total Ingredients</th>
                                 </tr>
                             </thead>
-                            
+
                             <tbody>
-                                <%    
-                                    int j=1;
+                                <%
+                                    int j = 1;
                                     String sqlQuery2 = "SELECT IL.INGREDIENT_ID, I.INGREDIENT_NAME, SUM(IL.QUANTITY) AS TOTAL_INGREDIENTS "
                                             + "FROM ORDERMEAL O INNER JOIN  ORDERLIST OL ON O.ORDER_ID = OL.ORDER_ID "
                                             + "INNER JOIN MEAL M ON OL.MEAL_ID = M.MEAL_ID "
@@ -123,7 +132,7 @@
                                             + "WHERE C.REDEEM_DATE = ? AND M.CATEGORY_ID = ? "
                                             + "GROUP BY IL.INGREDIENT_ID, I.INGREDIENT_NAME "
                                             + "ORDER BY IL.INGREDIENT_ID ";
-                                         //   + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+                                    //   + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
                                     try {
                                         Connection conn = DriverManager.getConnection(host, user, password);
                                         PreparedStatement stmt = conn.prepareStatement(sqlQuery2);
@@ -143,27 +152,25 @@
                                     <td><%= ingredientName%></td>
                                     <td><%= totalIngredient%></td>
                                 </tr>
-                                
+
                                 <%
-                                        
+
                                         }
                                         conn.close();
                                     } catch (SQLException ex) {
                                         ex.printStackTrace();
                                     }
                                 %>
-                                
-                                
+                            <tfoot>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>ID</th>
+                                    <th>Ingredients</th>
+                                    <th>Total Ingredients</th>
+                                </tr>
+                            </tfoot>
                             </tbody>
-
-
-
-
-
                         </table>
-
-
-
                         <div class="row mt-3 d-print-none">
                             <div class="col-sm-7">
                                 <div class="input-group">
@@ -180,25 +187,6 @@
                             <div class="col-sm-2">
                                 <button class="btn btn-outline-primary d-print-none" onclick="printFn()" id="print"><i class="fas fa-print"></i> Print</button>
                             </div>
-                            <nav class="col-sm-3" aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="mealPreparation.jsp?page=1">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="mealPreparation.jsp?page=2">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="mealPreparation.jsp?page=3">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
                         </div>
                     </div>
                     <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
@@ -207,27 +195,38 @@
         </div>
 
         <%@include file="../layout/scripts.jsp" %>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="../../bootstrap/js/jquery.dataTables.min.js"></script>
+        <script src="../../bootstrap/js/dataTables.bootstrap4.min.js"></script>
+
         <script>
-            function printFn() {
+                                    $(document).ready(function () {
+                                        $('#myTable').DataTable();
+                                        $('#myTable2').DataTable();
+                                    });
 
-                $("#mainContainer").removeClass("col-md-9");
-                $("#mainContainer").removeClass("ml-sm-auto");
-                $("#mainContainer").removeClass("col-lg-10");
-                $("#mainContainer").addClass("col-sm-12");
-                window.print();
-                $("#mainContainer").removeClass("col-sm-12");
-                $("#mainContainer").addClass("col-md-9");
-                $("#mainContainer").addClass("ml-sm-auto");
-                $("#mainContainer").addClass("col-lg-10");
-            }
+                                    function printFn() {
+                                        $(".dataTables_length").addClass("d-print-none");
+                                        $(".dataTables_filter").addClass("d-print-none");
+                                        $(".dataTables_paginate").addClass("d-print-none");
+                                        $("#mainContainer").removeClass("col-md-9");
+                                        $("#mainContainer").removeClass("ml-sm-auto");
+                                        $("#mainContainer").removeClass("col-lg-10");
+                                        $("#mainContainer").addClass("col-sm-12");
+                                        window.print();
+                                        $("#mainContainer").removeClass("col-sm-12");
+                                        $("#mainContainer").addClass("col-md-9");
+                                        $("#mainContainer").addClass("ml-sm-auto");
+                                        $("#mainContainer").addClass("col-lg-10");
+                                    }
 
-            function setDate() {
-                var month = $('.inputMonth').val();
-                var url = 'mealPreparation.jsp?&date=' + month;
+                                    function setDate() {
+                                        var month = $('.inputMonth').val();
+                                        var url = 'mealPreparation.jsp?&date=' + month;
 
-                $('#search').attr('href', url);
-            }
-            ;
+                                        $('#search').attr('href', url);
+                                    }
+                                    ;
 
 
 

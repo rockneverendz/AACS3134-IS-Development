@@ -8,6 +8,7 @@
         <%@include file="../layout/meta.jsp" %>
         <%@include file="../layout/css.jsp" %>
         <title>Report | Sales Report</title>
+        <link rel="stylesheet" type="text/css" href="../../bootstrap/css/dataTables.bootstrap4.min.css">
     </head>
     <body>
         <!-- Fixed-top Navs -->
@@ -47,29 +48,18 @@
 
                         <h3>Sales Report for <%= monthArr[selectedMonth - 1]%></h3>
 
-                        <table class="table table-sm table-bordered table-hover">
+                        <table id="myTable"  class="table table-sm table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">No.</th>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Food</th>
-                                    <th scope="col">Total food order</th>
+                                    <th>No.</th>
+                                    <th>ID</th>
+                                    <th>Food</th>
+                                    <th>Total food order</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <%
-
-                                    String spageid = request.getParameter("page");
-                                    int pageid = Integer.parseInt(spageid);
-                                    int offset = 1;
-                                    int total = 15;
                                     int i = 1;
-                                    if (pageid == 1) {
-                                        //offset = offset - 1;
-                                    } else {
-                                        offset = (pageid - 1) * total + 1;
-                                        System.out.println(offset);
-                                    }
 
                                     String host = "jdbc:derby://localhost:1527/canteenDB";
                                     String user = "nbuser";
@@ -80,14 +70,11 @@
                                             + "INNER JOIN COUPON C ON OL.COUPON_ID = C.COUPON_ID "
                                             + "WHERE MONTH(C.REDEEM_DATE) = ? "
                                             + "GROUP BY OL.MEAL_ID, M.NAME, MONTH(C.REDEEM_DATE) "
-                                            + "ORDER BY COUNT(M.MEAL_ID) DESC "
-                                            + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+                                            + "ORDER BY COUNT(M.MEAL_ID) DESC ";
                                     try {
                                         Connection conn = DriverManager.getConnection(host, user, password);
                                         PreparedStatement stmt = conn.prepareStatement(sqlQuery);
                                         stmt.setString(1, Integer.toString(selectedMonth));
-                                        stmt.setString(2, Integer.toString(offset - 1));
-                                        stmt.setString(3, Integer.toString(total));
                                         ResultSet rs = stmt.executeQuery();
                                         while (rs.next()) {
                                             String mealID = rs.getString("MEAL_ID");
@@ -109,6 +96,14 @@
                                     }
                                 %>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>ID</th>
+                                    <th>Food</th>
+                                    <th>Total food order</th>
+                                </tr>
+                            </tfoot>
                         </table>
 
                         <div class="row mt-3 d-print-none">
@@ -140,25 +135,6 @@
                             <div class="col-sm-2">
                                 <button class="btn btn-outline-primary d-print-none" onclick="printFn()" id="print"><i class="fas fa-print"></i> Print</button>
                             </div>
-                            <nav class="col-sm-3" aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="topSales.jsp?page=1&month=<%= selectedMonth%>">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="topSales.jsp?page=2&month=<%= selectedMonth%>">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="topSales.jsp?page=3&month=<%= selectedMonth%>">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
                         </div>
                     </div>
                     <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
@@ -167,27 +143,36 @@
         </div>
 
         <%@include file="../layout/scripts.jsp" %>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="../../bootstrap/js/jquery.dataTables.min.js"></script>
+        <script src="../../bootstrap/js/dataTables.bootstrap4.min.js"></script>
+
         <script>
-            function printFn() {
+                                    $(document).ready(function () {
+                                        $('#myTable').DataTable();
+                                    });
 
-                $("#mainContainer").removeClass("col-md-9");
-                $("#mainContainer").removeClass("ml-sm-auto");
-                $("#mainContainer").removeClass("col-lg-10");
-                $("#mainContainer").addClass("col-sm-12");
-                window.print();
-                $("#mainContainer").removeClass("col-sm-12");
-                $("#mainContainer").addClass("col-md-9");
-                $("#mainContainer").addClass("ml-sm-auto");
-                $("#mainContainer").addClass("col-lg-10");
-            }
+                                    function printFn() {
+                                        $("#myTable_length").addClass("d-print-none");
+                                        $("#myTable_filter").addClass("d-print-none");
+                                        $("#myTable_paginate").addClass("d-print-none");
+                                        $("#mainContainer").removeClass("col-md-9");
+                                        $("#mainContainer").removeClass("ml-sm-auto");
+                                        $("#mainContainer").removeClass("col-lg-10");
+                                        $("#mainContainer").addClass("col-sm-12");
+                                        window.print();
+                                        $("#mainContainer").removeClass("col-sm-12");
+                                        $("#mainContainer").addClass("col-md-9");
+                                        $("#mainContainer").addClass("ml-sm-auto");
+                                        $("#mainContainer").addClass("col-lg-10");
+                                    }
+                                    function setMonth() {
+                                        var month = $('.inputMonth').val();
+                                        var url = 'topSales.jsp?month=' + month;
 
-            function setMonth() {
-                var month = $('.inputMonth').val();
-                var url = 'topSales.jsp?page=' + '<%= pageid%>' + '&month=' + month;
-
-                $('#search').attr('href', url);
-            }
-            ;
+                                        $('#search').attr('href', url);
+                                    }
+                                    ;
 
 
 

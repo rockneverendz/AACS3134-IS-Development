@@ -8,6 +8,7 @@
         <%@include file="../layout/meta.jsp" %>
         <%@include file="../layout/css.jsp" %>
         <title>Report | Top Up History</title>
+        <link rel="stylesheet" type="text/css" href="../../bootstrap/css/dataTables.bootstrap4.min.css">
     </head>
     <body>
         <!-- Fixed-top Navs -->
@@ -36,8 +37,8 @@
 
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4" style="max-width: 1000px;">
-                        
-                        
+
+
                         <div id="reportHeader" class="row mb-3">
                             <div class="col-6  d-none d-print-block">
                                 <img class="img-fluid" src="../../resource/Logo2.png" alt="logo" width="200px">
@@ -49,34 +50,23 @@
 
                         <h3>Top Up History for <%= monthArr[selectedMonth - 1]%></h3>
 
-                        <table id="myTable" class="table table-sm table-bordered table-hover">
+                        <table id="myTable"  class="table table-sm table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Customer ID</th>
-                                    <th scope="col">Customer Name</th>
-                                    <th scope="col">Reload ID</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Staff Name</th>
-                                    <th scope="col">Reload Amount</th>
+                                    <th>#</th>
+                                    <th>Customer ID</th>
+                                    <th>Customer Name</th>
+                                    <th>Reload ID</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Staff Name</th>
+                                    <th>Reload Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                                 <%
-
-                                    String spageid = request.getParameter("page");
-                                    int pageid = Integer.parseInt(spageid);
-                                    int offset = 1;
-                                    int total = 20;
                                     int i = 1;
-                                    if (pageid == 1) {
-                                    } else {
-                                        offset = (pageid - 1) * total + 1;
-                                        System.out.println(offset);
-                                    }
-
                                     String host = "jdbc:derby://localhost:1527/canteenDB";
                                     String user = "nbuser";
                                     String password = "nbuser";
@@ -84,14 +74,11 @@
                                             + "FROM CUSTOMER C INNER JOIN  RELOAD R ON C.CUST_ID = R.CUST_ID "
                                             + "INNER JOIN STAFF S ON S.STAFF_ID = R.STAFF_ID "
                                             + "WHERE MONTH(R.DATE) = ? "
-                                            + "ORDER BY R.DATE "
-                                            + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+                                            + "ORDER BY R.DATE ";
                                     try {
                                         Connection conn = DriverManager.getConnection(host, user, password);
                                         PreparedStatement stmt = conn.prepareStatement(sqlQuery);
                                         stmt.setString(1, Integer.toString(selectedMonth));
-                                        stmt.setString(2, Integer.toString(offset - 1));
-                                        stmt.setString(3, Integer.toString(total));
                                         ResultSet rs = stmt.executeQuery();
                                         while (rs.next()) {
                                             String custID = rs.getString("CUST_ID");
@@ -120,9 +107,25 @@
                                         ex.printStackTrace();
                                     }
                                 %>
+
+
+                            <tfoot>
                                 <tr>
-                                    <td>&nbsp;</td>
-                                </tr> 
+                                    <th>#</th>
+                                    <th>Customer ID</th>
+                                    <th>Customer Name</th>
+                                    <th>Reload ID</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Staff Name</th>
+                                    <th>Reload Amount</th>
+                                </tr>
+                            </tfoot>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-primary table-bordered mt-5 " style="width:100%">
+                            <tbody>
                                 <%
                                     String sqlQuery2 = "SELECT COUNT(*) AS TOTAL_NUMBER_OF_TOPUP, SUM(R.AMOUNT) AS TOTAL_AMOUNT "
                                             + "FROM CUSTOMER C INNER JOIN  RELOAD R ON C.CUST_ID = R.CUST_ID "
@@ -132,7 +135,7 @@
                                         Connection conn = DriverManager.getConnection(host, user, password);
                                         PreparedStatement stmt = conn.prepareStatement(sqlQuery2);
                                         stmt.setString(1, Integer.toString(selectedMonth));
-                                        
+
                                         ResultSet rs = stmt.executeQuery();
                                         while (rs.next()) {
                                             String totalTopup = rs.getString("TOTAL_NUMBER_OF_TOPUP");
@@ -140,9 +143,9 @@
 
                                 %>
                                 <tr>
-                                    <th colspan="3" class="text-right">Total Number of Top-Up : </th>
-                                    <th colspan="2" class="text-center"><%= totalTopup%></th>
-                                    <th colspan="2" class="text-right">Total Amount : </th>
+                                    <th class="text-center">Total Number of Top-Up : </th>
+                                    <th class="text-center"><%= totalTopup%></th>
+                                    <th class="text-center">Total Amount : </th>
                                     <th class="text-center"><%= totalAmount%></th>
                                 </tr>
 
@@ -155,7 +158,7 @@
                                 %>
                             </tbody>
                         </table>
-
+                            
                         <div class="row mt-3 d-print-none">
                             <div class="col-sm-7">
                                 <div class="input-group">
@@ -178,62 +181,55 @@
                                         <option value="12">Dec</option>
                                     </select>
                                     <div class="input-group-append">
-                                        <a class="btn btn-outline-success" href="transaction.jsp?page=1" id="search">Search</a>
+                                        <a class="btn btn-outline-success" href="transaction.jsp?" id="search">Search</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-2">
                                 <button class="btn btn-outline-primary d-print-none" onclick="printFn()" id="print"><i class="fas fa-print"></i> Print</button>
                             </div>
-                            <nav class="col-sm-3">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="transaction.jsp?page=1&month=<%= selectedMonth%>">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="transaction.jsp?page=2&month=<%= selectedMonth%>">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="transaction.jsp?page=3&month=<%= selectedMonth%>">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+
                         </div>
                     </div>
-                            <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
+                    <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
                 </main>
             </div>
         </div>
 
         <%@include file="../layout/scripts.jsp" %>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="../../bootstrap/js/jquery.dataTables.min.js"></script>
+        <script src="../../bootstrap/js/dataTables.bootstrap4.min.js"></script>
+
+
         <script>
-            function printFn() {
+                                    $(document).ready(function () {
+                                        $('#myTable').DataTable();
+                                    });
 
-                $("#mainContainer").removeClass("col-md-9");
-                $("#mainContainer").removeClass("ml-sm-auto");
-                $("#mainContainer").removeClass("col-lg-10");
-                $("#mainContainer").addClass("col-sm-12");
-                window.print();
-                $("#mainContainer").removeClass("col-sm-12");
-                $("#mainContainer").addClass("col-md-9");
-                $("#mainContainer").addClass("ml-sm-auto");
-                $("#mainContainer").addClass("col-lg-10");
-            }
+                                    function printFn() {
+                                        $("#myTable_length").addClass("d-print-none");
+                                        $("#myTable_filter").addClass("d-print-none");
+                                        $("#myTable_paginate").addClass("d-print-none");
+                                        $("#mainContainer").removeClass("col-md-9");
+                                        $("#mainContainer").removeClass("ml-sm-auto");
+                                        $("#mainContainer").removeClass("col-lg-10");
+                                        $("#mainContainer").addClass("col-sm-12");
+                                        window.print();
+                                        $("#mainContainer").removeClass("col-sm-12");
+                                        $("#mainContainer").addClass("col-md-9");
+                                        $("#mainContainer").addClass("ml-sm-auto");
+                                        $("#mainContainer").addClass("col-lg-10");
+                                    }
 
 
-            function setMonth() {
-                var month = $('.inputMonth').val();
-                var url = 'transaction.jsp?page=' + '<%= pageid%>' + '&month=' + month;
+                                    function setMonth() {
+                                        var month = $('.inputMonth').val();
+                                        var url = 'transaction.jsp?month=' + month;
 
-                $('#search').attr('href', url);
-            }
-            ;
+                                        $('#search').attr('href', url);
+                                    }
+                                    ;
         </script>
 
     </body>
