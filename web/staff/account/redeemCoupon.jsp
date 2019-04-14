@@ -33,6 +33,9 @@
                                     } else if (code == 'R') {
                                         type = "warning";
                                         message = "This Coupon has been redeemed!";
+                                    } else if (code == 'T') {
+                                        type = "warning";
+                                        message = "This Coupon's time does not match selected time!";
                                     } else if (code == 'E') {
                                         type = "warning";
                                         message = "This Coupon has expired!";
@@ -61,10 +64,13 @@
                             %>
                             <label for="inputCoupon">Coupon</label>
                             <div class="input-group">
-                                <input name="couponid" type="text" class="form-control" id="inputCoupon" placeholder="Coupon ID" required>
+                                <input name="couponid" type="text" class="form-control" id="inputCoupon" placeholder="Coupon ID" autofocus required>
                             </div>
                             <br>
-                            <label>Time</label>
+                            <div class="d-flex justify-content-between">
+                                <label class="text-left">Time</label>
+                                <label class="text-right" id="clock">Loading...</label>
+                            </div>
                             <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
                                 <label class="btn btn-outline-primary w-50 ">
                                     <input name="redeemTime" value="Breakfast" type="radio" required> Breakfast
@@ -82,5 +88,13 @@
             </div>
         </div>
         <%@include file="../layout/scripts.jsp" %>
+        <script src="../../bootstrap/js/moment.js" type="text/javascript"></script>
+        <script>
+            function timedUpdate() {
+                $('#clock').html(moment().format('Do MMMM YYYY, h:mm:ss a'));
+                setTimeout(timedUpdate, 1000);
+            }
+            timedUpdate();
+        </script>
     </body>
 </html>
