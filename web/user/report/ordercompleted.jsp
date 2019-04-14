@@ -1,14 +1,10 @@
-<%@page import="service.CouponService"%>
-<%@page import="java.util.Calendar"%>
-<%@page import="java.util.Date"%>
-<%@page import="service.OrderService"%>
 <%@page import="entity.Coupon"%>
-<%@page import="entity.Orderlist"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="entity.Ordermeal"%>
-<%@page import="javax.persistence.criteria.Order"%>
-<%@page import="java.util.List"%>
-<%@page import="service.CustomerService"%>
+<%@page import="service.CouponService"%>
+<%@page import="service.OrderService"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
@@ -64,7 +60,6 @@
                     </a>
                 </div>
             </section>
-
             <%  String dateString = request.getParameter("date");
                 SimpleDateFormat monthFormat = new SimpleDateFormat("MM-yyyy");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -82,21 +77,6 @@
                 c.setTime(date);
                 int month = c.get(Calendar.MONTH) + 1; // beware of month indexing from zero
             %>
-
-            <div class="container">
-                <div class="container-fluid row">
-                    <div class="col-6 mb-4 p-5" style="position: relative; height:350px">
-                        <canvas class="col-12" id="monthChart"></canvas>
-                        <h2 class="display-4 text-left"><%= monthFormat.format(date)%></h2>
-                    </div>
-                    <div class="col-6 mb-4 p-5" style="position: relative; height:350px">
-                        <canvas class="col-12" id="overallChart"></canvas>
-                        <h2 class="display-4 text-right">Overall</h2>
-                    </div>
-                </div>          
-            </div>
-
-
             <div class="album py-5 bg-light">
                 <div class="container">
                     <div class="container-fluid">
@@ -104,26 +84,17 @@
 
                             double amount;
                             double totalAmount = 0;
-
-                            String status = request.getParameter("status");
-                            String message;
-                            String type;
-                            if (status != null) {
-                                char code = status.charAt(0);
-                                if (code == '1') {
-                                    type = "success";
-                                    message = "Successfully Canceled Order!";
-                                } else {
-                                    type = "danger";
-                                    message = "An error has occured";
-                                }
-                        %>            
-                        <div class="alert alert-<%= type%>" role="alert">
-                            <%= message%>
-                        </div>
-                        <%
-                            }
                         %>
+                        <div class="row"> 
+                            <div class="col-6">
+                                <canvas class="col-12" id="monthChart"></canvas>
+                                <h2 class="display-4 text-left"><%= monthFormat.format(date)%></h2>
+                            </div>
+                            <div class="col-6">
+                                <canvas class="col-12" id="overallChart"></canvas>
+                                <h2 class="display-4 text-right">Overall</h2>
+                            </div>
+                        </div>
                         <div class="card shadow mb-4 w-100">
                             <div class="card-header py-3 d-flex">
                                 <h6 class="my-auto text-primary">Order Report</h6>
@@ -259,6 +230,10 @@
                         displayColors: false,
                         caretPadding: 10
                     },
+                    legend: {
+                        display: true,
+                        position: 'left'
+                    },
                     cutoutPercentage: 50
                 }
             });
@@ -298,6 +273,10 @@
                         yPadding: 15,
                         displayColors: false,
                         caretPadding: 10
+                    },
+                    legend: {
+                        display: true,
+                        position: 'right'
                     },
                     cutoutPercentage: 50
                 }
