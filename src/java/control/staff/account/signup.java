@@ -74,7 +74,7 @@ public class signup extends HttpServlet {
             session.setMaxInactiveInterval(-1);
 
             // Redirect back to homepage with status 'Success'
-            response.sendRedirect("../../staff/account/topup.jsp");
+            response.sendRedirect("../reports/mealPreparation.jsp");
             return;
             
         } catch (IllegalArgumentException ex) {

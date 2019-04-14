@@ -38,8 +38,8 @@ public class signin extends HttpServlet {
             session.setAttribute("staff", staff);
             session.setMaxInactiveInterval(-1);
 
-            // Redirect back to topup page with status 'Success'
-            response.sendRedirect("topup.jsp");
+            // Redirect back to dashboard page with status 'Success'
+            response.sendRedirect("../reports/mealPreparation.jsp");
             return;
 
         } catch (NoResultException ex) {
