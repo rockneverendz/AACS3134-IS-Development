@@ -1,10 +1,8 @@
 <%@page import="entity.Meal"%>
-<%@page import="entity.Orderlist"%>
 <%@page import="entity.Ordermeal"%>
 <%@page import="service.OrderService"%>
-<%@page import="java.util.List"%>
-<%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
+<%@page import="java.util.Calendar"%>
 <%@page import="java.util.concurrent.TimeUnit"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <!doctype html>
@@ -79,11 +77,19 @@
                 if (dateString == null) {
                     cal.setTime(date);
                     cal.add(Calendar.DATE, -7);
+                    
+                    // Remove time
+                    cal.set(Calendar.HOUR_OF_DAY, 0);
+                    cal.set(Calendar.MINUTE, 0);
+                    cal.set(Calendar.SECOND, 0);
+                    cal.set(Calendar.MILLISECOND, 0);
+                    
                 } else {
                     cal.setTime(dateFormat.parse(dateString)); //Requested Date
                 }
 
                 cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                System.out.println(cal.getTime());
 
                 for (int i = 0; i < 6; i++) { //Get every date of the week into array
                     days[i] = cal.getTime();
