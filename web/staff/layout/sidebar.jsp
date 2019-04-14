@@ -35,7 +35,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../reports/mealPreparation.jsp?page=1">
+                <a class="nav-link" href="../reports/mealPreparation.jsp">
                     <i class="fas fa-calendar-day feather"></i> View Meal Orders
                 </a>
             </li>
@@ -79,22 +79,22 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../reports/transaction.jsp?page=1">
+                <a class="nav-link" href="../reports/transaction.jsp">
                     <i class="fas fa-file-alt feather"></i> Top Up History
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../reports/orderlist.jsp?page=1">
+                <a class="nav-link" href="../reports/orderlist.jsp">
                     <i class="fas fa-file-alt feather"></i> Meal Order List
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../reports/cancelledOrders.jsp?page=1">
+                <a class="nav-link" href="../reports/cancelledOrders.jsp">
                     <i class="fas fa-file-alt feather"></i> Order Cancellations
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../reports/topSales.jsp?page=1">
+                <a class="nav-link" href="../reports/topSales.jsp">
                     <i class="fas fa-file-alt feather"></i> Sales Report
                 </a>
             </li>
