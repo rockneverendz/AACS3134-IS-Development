@@ -21,12 +21,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "STAFF")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s")
-    , @NamedQuery(name = "Staff.findByStaffId", query = "SELECT s FROM Staff s WHERE s.staffId = :staffId")
-    , @NamedQuery(name = "Staff.findByUserIdCard", query = "SELECT s FROM Staff s WHERE s.userIdCard = :userIdCard")
-    , @NamedQuery(name = "Staff.findByUsername", query = "SELECT s FROM Staff s WHERE s.username = :username")
-    , @NamedQuery(name = "Staff.findByEmail", query = "SELECT s FROM Staff s WHERE s.email = :email")
-    , @NamedQuery(name = "Staff.findByPassword", query = "SELECT s FROM Staff s WHERE s.password = :password")})
+    @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s"),
+    @NamedQuery(name = "Staff.findByStaffId", query = "SELECT s FROM Staff s WHERE s.staffId = :staffId"),
+    @NamedQuery(name = "Staff.findByUserIdCard", query = "SELECT s FROM Staff s WHERE s.userIdCard = :userIdCard"),
+    @NamedQuery(name = "Staff.findByUsername", query = "SELECT s FROM Staff s WHERE s.username = :username"),
+    @NamedQuery(name = "Staff.findByEmail", query = "SELECT s FROM Staff s WHERE s.email = :email"),
+    @NamedQuery(name = "Staff.findByPassword", query = "SELECT s FROM Staff s WHERE s.password = :password")})
 public class Staff implements Serializable {
 
     private static final long serialVersionUID = 1L;

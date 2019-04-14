@@ -20,11 +20,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "PACKAGE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Package.findAll", query = "SELECT p FROM Package p")
-    , @NamedQuery(name = "Package.findByPackageId", query = "SELECT p FROM Package p WHERE p.packageId = :packageId")
-    , @NamedQuery(name = "Package.findByDescription", query = "SELECT p FROM Package p WHERE p.description = :description")
-    , @NamedQuery(name = "Package.findByAvailability", query = "SELECT p FROM Package p WHERE p.availability = :availability")
-    , @NamedQuery(name = "Package.findByPackageTime", query = "SELECT p FROM Package p WHERE p.packageTime = :packageTime")})
+    @NamedQuery(name = "Package.findAll", query = "SELECT p FROM Package p"),
+    @NamedQuery(name = "Package.findByPackageId", query = "SELECT p FROM Package p WHERE p.packageId = :packageId"),
+    @NamedQuery(name = "Package.findByDescription", query = "SELECT p FROM Package p WHERE p.description = :description"),
+    @NamedQuery(name = "Package.findByAvailability", query = "SELECT p FROM Package p WHERE p.availability = :availability"),
+    @NamedQuery(name = "Package.findByPackageTime", query = "SELECT p FROM Package p WHERE p.packageTime = :packageTime")})
 public class Package implements Serializable {
 
     private static final long serialVersionUID = 1L;

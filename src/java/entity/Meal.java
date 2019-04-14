@@ -23,14 +23,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "MEAL")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Meal.findAll", query = "SELECT m FROM Meal m")
-    , @NamedQuery(name = "Meal.findByMealId", query = "SELECT m FROM Meal m WHERE m.mealId = :mealId")
-    , @NamedQuery(name = "Meal.findByName", query = "SELECT m FROM Meal m WHERE m.name = :name")
-    , @NamedQuery(name = "Meal.findByDescription", query = "SELECT m FROM Meal m WHERE m.description = :description")
-    , @NamedQuery(name = "Meal.findByPrice", query = "SELECT m FROM Meal m WHERE m.price = :price")
-    , @NamedQuery(name = "Meal.findByAvailability", query = "SELECT m FROM Meal m WHERE m.availability = :availability")
-    , @NamedQuery(name = "Meal.findByCalories", query = "SELECT m FROM Meal m WHERE m.calories = :calories")
-    , @NamedQuery(name = "Meal.findByCategoryId", query = "SELECT m FROM Meal m WHERE m.categoryId = :categoryId")})
+    @NamedQuery(name = "Meal.findAll", query = "SELECT m FROM Meal m"),
+    @NamedQuery(name = "Meal.findByMealId", query = "SELECT m FROM Meal m WHERE m.mealId = :mealId"),
+    @NamedQuery(name = "Meal.findByName", query = "SELECT m FROM Meal m WHERE m.name = :name"),
+    @NamedQuery(name = "Meal.findByDescription", query = "SELECT m FROM Meal m WHERE m.description = :description"),
+    @NamedQuery(name = "Meal.findByPrice", query = "SELECT m FROM Meal m WHERE m.price = :price"),
+    @NamedQuery(name = "Meal.findByAvailability", query = "SELECT m FROM Meal m WHERE m.availability = :availability"),
+    @NamedQuery(name = "Meal.findByCalories", query = "SELECT m FROM Meal m WHERE m.calories = :calories")})
 public class Meal implements Serializable {
 
     private static final long serialVersionUID = 1L;

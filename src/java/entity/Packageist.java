@@ -16,11 +16,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "PACKAGEIST")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Packageist.findAll", query = "SELECT p FROM Packageist p")
-    , @NamedQuery(name = "Packageist.findByPackageId", query = "SELECT p FROM Packageist p WHERE p.packageistPK.packageId = :packageId")
-    , @NamedQuery(name = "Packageist.findByDayOfWeek", query = "SELECT p FROM Packageist p WHERE p.packageistPK.dayOfWeek = :dayOfWeek")
-    , @NamedQuery(name = "Packageist.findByQuantity", query = "SELECT p FROM Packageist p WHERE p.quantity = :quantity")
-    , @NamedQuery(name = "Packageist.findByPriceeach", query = "SELECT p FROM Packageist p WHERE p.priceeach = :priceeach")})
+    @NamedQuery(name = "Packageist.findAll", query = "SELECT p FROM Packageist p"),
+    @NamedQuery(name = "Packageist.findByPackageId", query = "SELECT p FROM Packageist p WHERE p.packageistPK.packageId = :packageId"),
+    @NamedQuery(name = "Packageist.findByDayOfWeek", query = "SELECT p FROM Packageist p WHERE p.packageistPK.dayOfWeek = :dayOfWeek"),
+    @NamedQuery(name = "Packageist.findByQuantity", query = "SELECT p FROM Packageist p WHERE p.quantity = :quantity"),
+    @NamedQuery(name = "Packageist.findByPriceeach", query = "SELECT p FROM Packageist p WHERE p.priceeach = :priceeach")})
 public class Packageist implements Serializable {
 
     private static final long serialVersionUID = 1L;
