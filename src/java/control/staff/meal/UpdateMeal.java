@@ -2,7 +2,6 @@ package control.staff.meal;
 
 import entity.Ingredientlist;
 import entity.Meal;
-import entity.Staff;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,9 +11,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import service.CategoryService;
 import service.IngredientService;
 import service.MealService;
 
@@ -31,7 +28,7 @@ public class UpdateMeal extends HttpServlet {
         String calories = request.getParameter("Calories");
         String[] ingredient = request.getParameterValues("Ingredient");
         String[] quantity = request.getParameterValues("Quantity");
-        
+
         MealService ms = new MealService();
         Meal meal = ms.findMealByID(Integer.parseInt(mealId));
 

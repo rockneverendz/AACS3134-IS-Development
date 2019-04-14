@@ -77,13 +77,13 @@
                 if (dateString == null) {
                     cal.setTime(date);
                     cal.add(Calendar.DATE, -7);
-                    
+
                     // Remove time
                     cal.set(Calendar.HOUR_OF_DAY, 0);
                     cal.set(Calendar.MINUTE, 0);
                     cal.set(Calendar.SECOND, 0);
                     cal.set(Calendar.MILLISECOND, 0);
-                    
+
                 } else {
                     cal.setTime(dateFormat.parse(dateString)); //Requested Date
                 }

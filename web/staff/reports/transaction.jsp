@@ -19,7 +19,7 @@
                 <!-- Fixed-Sidebar Navs -->
                 <%@include file="../layout/sidebar.jsp" %>
 
-                <%                     String[] monthArr = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+                <%  String[] monthArr = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
                     int selectedMonth;
                     String monthString = request.getParameter("month");
                     System.out.println(monthString);
@@ -158,7 +158,7 @@
                                 %>
                             </tbody>
                         </table>
-                            
+
                         <div class="row mt-3 d-print-none">
                             <div class="col-sm-7">
                                 <div class="input-group">

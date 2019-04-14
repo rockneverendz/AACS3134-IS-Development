@@ -133,7 +133,7 @@ public class DBII {
 
     private void updateMealImage(int id, byte[] image) {
         Meal oldMeal = (Meal) em.find(Meal.class,
-                 id);
+                id);
         em.getTransaction().begin();
         oldMeal.setImage(image);
         em.getTransaction().commit();
@@ -142,7 +142,7 @@ public class DBII {
 
     private void updateCategoryImage(int id, byte[] image) {
         Category category = (Category) em.find(Category.class,
-                 id);
+                id);
         em.getTransaction().begin();
         category.setImage(image);
         em.getTransaction().commit();

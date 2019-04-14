@@ -2,13 +2,11 @@ package control.user.order;
 
 import entity.Coupon;
 import entity.Customer;
-import entity.Orderlist;
 import entity.Ordermeal;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;

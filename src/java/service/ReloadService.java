@@ -2,8 +2,8 @@ package service;
 
 import entity.Customer;
 import entity.Reload;
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.*;
 
 public class ReloadService {
 
@@ -34,7 +34,7 @@ public class ReloadService {
         return em.createNativeQuery("SELECT r.* FROM RELOAD r"
                 + " WHERE r.CUST_ID = " + custId
                 + " AND YEAR(r.\"DATE\") = " + year,
-                 Reload.class)
+                Reload.class)
                 .getResultList();
     }
 

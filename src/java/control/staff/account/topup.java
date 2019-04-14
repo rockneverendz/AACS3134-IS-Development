@@ -1,8 +1,8 @@
 package control.staff.account;
 
-import entity.Staff;
-import entity.Reload;
 import entity.Customer;
+import entity.Reload;
+import entity.Staff;
 import java.io.IOException;
 import java.util.Date;
 import javax.persistence.NoResultException;
@@ -59,7 +59,7 @@ public class topup extends HttpServlet {
 
         } catch (NoResultException ex) {
             response.sendRedirect("topup.jsp?status=U");        //Failed to get Student ID
-        } finally  {
+        } finally {
             customerService.close();
             reloadService.close();
             staffService.close();

@@ -1,8 +1,8 @@
 package service;
 
 import entity.Coupon;
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.*;
 
 public class CouponService {
 

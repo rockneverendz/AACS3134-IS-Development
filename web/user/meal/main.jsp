@@ -9,7 +9,7 @@
                 background-image: url(../../resource/bg.jpg);
                 background-size: cover;
             }
-            
+
             .bg-dark {
                 background-color: unset!important;
             }

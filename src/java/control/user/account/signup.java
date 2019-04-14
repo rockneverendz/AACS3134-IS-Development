@@ -38,12 +38,12 @@ public class signup extends HttpServlet {
                 url.append("?status=C");
                 throw new IllegalArgumentException();
             }
-            
+
             if (service.isUserIDUsed(customer.getUserIdCard())) {
                 url.append("?status=U");
                 throw new IllegalArgumentException();
             }
-            
+
             if (service.isUsernameUsed(customer.getUsername())) {
                 url.append("?status=N");
                 throw new IllegalArgumentException();
@@ -72,7 +72,7 @@ public class signup extends HttpServlet {
             // Success! Closing services since we're not gonna enter 'finally'
             externalService.close();
             service.close();
-            
+
             // Redirect back to homepage with status 'Success'
             response.sendRedirect("../meal/main.jsp?status=1");
             return;
@@ -84,7 +84,7 @@ public class signup extends HttpServlet {
             externalService.close();
             service.close();
         }
-        
+
         customer.setPassword("");
         request.setAttribute("customer", customer);
 

@@ -1,8 +1,8 @@
 package service;
 
 import entity.Customer;
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.*;
 
 public class CustomerService {
 
@@ -24,7 +24,7 @@ public class CustomerService {
                 .setParameter("username", username)
                 .getSingleResult();
     }
-    
+
     public Customer findCustByUserIdCard(String userIdCard) {
         return (Customer) em.createNamedQuery("Customer.findByUserIdCard")
                 .setParameter("userIdCard", userIdCard)
@@ -37,22 +37,22 @@ public class CustomerService {
                 .getSingleResult();
     }
 
-    public boolean isUserIDUsed(String useridcard) {     
+    public boolean isUserIDUsed(String useridcard) {
         int count = (int) em.createNativeQuery(
                 "SELECT COUNT(USER_ID_CARD) "
                 + "FROM CUSTOMER "
                 + "WHERE USER_ID_CARD = '" + useridcard + "'")
                 .getSingleResult();
-        return (count != 0);
+        return (count == 1);
     }
-    
+
     public boolean isUsernameUsed(String username) {
         int count = (int) em.createNativeQuery(
                 "SELECT COUNT(USERNAME) "
                 + "FROM CUSTOMER "
                 + "WHERE USERNAME = '" + username + "'")
                 .getSingleResult();
-        return (count != 0);
+        return (count == 1);
     }
 
     public boolean isEmailUsed(String email) {
@@ -61,7 +61,7 @@ public class CustomerService {
                 + "FROM CUSTOMER "
                 + "WHERE EMAIL ='" + email + "'")
                 .getSingleResult();
-        return (count != 0);
+        return (count == 1);
     }
 
     public Customer findCustByID(int id) {

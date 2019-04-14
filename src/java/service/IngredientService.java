@@ -1,8 +1,8 @@
 package service;
 
 import entity.Ingredient;
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.*;
 
 public class IngredientService {
 
@@ -45,7 +45,7 @@ public class IngredientService {
         }
         return false;
     }
-    
+
     /**
      * @param id ID of the ingredient which needs to be deleted
      * @return true if successfully committed false if product not found

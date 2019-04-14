@@ -30,7 +30,7 @@ public class addMeal extends HttpServlet {
         MealService ms = new MealService();
         Orderlist orderlist;
         Coupon coupon;
-        Meal meal;       
+        Meal meal;
         int mealQtyInt;
 
         // Get session order. If null, new order.
@@ -45,12 +45,12 @@ public class addMeal extends HttpServlet {
             // Find the meal by ID
             meal = ms.findMealByID(Integer.parseInt(mealId));
             mealQtyInt = Integer.parseInt(mealQty);
-            
+
             // If out of range throw exception.
             if (mealQtyInt < 1 || mealQtyInt > 10) {
                 throw new NumberFormatException();
             }
-            
+
             orderlist = new Orderlist();
             orderlist.setMeal(meal);
             orderlist.setQuantity(mealQtyInt);

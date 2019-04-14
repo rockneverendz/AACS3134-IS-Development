@@ -135,56 +135,56 @@
         <script src="../../bootstrap/js/bootstrap-year-calendar.js" type="text/javascript"></script>
         <script>
 
-            JsBarcode(".barcode")
-                    .options({
-                        lineColor: "#343a40",
-                        width: 2,
-                        height: 40,
-                        displayValue: false
-                    }).init();
+                        JsBarcode(".barcode")
+                                .options({
+                                    lineColor: "#343a40",
+                                    width: 2,
+                                    height: 40,
+                                    displayValue: false
+                                }).init();
 
-            $(document).ready(function () {
-                $(".ordermeal").click(function (e) {
-                    e.preventDefault();
-                    $('.cat' + $(this).attr('data-prod-cat')).toggle();
-                });
-                $('.calendar').calendar({
-                    mouseOnDay: function (e) {
-                        if (e.events.length > 0) {
-                            var content = '';
-
-                            for (var i in e.events) {
-                                content += '<div class="event-tooltip-content">'
-                                        + '<div class="event-name"> Coupon #' + e.events[i].name + ' : ' + e.events[i].time + '</div>'
-                                        + '</div>';
-                            }
-
-                            $(e.element).popover({
-                                trigger: 'manual',
-                                container: 'body',
-                                html: true,
-                                content: content
+                        $(document).ready(function () {
+                            $(".ordermeal").click(function (e) {
+                                e.preventDefault();
+                                $('.cat' + $(this).attr('data-prod-cat')).toggle();
                             });
+                            $('.calendar').calendar({
+                                mouseOnDay: function (e) {
+                                    if (e.events.length > 0) {
+                                        var content = '';
 
-                            $(e.element).popover('show');
-                        }
-                    },
-                    mouseOutDay: function (e) {
-                        if (e.events.length > 0) {
-                            $(e.element).popover('hide');
-                        }
-                    },
-                    dataSource: [
+                                        for (var i in e.events) {
+                                            content += '<div class="event-tooltip-content">'
+                                                    + '<div class="event-name"> Coupon #' + e.events[i].name + ' : ' + e.events[i].time + '</div>'
+                                                    + '</div>';
+                                        }
+
+                                        $(e.element).popover({
+                                            trigger: 'manual',
+                                            container: 'body',
+                                            html: true,
+                                            content: content
+                                        });
+
+                                        $(e.element).popover('show');
+                                    }
+                                },
+                                mouseOutDay: function (e) {
+                                    if (e.events.length > 0) {
+                                        $(e.element).popover('hide');
+                                    }
+                                },
+                                dataSource: [
             <%= stringBuilder.toString()%>
-                    ]
-                });
-            });
+                                ]
+                            });
+                        });
 
 
 
-            function printFn() {
-                    window.print();
-            }
+                        function printFn() {
+                            window.print();
+                        }
         </script>
     </body>
 </html>

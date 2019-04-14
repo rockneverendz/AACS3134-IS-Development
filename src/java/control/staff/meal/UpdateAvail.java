@@ -1,18 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package control.staff.meal;
 
 import entity.Meal;
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import service.MealService;
 
 public class UpdateAvail extends HttpServlet {
@@ -21,22 +14,17 @@ public class UpdateAvail extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-            //Get Parameter 
-            int mealID = Integer.parseInt(request.getParameter("mealId"));
+        //Get Parameter 
+        int mealID = Integer.parseInt(request.getParameter("mealId"));
 
-            //Initialization
-            Meal meal;
-            MealService mealService = new MealService();
-            meal = mealService.findMealByID(mealID);
-            mealService.updateMealAvailably(meal);
-            
-            
-            //Set sessions and redirect
-            response.sendRedirect("../meal/modify.jsp?status=1");
+        //Initialization
+        Meal meal;
+        MealService mealService = new MealService();
+        meal = mealService.findMealByID(mealID);
+        mealService.updateMealAvailably(meal);
 
-
-
-
+        //Set sessions and redirect
+        response.sendRedirect("../meal/modify.jsp?status=1");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

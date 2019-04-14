@@ -254,7 +254,7 @@
         <servlet-name>staff.packages.UpdatePackage</servlet-name>
         <url-pattern>/staff/package/UpdatePackage</url-pattern>
     </servlet-mapping>
-        <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>staff.packages.RemovePackage</servlet-name>
         <url-pattern>/staff/package/RemovePackage</url-pattern>
     </servlet-mapping>

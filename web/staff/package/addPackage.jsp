@@ -85,7 +85,7 @@
                                     <% for (int i = 0; i < 6; i++) {%>
                                     <div class="col-md-4">
                                         <div class="<%= colorClass[i]%> text-white card mb-4 rounded shadow">
-                                            
+
                                             <div class="card-body">
                                                 <h5 class="card-title"><%= dayOfWeeks[i]%></h5>
                                                 <hr>

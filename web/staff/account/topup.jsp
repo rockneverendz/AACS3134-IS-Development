@@ -46,7 +46,7 @@
                             %>
                             <label for="inputStudid">Student ID</label>
                             <div class="input-group">
-                                <input name="studid" type="text" class="form-control" id="inputStudid" placeholder="Student ID" required>
+                                <input name="studid" type="text" class="form-control" id="inputStudid" placeholder="Student ID" autofocus required>
                             </div>
                             <br>
                             <label for="inputEmail">Top-up Amount</label>
