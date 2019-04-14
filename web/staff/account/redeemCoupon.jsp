@@ -59,34 +59,28 @@
                             <%
                                 }
                             %>
-                            <div class="row">
-                                <label for="inputCoupon">Coupon</label>
-                                <div class="input-group">
-                                    <input name="couponid" type="text" class="form-control" id="inputCoupon" placeholder="Coupon ID" required>
-                                </div>
+                            <label for="inputCoupon">Coupon</label>
+                            <div class="input-group">
+                                <input name="couponid" type="text" class="form-control" id="inputCoupon" placeholder="Coupon ID" required>
                             </div>
-                            <div class="row">
-                                <label class="col-form-label">Time</label>
-                                <div class="btn-group btn-group-toggle btn-block">
-                                    <label class="btn btn-outline-primary w-50">
-                                        <input name="redeemTime" value="Breakfast" type="radio" required> Breakfast
-                                    </label>
-                                    <label class="btn btn-outline-primary w-50">
-                                        <input name="redeemTime" value="Lunch" type="radio" required> Lunch
-                                    </label>
-                                </div>
+                            <br>
+                            <label>Time</label>
+                            <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+                                <label class="btn btn-outline-primary w-50 ">
+                                    <input name="redeemTime" value="Breakfast" type="radio" required> Breakfast
+                                </label>
+                                <label class="btn btn-outline-primary w-50">
+                                    <input name="redeemTime" value="Lunch" type="radio" required> Lunch
+                                </label>
                             </div>
-                            <div class="row ">
-                                <button class="btn btn-lg btn-primary btn-block mt-5" type="submit">Redeem</button>
-                            </div>
-
+                            <hr>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Redeem</button>
                             <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
                         </form>
                     </div>
                 </main>
             </div>
         </div>
-
         <%@include file="../layout/scripts.jsp" %>
     </body>
 </html>

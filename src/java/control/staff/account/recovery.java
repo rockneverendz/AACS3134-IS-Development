@@ -1,6 +1,6 @@
-package control.user.account;
+package control.staff.account;
 
-import entity.Customer;
+import entity.Staff;
 import entity.Token;
 import java.io.IOException;
 import java.util.Date;
@@ -20,7 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import service.CustomerService;
+import service.StaffService;
 import service.TokenService;
 
 public class recovery extends HttpServlet {
@@ -32,18 +32,18 @@ public class recovery extends HttpServlet {
         final String password = System.getProperty("pass");
 
         // Get request object
-        String userIdCard = request.getParameter("UserIDCard");
+        String staffIdCard = request.getParameter("StaffIDCard");
         String email = request.getParameter("Email");
 
         // Initialize variables
         StringBuilder url = new StringBuilder("../account/passrecovery.jsp");
-        CustomerService cs = new CustomerService();
+        StaffService ss = new StaffService();
         TokenService ts = new TokenService();
 
         try {
             // Find that customer
-            Customer customer = cs.findCustByUserIdCard(userIdCard);
-            if (!customer.getEmail().equals(email)) {
+            Staff staff = ss.findStaffByUserIdCard(staffIdCard);
+            if (!staff.getEmail().equals(email)) {
                 throw new IllegalArgumentException();
             }
 
@@ -56,7 +56,7 @@ public class recovery extends HttpServlet {
             token.setStutus("Sent");
             token.setDate(date);
             token.setTime(date);
-            token.setId(customer.getCustId());
+            token.setId(staff.getStaffId());
 
             ts.addToken(token);
 
@@ -79,12 +79,12 @@ public class recovery extends HttpServlet {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-            message.setSubject("Account Recovery - St. Freya Bricks");
+            message.setSubject("Staff Account Recovery - St. Freya Bricks");
             message.setText(
-                    "Hello " + customer.getUsername() + "!\n"
+                    "Hello " + staff.getUsername() + "!\n"
                     + "You recently requested to reset your password for your St. Freya Bricks account. Use the link below to reset it.\n"
                     + "This password reset is only valid for the next 24 hours.\n"
-                    + "http://localhost:8080/AACS3134-IS-Development/user/account/token.jsp?token=" + uniqueID + '\n'
+                    + "http://localhost:8080/AACS3134-IS-Development/staff/account/token.jsp?token=" + uniqueID + '\n'
                     + "If you did not request a password reset, please ignore this email or contact support if you have questions.\n"
                     + "\n"
                     + "Thanks, \n"
@@ -104,7 +104,7 @@ public class recovery extends HttpServlet {
         } catch (IllegalArgumentException ex) {
             url.append("?status=E");
         } finally {
-            cs.close();
+            ss.close();
             ts.close();
         }
 

@@ -140,9 +140,7 @@
                 String status = request.getParameter("status");
                 String message;
                 String type;
-                if (status == null) {
-                    message = "";
-                } else {
+                if (status != null) {
                     char code = status.charAt(0);
                     if (code == '0') {
                         type = "success";
@@ -156,6 +154,12 @@
                     } else if (code == 'N') {
                         type = "danger";
                         message = "You have to be logged in to do that!";
+                    } else if (code == 'T') {
+                        type = "danger";
+                        message = "Token is invalid or expired.";
+                    } else if (code == 'C') {
+                        type = "success";
+                        message = "Password change successful!";
                     } else {
                         type = "danger";
                         message = "An error has occured";

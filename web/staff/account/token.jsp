@@ -191,7 +191,7 @@
                 <label for="inputNewCPassword">Confirm Password</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
-            <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
+            <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
         </form>
         <%@include file="../layout/scripts.jsp" %>
         <script>

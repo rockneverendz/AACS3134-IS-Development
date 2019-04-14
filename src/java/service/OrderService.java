@@ -96,7 +96,31 @@ public class OrderService {
                 Orderlist.class)
                 .getResultList();
     }
+    
+    public List<Orderlist> findOrderlistByCustPaid(int custId) {
+        return em.createNativeQuery("SELECT ol.*"
+                + " FROM ORDERLIST ol"
+                + " INNER JOIN COUPON c ON c.COUPON_ID = ol.COUPON_ID"
+                + " INNER JOIN ORDERMEAL om ON ol.ORDER_ID = om.ORDER_ID"
+                + " WHERE c.REDEEM_DATE > CURRENT_DATE"
+                + " AND c.STATUS = 'Active'"
+                + " AND om.CUST_ID = " + custId
+                + " ORDER BY c.REDEEM_DATE, c.REDEEM_TIME ASC",
+                Orderlist.class)
+                .getResultList();
+    }
 
+    public List findPaymentSummary(int custId, int year) {
+        return em.createNativeQuery("SELECT MONTH(pay.\"DATE\"), SUM(pay.AMOUNT)"
+                + " FROM ORDERMEAL om"
+                + " INNER JOIN ORDERLIST ol ON ol.ORDER_ID = om.ORDER_ID"
+                + " INNER JOIN PAYMENT pay on pay.PAYMENT_ID = om.PAYMENT_ID"
+                + " WHERE om.CUST_ID = " + custId
+                + " AND YEAR(pay.\"DATE\") = " + year
+                + " GROUP BY MONTH(pay.\"DATE\")")
+                .getResultList();
+    }
+    
     /**
      * @param newOrdermeal The modified order
      * @return true if successfully committed false if order not found
@@ -115,7 +139,7 @@ public class OrderService {
     }
 
     public List<Ordermeal> findAll() {
-        List MealorderList = em.createNamedQuery("Mealorder.findAll").getResultList();
+        List MealorderList = em.createNamedQuery("Ordermeal.findAll").getResultList();
         return MealorderList;
     }
 

@@ -68,6 +68,14 @@
         <servlet-class>control.staff.account.signup</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>staff.account.recovery</servlet-name>
+        <servlet-class>control.staff.account.recovery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>staff.account.token</servlet-name>
+        <servlet-class>control.staff.account.token</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>staff.account.setting</servlet-name>
         <servlet-class>control.staff.account.setting</servlet-class>
     </servlet>
@@ -195,6 +203,14 @@
         <url-pattern>/staff/account/signup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>staff.account.recovery</servlet-name>
+        <url-pattern>/staff/account/recovery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>staff.account.token</servlet-name>
+        <url-pattern>/staff/account/token</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>staff.account.setting</servlet-name>
         <url-pattern>/staff/account/setting</url-pattern>
     </servlet-mapping>
@@ -254,7 +270,7 @@
         <servlet-name>staff.ingredient.removeIngredient</servlet-name>
         <url-pattern>/staff/ingredient/removeIngredient</url-pattern>
     </servlet-mapping>
-
+    
     <session-config>
         <session-timeout>
             30

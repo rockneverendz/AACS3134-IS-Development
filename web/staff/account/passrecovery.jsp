@@ -138,20 +138,61 @@
     </head>
 
     <body>
-        <form class="form-recovery" >
+        <form class="form-recovery" action="recovery">
             <div class="text-center mb-4">
-                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo"/>
-                <h1>Retrieve Password</h1>
+                <img class="img-fluid" src="../../resource/Logo1.png" alt="logo" width="75%"/>
+                <h1>Password Recovery</h1>
+            </div>
+            <%
+                //If no object are recieved, create a new object.
+                String idcard = (String) request.getAttribute("idcard");
+                String email = (String) request.getAttribute("email");
+                if (idcard == null) {
+                    idcard = "";
+                }
+                if (email == null) {
+                    email = "";
+                }
+
+                String status = request.getParameter("status");
+                String message;
+                String type;
+                if (status == null) {
+                    message = "";
+                } else {
+                    char code = status.charAt(0);
+                    if (code == '0') {
+                        type = "success";
+                        message = "Success! Please check your email.";
+                    } else if (code == 'U') {
+                        type = "warning";
+                        message = "Sorry, we couldn't find an account with that ID.";
+                    } else if (code == 'E') {
+                        type = "warning";
+                        message = "Sorry, that email isn't right.";
+                    } else {
+                        type = "danger";
+                        message = "An error has occured";
+                    }
+            %>            
+            <div class="alert alert-<%= type%>" role="alert">
+                <%= message%>
+            </div>
+            <%
+                }
+            %>
+            <div class="form-label-group">
+                <input id="inputStaffID" name="StaffIDCard" type="text" class="form-control" 
+                       placeholder="Staff ID Card" value="<%= idcard%>" required autofocus>
+                <label for="inputStaffID">Staff ID Card</label>
             </div>
             <div class="form-label-group">
-                <input id="inputUserID" type="text" class="form-control" placeholder="User ID" required autofocus>
-                <label for="inputUserID">User ID</label>
-            </div>
-            <div class="form-label-group">
-                <input id="inputEmail" type="email" class="form-control" placeholder="E-mail" required>
+                <input id="inputEmail" name="Email" type="email" class="form-control" 
+                       placeholder="E-mail" value="<%= email%>" required>
                 <label for="inputEmail">E-mail</label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Proceed Password Recovery</button>
+            <hr/>
             <a class="btn btn-lg btn-secondary btn-block" style="color: white;" href="./signin.jsp">Back to login</a>
             <p class="mt-5 mb-3 text-muted text-center">Bricks &copy; 2019</p>
         </form>

@@ -1,6 +1,6 @@
-package control.user.account;
+package control.staff.account;
 
-import entity.Customer;
+import entity.Staff;
 import entity.Token;
 import java.io.IOException;
 import java.util.Date;
@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import service.CustomerService;
+import service.StaffService;
 import service.TokenService;
 
 public class token extends HttpServlet {
@@ -23,7 +23,7 @@ public class token extends HttpServlet {
 
         // Initialize variables
         TokenService ts = new TokenService();
-        CustomerService cs = new CustomerService();
+        StaffService ss = new StaffService();
         Date now = new Date();
 
         try {
@@ -37,10 +37,10 @@ public class token extends HttpServlet {
             }
 
             // Use token to find customer
-            Customer customer = cs.findCustByID(token.getId());
+            Staff staff = ss.findStaffByID(token.getId());
 
             // If customer not found. Possible
-            if (customer == null) {
+            if (staff == null) {
                 System.out.println(token.getId() + " has an invalid Customer/Staff ID");
                 throw new RollbackException();
             }
@@ -54,8 +54,8 @@ public class token extends HttpServlet {
             token.setStutus("Used");
             ts.updateToken(token);
 
-            customer.setPassword(newPassword);
-            cs.updateCustomer(customer);
+            staff.setPassword(newPassword);
+            ss.updateStaff(staff);
 
             // Redirect back to signin page with status 'Success'
             response.sendRedirect("../account/signin.jsp?status=C");
@@ -64,7 +64,7 @@ public class token extends HttpServlet {
         } catch (RollbackException ex) {
             response.sendRedirect("../account/signin.jsp?status=X");
         } finally {
-            cs.close();
+            ss.close();
             ts.close();
         }
     }
