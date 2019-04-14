@@ -52,7 +52,6 @@
     <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
-
             <section class="text-center">
                 <div class="container d-flex justify-content-between align-items-center">
                     <h1 class="display-2">Order History</h1>
@@ -84,9 +83,19 @@
                 int month = c.get(Calendar.MONTH) + 1; // beware of month indexing from zero
             %>
 
-            <div class="col-12 mb-4 p-5" style="position: relative; height:300px">
-                <canvas class="col-12" id="myChart"></canvas>
+            <div class="container">
+                <div class="container-fluid row">
+                    <div class="col-6 mb-4 p-5" style="position: relative; height:350px">
+                        <canvas class="col-12" id="monthChart"></canvas>
+                        <h2 class="display-4 text-left"><%= monthFormat.format(date)%></h2>
+                    </div>
+                    <div class="col-6 mb-4 p-5" style="position: relative; height:350px">
+                        <canvas class="col-12" id="overallChart"></canvas>
+                        <h2 class="display-4 text-right">Overall</h2>
+                    </div>
+                </div>          
             </div>
+
 
             <div class="album py-5 bg-light">
                 <div class="container">
@@ -189,77 +198,110 @@
                     </div>
                 </div>      
             </div>
-        </div>
-    </main>
-    <%@include file="../layout/footer.jsp" %>
-    <%@include file="../layout/scripts.jsp" %>
-    <link href="../../bootstrap/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css"/>
-    <script src="../../bootstrap/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-    <link href="../../bootstrap/css/Chart.min.css" rel="stylesheet" type="text/css"/>
-    <script src="../../bootstrap/js/Chart.min.js" type="text/javascript"></script>
-    <script>
-        $(document).ready(function () {
-            $(".ordermeal").click(function (e) {
-                e.preventDefault();
-                $('.cat' + $(this).attr('data-prod-cat')).toggle();
+        </main>
+        <%@include file="../layout/footer.jsp" %>
+        <%@include file="../layout/scripts.jsp" %>
+        <link href="../../bootstrap/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../../bootstrap/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <link href="../../bootstrap/css/Chart.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../../bootstrap/js/Chart.min.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function () {
+                $(".ordermeal").click(function (e) {
+                    e.preventDefault();
+                    $('.cat' + $(this).attr('data-prod-cat')).toggle();
+                });
             });
-        });
 
-        $('#datepicker').datepicker({
-            format: "mm-yyyy",
-            startView: 1,
-            minViewMode: 1,
-            maxViewMode: 2
-        });
+            $('#datepicker').datepicker({
+                format: "mm-yyyy",
+                startView: 1,
+                minViewMode: 1,
+                maxViewMode: 2
+            });
 
-        <%
-            // Get list of Object[] and cast it into Int and String
-            List<Object[]> summary = cs.findCouponSummary(customer.getCustId());
+            <%  List<Object[]> summary;
+                StringBuilder data = new StringBuilder();
+                StringBuilder labels = new StringBuilder();
 
-            StringBuilder data = new StringBuilder();
-            StringBuilder labels = new StringBuilder();
+                summary = cs.findCouponSummary(customer.getCustId(), month);
 
-            for (int idx = 0; idx < summary.size(); idx++) {
-                Object[] elem = summary.get(idx);
-                data.append((Integer) elem[0] + ",");
-                labels.append("\"" + (String) elem[1] + "\",");
-            }
-        %>
+                data = new StringBuilder();
+                labels = new StringBuilder();
 
-        var ctx = $('#myChart');
-        var myPieChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: [<%= labels.toString()%>],
-                datasets: [{
-                        data: [<%= data.toString()%>],
-                        // I hate these colors.
-                        backgroundColor: ['#ff6358', '#ffd246', '#78d237', '#28b4c8', '#2d73f5', '#aa46be'],
-                        //hoverBackgroundColor: ['#4C1E1A', '#4C3F15', '#243F10', '#0C363C', '#0D2249', '#331539'],
-                        borderWidth: 0
-                    }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                tooltips: {
-                    backgroundColor: "rgb(255,255,255)",
-                    bodyFontColor: "#858796",
-                    borderColor: '#dddfeb',
-                    borderWidth: 1,
-                    xPadding: 15,
-                    yPadding: 15,
-                    displayColors: false,
-                    caretPadding: 10
+                for (int idx = 0; idx < summary.size(); idx++) {
+                    Object[] elem = summary.get(idx);
+                    data.append((Integer) elem[0] + ",");
+                    labels.append("\"" + (String) elem[1] + "\",");
+                }
+            %>
+
+            var ctx = $('#monthChart');
+            var myPieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [<%= labels.toString()%>],
+                    datasets: [{
+                            data: [<%= data.toString()%>],
+                            backgroundColor: ['#537c8e', '#2ebdbd', '#eff1e4', '#ceae7f', '#85583f', '#573718'],
+                            borderWidth: 0
+                        }]
                 },
-                legend: {
-                    display: false
+                options: {
+                    maintainAspectRatio: true,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10
+                    },
+                    cutoutPercentage: 50
+                }
+            });
+
+            <%  // Get list of Object[] and cast it into Int and String
+                summary = cs.findCouponSummary(customer.getCustId());
+
+                data = new StringBuilder();
+                labels = new StringBuilder();
+
+                for (int idx = 0; idx < summary.size(); idx++) {
+                    Object[] elem = summary.get(idx);
+                    data.append((Integer) elem[0] + ",");
+                    labels.append("\"" + (String) elem[1] + "\",");
+                }
+            %>
+
+            var ctx = $('#overallChart');
+            var myPieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [<%= labels.toString()%>],
+                    datasets: [{
+                            data: [<%= data.toString()%>],
+                            backgroundColor: ['#ff6358', '#ffd246', '#78d237', '#28b4c8', '#2d73f5', '#aa46be'],
+                            borderWidth: 0
+                        }]
                 },
-                cutoutPercentage: 50
-            }
-        });
-
-
-
-    </script>
-</body>
+                options: {
+                    maintainAspectRatio: true,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10
+                    },
+                    cutoutPercentage: 50
+                }
+            });
+        </script>
+    </body>
 </html>
