@@ -11,9 +11,17 @@ Accept TOC, download 1.1.1, open zip file, what you need is only the jar file.
 https://search.maven.org/artifact/com.google.code.gson/gson/2.8.5/jar
 Right side should there's a download button, click and select jar.
 
-## Using DBII to initialize images
+## Project Structure
 
-Run `/src/java/DBII.java` to insert image into Database.
+Project design and database scripts should be in the folder `./structure`  
+Try to make root directory clean as possible tnx.
+
+## Steps to iniitailize canteenDB
+
+1. Run `/structure/database/deleteTables.sql` (If there's any table on the database)
+2. Run `/structure/database/createTables.sql`
+3. Run `/structure/database/insertRecords.sql` (This might take a while, made wholeheartedly by @Soocyang)
+4. Run `/src/java/DBII.java` (Insert image into database)
 
 ## Settings up Environment Variable for servers
 Why environment variable?  
@@ -33,8 +41,3 @@ So we don't have to keep passwords and sensitive info in raw text inside the pro
 3. Finally, we are able to retrive the variables through this:-
 
     `System.out.println("Your email address is " + System.getProperty("mail"));`
-
-## Project Structure
-
-Project design and database scripts should be in the folder `./structure`  
-Try to make root directory clean as possible tnx.
