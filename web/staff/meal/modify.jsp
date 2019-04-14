@@ -256,9 +256,9 @@
                                                         var setQtyString = clicked_id + 'qty';
 
                                                         //Processing
-                                                        $("." + setInputString).hide();
-                                                        $("." + setQtyString).hide();
-                                                        $("#" + clicked_id).hide();
+                                                        $("." + setInputString).remove();
+                                                        $("." + setQtyString).remove();
+                                                        $("#" + clicked_id).remove();
                                                     }
         </script>
     </body>
