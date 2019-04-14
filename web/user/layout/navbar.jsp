@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg d-print-none">
     <div class="container">
         <a href="../meal/main.jsp">
             <img src="../../resource/Logo3.png" alt="logo" width="150px">

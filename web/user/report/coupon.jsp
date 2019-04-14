@@ -57,12 +57,12 @@
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
 
-            <section class="text-center">
+            <section class="text-center d-print-none">
                 <div class="container d-flex justify-content-between align-items-center">
                     <h1 class="display-2">Coupon List</h1>
-                    <a href="#" class="btn btn-primary my-2">Print
+                    <button class="btn btn-primary my-2" onclick="printFn()" >Print
                         <i class="fas fa-print"></i>
-                    </a>
+                    </button>
                 </div>
             </section>
 
@@ -84,7 +84,7 @@
                         <%
                         } else {
                         %>
-                        <div class="calendar mb-4"></div>
+                        <div class="calendar mb-4 d-print-none"></div>
                         <div class="row">
                             <%
                                 for (Orderlist orderlist : list) {
@@ -180,6 +180,11 @@
                 });
             });
 
+
+
+            function printFn() {
+                    window.print();
+            }
         </script>
     </body>
 </html>
