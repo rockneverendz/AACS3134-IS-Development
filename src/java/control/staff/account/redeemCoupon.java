@@ -101,8 +101,9 @@ public class redeemCoupon extends HttpServlet {
 
             response.sendRedirect(url.toString());
 
-        } catch (NoResultException | NumberFormatException | NullPointerException ex) {
-            response.sendRedirect("redeemCoupon.jsp?status=X");
+        } catch (NumberFormatException | NullPointerException | NoResultException ex) {
+            response.sendRedirect("redeemCoupon.jsp?status=U");
+            System.out.println(ex.getMessage());
         } finally {
             couponService.close();
             orderService.close();
