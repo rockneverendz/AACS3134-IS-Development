@@ -53,21 +53,22 @@
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
 
-            <section class="text-center">
+            <section class="text-center d-print-none">
                 <div class="container d-flex justify-content-between align-items-center">
                     <h1 class="display-2">Reload History</h1>
-                    <a href="#" class="btn btn-primary my-2">Print
+                    <button id="printBtn" class="btn btn-primary my-2">Print
                         <i class="fas fa-print"></i>
-                    </a>
+                    </button>
                 </div>
             </section>
 
             <%  String yearS = request.getParameter("year");
+                Date date = new Date();
                 int year;
 
                 if (yearS == null) { // If no year is received
                     Calendar c = Calendar.getInstance();
-                    c.setTime(new Date());
+                    c.setTime(date);
                     year = c.get(Calendar.YEAR);
                 } else { // If parameter is received
                     year = Integer.parseInt(yearS);
@@ -84,7 +85,7 @@
                             <div class="card-header py-3 d-flex">
                                 <h6 class="my-auto text-primary">Reload Report</h6>
                                 <div class="ml-auto">
-                                    <form class="input-group" action="./reload.jsp">
+                                    <form class="input-group d-print-none" action="./reload.jsp">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Year</span>
                                         </div>
@@ -93,17 +94,18 @@
                                             <button class="btn btn-outline-success" type="submit" id="search">Search</button>
                                         </div>
                                     </form>
+                                    <h6 class="my-auto text-info d-none d-print-block">Summary report of <%= year%> generated on <%= date%></h6>
                                 </div>
                             </div>
                             <div class="card-body p-0">
                                 <table class="table" width="100%" cellspacing="0" role="grid" style="width: 100%;">
                                     <thead class="thead-light">
                                         <tr role="row">
-                                            <th rowspan="1" colspan="1" style="width: 12.5%;">Reload #</th>
-                                            <th rowspan="1" colspan="1" style="width: 22.5%;">Date</th>
-                                            <th rowspan="1" colspan="1" style="width: 22.5%;">Time</th>
-                                            <th rowspan="1" colspan="1" style="width: 20%;">Staff</th>
-                                            <th rowspan="1" colspan="1" style="width: 22.5%;">Amount</th>
+                                            <th style="width: 12.5%;">Reload #</th>
+                                            <th style="width: 22.5%;">Date</th>
+                                            <th style="width: 22.5%;">Time</th>
+                                            <th style="width: 20%;">Staff</th>
+                                            <th style="width: 22.5%;">Amount</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -149,13 +151,17 @@
         <link href="../../bootstrap/css/Chart.min.css" rel="stylesheet" type="text/css"/>
         <script src="../../bootstrap/js/Chart.min.js" type="text/javascript"></script>
         <script>
+            $(document).ready(function () {
+                $("#printBtn").click(function () {
+                    window.print();
+                });
+            });
             $('#datepicker').datepicker({
                 format: "yyyy",
                 startView: 2,
                 minViewMode: 2,
                 maxViewMode: 2
             });
-
             <%  // Get list of Object[] and cast it into Int and String
                 List<Object[]> summaryReload = rs.findReloadSummary(customer.getCustId(), year);
                 List<Object[]> summaryPayment = os.findPaymentSummary(customer.getCustId(), year);
@@ -257,7 +263,6 @@
                     }
                 }
             });
-
         </script>
     </body>
 </html>

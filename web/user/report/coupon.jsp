@@ -60,7 +60,7 @@
             <section class="text-center d-print-none">
                 <div class="container d-flex justify-content-between align-items-center">
                     <h1 class="display-2">Coupon List</h1>
-                    <button class="btn btn-primary my-2" onclick="printFn()" >Print
+                    <button id="printBtn" class="btn btn-primary my-2">Print
                         <i class="fas fa-print"></i>
                     </button>
                 </div>
@@ -134,57 +134,54 @@
         <link href="../../bootstrap/css/bootstrap-year-calendar.css" rel="stylesheet" type="text/css"/>
         <script src="../../bootstrap/js/bootstrap-year-calendar.js" type="text/javascript"></script>
         <script>
+            JsBarcode(".barcode")
+                    .options({
+                        lineColor: "#343a40",
+                        width: 2,
+                        height: 40,
+                        displayValue: false
+                    }).init();
 
-                        JsBarcode(".barcode")
-                                .options({
-                                    lineColor: "#343a40",
-                                    width: 2,
-                                    height: 40,
-                                    displayValue: false
-                                }).init();
+            $(document).ready(function () {
+                $(".ordermeal").click(function (e) {
+                    e.preventDefault();
+                    $('.cat' + $(this).attr('data-prod-cat')).toggle();
+                });
+                $("#printBtn").click(function () {
+                    window.print();
+                });
+                $('.calendar').calendar({
+                    mouseOnDay: function (e) {
+                        if (e.events.length > 0) {
+                            var content = '';
 
-                        $(document).ready(function () {
-                            $(".ordermeal").click(function (e) {
-                                e.preventDefault();
-                                $('.cat' + $(this).attr('data-prod-cat')).toggle();
+                            for (var i in e.events) {
+                                content += '<div class="event-tooltip-content">'
+                                        + '<div class="event-name"> Coupon #' + e.events[i].name + ' : ' + e.events[i].time + '</div>'
+                                        + '</div>';
+                            }
+
+                            $(e.element).popover({
+                                trigger: 'manual',
+                                container: 'body',
+                                html: true,
+                                content: content
                             });
-                            $('.calendar').calendar({
-                                mouseOnDay: function (e) {
-                                    if (e.events.length > 0) {
-                                        var content = '';
 
-                                        for (var i in e.events) {
-                                            content += '<div class="event-tooltip-content">'
-                                                    + '<div class="event-name"> Coupon #' + e.events[i].name + ' : ' + e.events[i].time + '</div>'
-                                                    + '</div>';
-                                        }
-
-                                        $(e.element).popover({
-                                            trigger: 'manual',
-                                            container: 'body',
-                                            html: true,
-                                            content: content
-                                        });
-
-                                        $(e.element).popover('show');
-                                    }
-                                },
-                                mouseOutDay: function (e) {
-                                    if (e.events.length > 0) {
-                                        $(e.element).popover('hide');
-                                    }
-                                },
-                                dataSource: [
-            <%= stringBuilder.toString()%>
-                                ]
-                            });
-                        });
-
-
-
-                        function printFn() {
-                            window.print();
+                            $(e.element).popover('show');
                         }
+                    },
+                    mouseOutDay: function (e) {
+                        if (e.events.length > 0) {
+                            $(e.element).popover('hide');
+                        }
+                    },
+                    dataSource: [
+            <%= stringBuilder.toString()%>
+                    ]
+                });
+            });
+
         </script>
     </body>
 </html>

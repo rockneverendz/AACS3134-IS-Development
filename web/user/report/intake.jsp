@@ -56,7 +56,7 @@
     <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
-            <section class="text-center">
+            <section class="text-center d-print-none">
                 <div class="container d-flex justify-content-between align-items-center">
                     <h1 class="display-2">Intake History</h1>
                     <button id="printBtn" class="btn btn-primary my-2">Print
@@ -160,7 +160,7 @@
                                 <div class="card-header py-3 d-flex">
                                     <h6 class="my-auto text-primary">Intake Report</h6>
                                     <div class="ml-auto">
-                                        <form class="input-group" action="./intake.jsp">
+                                        <form class="input-group d-print-none" action="./intake.jsp">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Week</span>
                                             </div>
@@ -169,16 +169,17 @@
                                                 <button class="btn btn-outline-success" type="submit" id="search">Search</button>
                                             </div>
                                         </form>
+                                        <h6 class="my-auto text-info d-none d-print-block">Summary report of <%= dateFormat.format(days[0])%> generated on <%= date%></h6>
                                     </div>
                                 </div>
                                 <div class="card-body p-0">
                                     <table class="table table-hover w-100" cellspacing="0" role="grid">
                                         <thead class="thead-light">
                                             <tr role="row">
-                                                <th rowspan="1" colspan="1" style="width: 10%;"></th>
-                                                <th rowspan="1" colspan="2" style="width: 50%;">Date</th>
-                                                <th rowspan="1" colspan="1" style="width: 20%;">Expenses</th>
-                                                <th rowspan="1" colspan="1" style="width: 20%;">Calories</th>
+                                                <th colspan="1" style="width: 10%;"></th>
+                                                <th colspan="2" style="width: 50%;">Date</th>
+                                                <th colspan="1" style="width: 20%;">Expenses</th>
+                                                <th colspan="1" style="width: 20%;">Calories</th>
                                             </tr>
                                         </thead>
                                         <tbody>

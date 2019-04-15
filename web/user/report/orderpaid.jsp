@@ -47,16 +47,16 @@
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
 
-            <section class="text-center">
+            <section class="text-center d-print-none">
                 <div class="container d-flex justify-content-between align-items-center">
                     <h1 class="display-2">Order History</h1>
                     <div class="btn-group">
                         <a class="btn btn-secondary btn-lg active" href="#" role="button">Paid</a>
                         <a class="btn btn-secondary btn-lg" href="./ordercompleted.jsp" role="button">Completed</a>
                     </div>
-                    <a href="#" class="btn btn-primary my-2">Print
+                    <button id="printBtn" class="btn btn-primary my-2">Print
                         <i class="fas fa-print"></i>
-                    </a>
+                    </button>
                 </div>
             </section>
 
@@ -99,11 +99,11 @@
                                 <table class="table mb-0" width="100%" cellspacing="0" role="grid" style="width: 100%;">
                                     <thead class="thead-light">
                                         <tr role="row">
-                                            <th rowspan="1" colspan="1" style="width: 10%;">Order #</th>
-                                            <th rowspan="1" colspan="1" style="width: 25%;">Type</th>
-                                            <th rowspan="1" colspan="1" style="width: 25%;">Order Date</th>
-                                            <th rowspan="1" colspan="1" style="width: 20%;">Status</th>
-                                            <th rowspan="1" colspan="1" style="width: 20%;">Subtotal</th>
+                                            <th style="width: 10%;">Order #</th>
+                                            <th style="width: 25%;">Type</th>
+                                            <th style="width: 25%;">Order Date</th>
+                                            <th style="width: 20%;">Status</th>
+                                            <th style="width: 20%;">Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -274,97 +274,98 @@
                     </div>
                 </div>      
             </div>
-        </div>
-    </main>
-    <%@include file="../layout/footer.jsp" %>
-    <%@include file="../layout/scripts.jsp" %>
-    <link href="../../bootstrap/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css"/>
-    <script src="../../bootstrap/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-    <link href="../../bootstrap/css/bootstrap-year-calendar.css" rel="stylesheet" type="text/css"/>
-    <script src="../../bootstrap/js/bootstrap-year-calendar.js" type="text/javascript"></script>
-    <script>
-        $('#orderModal').on('show.bs.modal', function (event) {
-            if (event.namespace === 'bs.modal') {
-                // Button that triggered the modal
-                var button = $(event.relatedTarget);
-                var index = button.data('couponid');
+        </main>
+        <%@include file="../layout/footer.jsp" %>
+        <%@include file="../layout/scripts.jsp" %>
+        <link href="../../bootstrap/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../../bootstrap/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <link href="../../bootstrap/css/bootstrap-year-calendar.css" rel="stylesheet" type="text/css"/>
+        <script src="../../bootstrap/js/bootstrap-year-calendar.js" type="text/javascript"></script>
+        <script>
+            $('#orderModal').on('show.bs.modal', function (event) {
+                if (event.namespace === 'bs.modal') {
+                    // Button that triggered the modal
+                    var button = $(event.relatedTarget);
+                    var index = button.data('couponid');
 
-                // Get value from the table and then insert it into the Bootstrap's Modal
-                $('#couponId').val(index);
-                $('#mealName').val($('#row' + index).next().html());
-                $('#mealQty').val($('#row' + index).next().next().html());
-                $('#mealDate').val($('#row' + index).next().next().next().html());
-                var mealTime = $('#row' + index).next().next().next().next().html();
+                    // Get value from the table and then insert it into the Bootstrap's Modal
+                    $('#couponId').val(index);
+                    $('#mealName').val($('#row' + index).next().html());
+                    $('#mealQty').val($('#row' + index).next().next().html());
+                    $('#mealDate').val($('#row' + index).next().next().next().html());
+                    var mealTime = $('#row' + index).next().next().next().next().html();
 
-                if (mealTime === "Breakfast")
-                {
-                    $("#mealTimeB").prop("checked", true);
-                    $("#mealTimeB").parent().button('toggle');
-                } else
-                {
-                    $("#mealTimeL").prop("checked", true);
-                    $("#mealTimeL").parent().button('toggle');
+                    if (mealTime === "Breakfast")
+                    {
+                        $("#mealTimeB").prop("checked", true);
+                        $("#mealTimeB").parent().button('toggle');
+                    } else
+                    {
+                        $("#mealTimeL").prop("checked", true);
+                        $("#mealTimeL").parent().button('toggle');
+                    }
                 }
-            }
-        });
-
-        $('#deleteModal').on('show.bs.modal', function (event) {
-            if (event.namespace === 'bs.modal') {
-                // Button that triggered the modal
-                var button = $(event.relatedTarget);
-                var orderid = button.data('orderid');
-
-                $("#modalMessage").html("Are you sure you want to cancel order #" + orderid);
-                $("#orderId").val(orderid);
-            }
-        });
-
-        $('#mealDate').datepicker({
-            format: "dd-mm-yyyy",
-            startDate: "<%= dateFormat.format(startDate)%>",
-            endDate: "<%= dateFormat.format(endDate)%>",
-            maxViewMode: 0,
-            daysOfWeekDisabled: "0",
-            todayHighlight: true
-        });
-
-        $(document).ready(function () {
-            $(".ordermeal").click(function (e) {
-                e.preventDefault();
-                $('.cat' + $(this).attr('data-prod-cat')).toggle();
             });
-            $('.calendar').calendar({
-                mouseOnDay: function (e) {
-                    if (e.events.length > 0) {
-                        var content = '';
 
-                        for (var i in e.events) {
-                            content += '<div class="event-tooltip-content">'
-                                    + '<div class="event-name"> Order #' + e.events[i].name + ' : ' + e.events[i].type + '</div>'
-                                    + '</div>';
+            $('#deleteModal').on('show.bs.modal', function (event) {
+                if (event.namespace === 'bs.modal') {
+                    // Button that triggered the modal
+                    var button = $(event.relatedTarget);
+                    var orderid = button.data('orderid');
+
+                    $("#modalMessage").html("Are you sure you want to cancel order #" + orderid);
+                    $("#orderId").val(orderid);
+                }
+            });
+
+            $('#mealDate').datepicker({
+                format: "dd-mm-yyyy",
+                startDate: "<%= dateFormat.format(startDate)%>",
+                endDate: "<%= dateFormat.format(endDate)%>",
+                maxViewMode: 0,
+                daysOfWeekDisabled: "0",
+                todayHighlight: true
+            });
+
+            $(document).ready(function () {
+                $(".ordermeal").click(function (e) {
+                    e.preventDefault();
+                    $('.cat' + $(this).attr('data-prod-cat')).toggle();
+                });
+                $("#printBtn").click(function () {
+                    window.print();
+                });
+                $('.calendar').calendar({
+                    mouseOnDay: function (e) {
+                        if (e.events.length > 0) {
+                            var content = '';
+
+                            for (var i in e.events) {
+                                content += '<div class="event-tooltip-content">'
+                                        + '<div class="event-name"> Order #' + e.events[i].name + ' : ' + e.events[i].type + '</div>'
+                                        + '</div>';
+                            }
+
+                            $(e.element).popover({
+                                trigger: 'manual',
+                                container: 'body',
+                                html: true,
+                                content: content
+                            });
+
+                            $(e.element).popover('show');
                         }
-
-                        $(e.element).popover({
-                            trigger: 'manual',
-                            container: 'body',
-                            html: true,
-                            content: content
-                        });
-
-                        $(e.element).popover('show');
-                    }
-                },
-                mouseOutDay: function (e) {
-                    if (e.events.length > 0) {
-                        $(e.element).popover('hide');
-                    }
-                },
-                dataSource: [
-        <%= stringBuilder.toString()%>
-                ]
+                    },
+                    mouseOutDay: function (e) {
+                        if (e.events.length > 0) {
+                            $(e.element).popover('hide');
+                        }
+                    },
+                    dataSource: [
+            <%= stringBuilder.toString()%>
+                    ]
+                });
             });
-        });
-
-    </script>
-</body>
+        </script>
+    </body>
 </html>

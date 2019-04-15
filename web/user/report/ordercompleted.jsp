@@ -48,16 +48,16 @@
     <body style="margin-bottom: 60px;">
         <%@include file="../layout/navbar.jsp" %>
         <main role="main">
-            <section class="text-center">
+            <section class="text-center d-print-none">
                 <div class="container d-flex justify-content-between align-items-center">
                     <h1 class="display-2">Order History</h1>
                     <div class="btn-group">
                         <a class="btn btn-secondary btn-lg" href="./orderpaid.jsp" role="button">Paid</a>
                         <a class="btn btn-secondary btn-lg active" href="#" role="button">Completed</a>
                     </div>
-                    <a href="#" class="btn btn-primary my-2">Print
+                    <button id="printBtn" class="btn btn-primary my-2">Print
                         <i class="fas fa-print"></i>
-                    </a>
+                    </button>
                 </div>
             </section>
             <%  String dateString = request.getParameter("date");
@@ -99,7 +99,7 @@
                             <div class="card-header py-3 d-flex">
                                 <h6 class="my-auto text-primary">Order Report</h6>
                                 <div class="ml-auto">
-                                    <form class="input-group" action="./ordercompleted.jsp">
+                                    <form class="input-group d-print-none" action="./ordercompleted.jsp">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Month</span>
                                         </div>
@@ -108,17 +108,18 @@
                                             <button class="btn btn-outline-success" type="submit" id="search">Search</button>
                                         </div>
                                     </form>
+                                    <h6 class="my-auto text-info d-none d-print-block">Summary report of <%= dateFormat.format(date)%> generated on <%= new Date()%></h6>
                                 </div>
                             </div>
                             <div class="card-body p-0">
                                 <table class="table mb-0" width="100%" cellspacing="0" role="grid" style="width: 100%;">
                                     <thead class="thead-light">
                                         <tr role="row">
-                                            <th rowspan="1" colspan="1" style="width: 10%;">Order #</th>
-                                            <th rowspan="1" colspan="1" style="width: 25%;">Type</th>
-                                            <th rowspan="1" colspan="1" style="width: 25%;">Order Date</th>
-                                            <th rowspan="1" colspan="1" style="width: 20%;">Status</th>
-                                            <th rowspan="1" colspan="1" style="width: 20%;">Subtotal</th>
+                                            <th style="width: 10%;">Order #</th>
+                                            <th style="width: 25%;">Type</th>
+                                            <th style="width: 25%;">Order Date</th>
+                                            <th style="width: 20%;">Status</th>
+                                            <th style="width: 20%;">Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -181,6 +182,9 @@
                 $(".ordermeal").click(function (e) {
                     e.preventDefault();
                     $('.cat' + $(this).attr('data-prod-cat')).toggle();
+                });
+                $("#printBtn").click(function () {
+                    window.print();
                 });
             });
 
