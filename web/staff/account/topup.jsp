@@ -24,12 +24,16 @@
                             <%  String status = request.getParameter("status");
                                 String message;
                                 String type;
+                                String UpdatedCP = "";
+                                String StudentID = "";
                                 if (status == null) {
                                 } else {
                                     char code = status.charAt(0);
                                     if (code == '1') {
+                                        StudentID = request.getParameter("studID");
+                                        UpdatedCP = request.getParameter("updatedCP");
                                         type = "success";
-                                        message = "Top-up Successfully !";
+                                        message = "Top-up Successfully !<br>Student ID : " + StudentID + "<br>Current Credit Points : " + UpdatedCP + "<br>";
                                     } else if (code == 'U') {
                                         type = "warning";
                                         message = "Student ID not found !";

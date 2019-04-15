@@ -52,7 +52,7 @@ public class topup extends HttpServlet {
 
             if (customerService.updateCustomer(customer)) {
                 reloadService.addReload(reload);                //Add new Topup record
-                response.sendRedirect("topup.jsp?status=1");    //Successful Update Credit Points
+                response.sendRedirect("topup.jsp?status=1&studID="+ studentID +"&updatedCP=" + updatedCreditPoints);    //Successful Update Credit Points
             } else {
                 response.sendRedirect("topup.jsp?status=0");    //Failed Update Credit Points
             }
