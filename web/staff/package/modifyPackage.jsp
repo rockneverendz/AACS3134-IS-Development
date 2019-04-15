@@ -79,27 +79,7 @@
                                 </form>
                             </div>
                             <hr>
-                            <%                                    String status = request.getParameter("status");
-                                String message;
-                                String type;
-
-                                if (status == null) {
-                                } else {
-                                    char code = status.charAt(0);
-                                    if (code == 'S') {
-                                        type = "warning";
-                                        message = "Days cannot have the same meal because customer will loss of appetite !";
-                                    } else {
-                                        type = "danger";
-                                        message = "An error has occured";
-                                    }
-                            %>
-                            <div class="alert alert-<%= type%>" role="alert">
-                                <%= message%>
-                            </div>
-                            <%
-                                }
-                            %>
+                            
                             <form action="UpdatePackage" method="get">
                                 <div class="row form-group">
                                     <label class="col-form-label col-sm-2">Package ID : </label>
