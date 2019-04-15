@@ -39,7 +39,10 @@
                                 } else if (code == 'R') {
                                     type = "success";
                                     message = "Successfully Removed Package!";
-                                }else {
+                                } else if (code == 'N') {
+                                    type = "warning";
+                                    message = "Package ID not found!";
+                                } else {
                                     type = "danger";
                                     message = "An error has occured";
                                 }
