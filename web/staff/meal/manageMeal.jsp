@@ -41,6 +41,9 @@
                                 } else if ( code == 'A'){
                                     type = "success";
                                     message = "Successfully Updated Meal Status!";
+                                } else if ( code == 'X'){
+                                    type = "warning";
+                                    message = "Meal ID not found!";
                                 }else {
                                     type = "danger";
                                     message = "An error has occured";
