@@ -1,9 +1,7 @@
 package control.staff.packages;
 
 import entity.Package;
-import entity.Packageist;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

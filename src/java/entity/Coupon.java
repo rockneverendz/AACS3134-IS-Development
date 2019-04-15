@@ -21,11 +21,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "COUPON")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Coupon.findAll", query = "SELECT c FROM Coupon c")
-    , @NamedQuery(name = "Coupon.findByCouponId", query = "SELECT c FROM Coupon c WHERE c.couponId = :couponId")
-    , @NamedQuery(name = "Coupon.findByRedeemDate", query = "SELECT c FROM Coupon c WHERE c.redeemDate = :redeemDate")
-    , @NamedQuery(name = "Coupon.findByRedeemTime", query = "SELECT c FROM Coupon c WHERE c.redeemTime = :redeemTime")
-    , @NamedQuery(name = "Coupon.findByStatus", query = "SELECT c FROM Coupon c WHERE c.status = :status")})
+    @NamedQuery(name = "Coupon.findAll", query = "SELECT c FROM Coupon c"),
+    @NamedQuery(name = "Coupon.findByCouponId", query = "SELECT c FROM Coupon c WHERE c.couponId = :couponId"),
+    @NamedQuery(name = "Coupon.findByRedeemDate", query = "SELECT c FROM Coupon c WHERE c.redeemDate = :redeemDate"),
+    @NamedQuery(name = "Coupon.findByRedeemTime", query = "SELECT c FROM Coupon c WHERE c.redeemTime = :redeemTime"),
+    @NamedQuery(name = "Coupon.findByStatus", query = "SELECT c FROM Coupon c WHERE c.status = :status")})
 public class Coupon implements Serializable {
 
     private static final long serialVersionUID = 1L;

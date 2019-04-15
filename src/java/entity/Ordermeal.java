@@ -15,7 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -24,10 +23,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "ORDERMEAL")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Ordermeal.findAll", query = "SELECT o FROM Ordermeal o")
-    , @NamedQuery(name = "Ordermeal.findByOrderId", query = "SELECT o FROM Ordermeal o WHERE o.orderId = :orderId")
-    , @NamedQuery(name = "Ordermeal.findByStatus", query = "SELECT o FROM Ordermeal o WHERE o.status = :status")
-    , @NamedQuery(name = "Ordermeal.findByType", query = "SELECT o FROM Ordermeal o WHERE o.type = :type")})
+    @NamedQuery(name = "Ordermeal.findAll", query = "SELECT o FROM Ordermeal o"),
+    @NamedQuery(name = "Ordermeal.findByOrderId", query = "SELECT o FROM Ordermeal o WHERE o.orderId = :orderId"),
+    @NamedQuery(name = "Ordermeal.findByStatus", query = "SELECT o FROM Ordermeal o WHERE o.status = :status"),
+    @NamedQuery(name = "Ordermeal.findByType", query = "SELECT o FROM Ordermeal o WHERE o.type = :type")})
 public class Ordermeal implements Serializable {
 
     private static final long serialVersionUID = 1L;

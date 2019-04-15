@@ -1,18 +1,11 @@
 
-import entity.Category;
-import entity.Meal;
 import entity.Orderlist;
 import entity.Ordermeal;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import service.MealService;
 import service.OrderService;
 
 public class DBFIX {
@@ -23,10 +16,10 @@ public class DBFIX {
 
         DBFIX dbfix = new DBFIX();
 
-        MealService ms = new MealService();
         OrderService os = new OrderService();
         List<Ordermeal> list = os.findAll();
         double totalAmount;
+        int mismatchCount = 0;
 
         for (Ordermeal ordermeal : list) {
 
@@ -34,9 +27,39 @@ public class DBFIX {
             for (Orderlist orderlist : ordermeal.getOrderlistList()) {
                 totalAmount += orderlist.getPriceeach() * orderlist.getQuantity();
             }
-            System.out.println(ordermeal.getOrderId() + " < " + totalAmount);
-            dbfix.updatePaymentAmount(ordermeal.getOrderId(), totalAmount);
+
+            switch (ordermeal.getStatus()) {
+                case "Paid":
+                case "Completed":
+                    System.out.print(" ( Completed || Paid ) order read : ");
+                    if (totalAmount == ordermeal.getPaymentId().getAmount()) {
+                        System.out.println(ordermeal.getOrderId() + " amount matched");
+                    } else {
+                        mismatchCount++;
+                        System.out.println(ordermeal.getOrderId() + " amount mismatch");
+                        System.out.println("Current " + ordermeal.getPaymentId().getAmount());
+                        System.out.println("New " + totalAmount);
+                        dbfix.updatePaymentAmount(ordermeal.getOrderId(), totalAmount);
+                    }
+                    break;
+                case "Cancelled":
+                    System.out.print("Cancelled order read : ");
+                    if (0 == ordermeal.getPaymentId().getAmount()) {
+                        System.out.println(ordermeal.getOrderId() + " amount matched");
+                    } else {
+                        mismatchCount++;
+                        System.out.println(ordermeal.getOrderId() + " amount mismatch");
+                        System.out.println("Current " + ordermeal.getPaymentId().getAmount());
+                        System.out.println("New " + 0);
+                        dbfix.updatePaymentAmount(ordermeal.getOrderId(), 0);
+                    }
+                    break;
+                default:
+                    System.out.println("Unknown order read : ? ");
+                    break;
+            }
         }
+        System.out.println(mismatchCount + " orders mismatched");
     }
 
     private DBFIX() {
@@ -49,6 +72,5 @@ public class DBFIX {
         em.getTransaction().begin();
         oldMeal.getPaymentId().setAmount(amount);
         em.getTransaction().commit();
-
     }
 }

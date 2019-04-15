@@ -19,13 +19,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "TOKEN")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Token.findAll", query = "SELECT t FROM Token t")
-    , @NamedQuery(name = "Token.findByTokenId", query = "SELECT t FROM Token t WHERE t.tokenId = :tokenId")
-    , @NamedQuery(name = "Token.findByToken", query = "SELECT t FROM Token t WHERE t.token = :token")
-    , @NamedQuery(name = "Token.findByStutus", query = "SELECT t FROM Token t WHERE t.stutus = :stutus")
-    , @NamedQuery(name = "Token.findByDate", query = "SELECT t FROM Token t WHERE t.date = :date")
-    , @NamedQuery(name = "Token.findByTime", query = "SELECT t FROM Token t WHERE t.time = :time")
-    , @NamedQuery(name = "Token.findById", query = "SELECT t FROM Token t WHERE t.id = :id")})
+    @NamedQuery(name = "Token.findAll", query = "SELECT t FROM Token t"),
+    @NamedQuery(name = "Token.findByTokenId", query = "SELECT t FROM Token t WHERE t.tokenId = :tokenId"),
+    @NamedQuery(name = "Token.findByToken", query = "SELECT t FROM Token t WHERE t.token = :token"),
+    @NamedQuery(name = "Token.findByStutus", query = "SELECT t FROM Token t WHERE t.stutus = :stutus"),
+    @NamedQuery(name = "Token.findByDate", query = "SELECT t FROM Token t WHERE t.date = :date"),
+    @NamedQuery(name = "Token.findByTime", query = "SELECT t FROM Token t WHERE t.time = :time"),
+    @NamedQuery(name = "Token.findById", query = "SELECT t FROM Token t WHERE t.id = :id")})
 public class Token implements Serializable {
 
     private static final long serialVersionUID = 1L;

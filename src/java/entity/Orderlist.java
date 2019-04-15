@@ -17,12 +17,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "ORDERLIST")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Orderlist.findAll", query = "SELECT o FROM Orderlist o")
-    , @NamedQuery(name = "Orderlist.findByMealId", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.mealId = :mealId")
-    , @NamedQuery(name = "Orderlist.findByOrderId", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.orderId = :orderId")
-    , @NamedQuery(name = "Orderlist.findByQuantity", query = "SELECT o FROM Orderlist o WHERE o.quantity = :quantity")
-    , @NamedQuery(name = "Orderlist.findByPriceeach", query = "SELECT o FROM Orderlist o WHERE o.priceeach = :priceeach")
-    , @NamedQuery(name = "Orderlist.findByCouponId", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.couponId = :couponId")})
+    @NamedQuery(name = "Orderlist.findAll", query = "SELECT o FROM Orderlist o"),
+    @NamedQuery(name = "Orderlist.findByMealId", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.mealId = :mealId"),
+    @NamedQuery(name = "Orderlist.findByOrderId", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.orderId = :orderId"),
+    @NamedQuery(name = "Orderlist.findByQuantity", query = "SELECT o FROM Orderlist o WHERE o.quantity = :quantity"),
+    @NamedQuery(name = "Orderlist.findByPriceeach", query = "SELECT o FROM Orderlist o WHERE o.priceeach = :priceeach"),
+    @NamedQuery(name = "Orderlist.findByCouponId", query = "SELECT o FROM Orderlist o WHERE o.orderlistPK.couponId = :couponId")})
 public class Orderlist implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -62,6 +62,18 @@
                 </div>
             </section>
 
+            <%  String yearS = request.getParameter("year");
+                int year;
+
+                if (yearS == null) { // If no year is received
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(new Date());
+                    year = c.get(Calendar.YEAR);
+                } else { // If parameter is received
+                    year = Integer.parseInt(yearS);
+                }
+            %>
+
             <div class="album py-5 bg-light">
                 <div class="container">
                     <div class="container-fluid">
@@ -72,15 +84,13 @@
                             <div class="card-header py-3 d-flex">
                                 <h6 class="my-auto text-primary">Reload Report</h6>
                                 <div class="ml-auto">
-                                    <form>
-                                        <div class="input-group datepicker">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Year</span>
-                                            </div>
-                                            <input type="text" class="form-control" value="2019">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-success" type="submit" id="search">Search</button>
-                                            </div>
+                                    <form class="input-group" action="./reload.jsp">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Year</span>
+                                        </div>
+                                        <input id="datepicker" name="year" type="text" class="form-control" value="<%= year%>">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-success" type="submit" id="search">Search</button>
                                         </div>
                                     </form>
                                 </div>
@@ -97,20 +107,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%  String yearS = request.getParameter("year");
-                                            int year;
-
-                                            if (yearS == null) { // If no year is received
-                                                Calendar c = Calendar.getInstance();
-                                                c.setTime(new Date());
-                                                year = c.get(Calendar.YEAR);
-                                            } else { // If parameter is received
-                                                year = Integer.parseInt(yearS);
-                                            }
-
-                                            CustomerService cs = new CustomerService();
-                                            customer = cs.findCustByID(customer.getCustId());
-                                            List<Reload> list = customer.getReloadList();
+                                        <%  OrderService os = new OrderService();
+                                            ReloadService rs = new ReloadService();
+                                            List<Reload> list = rs.findReloadByCustIDYear(customer.getCustId(), year);
 
                                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YYYY");
                                             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -150,16 +149,14 @@
         <link href="../../bootstrap/css/Chart.min.css" rel="stylesheet" type="text/css"/>
         <script src="../../bootstrap/js/Chart.min.js" type="text/javascript"></script>
         <script>
-            $('.datepicker input').datepicker({
+            $('#datepicker').datepicker({
                 format: "yyyy",
                 startView: 2,
                 minViewMode: 2,
                 maxViewMode: 2
             });
 
-            <%  ReloadService rs = new ReloadService();
-                OrderService os = new OrderService();
-                // Get list of Object[] and cast it into Int and String
+            <%  // Get list of Object[] and cast it into Int and String
                 List<Object[]> summaryReload = rs.findReloadSummary(customer.getCustId(), year);
                 List<Object[]> summaryPayment = os.findPaymentSummary(customer.getCustId(), year);
 

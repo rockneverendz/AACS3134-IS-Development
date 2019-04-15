@@ -16,10 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "INGREDIENTLIST")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Ingredientlist.findAll", query = "SELECT i FROM Ingredientlist i")
-    , @NamedQuery(name = "Ingredientlist.findByMealId", query = "SELECT i FROM Ingredientlist i WHERE i.ingredientlistPK.mealId = :mealId")
-    , @NamedQuery(name = "Ingredientlist.findByIngredientId", query = "SELECT i FROM Ingredientlist i WHERE i.ingredientlistPK.ingredientId = :ingredientId")
-    , @NamedQuery(name = "Ingredientlist.findByQuantity", query = "SELECT i FROM Ingredientlist i WHERE i.quantity = :quantity")})
+    @NamedQuery(name = "Ingredientlist.findAll", query = "SELECT i FROM Ingredientlist i"),
+    @NamedQuery(name = "Ingredientlist.findByMealId", query = "SELECT i FROM Ingredientlist i WHERE i.ingredientlistPK.mealId = :mealId"),
+    @NamedQuery(name = "Ingredientlist.findByIngredientId", query = "SELECT i FROM Ingredientlist i WHERE i.ingredientlistPK.ingredientId = :ingredientId"),
+    @NamedQuery(name = "Ingredientlist.findByQuantity", query = "SELECT i FROM Ingredientlist i WHERE i.quantity = :quantity")})
 public class Ingredientlist implements Serializable {
 
     private static final long serialVersionUID = 1L;

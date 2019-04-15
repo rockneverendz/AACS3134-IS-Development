@@ -33,23 +33,23 @@ public class AddMeal extends HttpServlet {
         String[] quantity = request.getParameterValues("Quantity");
         HttpSession session = request.getSession();
         Staff staff = (Staff) session.getAttribute("staff");
-        
+
         // Initialization
         Meal meal = new Meal();
         MealService ms = new MealService();
-        
+
         meal.setName(name);
         meal.setDescription(description);
         meal.setPrice(Double.parseDouble(price));
         meal.setCalories(Integer.parseInt(calories));
         meal.setAvailability(Boolean.parseBoolean(availability));
-        
+
         CategoryService cs = new CategoryService();
         meal.setCategoryId(cs.findCategoryByID(staff.getCategoryId().getCategoryId()));
         cs.close();
 
         meal.setCategoryId(staff.getCategoryId());
-        
+
         Ingredientlist ingredientlist;
         IngredientService is = new IngredientService();
 
@@ -60,14 +60,13 @@ public class AddMeal extends HttpServlet {
                 ingredientlist = new Ingredientlist();
                 ingredientlist.setQuantity(Double.parseDouble(quantity[i]));
                 ingredientlist.setIngredient(is.findIngredientByID(Integer.parseInt(ingredient[i])));
-                
+
                 arraylist.add(ingredientlist);
             }
         }
-        
+
         is.close();
 
-        
         // Obtains the upload file part in this multipart request
         Part filePart = request.getPart("image");
         if (filePart != null) {
@@ -94,7 +93,7 @@ public class AddMeal extends HttpServlet {
             inputStream.close();
             outputStream.close();
         }
-        
+
         ms.addMeal(meal, arraylist);
         ms.close();
         

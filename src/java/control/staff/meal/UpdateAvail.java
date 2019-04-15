@@ -1,18 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package control.staff.meal;
 
 import entity.Meal;
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import service.MealService;
 
 public class UpdateAvail extends HttpServlet {
@@ -36,7 +29,14 @@ public class UpdateAvail extends HttpServlet {
 
 
 
+        //Initialization
+        Meal meal;
+        MealService mealService = new MealService();
+        meal = mealService.findMealByID(mealID);
+        mealService.updateMealAvailably(meal);
 
+        //Set sessions and redirect
+        response.sendRedirect("../meal/modify.jsp?status=1");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

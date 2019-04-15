@@ -13,7 +13,7 @@ public class removeMeal extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // Get parameter from the form
         String mealIndex = request.getParameter("mealIndex");
 
@@ -36,7 +36,7 @@ public class removeMeal extends HttpServlet {
 
             // Remove
             order.remove(indexOfMeal);
-            
+
             // Update cart and redirect back to cart with status 'Update Success'
             url.append("?status=1");
         } catch (NumberFormatException ex) {

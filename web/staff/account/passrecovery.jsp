@@ -41,7 +41,7 @@
                 padding-bottom: 40px;
                 background-color: #f5f5f5;
             }
-            
+
             .h1, h1 {
                 font-weight: 300;
                 line-height: 1.2;

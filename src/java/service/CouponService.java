@@ -1,8 +1,8 @@
 package service;
 
 import entity.Coupon;
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.*;
 
 public class CouponService {
 
@@ -22,7 +22,7 @@ public class CouponService {
     public Coupon findCouponByID(int id) {
         return (Coupon) em.find(Coupon.class, id);
     }
-    
+
     public List findCouponSummary(int custId) {
         return em.createNativeQuery("SELECT COUNT(c.COUPON_ID) AS NumberOfFood, ca.\"NAME\""
                 + " FROM COUPON c"
@@ -32,10 +32,27 @@ public class CouponService {
                 + " INNER JOIN CATEGORY ca ON ca.CATEGORY_ID = m.CATEGORY_ID"
                 + " WHERE om.CUST_ID = " + custId
                 + " AND om.STATUS = 'Completed'"
-                + " GROUP BY ca.\"NAME\"")
+                + " GROUP BY ca.\"NAME\""
+                + " ORDER BY NumberOfFood DESC")
                 .getResultList();
     }
-    
+
+    public List findCouponSummary(int custId, int month) {
+        return em.createNativeQuery("SELECT COUNT(c.COUPON_ID) AS NumberOfFood, ca.\"NAME\""
+                + " FROM COUPON c"
+                + " INNER JOIN ORDERLIST ol ON ol.COUPON_ID = c.COUPON_ID"
+                + " INNER JOIN MEAL m ON ol.MEAL_ID = m.MEAL_ID"
+                + " INNER JOIN ORDERMEAL om ON om.ORDER_ID = ol.ORDER_ID"
+                + " INNER JOIN CATEGORY ca ON ca.CATEGORY_ID = m.CATEGORY_ID"
+                + " INNER JOIN Payment p ON om.PAYMENT_ID = p.PAYMENT_ID"
+                + " WHERE om.CUST_ID = " + custId
+                + " AND MONTH(p.date) = " + month
+                + " AND om.STATUS = 'Completed'"
+                + " GROUP BY ca.\"NAME\""
+                + " ORDER BY NumberOfFood DESC")
+                .getResultList();
+    }
+
     public boolean updateCoupon(Coupon newCoupon) throws RollbackException {
         Coupon oldCoupon = findCouponByID(newCoupon.getCouponId());
         if (oldCoupon != null) {

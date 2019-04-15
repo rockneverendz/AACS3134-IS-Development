@@ -1,14 +1,9 @@
-<%@page import="service.CouponService"%>
+<%@page import="entity.Coupon"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
-<%@page import="service.OrderService"%>
-<%@page import="entity.Coupon"%>
-<%@page import="entity.Orderlist"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="entity.Ordermeal"%>
-<%@page import="javax.persistence.criteria.Order"%>
-<%@page import="java.util.List"%>
-<%@page import="service.CustomerService"%>
+<%@page import="service.OrderService"%>
 <!doctype html>
 <html lang="en" style="position: relative; min-height: 100%;">
     <head>
@@ -119,11 +114,15 @@
                                             SimpleDateFormat dateJS = new SimpleDateFormat("yyyy, MM-1, dd");
                                             StringBuilder stringBuilder = new StringBuilder();
                                             Date today = new Date();
+                                            Date startDate;
+                                            Date endDate;
 
                                             Calendar calendar = Calendar.getInstance();
                                             calendar.setTime(today);
                                             calendar.add(Calendar.DATE, 2);
-                                            Date todayAdd2 = calendar.getTime();
+                                            startDate = calendar.getTime();
+                                            calendar.add(Calendar.MONTH, 2);
+                                            endDate = calendar.getTime();
 
                                             for (int i = 0; i < list.size(); i++) {
                                                 Ordermeal ordermeal = list.get(i);
@@ -137,10 +136,11 @@
                                         </tr>
                                         <tr role="row" class="table-secondary cat<%= i%>" style="display:none">
                                             <td>
-                                                <a class="btn btn-outline-danger btn-sm" role="button"
-                                                   href="../order/cancelOrder?orderId=<%= ordermeal.getOrderId()%>">
+                                                <button type="button" class="btn btn-outline-danger btn-sm"
+                                                        data-toggle="modal" data-target="#deleteModal"
+                                                        data-orderid="<%= ordermeal.getOrderId()%>">
                                                     <i class="fas fa-trash"></i>
-                                                </a>
+                                                </button>
                                             </td>
                                             <th>Meal</th>
                                             <th>Quantity</th>
@@ -245,6 +245,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Update Meal</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form class="form-meal" action="../order/cancelOrder">
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-12 form-label-group">
+                                                    <label id="modalMessage" class="col-form-label">Are you sure you want to cancel order #</label>
+                                                    <input id="orderId" name="orderId" type="text" hidden>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-danger">Delete Meal</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>      
             </div>
@@ -282,9 +308,21 @@
             }
         });
 
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            if (event.namespace === 'bs.modal') {
+                // Button that triggered the modal
+                var button = $(event.relatedTarget);
+                var orderid = button.data('orderid');
+
+                $("#modalMessage").html("Are you sure you want to cancel order #" + orderid);
+                $("#orderId").val(orderid);
+            }
+        });
+
         $('#mealDate').datepicker({
             format: "dd-mm-yyyy",
-            startDate: "<%= dateFormat.format(todayAdd2)%>",
+            startDate: "<%= dateFormat.format(startDate)%>",
+            endDate: "<%= dateFormat.format(endDate)%>",
             maxViewMode: 0,
             daysOfWeekDisabled: "0",
             todayHighlight: true

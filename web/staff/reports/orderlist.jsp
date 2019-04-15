@@ -212,7 +212,7 @@
                                         $("#mainContainer").addClass("ml-sm-auto");
                                         $("#mainContainer").addClass("col-lg-10");
                                     }
-                                    
+
 
                                     function setMonth() {
                                         var month = $('.inputMonth').val();

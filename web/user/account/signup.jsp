@@ -157,6 +157,9 @@
                     } else if (code == 'P') {
                         type = "warning";
                         message = "Retyped password does not match.";
+                    } else if (code == 'C') {
+                        type = "warning";
+                        message = "User ID ID does not exists.";
                     } else {
                         type = "danger";
                         message = "An error has occured";

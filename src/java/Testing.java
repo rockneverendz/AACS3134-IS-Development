@@ -1,8 +1,8 @@
 
-import java.util.Random;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.text.ParseException;
+import java.util.Random;
 
 public class Testing {
 
@@ -89,14 +89,14 @@ public class Testing {
 
         for (int i = 1; i < 21; i++) {
             for (int j = 1; j < 13; j++) {
-                
-                int amountArr[] = { 5 , 10 , 15, 30, 50, 100, 500};
+
+                int amountArr[] = {5, 10, 15, 30, 50, 100, 500};
                 Random rand = new Random();
                 int amount = rand.nextInt((6 - 0) + 1) + 0;
                 int custID = rand.nextInt((20 - 1) + 1) + 1;
                 int staffID = rand.nextInt((5 - 1) + 1) + 1;
 
-                System.out.println("INSERT INTO NBUSER.RELOAD (\"DATE\", \"TIME\", AMOUNT, CUST_ID, STAFF_ID) VALUES ('2019-03-21', '20:55:11', " + amountArr[amount] + ", " + custID + ", "+ staffID + ");");
+                System.out.println("INSERT INTO NBUSER.RELOAD (\"DATE\", \"TIME\", AMOUNT, CUST_ID, STAFF_ID) VALUES ('2019-03-21', '20:55:11', " + amountArr[amount] + ", " + custID + ", " + staffID + ");");
 
                 if (j == 12) {
                     System.out.println("------------------------------------------------" + i + "-----------------------------------------------------\n");

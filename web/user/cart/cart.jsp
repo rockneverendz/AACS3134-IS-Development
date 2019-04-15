@@ -58,11 +58,15 @@
 
                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                             Date today = new Date();
-
+                            Date startDate;
+                            Date endDate;
+                            
                             Calendar calendar = Calendar.getInstance();
                             calendar.setTime(today);
                             calendar.add(Calendar.DATE, 2);
-                            Date todayAdd2 = calendar.getTime();
+                            startDate = calendar.getTime();
+                            calendar.add(Calendar.MONTH, 2);
+                            endDate = calendar.getTime();
 
                             if (order == null || order.isEmpty()) { // Cart is empty
                         %>
@@ -217,7 +221,8 @@
 
             $('#mealDate').datepicker({
                 format: "dd-mm-yyyy",
-                startDate: "<%= dateFormat.format(todayAdd2)%>",
+                startDate: "<%= dateFormat.format(startDate)%>",
+                endDate: "<%= dateFormat.format(endDate)%>",
                 maxViewMode: 0,
                 daysOfWeekDisabled: "0",
                 todayHighlight: true

@@ -1,8 +1,8 @@
 package service;
 
 import entity.Staff;
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.*;
 
 public class StaffService {
 
@@ -22,19 +22,19 @@ public class StaffService {
     public Staff findStaffByID(int id) {
         return (Staff) em.find(Staff.class, id);
     }
-    
-     public Staff findStaffByUsername(String username) {
+
+    public Staff findStaffByUsername(String username) {
         return (Staff) em.createNamedQuery("Staff.findByUsername")
                 .setParameter("username", username)
                 .getSingleResult();
     }
 
-     public Staff findStaffByUserIdCard(String staffIdCard) {
+    public Staff findStaffByUserIdCard(String staffIdCard) {
         return (Staff) em.createNamedQuery("Staff.findByUserIdCard")
                 .setParameter("userIdCard", staffIdCard)
                 .getSingleResult();
     }
-     
+
     public Staff findStaffByEmail(String email) {
         return (Staff) em.createNamedQuery("Staff.findByEmail")
                 .setParameter("email", email)
@@ -67,7 +67,7 @@ public class StaffService {
                 .getSingleResult();
         return (count != 0);
     }
-    
+
     /**
      * @param newStaff The modified staff
      * @return true if successfully committed false if staff not found

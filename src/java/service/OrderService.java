@@ -1,15 +1,15 @@
 package service;
 
-import entity.Ordermeal;
-import entity.Payment;
 import entity.Customer;
 import entity.Orderlist;
 import entity.OrderlistPK;
+import entity.Ordermeal;
+import entity.Payment;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.*;
 
 public class OrderService {
 
@@ -96,7 +96,7 @@ public class OrderService {
                 Orderlist.class)
                 .getResultList();
     }
-    
+
     public List<Orderlist> findOrderlistByCustPaid(int custId) {
         return em.createNativeQuery("SELECT ol.*"
                 + " FROM ORDERLIST ol"
@@ -120,7 +120,7 @@ public class OrderService {
                 + " GROUP BY MONTH(pay.\"DATE\")")
                 .getResultList();
     }
-    
+
     /**
      * @param newOrdermeal The modified order
      * @return true if successfully committed false if order not found

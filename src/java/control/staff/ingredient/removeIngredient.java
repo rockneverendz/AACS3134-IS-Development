@@ -1,6 +1,5 @@
 package control.staff.ingredient;
 
-import entity.Ingredient;
 import java.io.IOException;
 import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
@@ -20,7 +19,6 @@ public class removeIngredient extends HttpServlet {
 
             //Initialization
             IngredientService ingredientService = new IngredientService();
-            Ingredient ingredient = ingredientService.findIngredientByID(itemid);
 
             //Removing item from DB
             ingredientService.removeIngredient(itemid);

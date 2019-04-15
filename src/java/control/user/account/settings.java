@@ -3,7 +3,6 @@ package control.user.account;
 import entity.Customer;
 import java.io.IOException;
 import javax.persistence.RollbackException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ public class settings extends HttpServlet {
         String newPassword = request.getParameter("NewPassword");
         String newCPassword = request.getParameter("NewCPassword");
         String currentPassword = request.getParameter("CurrentPassword");
-        
+
         // Get current customer
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
@@ -34,7 +33,7 @@ public class settings extends HttpServlet {
                 url.append("?status=P");
                 throw new IllegalArgumentException();
             }
-            
+
             if (!customer.getPassword().equals(currentPassword)) {
                 url.append("?status=C");
                 throw new IllegalArgumentException();

@@ -1,12 +1,12 @@
 package control.staff.packages;
 
 import entity.Package;
-import service.PackageService;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import service.PackageService;
 
 public class RemovePackage extends HttpServlet {
 

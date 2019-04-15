@@ -62,7 +62,7 @@
                 </div>
             </section>
 
-            
+
             <div class="album py-5 bg-light">
                 <div class="container">
                     <%  String status = request.getParameter("status");

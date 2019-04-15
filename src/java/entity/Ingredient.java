@@ -21,9 +21,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "INGREDIENT")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Ingredient.findAll", query = "SELECT i FROM Ingredient i")
-    , @NamedQuery(name = "Ingredient.findByIngredientId", query = "SELECT i FROM Ingredient i WHERE i.ingredientId = :ingredientId")
-    , @NamedQuery(name = "Ingredient.findByIngredientName", query = "SELECT i FROM Ingredient i WHERE i.ingredientName = :ingredientName")})
+    @NamedQuery(name = "Ingredient.findAll", query = "SELECT i FROM Ingredient i"),
+    @NamedQuery(name = "Ingredient.findByIngredientId", query = "SELECT i FROM Ingredient i WHERE i.ingredientId = :ingredientId"),
+    @NamedQuery(name = "Ingredient.findByIngredientName", query = "SELECT i FROM Ingredient i WHERE i.ingredientName = :ingredientName")})
 public class Ingredient implements Serializable {
 
     private static final long serialVersionUID = 1L;

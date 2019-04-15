@@ -20,13 +20,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "CUSTOMER")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")
-    , @NamedQuery(name = "Customer.findByCustId", query = "SELECT c FROM Customer c WHERE c.custId = :custId")
-    , @NamedQuery(name = "Customer.findByUserIdCard", query = "SELECT c FROM Customer c WHERE c.userIdCard = :userIdCard")
-    , @NamedQuery(name = "Customer.findByUsername", query = "SELECT c FROM Customer c WHERE c.username = :username")
-    , @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")
-    , @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password")
-    , @NamedQuery(name = "Customer.findByCreditpoints", query = "SELECT c FROM Customer c WHERE c.creditpoints = :creditpoints")})
+    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
+    @NamedQuery(name = "Customer.findByCustId", query = "SELECT c FROM Customer c WHERE c.custId = :custId"),
+    @NamedQuery(name = "Customer.findByUserIdCard", query = "SELECT c FROM Customer c WHERE c.userIdCard = :userIdCard"),
+    @NamedQuery(name = "Customer.findByUsername", query = "SELECT c FROM Customer c WHERE c.username = :username"),
+    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email"),
+    @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password"),
+    @NamedQuery(name = "Customer.findByCreditpoints", query = "SELECT c FROM Customer c WHERE c.creditpoints = :creditpoints")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;

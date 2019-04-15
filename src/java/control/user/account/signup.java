@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import service.CustomerService;
+import service.ExternalService;
 
 public class signup extends HttpServlet {
 
@@ -26,17 +27,23 @@ public class signup extends HttpServlet {
         StringBuilder url = new StringBuilder("/user/account/signup.jsp");
         Customer customer = new Customer();
         CustomerService service = new CustomerService();
+        ExternalService externalService = new ExternalService();
 
         customer.setUserIdCard(useridcard);
         customer.setUsername(username);
         customer.setEmail(email);
 
         try {
+            if (!externalService.isStudentIdIDExist(customer.getUserIdCard())) {
+                url.append("?status=C");
+                throw new IllegalArgumentException();
+            }
+
             if (service.isUserIDUsed(customer.getUserIdCard())) {
                 url.append("?status=U");
                 throw new IllegalArgumentException();
             }
-            
+
             if (service.isUsernameUsed(customer.getUsername())) {
                 url.append("?status=N");
                 throw new IllegalArgumentException();
@@ -62,6 +69,10 @@ public class signup extends HttpServlet {
             session.setAttribute("customer", customer);
             session.setMaxInactiveInterval(-1);
 
+            // Success! Closing services since we're not gonna enter 'finally'
+            externalService.close();
+            service.close();
+
             // Redirect back to homepage with status 'Success'
             response.sendRedirect("../meal/main.jsp?status=1");
             return;
@@ -69,9 +80,11 @@ public class signup extends HttpServlet {
         } catch (IllegalArgumentException ex) {
         } catch (RollbackException ex) {
             url.append("?status=X");
+        } finally {
+            externalService.close();
+            service.close();
         }
 
-        service.close();
         customer.setPassword("");
         request.setAttribute("customer", customer);
 

@@ -106,7 +106,7 @@
                                 </tbody>
                         </table>
 
-                            <hr class="border-dark">
+                        <hr class="border-dark">
                         <table id="myTable2"  class="table table-sm table-striped table-bordered" style="width:100%">
                             <h4 class="m-3 mt-5 mb-3">Ingredients to be prepared</h4>
                             <hr>

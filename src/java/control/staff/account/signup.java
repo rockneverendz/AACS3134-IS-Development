@@ -24,13 +24,13 @@ public class signup extends HttpServlet {
         String password = request.getParameter("Password");
         String passwordRe = request.getParameter("CPassword");
         String category = request.getParameter("Category");
-        
+
         // Initialize variables
         StringBuilder url = new StringBuilder("/staff/account/signup.jsp");
         Staff staff = new Staff();
         StaffService staffService = new StaffService();
         CategoryService categoryService = new CategoryService();
-        
+
         staff.setUserIdCard(staffid);
         staff.setUsername(staffusername);
         staff.setEmail(email);
@@ -40,7 +40,7 @@ public class signup extends HttpServlet {
                 url.append("?status=U");
                 throw new IllegalArgumentException();
             }
-            
+
             if (staffService.isUsernameUsed(staff.getUsername())) {
                 url.append("?status=N");
                 throw new IllegalArgumentException();
@@ -56,14 +56,14 @@ public class signup extends HttpServlet {
                 throw new IllegalArgumentException();
             }
             staff.setPassword(password);
-            
+
             Category categoryObj = categoryService.findCategoryByID(Integer.parseInt(category));
             if (categoryObj == null) {
                 url.append("?status=C");
                 throw new IllegalArgumentException();
             }
             staff.setCategoryId(categoryObj);
-            
+
             // Insert & Commit (over at service.CustomerService)
             staffService.addStaff(staff);
             staffService.close();
@@ -76,7 +76,7 @@ public class signup extends HttpServlet {
             // Redirect back to homepage with status 'Success'
             response.sendRedirect("../reports/mealPreparation.jsp");
             return;
-            
+
         } catch (IllegalArgumentException ex) {
         } catch (RollbackException ex) {
             url.append("?status=X");
