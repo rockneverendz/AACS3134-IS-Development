@@ -1,3 +1,5 @@
+<%@page import="java.util.Base64"%>
+<%@page import="entity.Ingredientlist"%>
 <%@page import="java.lang.Integer" %>
 <%@page import="java.util.List"%>
 <%@page import="entity.Staff"%>
@@ -7,6 +9,7 @@
 <%@page import="service.IngredientService" %>
 <%
     Meal currentMeal = (Meal) session.getAttribute("Meal");
+    List<Ingredientlist> ingList = (List<Ingredientlist>) session.getAttribute("IngredientList");
 %>
 
 <!doctype html>
@@ -32,26 +35,21 @@
                                 <div class="text-center mb-4">
                                     <h1 class="h1 mb-3">Update Meal Information</h1>
                                 </div>
-                                <%  String status = request.getParameter("status");
-                                    String message;
-                                    String type;
-                                    if (status == null) {
-                                    } else {
-                                        char code = status.charAt(0);
-                                        if (code == '1') {
-                                            type = "success";
-                                            message = "Successfully Added Meal!";
-                                        } else {
-                                            type = "danger";
-                                            message = "An error has occured";
+                                <div class="row mb-4">
+                                    <%                                    
+                                        byte[] image = currentMeal.getImage();
+                                        if (image != null) { //Image found
+                                            String base64Image = Base64.getEncoder().encodeToString(image);
+                                    %>
+                                    <img class="rounded mx-auto d-block" style="width: 450px;height: 300px;" src="data:image/jpg;base64,<%= base64Image%>"/>
+                                    <%
+                                    } else { //No image found
+                                    %>
+                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                                    <%
                                         }
-                                %>
-                                <div class="alert alert-<%= type%>" role="alert">
-                                    <%= message%>
+                                    %>
                                 </div>
-                                <%
-                                    }
-                                %>
                                 <div class="row mb-4">
                                     <div class="col">
                                         <label for="inputName">Name</label>
@@ -96,6 +94,19 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <label>Previous Ingredient List</label>
+                                        <ul>
+                                            <% for (Ingredientlist iList : ingList) {%>
+                                            <li><%= iList.getIngredient().getIngredientName()%></li>
+                                                <% } %>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
                                 <div class="row mb-4">
                                     <div class="col">
                                         <label for="inputIngredients">Ingredient List</label>
@@ -182,20 +193,6 @@
                             </form>
 
                             <% }%>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                             <a href="manageMeal.jsp" class="btn btn-lg btn-secondary btn-block" style="color: white;">Back</a>
 
                         </div>

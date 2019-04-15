@@ -14,17 +14,23 @@ public class UpdateAvail extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        //Get Parameter 
-        int mealID = Integer.parseInt(request.getParameter("mealId"));
+        try {
+            //Get Parameter 
+            int mealID = Integer.parseInt(request.getParameter("mealId"));
 
-        //Initialization
-        Meal meal;
-        MealService mealService = new MealService();
-        meal = mealService.findMealByID(mealID);
-        mealService.updateMealAvailably(meal);
+            //Initialization
+            Meal meal;
+            MealService mealService = new MealService();
+            meal = mealService.findMealByID(mealID);
+            mealService.updateMealAvailably(meal);
 
-        //Set sessions and redirect
-        response.sendRedirect("../meal/modify.jsp?status=1");
+            //Set sessions and redirect
+            response.sendRedirect("../meal/manageMeal.jsp?status=A");
+
+        } catch (Exception e) {
+            response.sendRedirect("../meal/manageMeal.jsp?status=0");
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

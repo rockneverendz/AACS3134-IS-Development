@@ -23,26 +23,7 @@
                                 <div class="text-center mb-4">
                                     <h1 class="h1 mb-3">Add New Meal</h1>
                                 </div>
-                                <%  String status = request.getParameter("status");
-                                    String message;
-                                    String type;
-                                    if (status == null) {
-                                    } else {
-                                        char code = status.charAt(0);
-                                        if (code == '1') {
-                                            type = "success";
-                                            message = "Successfully Added Meal!";
-                                        } else {
-                                            type = "danger";
-                                            message = "An error has occured";
-                                        }
-                                %>
-                                <div class="alert alert-<%= type%>" role="alert">
-                                    <%= message%>
-                                </div>
-                                <%
-                                    }
-                                %>
+                                
                                 <div class="row mb-4">
                                     <div class="col">
                                         <label for="inputName">Name</label>

@@ -96,9 +96,9 @@ public class AddMeal extends HttpServlet {
 
         ms.addMeal(meal, arraylist);
         ms.close();
-
-        response.sendRedirect("../meal/add.jsp?status=1");
-
+        
+        response.sendRedirect("../meal/manageMeal.jsp?status=1");
+        
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods">
 

@@ -14,18 +14,28 @@ public class SearchPackage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //Get Parameters
-        int mealpackageID = Integer.parseInt(request.getParameter("packageid"));
+        try {
 
-        //Initialization
-        Package mealpackage;
-        PackageService ps = new PackageService();
-        mealpackage = ps.findPackageByID(mealpackageID);
+            //Get Parameters
+            int mealpackageID = Integer.parseInt(request.getParameter("packageid"));
 
-        //Set sessions and redirect
-        HttpSession session = request.getSession();
-        session.setAttribute("MealPackage", mealpackage);
-        response.sendRedirect("modifyPackage.jsp");
+            //Initialization
+            Package mealpackage;
+            PackageService ps = new PackageService();
+            mealpackage = ps.findPackageByID(mealpackageID);
+
+            if(mealpackage ==null){
+                response.sendRedirect("managePackage.jsp?status=N");
+                return;
+            }
+            //Set sessions and redirect
+            HttpSession session = request.getSession();
+            session.setAttribute("MealPackage", mealpackage);
+            response.sendRedirect("modifyPackage.jsp");
+        } catch (NumberFormatException  e) {
+            response.sendRedirect("managePackage.jsp?status=N");
+            e.getMessage();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
