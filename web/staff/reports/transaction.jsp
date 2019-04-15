@@ -1,7 +1,9 @@
+<%@page import="service.ReloadService"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
-<%@page import="java.sql.*"%>
+<%@page import="java.util.Arrays"%>
 <%@page import="java.util.Calendar"%>
+<%@page import="java.sql.*"%>
 <!doctype html>
 <html lang="en">
     <head>
@@ -20,28 +22,29 @@
                 <%@include file="../layout/sidebar.jsp" %>
 
                 <%  String[] monthArr = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-                    int selectedMonth, dayOfMonth = 0;
+                    SimpleDateFormat monthFormat = new SimpleDateFormat("MM-yyyy");
+                    int i, selectedMonth, selectedYear, dayOfMonth = 0;
+                    Calendar cal = Calendar.getInstance();
+                    Date datee;
+
                     String monthString = request.getParameter("month");
                     System.out.println(monthString);
                     if (monthString == null) {
-                        Calendar cal = Calendar.getInstance();
-                        Date date = new Date();
-                        cal.setTime(date); //Requested Date
-                        selectedMonth = cal.get(Calendar.MONTH); //If parameter equal null then set it to default
-                        dayOfMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-                        selectedMonth++; //Month start from 0 so i add one lel
+                        datee = new Date();
                     } else {
-                        selectedMonth = Integer.parseInt(monthString); //else use selected month
-                        System.out.println(selectedMonth);
+                        datee = monthFormat.parse(monthString);
                     }
+
+                    cal.setTime(datee); //Requested Date
+                    selectedMonth = cal.get(Calendar.MONTH); //If parameter equal null then set it to default
+                    selectedYear = cal.get(Calendar.YEAR);
+                    dayOfMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+                    selectedMonth++; //Month start from 0 so i add one lel
+
                 %>
 
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4" style="max-width: 1000px;">
-
-                        <div class="row" style="position: relative; height:300px">
-                            <canvas class="col-12" id="myChart"></canvas>
-                        </div>
 
                         <div id="reportHeader" class="row mb-3">
                             <div class="col-6  d-none d-print-block">
@@ -50,6 +53,10 @@
                             <div class="col-6 text-right mt-1  d-none d-print-block">
                                 <h6>Block B, Tunku Abdul Rahman University College,<br>53100 Kuala Lumpur,<br>Federal Territory of Kuala Lumpur</h6>
                             </div>                            
+                        </div>
+
+                        <div class="row" style="position: relative; height:300px">
+                            <canvas class="col-12" id="myChart"></canvas>
                         </div>
 
                         <h3>Top Up History for <%= monthArr[selectedMonth - 1]%></h3>
@@ -70,7 +77,7 @@
                             <tbody>
 
                                 <%
-                                    int i = 1;
+                                    i = 1;
                                     String host = "jdbc:derby://localhost:1527/canteenDB";
                                     String user = "nbuser";
                                     String password = "nbuser";
@@ -78,11 +85,13 @@
                                             + "FROM CUSTOMER C INNER JOIN  RELOAD R ON C.CUST_ID = R.CUST_ID "
                                             + "INNER JOIN STAFF S ON S.STAFF_ID = R.STAFF_ID "
                                             + "WHERE MONTH(R.DATE) = ? "
+                                            + "AND YEAR(R.DATE) = ? "
                                             + "ORDER BY R.DATE ";
                                     try {
                                         Connection conn = DriverManager.getConnection(host, user, password);
                                         PreparedStatement stmt = conn.prepareStatement(sqlQuery);
                                         stmt.setString(1, Integer.toString(selectedMonth));
+                                        stmt.setString(2, Integer.toString(selectedYear));
                                         ResultSet rs = stmt.executeQuery();
                                         while (rs.next()) {
                                             String custID = rs.getString("CUST_ID");
@@ -134,11 +143,13 @@
                                     String sqlQuery2 = "SELECT COUNT(*) AS TOTAL_NUMBER_OF_TOPUP, SUM(R.AMOUNT) AS TOTAL_AMOUNT "
                                             + "FROM CUSTOMER C INNER JOIN  RELOAD R ON C.CUST_ID = R.CUST_ID "
                                             + "INNER JOIN STAFF S ON S.STAFF_ID = R.STAFF_ID "
-                                            + "WHERE MONTH(R.DATE) = ? ";
+                                            + "WHERE MONTH(R.DATE) = ? "
+                                            + "AND YEAR(R.DATE) = ? ";
                                     try {
                                         Connection conn = DriverManager.getConnection(host, user, password);
                                         PreparedStatement stmt = conn.prepareStatement(sqlQuery2);
                                         stmt.setString(1, Integer.toString(selectedMonth));
+                                        stmt.setString(2, Integer.toString(selectedYear));
 
                                         ResultSet rs = stmt.executeQuery();
                                         while (rs.next()) {
@@ -165,29 +176,15 @@
 
                         <div class="row mt-3 d-print-none">
                             <div class="col-sm-7">
-                                <div class="input-group">
+                                <form class="input-group" action="./transaction.jsp" method="GET">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Search by Month</span>
                                     </div>
-                                    <select onchange="setMonth()" name="inputMonth" class="inputMonth form-control col-5">
-                                        <option value="" selected disabled>Choose</option>
-                                        <option value="1">Jan</option>
-                                        <option value="2">Feb</option>
-                                        <option value="3">Mar</option>
-                                        <option value="4">Apr</option>
-                                        <option value="5">May</option>
-                                        <option value="6">Jun</option>
-                                        <option value="7">Jul</option>
-                                        <option value="8">Aug</option>
-                                        <option value="9">Sept</option>
-                                        <option value="10">Oct</option>
-                                        <option value="11">Nov</option>
-                                        <option value="12">Dec</option>
-                                    </select>
+                                    <input class="form-control" id="datepicker" name="month" type="text" value="<%= monthFormat.format(datee)%>">
                                     <div class="input-group-append">
-                                        <a class="btn btn-outline-success" href="transaction.jsp?" id="search">Search</a>
+                                        <input class="btn btn-outline-success" type="submit" value="Search">
                                     </div>
-                                </div>
+                                </form>
                             </div>
                             <div class="col-sm-2">
                                 <button class="btn btn-outline-primary d-print-none" onclick="printFn()" id="print"><i class="fas fa-print"></i> Print</button>
@@ -203,6 +200,8 @@
         <%@include file="../layout/scripts.jsp" %>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script src="../../bootstrap/js/jquery.dataTables.min.js"></script>
+        <link href="../../bootstrap/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../../bootstrap/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
         <script src="../../bootstrap/js/dataTables.bootstrap4.min.js"></script>
         <script src="../../bootstrap/js/Chart.min.js" type="text/javascript"></script>
         <link href="../../bootstrap/css/Chart.min.css" rel="stylesheet" type="text/css"/>
@@ -211,7 +210,15 @@
                                         $('#myTable').DataTable();
                                     });
 
-                                    function printFn() {
+                                    $('#datepicker').datepicker({
+                                        format: "mm-yyyy",
+                                        startView: 1,
+                                        minViewMode: 1,
+                                        maxViewMode: 2
+
+                                    });
+
+                                    $('#print').on('click', function () {
                                         $("#myTable_length").addClass("d-print-none");
                                         $("#myTable_filter").addClass("d-print-none");
                                         $("#myTable_paginate").addClass("d-print-none");
@@ -224,26 +231,24 @@
                                         $("#mainContainer").addClass("col-md-9");
                                         $("#mainContainer").addClass("ml-sm-auto");
                                         $("#mainContainer").addClass("col-lg-10");
-                                    }
-
-
-                                    function setMonth() {
-                                        var month = $('.inputMonth').val();
-                                        var url = 'transaction.jsp?month=' + month;
-
-                                        $('#search').attr('href', url);
-                                    }
-                                    ;
+                                    });
 
             <%
+                ReloadService reloadService = new ReloadService();
+                List<Object[]> summary = reloadService.findReloadSummaryMonthly(selectedMonth, selectedYear);
+
                 String[] labels = new String[dayOfMonth];
-                for (int j = 0; j < labels.length; j++) {
-                    labels[j] = String.format("'%d'", j + 1);
+                String[] data = new String[dayOfMonth];
+
+                for (i = 0; i < labels.length; i++) {
+                    labels[i] = String.format("'%d'", i + 1);
                 }
 
-                String[] data = new String[dayOfMonth];
-                for (int j = 0; j < data.length; j++) {
-                    data[j] = String.format("'%d'", j + 1);
+                Arrays.setAll(data, e -> "0");
+
+                for (i = 0; i < summary.size(); i++) {
+                    Object[] elem = summary.get(i);
+                    data[(Integer) elem[0] - 1] = String.format("%.2f", (Double) elem[1]);
                 }
             %>
 
@@ -253,7 +258,7 @@
                                         data: {
                                             labels: [<%= String.join(",", labels)%>],
                                             datasets: [{
-                                                    label: 'Calories (kcal)',
+                                                    label: 'Amount (RM)',
                                                     data: [<%= String.join(",", data)%>],
                                                     borderWidth: 3,
                                                     lineTension: 0.3,
@@ -312,6 +317,5 @@
                                         }
                                     });
         </script>
-
     </body>
 </html>
