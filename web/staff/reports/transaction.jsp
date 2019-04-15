@@ -20,7 +20,7 @@
                 <%@include file="../layout/sidebar.jsp" %>
 
                 <%  String[] monthArr = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-                    int selectedMonth;
+                    int selectedMonth, dayOfMonth = 0;
                     String monthString = request.getParameter("month");
                     System.out.println(monthString);
                     if (monthString == null) {
@@ -28,7 +28,8 @@
                         Date date = new Date();
                         cal.setTime(date); //Requested Date
                         selectedMonth = cal.get(Calendar.MONTH); //If parameter equal null then set it to default
-                        selectedMonth = selectedMonth + 1; //Month start from 0 so i add one lel
+                        dayOfMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+                        selectedMonth++; //Month start from 0 so i add one lel
                     } else {
                         selectedMonth = Integer.parseInt(monthString); //else use selected month
                         System.out.println(selectedMonth);
@@ -38,6 +39,9 @@
                 <main id="mainContainer" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                     <div class="container mt-4" style="max-width: 1000px;">
 
+                        <div class="row" style="position: relative; height:300px">
+                            <canvas class="col-12" id="myChart"></canvas>
+                        </div>
 
                         <div id="reportHeader" class="row mb-3">
                             <div class="col-6  d-none d-print-block">
@@ -200,8 +204,8 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script src="../../bootstrap/js/jquery.dataTables.min.js"></script>
         <script src="../../bootstrap/js/dataTables.bootstrap4.min.js"></script>
-
-
+        <script src="../../bootstrap/js/Chart.min.js" type="text/javascript"></script>
+        <link href="../../bootstrap/css/Chart.min.css" rel="stylesheet" type="text/css"/>
         <script>
                                     $(document).ready(function () {
                                         $('#myTable').DataTable();
@@ -230,6 +234,83 @@
                                         $('#search').attr('href', url);
                                     }
                                     ;
+
+            <%
+                String[] labels = new String[dayOfMonth];
+                for (int j = 0; j < labels.length; j++) {
+                    labels[j] = String.format("'%d'", j + 1);
+                }
+
+                String[] data = new String[dayOfMonth];
+                for (int j = 0; j < data.length; j++) {
+                    data[j] = String.format("'%d'", j + 1);
+                }
+            %>
+
+                                    var ctx = document.getElementById('myChart');
+                                    var myChart = new Chart(ctx, {
+                                        type: 'line',
+                                        data: {
+                                            labels: [<%= String.join(",", labels)%>],
+                                            datasets: [{
+                                                    label: 'Calories (kcal)',
+                                                    data: [<%= String.join(",", data)%>],
+                                                    borderWidth: 3,
+                                                    lineTension: 0.3,
+                                                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+                                                    borderColor: "rgba(78, 115, 223, 1)",
+                                                    pointRadius: 3,
+                                                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                                                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                                                    pointHoverRadius: 3,
+                                                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                                                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                                                    pointHitRadius: 10,
+                                                    pointBorderWidth: 2
+                                                }]
+                                        },
+                                        options: {
+                                            maintainAspectRatio: false,
+                                            scales: {
+                                                xAxes: [{
+                                                        gridLines: {
+                                                            display: false,
+                                                            drawBorder: false
+                                                        }
+                                                    }],
+                                                yAxes: [{
+                                                        ticks: {
+                                                            beginAtZero: true
+                                                        },
+                                                        gridLines: {
+                                                            color: "rgb(234, 236, 244)",
+                                                            zeroLineColor: "rgb(234, 236, 244)",
+                                                            drawBorder: false,
+                                                            borderDash: [2],
+                                                            zeroLineBorderDash: [2]
+                                                        }
+                                                    }]
+                                            },
+                                            legend: {
+                                                display: false
+                                            },
+                                            tooltips: {
+                                                backgroundColor: "rgb(255,255,255)",
+                                                bodyFontColor: "#858796",
+                                                titleMarginBottom: 10,
+                                                titleFontColor: '#6e707e',
+                                                titleFontSize: 14,
+                                                borderColor: '#dddfeb',
+                                                borderWidth: 1,
+                                                xPadding: 15,
+                                                yPadding: 15,
+                                                displayColors: false,
+                                                intersect: false,
+                                                mode: 'index',
+                                                caretPadding: 10
+                                            }
+                                        }
+                                    });
         </script>
 
     </body>
