@@ -33,7 +33,7 @@ public class ReloadService {
     public List<Reload> findReloadByCustIDYear(int custId, int year) {
         return em.createNativeQuery("SELECT r.* FROM RELOAD r"
                 + " WHERE r.CUST_ID = " + custId
-                + " AND YEAR(r.\"DATE\") = " + year,
+                + " AND YEAR(r.DATE) = " + year,
                 Reload.class)
                 .getResultList();
     }
@@ -42,8 +42,17 @@ public class ReloadService {
         return em.createNativeQuery("SELECT MONTH(r.\"DATE\"), SUM(r.AMOUNT)"
                 + " FROM RELOAD r"
                 + " WHERE r.CUST_ID = " + custId
-                + " AND YEAR(r.\"DATE\") = " + year
-                + " GROUP BY MONTH(r.\"DATE\")")
+                + " AND YEAR(r.DATE) = " + year
+                + " GROUP BY MONTH(r.DATE)")
+                .getResultList();
+    }
+
+    public List findReloadSummaryMonthly(int month, int year) {
+        return em.createNativeQuery("SELECT DAY(r.DATE), SUM(r.AMOUNT)"
+                + " FROM RELOAD r"
+                + " WHERE MONTH(r.DATE) = " + month
+                + " AND YEAR(r.DATE) = " + year
+                + " GROUP BY r.DATE")
                 .getResultList();
     }
 
