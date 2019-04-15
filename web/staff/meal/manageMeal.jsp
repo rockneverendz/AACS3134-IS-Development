@@ -26,6 +26,33 @@
                     <div class="container mt-4">
                         <h3>Manage Meals</h3>
 
+                        <%  String status = request.getParameter("status");
+                            String message;
+                            String type;
+                            if (status == null) {
+                            } else {
+                                char code = status.charAt(0);
+                                if (code == '1') {
+                                    type = "success";
+                                    message = "Successfully Added Meal!";
+                                } else if ( code == '2'){
+                                    type = "success";
+                                    message = "Successfully Updated Meal Information!";                                    
+                                } else if ( code == 'A'){
+                                    type = "success";
+                                    message = "Successfully Updated Meal Status!";
+                                }else {
+                                    type = "danger";
+                                    message = "An error has occured";
+                                }
+                        %>
+                        <div class="alert alert-<%= type%>" role="alert">
+                            <%= message%>
+                        </div>
+                        <%
+                            }
+                        %>
+
                         <table id="myTable" class="table table-bordered table-hover">
                             <thead>
                                 <tr>

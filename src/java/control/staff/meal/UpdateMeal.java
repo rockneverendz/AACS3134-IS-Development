@@ -86,7 +86,7 @@ public class UpdateMeal extends HttpServlet {
         ms.close();
         is.close();
 
-        response.sendRedirect("../meal/modify.jsp?status=1");
+        response.sendRedirect("../meal/manageMeal.jsp?status=2");
 
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods">

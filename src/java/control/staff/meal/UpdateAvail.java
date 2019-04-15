@@ -32,7 +32,7 @@ public class UpdateAvail extends HttpServlet {
             
             
             //Set sessions and redirect
-            response.sendRedirect("../meal/modify.jsp?status=1");
+            response.sendRedirect("../meal/manageMeal.jsp?status=A");
 
 
 
