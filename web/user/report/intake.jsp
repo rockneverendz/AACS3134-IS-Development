@@ -59,16 +59,17 @@
             <section class="text-center">
                 <div class="container d-flex justify-content-between align-items-center">
                     <h1 class="display-2">Intake History</h1>
-                    <a href="#" class="btn btn-primary my-2">Print
+                    <button id="printBtn" class="btn btn-primary my-2">Print
                         <i class="fas fa-print"></i>
-                    </a>
+                    </button>
                 </div>
             </section>
 
             <%  String dateString = request.getParameter("date");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 Calendar cal = Calendar.getInstance();
-                int[] totalcaloriesDays = new int[7];
+                int[] totalCaloriesDays = new int[6];
+                double[] totalExpensesDays = new double[6];
                 Date[] days = new Date[7];
                 Date date = new Date();
                 double grandTotalExpense = 0;
@@ -97,8 +98,7 @@
                 }
 
                 OrderService os = new OrderService();
-                List<Ordermeal> list = os.findOrderByCustDateRange(customer.getCustId(), days[0], days[5]);
-                int[] totalCaloriesOrder = new int[list.size()];
+                List<Orderlist> list = os.findOrderByCustDateRange(customer.getCustId(), days[0], days[5]);
             %>
 
             <div class="album py-5 bg-light">
@@ -175,7 +175,7 @@
                                     <table class="table table-hover w-100" cellspacing="0" role="grid">
                                         <thead class="thead-light">
                                             <tr role="row">
-                                                <th rowspan="1" colspan="1" style="width: 10%;">Order #</th>
+                                                <th rowspan="1" colspan="1" style="width: 10%;"></th>
                                                 <th rowspan="1" colspan="2" style="width: 50%;">Date</th>
                                                 <th rowspan="1" colspan="1" style="width: 20%;">Expenses</th>
                                                 <th rowspan="1" colspan="1" style="width: 20%;">Calories</th>
@@ -183,50 +183,56 @@
                                         </thead>
                                         <tbody>
                                             <%
+                                                Date groupByDate = new Date();
+                                                int j = -1;
                                                 for (int i = 0; i < list.size(); i++) {
-                                                    Ordermeal om = list.get(i);
+                                                    Orderlist ol = list.get(i);
+                                                    Ordermeal om = ol.getOrdermeal();
                                                     int calories = 0;
+                                                    double expenses = 0;
+
+                                                    if (!groupByDate.equals(ol.getCoupon().getRedeemDate())) {
+                                                        groupByDate = ol.getCoupon().getRedeemDate();
+                                                        j++;
                                             %>
-                                            <tr role="row" class="ordermeal" data-prod-cat="<%= i%>">
-                                                <td><%= om.getOrderId()%></td>
-                                                <td colspan="2"><%= dateFormat.format(om.getPaymentId().getDate())%></td>
-                                                <td><%= om.getPaymentId().getAmount()%></td>
-                                                <td id="totalCalories<%= i%>"></td>
+                                            <tr role="row" class="ordermeal" data-prod-cat="<%= j%>">
+                                                <td></td>
+                                                <td colspan="2"><%= dateFormat.format(ol.getCoupon().getRedeemDate())%></td>
+                                                <td id="totalExpenses<%= j%>"></td>
+                                                <td id="totalCalories<%= j%>"></td>
                                             </tr>
 
-                                            <tr role="row" class="table-secondary cat<%= i%>" style="display:none">
-                                                <th rowspan="1" colspan="1"></th>
-                                                <th rowspan="1" colspan="1">Meal</th>
-                                                <th rowspan="1" colspan="1">Quantity</th>
-                                                <th rowspan="1" colspan="1">Price Each</th>
-                                                <th rowspan="1" colspan="1">Calories</th>
+                                            <tr role="row" class="table-secondary cat<%= j%>" style="display:none">
+                                                <td style="font-weight: bold;">Order #</td>
+                                                <th>Meal</th>
+                                                <th>Quantity</th>
+                                                <th>Price Each</th>
+                                                <th>Calories</th>
                                             </tr>
                                             <%
-                                                for (Orderlist ol : om.getOrderlistList()) {
-                                                    Meal meal = ol.getMeal();
-                                                    calories += meal.getCalories();
+                                                }
+                                                Meal meal = ol.getMeal();
                                             %>
-                                            <tr role="row" class="cat<%= i%>" style="display:none">
-                                                <td></td>
+                                            <tr role="row" class="cat<%= j%>" style="display:none">
+                                                <td><%= om.getOrderId()%></td>
                                                 <td><%= meal.getName()%></td>
                                                 <td><%= ol.getQuantity()%></td>
                                                 <td><%= String.format("%.2f", ol.getPriceeach())%></td>
                                                 <td><%= meal.getCalories()%></td>
                                             </tr>
-                                            <%
-                                                    }
-                                                    // inject to innerHTML later.
-                                                    totalCaloriesOrder[i] = calories;
-
-                                                    // For Graph.js
+                                            <%      // For Graph.js
                                                     // Find the difference between Day0 and the OrderDate,
                                                     // and the calories to the day.
-                                                    long diff = om.getPaymentId().getDate().getTime() - days[0].getTime();
+                                                    long diff = ol.getCoupon().getRedeemDate().getTime() - days[0].getTime();
                                                     int daydiff = (int) TimeUnit.MILLISECONDS.toDays(diff);
-                                                    totalcaloriesDays[daydiff] += calories;
+
+                                                    calories += meal.getCalories();
+                                                    expenses += ol.getPriceeach() * ol.getQuantity();
+                                                    totalCaloriesDays[daydiff] += calories;
+                                                    totalExpensesDays[daydiff] += expenses;
 
                                                     // Grand Total
-                                                    grandTotalExpense += om.getPaymentId().getAmount();
+                                                    grandTotalExpense += expenses;
                                                     grandTotalCalories += calories;
                                                 }
                                             %>
@@ -234,8 +240,8 @@
                                         <tfoot>
                                             <tr role="row" class="table-primary">
                                                 <td colspan="3" class="text-right"><strong>Total</strong></td>
-                                                <td><%= String.format("%.2f", grandTotalExpense)%></td>
-                                                <td><%= grandTotalCalories%></td>
+                                                <td><%= String.format("%.2f", grandTotalExpense)%> points</td>
+                                                <td><%= grandTotalCalories%> kcal</td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -263,6 +269,7 @@
             });
 
             var ctx = document.getElementById('myChart');
+
             var labels = [
             <% dateFormat.applyPattern("dd-MM");%>
                 '<%= dateFormat.format(days[0])%>',
@@ -272,21 +279,32 @@
                 '<%= dateFormat.format(days[4])%>',
                         '<%= dateFormat.format(days[5])%>'
             ];
-            var data = [
-            <%=totalcaloriesDays[0]%>,
-            <%=totalcaloriesDays[1]%>,
-            <%=totalcaloriesDays[2]%>,
-            <%=totalcaloriesDays[3]%>,
-            <%=totalcaloriesDays[4]%>,
-            <%=totalcaloriesDays[5]%>
+
+            var dataCalories = [
+            <%=totalCaloriesDays[0]%>,
+            <%=totalCaloriesDays[1]%>,
+            <%=totalCaloriesDays[2]%>,
+            <%=totalCaloriesDays[3]%>,
+            <%=totalCaloriesDays[4]%>,
+            <%=totalCaloriesDays[5]%>
             ];
+
+            var dataExpenses = [
+            <%=String.format("'%.2f'", totalExpensesDays[0])%>,
+            <%=String.format("'%.2f'", totalExpensesDays[1])%>,
+            <%=String.format("'%.2f'", totalExpensesDays[2])%>,
+            <%=String.format("'%.2f'", totalExpensesDays[3])%>,
+            <%=String.format("'%.2f'", totalExpensesDays[4])%>,
+            <%=String.format("'%.2f'", totalExpensesDays[5])%>
+            ];
+
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
                     datasets: [{
                             label: 'Calories (kcal)',
-                            data: data,
+                            data: dataCalories,
                             borderWidth: 3,
                             lineTension: 0.3,
                             backgroundColor: "rgba(78, 115, 223, 0.05)",
@@ -348,25 +366,12 @@
                 }
             });
 
-            $(document).ready(function () {
-                $(".ordermeal").click(function (e) {
-                    e.preventDefault();
-                    $('.cat' + $(this).attr('data-prod-cat')).toggle();
-                });
-            });
-
-            // Fill out holes in the pages
             <%
-                for (int i = 0; i < totalCaloriesOrder.length; i++) {
-            %>
-            $('#totalCalories<%= i%>').html(<%= totalCaloriesOrder[i]%>);
-            <%
-                }
                 int mean = grandTotalCalories / 6;
-                int max = totalcaloriesDays[1];
-                int min = totalcaloriesDays[1];
+                int max = totalCaloriesDays[0];
+                int min = totalCaloriesDays[0];
 
-                for (int num : totalcaloriesDays) {
+                for (int num : totalCaloriesDays) {
                     if (max < num) {
                         max = num;
                     }
@@ -376,9 +381,24 @@
                 }
             %>
 
-            $('#total').html("<%= grandTotalCalories%> kcal");
-            $('#range').html("<%= min%> ~ <%= max%> kcal");
-            $('#mean').html("<%= mean%> kcal");
+            $(document).ready(function () {
+                $(".ordermeal").click(function (e) {
+                    e.preventDefault();
+                    $('.cat' + $(this).attr('data-prod-cat')).toggle();
+                });
+                $("#printBtn").click(function () {
+                    window.print();
+                });
+
+                for (var i = 0; i < 6; i++) {
+                    $('#totalExpenses' + i).html(dataExpenses[i] + " points");
+                    $('#totalCalories' + i).html(dataCalories[i] + " kcal");
+                }
+
+                $('#total').html("<%= grandTotalCalories%> kcal");
+                $('#range').html("<%= min%> ~ <%= max%> kcal");
+                $('#mean').html("<%= mean%> kcal");
+            });
 
         </script>
     </body>

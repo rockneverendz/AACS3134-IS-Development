@@ -76,15 +76,17 @@ public class OrderService {
                 .getResultList();
     }
 
-    public List<Ordermeal> findOrderByCustDateRange(int custId, Date startDate, Date endDate) {
+    public List<Orderlist> findOrderByCustDateRange(int custId, Date startDate, Date endDate) {
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        return em.createNativeQuery("SELECT o.* FROM Ordermeal o"
-                + " INNER JOIN Payment p ON o.PAYMENT_ID = p.PAYMENT_ID"
-                + " WHERE o.CUST_ID = " + custId
-                + " AND p.date BETWEEN '"
+        return em.createNativeQuery("SELECT ol.* FROM Orderlist ol"
+                + " INNER JOIN COUPON c ON c.COUPON_ID = ol.COUPON_ID"
+                + " INNER JOIN ORDERMEAL om ON om.ORDER_ID = ol.ORDER_ID"
+                + " WHERE om.CUST_ID = " + custId
+                + " AND c.STATUS = 'Redeemed'"
+                + " AND c.REDEEM_DATE BETWEEN '"
                 + df.format(startDate) + "' AND '" + df.format(endDate) + "'"
-                + " ORDER BY p.date ASC",
-                Ordermeal.class)
+                + " ORDER BY c.REDEEM_DATE, c.REDEEM_TIME ASC",
+                Orderlist.class)
                 .getResultList();
     }
 
