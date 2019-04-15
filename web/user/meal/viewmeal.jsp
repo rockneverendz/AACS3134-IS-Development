@@ -84,15 +84,18 @@
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 Date today = new Date();
+                Date startDate;
+                Date endDate;
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(today);
                 calendar.add(Calendar.DATE, 2);
-                Date todayAdd2 = calendar.getTime();
+                startDate = calendar.getTime();
+                calendar.add(Calendar.MONTH, 2);
+                endDate = calendar.getTime();
             %>
             <div id="jumbotron" class="card rounded-0 border-0 text-center text-white">
-                <%
-                    byte[] catImage = category.getImage();
+                <%  byte[] catImage = category.getImage();
                     if (catImage != null) { //Image found
                         String base64Image = Base64.getEncoder().encodeToString(catImage);
                 %>
@@ -194,7 +197,7 @@
                                             </div>
                                             <div class="col-6 form-label-group">
                                                 <label for="mealQty" class="col-form-label">Quantity</label>
-                                                <input id="mealQty" name="mealQty" type="number" class="form-control" min="1" max="10" required>
+                                                <input id="mealQty" name="mealQty" type="number" class="form-control" min="1" max="10" value="1" required>
                                             </div>
                                             <div class="col-6 form-label-group">
                                                 <label for="mealDate" class="col-form-label">Date</label>
@@ -239,7 +242,8 @@
 
             $('#mealDate').datepicker({
                 format: "dd-mm-yyyy",
-                startDate: "<%= dateFormat.format(todayAdd2)%>",
+                startDate: "<%= dateFormat.format(startDate)%>",
+                endDate: "<%= dateFormat.format(endDate)%>",
                 maxViewMode: 0,
                 daysOfWeekDisabled: "0",
                 todayHighlight: true

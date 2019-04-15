@@ -119,11 +119,15 @@
                                             SimpleDateFormat dateJS = new SimpleDateFormat("yyyy, MM-1, dd");
                                             StringBuilder stringBuilder = new StringBuilder();
                                             Date today = new Date();
+                                            Date startDate;
+                                            Date endDate;
 
                                             Calendar calendar = Calendar.getInstance();
                                             calendar.setTime(today);
                                             calendar.add(Calendar.DATE, 2);
-                                            Date todayAdd2 = calendar.getTime();
+                                            startDate = calendar.getTime();
+                                            calendar.add(Calendar.MONTH, 2);
+                                            endDate = calendar.getTime();
 
                                             for (int i = 0; i < list.size(); i++) {
                                                 Ordermeal ordermeal = list.get(i);
@@ -284,7 +288,8 @@
 
         $('#mealDate').datepicker({
             format: "dd-mm-yyyy",
-            startDate: "<%= dateFormat.format(todayAdd2)%>",
+            startDate: "<%= dateFormat.format(startDate)%>",
+            endDate: "<%= dateFormat.format(endDate)%>",
             maxViewMode: 0,
             daysOfWeekDisabled: "0",
             todayHighlight: true
