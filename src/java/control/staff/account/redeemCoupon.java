@@ -4,7 +4,7 @@ import entity.Coupon;
 import entity.Orderlist;
 import entity.Ordermeal;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.NoResultException;
@@ -29,8 +29,16 @@ public class redeemCoupon extends HttpServlet {
             String redeemTime = request.getParameter("redeemTime");
 
             // Get today date
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+            Calendar cal = Calendar.getInstance();
             Date todayDate = new Date();
+
+            // Remove time
+            cal.setTime(todayDate);
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+            todayDate = cal.getTime();
 
             // Initialization
             Coupon coupon = couponService.findCouponByID(couponID);
@@ -43,7 +51,9 @@ public class redeemCoupon extends HttpServlet {
                         case "Active":
 
                             // Check is today date
-                            if (dateFormat.format(coupon.getRedeemDate()).equals(dateFormat.format(todayDate))) {
+                            System.out.println(coupon.getRedeemDate());
+                            System.out.println(todayDate);
+                            if (coupon.getRedeemDate().compareTo(todayDate) == 0) {
 
                                 // Check time matches the option selected
                                 if (coupon.getRedeemTime().equals(redeemTime)) {
