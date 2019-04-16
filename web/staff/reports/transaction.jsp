@@ -244,11 +244,14 @@
                     labels[i] = String.format("'%d'", i + 1);
                 }
 
-                Arrays.setAll(data, e -> "0");
+                for (i = 0; i < data.length; i++) {
+                    data[i] = "0";
+                }
 
                 for (i = 0; i < summary.size(); i++) {
                     Object[] elem = summary.get(i);
-                    data[(Integer) elem[0] - 1] = String.format("%.2f", (Double) elem[1]);
+                    data[(Integer) elem[0] - 1]
+                            = String.format("%.2f", (Double) elem[1]);
                 }
             %>
 
