@@ -120,7 +120,7 @@
                                         %>
                                         <tr>
                                             <td><%= index%></td>
-                                            <td><%= pl.getMeal().getName()%></td>
+                                            <td><%= pl.getMealId().getName()%></td>
                                             <td><%= quantity%></td>
                                             <td id="row<%= index%>"></td>
                                             <td><%= mealTime%></td>
@@ -156,6 +156,18 @@
                                                class="form-control form-control-lg input-group-append" 
                                                value="<%= dateFormat.format(nextWeekMonday)%>">
                                     </div>
+                                    <!--                                    
+                                    <div class="col-md-4 px-5 my-auto" data-toggle="buttons">
+                                        <div class="btn-group btn-group-toggle btn-block">
+                                            <label class="btn btn-outline-primary w-50">
+                                                <input name="mealTime" value="Breakfast" type="radio" required> Breakfast
+                                            </label>
+                                            <label class="btn btn-outline-primary w-50">
+                                                <input name="mealTime" value="Lunch" type="radio" required> Lunch
+                                            </label>
+                                        </div>
+                                    </div>
+                                    -->
                                     <input name="packageId" type="text" value="<%= packagee.getPackageId()%>" hidden/>
                                     <input name="packageType" type="text" value="Monthly" hidden/>
                                     <button type="submit" class="btn btn-primary btn-lg offset-md-4 col-md-4">

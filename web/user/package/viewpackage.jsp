@@ -102,7 +102,7 @@
                                         int i = 0;
                                         for (Packageist packagelist : packagee.getPackageistList()) {
                                     %>
-                                    <li class="list-group-item bg-light"><%= dayOdWeeksString[i]%> : <%= packagelist.getMeal().getName()%></li>
+                                    <li class="list-group-item bg-light"><%= dayOdWeeksString[i]%> : <%= packagelist.getMealId().getName()%></li>
                                         <%
                                                 i++;
                                             }

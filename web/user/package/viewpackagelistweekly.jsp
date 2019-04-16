@@ -114,7 +114,7 @@
                                         %>
                                         <tr>
                                             <td><%= i + 1%></td>
-                                            <td><%= pl.getMeal().getName()%></td>
+                                            <td><%= pl.getMealId().getName()%></td>
                                             <td><%= quantity%></td>
                                             <td id="row<%= i + 1%>"></td>
                                             <td><%= mealTime%></td>
