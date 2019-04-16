@@ -106,6 +106,7 @@ public class OrderService {
                 + " INNER JOIN ORDERMEAL om ON ol.ORDER_ID = om.ORDER_ID"
                 + " WHERE c.REDEEM_DATE > CURRENT_DATE"
                 + " AND c.STATUS = 'Active'"
+                + " AND om.STATUS = 'Paid'"
                 + " AND om.CUST_ID = " + custId
                 + " ORDER BY c.REDEEM_DATE, c.REDEEM_TIME ASC",
                 Orderlist.class)
@@ -133,7 +134,7 @@ public class OrderService {
         if (oldOrdermeal != null) {
             em.getTransaction().begin();
             oldOrdermeal.getPaymentId().setAmount(0);
-            oldOrdermeal.setStatus("Canceled");
+            oldOrdermeal.setStatus("Cancelled");
             em.getTransaction().commit();
             return true;
         }

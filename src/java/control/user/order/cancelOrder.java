@@ -44,7 +44,7 @@ public class cancelOrder extends HttpServlet {
             List<Orderlist> list = ordermeal.getOrderlistList();
 
             // Validate order status
-            if (ordermeal.getStatus().equals("Canceled")) {
+            if (ordermeal.getStatus().equals("Cancelled")) {
                 throw new IllegalArgumentException();
             }
 
