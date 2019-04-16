@@ -48,28 +48,41 @@
 
                         <h3>Sales Report for <%= monthArr[selectedMonth - 1]%></h3>
 
+                        <canvas id="myChart" width="400" height="200"></canvas>
+
+
                         <table id="myTable"  class="table table-sm table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>ID</th>
                                     <th>Food</th>
+                                    <th>Unit Price</th>
                                     <th>Total food order</th>
+                                    <th>Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <%
+                                    //** For Bar Chart Usage*****
+                                    String mealLabels = "";
+                                    String datalist = "";
+                                    StringBuilder sb = new StringBuilder();
+                                    StringBuilder sb2 = new StringBuilder();
+                                    sb.append("[");
+                                    sb2.append("[");
+                                    //***************************
                                     int i = 1;
-
+                                    int totalFoodOrdered = 0;
+                                    double subtotal = 0.0;
                                     String host = "jdbc:derby://localhost:1527/canteenDB";
                                     String user = "nbuser";
                                     String password = "nbuser";
-                                    String sqlQuery = "SELECT OL.MEAL_ID, M.NAME, COUNT(M.MEAL_ID) AS TOTAL_FOOD_ORDERED "
+                                    String sqlQuery = "SELECT OL.MEAL_ID, M.NAME, M.PRICE, COUNT(M.PRICE) AS TOTAL_FOOD_ORDERED, M.PRICE*COUNT(M.MEAL_ID) AS TOTAL_PRICE "
                                             + "FROM ORDERMEAL O INNER JOIN  ORDERLIST OL ON O.ORDER_ID = OL.ORDER_ID "
                                             + "INNER JOIN MEAL M ON OL.MEAL_ID = M.MEAL_ID "
                                             + "INNER JOIN COUPON C ON OL.COUPON_ID = C.COUPON_ID "
                                             + "WHERE MONTH(C.REDEEM_DATE) = ? "
-                                            + "GROUP BY OL.MEAL_ID, M.NAME, MONTH(C.REDEEM_DATE) "
+                                            + "GROUP BY OL.MEAL_ID, M.NAME, M.PRICE, MONTH(C.REDEEM_DATE) "
                                             + "ORDER BY COUNT(M.MEAL_ID) DESC ";
                                     try {
                                         Connection conn = DriverManager.getConnection(host, user, password);
@@ -79,17 +92,44 @@
                                         while (rs.next()) {
                                             String mealID = rs.getString("MEAL_ID");
                                             String mealName = rs.getString("NAME");
+                                            String mealPrice = rs.getString("PRICE");
                                             String totalOrder = rs.getString("TOTAL_FOOD_ORDERED");
+                                            String totalPrice = rs.getString("TOTAL_PRICE");
+
+                                            totalFoodOrdered = totalFoodOrdered + Integer.parseInt(totalOrder);
+                                            subtotal = subtotal + Double.parseDouble(totalPrice);
+                                            
+                                            //***********
+                                            sb.append("'" + mealName + "', ");
+                                            sb2.append(totalOrder + ", ");
+                                            //*********** 
+
                                 %>
                                 <tr>
                                     <th scope="row"><%= i++%></th>
-                                    <td><%= mealID%></td>
+
                                     <td><%= mealName%></td>
+                                    <td><%= mealPrice%></td>
                                     <td><%= totalOrder%></td>
+                                    <td><%= totalPrice%></td>
                                 </tr>
                                 <%
 
                                         }
+
+                                        //*******************************
+                                        sb.deleteCharAt(sb.length()-2);
+                                        sb2.deleteCharAt(sb2.length()-2);
+                                        sb.append("]");
+                                        sb2.append("]");
+                                        
+                                        mealLabels = sb.toString();
+                                        datalist = sb2.toString();
+                                        //*******************************
+
+                                        //Test string
+                                        //System.out.println(mealLabels);
+                                        //System.out.println(datalist);
                                         conn.close();
                                     } catch (SQLException ex) {
                                         ex.printStackTrace();
@@ -99,12 +139,27 @@
                             <tfoot>
                                 <tr>
                                     <th>No.</th>
-                                    <th>ID</th>
                                     <th>Food</th>
+                                    <th>Unit Price</th>
                                     <th>Total food order</th>
+                                    <th>Amount</th>
                                 </tr>
                             </tfoot>
                         </table>
+
+
+
+                        <table class="table table-primary table-bordered mt-5 " style="width:100%">
+                            <tbody>
+                                <tr>
+                                    <th class="text-center">Total Number Meal Ordered</th>
+                                    <th class="text-center"><%= totalFoodOrdered%></th>
+                                    <th class="text-center">Subtotal</th>
+                                    <th class="text-center"><%= subtotal%></th>
+                                </tr>
+                            </tbody>
+                        </table> 
+
 
                         <div class="row mt-3 d-print-none">
                             <div class="col-sm-7">
@@ -146,7 +201,8 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script src="../../bootstrap/js/jquery.dataTables.min.js"></script>
         <script src="../../bootstrap/js/dataTables.bootstrap4.min.js"></script>
-
+        <link href="../../bootstrap/css/Chart.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../../bootstrap/js/Chart.min.js" type="text/javascript"></script>
         <script>
                                     $(document).ready(function () {
                                         $('#myTable').DataTable();
@@ -174,7 +230,29 @@
                                     }
                                     ;
 
-
+                                    var ctx = document.getElementById('myChart').getContext('2d');
+                                    var myChart = new Chart(ctx, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: <%= mealLabels %>,
+                                            datasets: [{
+                                                    label: 'Total Number of Ordered',
+                                                    data: <%= datalist %>,
+                                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                                    borderWidth: 1
+                                                }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                yAxes: [{
+                                                        ticks: {
+                                                            beginAtZero: true
+                                                        }
+                                                    }]
+                                            }
+                                        }
+                                    });
 
         </script>
 
