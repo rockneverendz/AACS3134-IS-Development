@@ -115,9 +115,9 @@
                                 <table class="table mb-0" width="100%" cellspacing="0" role="grid" style="width: 100%;">
                                     <thead class="thead-light">
                                         <tr role="row">
-                                            <th style="width: 10%;">Order #</th>
+                                            <th style="width: 15%;">Order #</th>
                                             <th style="width: 25%;">Type</th>
-                                            <th style="width: 25%;">Order Date</th>
+                                            <th style="width: 20%;">Order Date</th>
                                             <th style="width: 20%;">Status</th>
                                             <th style="width: 20%;">Subtotal</th>
                                         </tr>
@@ -135,18 +135,18 @@
                                             <td>RM <%= String.format("%.2f", amount)%></td>
                                         </tr>
                                         <tr role="row" class="table-secondary cat<%= i%>" style="display:none">
-                                            <td></td>
+                                            <td class="font-weight-bold">Coupon #</td>
                                             <th>Meal</th>
                                             <th>Quantity</th>
-                                            <th>Date</th>
-                                            <th>Time</th>
+                                            <th>Redeem Date</th>
+                                            <th>Redeem Time</th>
                                         </tr>
                                         <%
                                             for (Orderlist ol : ordermeal.getOrderlistList()) {
                                                 Coupon coupon = ol.getCoupon();
                                         %>
                                         <tr role="row" class="cat<%= i%>" style="display:none">
-                                            <td></td>
+                                            <td><%= coupon.getCouponId()%></td>
                                             <td><%= ol.getMeal().getName()%></td>
                                             <td><%= ol.getQuantity()%></td>
                                             <td><%= dateFormat.format(coupon.getRedeemDate())%></td>

@@ -269,8 +269,6 @@
                 todayHighlight: true
             });
 
-            var ctx = document.getElementById('myChart');
-
             var labels = [
             <% dateFormat.applyPattern("dd-MM");%>
                 '<%= dateFormat.format(days[0])%>',
@@ -299,6 +297,7 @@
             <%=String.format("'%.2f'", totalExpensesDays[5])%>
             ];
 
+            var ctx = document.getElementById('myChart');
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {

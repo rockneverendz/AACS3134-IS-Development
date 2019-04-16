@@ -103,7 +103,7 @@
                                         </p>
                                         <p class="card-text col-6">
                                             Qty : <%= orderlist.getQuantity()%> 
-                                            <br>Price : RM <%= orderlist.getPriceeach()%>
+                                            <br>Point Each : <%= String.format("%.2f", orderlist.getPriceeach())%>
                                             <br>
                                             <svg class="barcode color-<%= ordermeal.getType().toLowerCase()%> mx-auto" jsbarcode-value="<%= coupon.getCouponId()%>">
                                             </svg>

@@ -144,8 +144,8 @@
                                             </td>
                                             <th>Meal</th>
                                             <th>Quantity</th>
-                                            <th>Date</th>
-                                            <th>Time</th>
+                                            <th>Redeem Date</th>
+                                            <th>Redeem Time</th>
                                         </tr>
                                         <%
                                             List<Orderlist> orderlistList = os.findOrderlistByOrderId(ordermeal.getOrderId());
